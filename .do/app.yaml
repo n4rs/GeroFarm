@@ -1,0 +1,46 @@
+name: gero-farm
+region: fra
+services:
+  - name: web
+    github:
+      repo: n4rs/GeroFarm
+      branch: main
+      deploy_on_push: true
+    environment_slug: node-js
+    build_command: npm ci && npm run build
+    run_command: npm start
+    http_port: 8080
+    health_check:
+      http_path: /api/health
+      initial_delay_seconds: 10
+      period_seconds: 10
+      timeout_seconds: 3
+      failure_threshold: 6
+    envs:
+      - key: NODE_ENV
+        scope: RUN_TIME
+        value: production
+      - key: HOST
+        scope: RUN_TIME
+        value: 0.0.0.0
+      - key: PORT
+        scope: RUN_TIME
+        value: "8080"
+      - key: GERO_CORE_API_URL
+        scope: RUN_TIME
+        value: https://api.gero.pt
+      - key: GERO_CORE_PUBLIC_URL
+        scope: RUN_TIME
+        value: https://core.gero.pt
+      - key: GERO_ACCOUNT_PUBLIC_URL
+        scope: RUN_TIME
+        value: https://account.gero.pt
+      - key: GERO_CORE_TIMEOUT_MS
+        scope: RUN_TIME
+        value: "5000"
+      - key: FARM_PUBLIC_URL
+        scope: RUN_TIME
+        value: ${APP_URL}
+alerts:
+  - rule: DEPLOYMENT_FAILED
+  - rule: DOMAIN_FAILED
