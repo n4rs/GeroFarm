@@ -51,13 +51,13 @@ async function readHidden(prompt: string): Promise<string> {
   });
 }
 
-async function confirmCreate(): Promise<void> {
+async function confirmReset(): Promise<void> {
   const readline = createInterface({ input: stdin, output: stdout });
   try {
     const answer = await readline.question(
-      `Type CREATE ${bootstrapTarget.database} to initialize the empty GeroFarm database: `,
+      `Type RESET ${bootstrapTarget.database} to recreate the empty GeroFarm database: `,
     );
-    if (answer.trim() !== `CREATE ${bootstrapTarget.database}`) {
+    if (answer.trim() !== `RESET ${bootstrapTarget.database}`) {
       throw new Error("Bootstrap cancelled: confirmation did not match.");
     }
   } finally {
@@ -82,10 +82,10 @@ async function preflight(adminPool: pg.Pool): Promise<void> {
     if (!found.has(role)) throw new Error(`Required database role ${role} does not exist.`);
   }
   const database = await adminPool.query("SELECT 1 FROM pg_database WHERE datname = $1", [bootstrapTarget.database]);
-  if (database.rowCount) {
-    throw new Error(`${bootstrapTarget.database} already exists; this initializer never drops or replaces databases.`);
+  if (!database.rowCount) {
+    throw new Error(`${bootstrapTarget.database} must be created in DigitalOcean before running the bootstrap.`);
   }
-  console.log("Preflight passed for the new isolated gero_farm database and roles.");
+  console.log("Preflight passed for the isolated gero_farm database and roles.");
 }
 
 async function ensureTemporaryAdminMembership(adminPool: pg.Pool): Promise<boolean> {
@@ -106,11 +106,16 @@ async function ensureTemporaryAdminMembership(adminPool: pg.Pool): Promise<boole
   return true;
 }
 
-async function createDatabase(adminPool: pg.Pool): Promise<void> {
+async function recreateDatabase(adminPool: pg.Pool): Promise<void> {
+  await adminPool.query(
+    "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = $1 AND pid <> pg_backend_pid()",
+    [bootstrapTarget.database],
+  );
+  await adminPool.query(`DROP DATABASE IF EXISTS "${bootstrapTarget.database}" WITH (FORCE)`);
   await adminPool.query(
     `CREATE DATABASE "${bootstrapTarget.database}" OWNER "${bootstrapTarget.migratorUser}"`,
   );
-  console.log("Created gero_farm with the dedicated migrator as owner.");
+  console.log("Recreated gero_farm with the dedicated migrator as owner.");
 }
 
 async function establishRoleBoundary(migratorPool: pg.Pool): Promise<void> {
@@ -193,9 +198,9 @@ async function main(): Promise<void> {
     let temporaryMembership = false;
     try {
       await preflight(adminPool);
-      await confirmCreate();
+      await confirmReset();
       temporaryMembership = await ensureTemporaryAdminMembership(adminPool);
-      await createDatabase(adminPool);
+      await recreateDatabase(adminPool);
     } finally {
       try {
         if (temporaryMembership) {

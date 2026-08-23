@@ -49,7 +49,7 @@ O GeroFarm não acede à base lógica do GeroCore. Partilha apenas o cluster Pos
 - `DATABASE_CA_CERT`: CA do cluster gerido, usada com validação TLS estrita.
 - `npm run db:check`: valida o journal e os ficheiros SQL revistos das migrations.
 - `npm run db:migrate:prod`: aplica migrations já compiladas no job pré-deploy.
-- `npm run db:bootstrap-production -- --ca-file <certificate.crt>`: inicializa uma única vez a base vazia e recusa continuar se `gero_farm` já existir.
+- `npm run db:bootstrap-production -- --ca-file <certificate.crt>`: recria apenas a base vazia `gero_farm`, após confirmação explícita, e aplica a fronteira migrador/runtime.
 
 Cada operação futura de produto deve decorrer dentro de `withOrganizationTransaction`, que define `app.organization_id` apenas durante a transação. A política RLS falha fechada quando esse contexto não existe.
 

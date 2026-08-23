@@ -40,3 +40,11 @@ test("initial migration enforces tenant RLS and least-privilege runtime grants",
   assert.match(migration, /GRANT USAGE ON SCHEMA "farm" TO "gero_farm_app"/);
   assert.match(migration, /ALTER DEFAULT PRIVILEGES FOR ROLE "gero_farm_migrator"/);
 });
+
+test("production bootstrap resets only the explicitly pinned empty farm database", () => {
+  const bootstrap = readFileSync(resolve("script/bootstrap-production-database.ts"), "utf8");
+  assert.match(bootstrap, /Type RESET \$\{bootstrapTarget\.database\}/);
+  assert.match(bootstrap, /DROP DATABASE IF EXISTS .*\$\{bootstrapTarget\.database\}.*WITH \(FORCE\)/);
+  assert.match(bootstrap, /must be created in DigitalOcean before running the bootstrap/);
+  assert.doesNotMatch(bootstrap, /gero_(?:core|grid|hydro)/);
+});

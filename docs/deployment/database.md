@@ -17,17 +17,18 @@ Partilhar o cluster não significa partilhar dados. Nenhuma ligação do GeroFar
 ## Sequência segura
 
 1. No cluster gerido, criar os utilizadores `gero_farm_migrator` e `gero_farm_app` com palavras-passe distintas.
-2. Descarregar o certificado CA do cluster para uma localização temporária fora do repositório.
-3. Construir uma ligação administrativa para `defaultdb` como `doadmin` e uma ligação do migrador para a futura base `gero_farm`.
-4. Num terminal interativo local, executar:
+2. Na mesma página **Users & Databases**, criar a base lógica vazia `gero_farm`.
+3. Descarregar o certificado CA do cluster para uma localização temporária fora do repositório.
+4. Copiar uma ligação administrativa para `defaultdb` como `doadmin` e uma ligação do migrador para `gero_farm`.
+5. Num terminal interativo local, executar:
 
    ```powershell
    npm.cmd run db:bootstrap-production -- --ca-file "C:\caminho\ca-certificate.crt"
    ```
 
-5. Introduzir as duas ligações apenas nos prompts ocultos. O inicializador valida cluster, porta, base e utilizadores antes de pedir `CREATE gero_farm`.
-6. O inicializador recusa executar se a base já existir; nunca elimina nem substitui bases.
-7. Depois do bootstrap, construir as ligações finais de runtime e migração para `gero_farm` e adicioná-las apenas aos componentes corretos da App Platform.
+6. Introduzir as duas ligações apenas nos prompts ocultos. O inicializador valida cluster, porta, base e utilizadores antes de pedir `RESET gero_farm`.
+7. A confirmação recria exclusivamente a base vazia `gero_farm` com `gero_farm_migrator` como proprietário; as restantes bases do cluster nunca são referenciadas pelo caminho destrutivo.
+8. Depois do bootstrap, construir as ligações finais de runtime e migração para `gero_farm` e adicioná-las apenas aos componentes corretos da App Platform.
 
 Nunca colocar ligações em argumentos, scripts, ficheiros `.env`, screenshots, mensagens ou histórico da shell.
 
