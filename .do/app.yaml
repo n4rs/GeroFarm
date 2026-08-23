@@ -41,6 +41,18 @@ services:
       - key: FARM_PUBLIC_URL
         scope: RUN_TIME
         value: ${APP_URL}
+jobs:
+  - name: db-migrate
+    kind: PRE_DEPLOY
+    github:
+      repo: n4rs/GeroFarm
+      branch: main
+      deploy_on_push: true
+    environment_slug: node-js
+    instance_size_slug: basic-xxs
+    instance_count: 1
+    build_command: npm ci && npm run build
+    run_command: npm run db:migrate:prod
 alerts:
   - rule: DEPLOYMENT_FAILED
   - rule: DOMAIN_FAILED
