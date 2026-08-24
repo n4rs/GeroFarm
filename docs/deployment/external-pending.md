@@ -31,3 +31,10 @@ Não declarar estes pontos validados até existirem evidências separadas de mig
 - A rota de Meteorologia depende da estação virtual e do contrato meteorológico Core, incluindo proveniência por período e indicadores derivados. O GeroFarm não contactará Pirate Weather diretamente.
 - Configurações de conta/organização/idioma que alterem fontes de verdade centrais devem usar APIs GeroCore; não criar projeções locais concorrentes.
 - GeroGrid, pagamentos, credenciais, jobs externos e qualquer migração/deploy/QA publicado permanecem fora do trabalho autónomo concluído.
+
+## Meteorologia agronómica central
+
+- O consumidor GeroFarm foi revisto contra o contrato Core `baf1687`, `/openapi/weather-v2.json` e os tipos provider-independent de `@gero/shared`; não existe segredo, SDK, URL autenticado ou formato do fornecedor no GeroFarm.
+- A utilização publicada depende de o Gero Core disponibilizar `baf1687` e de a migração aditiva meteorológica Core ser aplicada pelo processo controlado próprio. Esta fase não verificou nem tentou essas intervenções.
+- A validação de produção fica reservada para uma organização QA autorizada com níveis Start/Grow/Professional/Custom, incluindo limite efetivo de estações, continuidade da proveniência após mudança de estação, read-only e janelas de 7/30/90 dias.
+- Não observar deploy, assets, painéis, credenciais, migrações ou UI publicada como parte da implementação autónoma do consumidor.

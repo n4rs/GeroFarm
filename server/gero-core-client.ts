@@ -146,7 +146,17 @@ export const geroCore = {
   async logout(req: Request) {
     return (await coreMutation<never>(req, "/api/v1/auth/logout", "POST")).cookies;
   },
+  weather: {
+    get: <T>(req: Request, organizationId: string, path: string) => coreRequest<T>(req, weatherPath(organizationId, path)),
+    post: async <T>(req: Request, organizationId: string, path: string, body?: unknown) => (await coreMutation<T>(req, weatherPath(organizationId, path), "POST", body)).data as T,
+    patch: async <T>(req: Request, organizationId: string, path: string, body?: unknown) => (await coreMutation<T>(req, weatherPath(organizationId, path), "PATCH", body)).data as T,
+  },
 };
+
+function weatherPath(organizationId: string, path: string) {
+  const suffix = path.replace(/^\/+/, "");
+  return `/api/v1/organizations/${encodeURIComponent(organizationId)}/applications/${APPLICATION_CODE}/weather/${suffix}`;
+}
 
 export function corePublicUrl(path = "") {
   const base = (process.env.GERO_CORE_PUBLIC_URL || "https://core.gero.pt").replace(/\/$/, "");
