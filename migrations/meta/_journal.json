@@ -15,6 +15,13 @@
       "when": 1787524800000,
       "tag": "0001_farm_holdings",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1787528400000,
+      "tag": "0002_fields",
+      "breakpoints": true
     }
   ]
 }

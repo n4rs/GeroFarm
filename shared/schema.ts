@@ -1,5 +1,6 @@
 import { sql } from "drizzle-orm";
-import { check, index, jsonb, pgPolicy, pgSchema, timestamp, uniqueIndex, uuid, varchar } from "drizzle-orm/pg-core";
+import { boolean, check, index, jsonb, numeric, pgPolicy, pgSchema, timestamp, uniqueIndex, uuid, varchar } from "drizzle-orm/pg-core";
+import type { FieldPolygon } from "./fields";
 
 export const farmSchema = pgSchema("farm");
 
@@ -72,3 +73,28 @@ export const farmAuditEvents = farmSchema.table("audit_events", {
 
 export type FarmHolding = typeof farmHoldings.$inferSelect;
 export type NewFarmHolding = typeof farmHoldings.$inferInsert;
+
+export const farmFields = farmSchema.table("fields", {
+  id: uuid("id").primaryKey(),
+  organizationId: uuid("organization_id").notNull().references(() => farmOrganizations.organizationId),
+  holdingId: uuid("holding_id").notNull().references(() => farmHoldings.id),
+  code: varchar("code", { length: 4 }).notNull(),
+  name: varchar("name", { length: 160 }).notNull(),
+  geometry: jsonb("geometry").$type<FieldPolygon>().notNull(),
+  totalAreaHa: numeric("total_area_ha", { precision: 12, scale: 4 }).notNull(),
+  usableAreaHa: numeric("usable_area_ha", { precision: 12, scale: 4 }).notNull(),
+  manuallyClosed: boolean("manually_closed").notNull().default(false),
+  status: varchar("status", { length: 16 }).notNull().default("active"),
+  codeLockedAt: timestamp("code_locked_at", { withTimezone: true }),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+}, (table) => [
+  uniqueIndex("fields_organization_code_unique").on(table.organizationId, table.code),
+  index("fields_holding_status_idx").on(table.organizationId, table.holdingId, table.status),
+  check("fields_code_format", sql`${table.code} ~ '^[A-Z0-9]{4}$' and ${table.code} <> '0MIX'`),
+  check("fields_area_valid", sql`${table.totalAreaHa} > 0 and ${table.usableAreaHa} > 0 and ${table.usableAreaHa} <= ${table.totalAreaHa}`),
+  check("fields_status_valid", sql`${table.status} in ('active', 'inactive')`),
+  pgPolicy("fields_tenant_isolation", { as: "restrictive", for: "all", to: "public", using: sql`${table.organizationId} = nullif(current_setting('app.organization_id', true), '')::uuid`, withCheck: sql`${table.organizationId} = nullif(current_setting('app.organization_id', true), '')::uuid` }),
+]).enableRLS();
+
+export type FarmField = typeof farmFields.$inferSelect;

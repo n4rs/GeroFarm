@@ -18,6 +18,7 @@ Fundação técnica do GeroFarm, uma aplicação nova que corre em paralelo com 
 - PostgreSQL/Drizzle com credenciais separadas de runtime e migrations.
 - Schema `farm`, projeção local mínima da organização e Row-Level Security forçada.
 - Explorações agrícolas locais com código estável, fuso horário, estado, isolamento por organização e auditoria imutável.
+- Talhões com código de quatro caracteres, mapa editável, importação KML/KMZ processada localmente, áreas cartográfica/útil e bloqueio de geometrias inválidas ou sobrepostas.
 - Inicializador seguro para a base lógica `gero_farm`, sem acesso à base do GeroCore.
 - Job `db-migrate` executado antes de cada deployment.
 - App Spec de referência para DigitalOcean em `.do/app.yaml`.

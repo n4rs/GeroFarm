@@ -49,6 +49,14 @@ test("farm holding migration enforces tenant isolation and immutable audit event
   assert.match(migration, /REVOKE UPDATE, DELETE ON TABLE "farm"\."audit_events"/);
 });
 
+test("field migration enforces stable codes, valid areas and tenant isolation", () => {
+  const migration = readFileSync(resolve("migrations/0002_fields.sql"), "utf8");
+  assert.match(migration, /CREATE UNIQUE INDEX "fields_organization_code_unique"/);
+  assert.match(migration, /"code" <> '0MIX'/);
+  assert.match(migration, /"usable_area_ha" <= "farm"\."fields"\."total_area_ha"/);
+  assert.match(migration, /ALTER TABLE "farm"\."fields" FORCE ROW LEVEL SECURITY/);
+});
+
 test("production bootstrap resets only the explicitly pinned empty farm database", () => {
   const bootstrap = readFileSync(resolve("script/bootstrap-production-database.ts"), "utf8");
   assert.match(bootstrap, /Type RESET \$\{bootstrapTarget\.database\}/);

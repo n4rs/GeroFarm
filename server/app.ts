@@ -12,8 +12,10 @@ import type { FarmDatabase } from "./database";
 import { resolveFarmContext, type FarmContextResolver } from "./farm-context";
 import { createPostgresFarmHoldingRepository, type FarmHoldingRepository } from "./farm-holdings";
 import { createFarmRouter } from "./farm-routes";
+import { createPostgresFieldRepository, type FieldRepository } from "./fields";
+import { FieldDomainError } from "./field-geometry";
 
-export type AppOptions = { database?: FarmDatabase; farmHoldingRepository?: FarmHoldingRepository; farmContextResolver?: FarmContextResolver };
+export type AppOptions = { database?: FarmDatabase; farmHoldingRepository?: FarmHoldingRepository; fieldRepository?: FieldRepository; farmContextResolver?: FarmContextResolver };
 
 export function createApp(options: AppOptions = {}) {
   const app = express();
@@ -115,7 +117,8 @@ export function createApp(options: AppOptions = {}) {
   });
 
   const farmHoldingRepository = options.farmHoldingRepository || (options.database ? createPostgresFarmHoldingRepository(options.database) : null);
-  if (farmHoldingRepository) app.use("/api/farm", createFarmRouter(farmHoldingRepository, options.farmContextResolver || resolveFarmContext));
+  const fieldRepository = options.fieldRepository || (options.database ? createPostgresFieldRepository(options.database) : undefined);
+  if (farmHoldingRepository) app.use("/api/farm", createFarmRouter(farmHoldingRepository, options.farmContextResolver || resolveFarmContext, fieldRepository));
 
   app.use("/api", (_req, res) => res.status(404).json({ message: "API route not found", code: "NOT_FOUND" }));
 
@@ -124,6 +127,7 @@ export function createApp(options: AppOptions = {}) {
     if (error instanceof z.ZodError) return res.status(400).json({ message: "Invalid request", code: "VALIDATION_ERROR", issues: error.issues.map(({ path, code }) => ({ path, code })) });
     if (error instanceof CoreApiError) return res.status(error.status).json({ message: error.message, code: error.code });
     if (error instanceof RequestOriginError) return res.status(error.status).json({ message: error.message, code: "ORIGIN_REJECTED" });
+    if (error instanceof FieldDomainError) return res.status(error.status).json({ message: error.message, code: error.code, details: error.details });
     if (typeof error === "object" && error && "code" in error && error.code === "23505") return res.status(409).json({ message: "A record with that code already exists", code: "CODE_CONFLICT" });
     console.error("Unhandled GeroFarm request error", error);
     return res.status(503).json({ message: "GeroFarm is temporarily unavailable", code: "SERVICE_UNAVAILABLE" });
