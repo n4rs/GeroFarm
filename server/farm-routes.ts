@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { z } from "zod";
 import { createFarmHoldingSchema, updateFarmHoldingSchema } from "@shared/farm-holdings";
-import type { FarmContextResolver } from "./farm-context";
+import type { FarmContextResolver, FarmRequestContext } from "./farm-context";
 import type { FarmHoldingRepository } from "./farm-holdings";
 import { createFieldSchema, updateFieldSchema } from "@shared/fields";
 import type { FieldRepository } from "./fields";
@@ -24,11 +24,15 @@ import { createHarvestSchema, createLaboratoryResultSchema, createLaboratorySamp
 import type { AgronomyRepository } from "./agronomy";
 import { consumeInventorySchema,createFarmCostSchema,createInventoryProductSchema,receiveInventorySchema,regularizeConsumptionSchema } from "@shared/economics";
 import type { EconomicsRepository } from "./economics";
+import type { EntitlementSummary } from "@shared/entitlements";
+import { assertAccess, assertNotebookExport, EntitlementError, requestAccessOptions } from "./entitlements";
 
 const idSchema = z.string().uuid();
 
-export function createFarmRouter(repository: FarmHoldingRepository, resolveContext: FarmContextResolver, fields?: FieldRepository, crops?: CropRepository, lifecycle?: CropLifecycleRepository, resources?: ResourceRepository, operations?: OperationRepository, privacy?: PrivacyRepository, fertilizationPlans?: FertilizationPlanRepository, irrigation?: IrrigationRepository, agronomy?: AgronomyRepository, economics?: EconomicsRepository) {
+export function createFarmRouter(repository: FarmHoldingRepository, baseResolveContext: FarmContextResolver, fields?: FieldRepository, crops?: CropRepository, lifecycle?: CropLifecycleRepository, resources?: ResourceRepository, operations?: OperationRepository, privacy?: PrivacyRepository, fertilizationPlans?: FertilizationPlanRepository, irrigation?: IrrigationRepository, agronomy?: AgronomyRepository, economics?: EconomicsRepository, entitlementResolver?: (context: FarmRequestContext) => Promise<EntitlementSummary>) {
   const router = Router();
+  const resolveContext: FarmContextResolver = async (req) => { const context = await baseResolveContext(req); assertAccess(context, requestAccessOptions(req.method, req.path, req.query, req.body || {})); return context; };
+  if (entitlementResolver) router.get("/entitlements", async (req, res, next) => { try { const context = await resolveContext(req); res.set("cache-control", "no-store").json({ data: await entitlementResolver(context) }); } catch (error) { next(error); } });
   router.get("/holdings", async (req, res, next) => {
     try { const context = await resolveContext(req); res.set("cache-control", "no-store").json({ data: await repository.list(context) }); } catch (error) { next(error); }
   });
@@ -78,13 +82,13 @@ export function createFarmRouter(repository: FarmHoldingRepository, resolveConte
     router.post("/laboratory-results",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req);res.status(201).json({data:await agronomy.createResult(context,createLaboratoryResultSchema.parse(req.body))})}catch(error){next(error)}});
     router.post("/harvests",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req);res.status(201).json({data:await agronomy.createHarvest(context,createHarvestSchema.parse(req.body))})}catch(error){next(error)}});
     router.post("/field-notebooks/current",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req);res.json({data:await agronomy.currentNotebook(context,notebookScopeSchema.parse(req.body))})}catch(error){next(error)}});
-    router.post("/field-notebooks/xlsx",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req),file=await agronomy.xlsx(context,notebookScopeSchema.parse(req.body));res.set({"cache-control":"no-store","content-type":"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","content-disposition":`attachment; filename="${file.filename}"`}).send(file.data)}catch(error){next(error)}});
-    router.post("/field-notebooks",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req);res.status(201).json({data:await agronomy.issueNotebook(context,notebookScopeSchema.parse(req.body))})}catch(error){next(error)}});
-    router.get("/field-notebooks/:id/pdf",async(req,res,next)=>{try{const context=await resolveContext(req),pdf=await agronomy.pdf(context,idSchema.parse(req.params.id));if(!pdf)return res.status(404).json({code:"NOTEBOOK_PDF_NOT_FOUND"});return res.set({"cache-control":"no-store","content-type":"application/pdf","content-disposition":`attachment; filename="${pdf.filename}"`}).send(pdf.data)}catch(error){next(error)}});
+    router.post("/field-notebooks/xlsx",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req);assertNotebookExport(context);const file=await agronomy.xlsx(context,notebookScopeSchema.parse(req.body));res.set({"cache-control":"no-store","content-type":"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","content-disposition":`attachment; filename="${file.filename}"`}).send(file.data)}catch(error){next(error)}});
+    router.post("/field-notebooks",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req);assertNotebookExport(context);res.status(201).json({data:await agronomy.issueNotebook(context,notebookScopeSchema.parse(req.body))})}catch(error){next(error)}});
+    router.get("/field-notebooks/:id/pdf",async(req,res,next)=>{try{const context=await resolveContext(req);assertNotebookExport(context);const pdf=await agronomy.pdf(context,idSchema.parse(req.params.id));if(!pdf)return res.status(404).json({code:"NOTEBOOK_PDF_NOT_FOUND"});return res.set({"cache-control":"no-store","content-type":"application/pdf","content-disposition":`attachment; filename="${pdf.filename}"`}).send(pdf.data)}catch(error){next(error)}});
     router.delete("/field-notebooks/:id",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req),deleted=await agronomy.deleteNotebook(context,idSchema.parse(req.params.id));if(!deleted)return res.status(404).json({code:"NOTEBOOK_NOT_FOUND"});return res.status(204).end()}catch(error){next(error)}});
   }
   if(economics){
-    router.get("/economics",async(req,res,next)=>{try{const context=await resolveContext(req);res.set("cache-control","no-store").json({data:await economics.overview(context)})}catch(error){next(error)}});
+    router.get("/economics",async(req,res,next)=>{try{const context=await resolveContext(req),view=req.query.view;if(context.access&&view!=="inventory"&&view!=="costs")throw new EntitlementError(400,"ECONOMICS_VIEW_REQUIRED");const data=await economics.overview(context);res.set("cache-control","no-store").json({data:view==="costs"?{...data,products:[],lots:[],consumptions:[]}:view==="inventory"?{...data,costs:[]}:data})}catch(error){next(error)}});
     router.post("/inventory/products",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req);res.status(201).json({data:await economics.createProduct(context,createInventoryProductSchema.parse(req.body))})}catch(error){next(error)}});
     router.post("/inventory/receipts",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req);res.status(201).json({data:await economics.receive(context,receiveInventorySchema.parse(req.body))})}catch(error){next(error)}});
     router.post("/inventory/consumptions",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req);res.status(201).json({data:await economics.consume(context,consumeInventorySchema.parse(req.body))})}catch(error){next(error)}});

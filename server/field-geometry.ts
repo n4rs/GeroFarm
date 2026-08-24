@@ -26,6 +26,12 @@ export function polygonOverlapAreaHa(first: FieldPolygon, second: FieldPolygon) 
   return area({ type: "Feature", properties: {}, geometry: { type: "MultiPolygon", coordinates: intersection } }) / 10_000;
 }
 
+export function polygonUnionAreaHa(geometries: FieldPolygon[]) {
+  if (!geometries.length) return 0;
+  const union = polygonClipping.union(geometries[0].coordinates, ...geometries.slice(1).map((geometry) => geometry.coordinates));
+  return area({ type: "Feature", properties: {}, geometry: { type: "MultiPolygon", coordinates: union } }) / 10_000;
+}
+
 export function validateFieldGeometry(geometry: FieldPolygon) {
   const calculatedArea = polygonAreaHa(geometry);
   if (!Number.isFinite(calculatedArea) || calculatedArea < 0.0001) throw new FieldDomainError(400, "FIELD_GEOMETRY_AREA_INVALID");

@@ -24,7 +24,8 @@ export type CoreAccess = {
   organization: CoreOrganization["organization"];
   membership: CoreOrganization["membership"];
   application: { id: string; code: string; name: string; slug: string; status: string; url: string | null };
-  access: { allowed: boolean; reason: string | null; evaluatedAt: string };
+  applicationMembership: { profile: string; status: string; expiresAt: string | null; temporary: boolean; permissions: string[]; permissionOverrides: { allow: string[]; deny: string[] } };
+  access: { allowed: boolean; reason: string | null; evaluatedAt: string; mode: "full" | "read_only" | "denied"; writeAllowed: boolean; exportAllowed: boolean; graceEndsAt: string | null };
   subscription: null | {
     id: string;
     status: string;
@@ -41,7 +42,10 @@ export type CoreAccess = {
     limits: Record<string, boolean | number | string | null>;
     addons: Array<{ code: string; quantity: number }>;
   };
+  onboarding: null | { scope: "single_organization"; status: "not_started" | "in_progress" | "completed"; completedSteps: string[]; settings: Record<string, unknown>; completedAt: string | null };
 };
+
+export type CoreBillingCatalog = import("@shared/entitlements").BillingCatalog;
 
 export class CoreApiError extends Error {
   constructor(public readonly status: number, message: string, public readonly code?: string) {
@@ -84,6 +88,15 @@ async function coreRequest<T>(req: Request, path: string): Promise<T> {
   return body.data;
 }
 
+async function publicRequest<T>(path: string): Promise<T> {
+  let response: Response;
+  try { response = await fetch(`${apiBaseUrl()}${path}`, { headers: { accept: "application/json" }, signal: AbortSignal.timeout(Number(process.env.GERO_CORE_TIMEOUT_MS || 5000)) }); }
+  catch { throw new CoreApiError(503, "Gero Core is temporarily unavailable", "CORE_UNAVAILABLE"); }
+  const body = await parseBody<T>(response);
+  if (!response.ok || body?.data === undefined) throw new CoreApiError(response.status === 404 ? 404 : 503, body?.error?.message || "Unable to load the Gero Core catalog", body?.error?.code);
+  return body.data;
+}
+
 async function coreMutation<T>(req: Request, path: string, method: "PATCH" | "POST", body?: unknown) {
   const session = cookiePart(req, SESSION_COOKIE);
   const csrf = cookiePart(req, CSRF_COOKIE);
@@ -109,7 +122,7 @@ async function coreMutation<T>(req: Request, path: string, method: "PATCH" | "PO
 
   const parsed = response.status === 204 ? null : await parseBody<T>(response);
   if (!response.ok) {
-    const status = [400, 401, 403, 404].includes(response.status) ? response.status : 503;
+    const status = [400, 401, 403, 404, 409].includes(response.status) ? response.status : 503;
     throw new CoreApiError(status, parsed?.error?.message || "Gero Core request failed", parsed?.error?.code);
   }
   return { data: parsed?.data, cookies: response.headers.getSetCookie() };
@@ -123,6 +136,10 @@ export const geroCore = {
     req,
     `/api/v1/organizations/${encodeURIComponent(organizationId)}/applications/${APPLICATION_CODE}/access`,
   ),
+  catalog: () => publicRequest<CoreBillingCatalog>(`/api/v1/billing/catalog/${APPLICATION_CODE}`),
+  async checkout(req: Request, organizationId: string, input: { kind: "plan" | "addon"; code: string; billingPeriod: "monthly" | "yearly"; quantity: number; successUrl: string; cancelUrl: string }) {
+    return (await coreMutation<{ url: string }>(req, `/api/v1/billing/organizations/${encodeURIComponent(organizationId)}/applications/${APPLICATION_CODE}/checkout`, "POST", input)).data;
+  },
   async updatePreferredLocale(req: Request, preferredLocale: "pt-PT" | "es") {
     return (await coreMutation<{ preferredLocale: string }>(req, "/api/v1/me/profile", "PATCH", { preferredLocale })).data;
   },

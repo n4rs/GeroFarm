@@ -6,6 +6,7 @@ import type { FarmDatabase } from "./database";
 import { withOrganizationTransaction } from "./database";
 import type { FarmRequestContext } from "./farm-context";
 import { FieldDomainError, polygonOverlapAreaHa, validateFieldGeometry } from "./field-geometry";
+import { assertFieldCapacity, lockCapacity } from "./entitlements";
 
 export interface FieldRepository { list(context: FarmRequestContext): Promise<FieldDto[]>; create(context: FarmRequestContext, input: CreateFieldInput): Promise<FieldDto>; update(context: FarmRequestContext, id: string, input: UpdateFieldInput): Promise<FieldDto | null>; }
 
@@ -20,6 +21,7 @@ export function createPostgresFieldRepository(db: FarmDatabase): FieldRepository
       if (!holding) throw new FieldDomainError(400, "FIELD_HOLDING_INVALID");
       const totalAreaHa = roundedArea(validateFieldGeometry(input.geometry)); const usableAreaHa = roundedArea(input.usableAreaHa ?? totalAreaHa);
       if (usableAreaHa <= 0 || usableAreaHa > totalAreaHa) throw new FieldDomainError(400, "FIELD_USABLE_AREA_INVALID");
+      await assertFieldCapacity(tx, context, { geometry: input.geometry, active: true });
       const existing = await tx.select({ id: farmFields.id, code: farmFields.code, geometry: farmFields.geometry }).from(farmFields).where(eq(farmFields.status, "active"));
       const overlaps = existing.map((candidate) => ({ id: candidate.id, code: candidate.code, areaHa: roundedArea(polygonOverlapAreaHa(input.geometry, candidate.geometry)) })).filter(({ areaHa }) => areaHa >= 0.0001);
       if (overlaps.length) throw new FieldDomainError(409, "FIELD_GEOMETRY_OVERLAP", { overlaps });
@@ -27,11 +29,13 @@ export function createPostgresFieldRepository(db: FarmDatabase): FieldRepository
       await tx.insert(farmAuditEvents).values({ id: randomUUID(), organizationId: context.organization.id, actorUserId: context.user.id, action: "field.created", entityType: "field", entityId: id, metadata: { code: created.code, totalAreaHa } }); return dto(created);
     }); },
     async update(context, id, input) { return withOrganizationTransaction(db, context.organization.id, async (tx) => {
+      await lockCapacity(tx, context.organization.id);
       const [current] = await tx.select().from(farmFields).where(eq(farmFields.id, id)).limit(1); if (!current) return null;
       if (input.code && input.code !== current.code && current.codeLockedAt) throw new FieldDomainError(409, "FIELD_CODE_LOCKED");
       if (input.holdingId) { const [holding] = await tx.select({ id: farmHoldings.id }).from(farmHoldings).where(and(eq(farmHoldings.id, input.holdingId), eq(farmHoldings.status, "active"))).limit(1); if (!holding) throw new FieldDomainError(400, "FIELD_HOLDING_INVALID"); }
       const geometry = input.geometry ?? current.geometry; const totalAreaHa = roundedArea(validateFieldGeometry(geometry)); const usableAreaHa = roundedArea(input.usableAreaHa ?? Number(current.usableAreaHa));
       if (usableAreaHa <= 0 || usableAreaHa > totalAreaHa) throw new FieldDomainError(400, "FIELD_USABLE_AREA_INVALID");
+      await assertFieldCapacity(tx, context, { id, geometry, active: (input.status ?? current.status) === "active" });
       const [occupiedPlantations, occupiedFallows] = await Promise.all([tx.select({ areaHa: plantations.areaHa }).from(plantations).where(and(eq(plantations.fieldId, id), eq(plantations.status, "active"))), tx.select({ areaHa: fieldFallows.areaHa }).from(fieldFallows).where(and(eq(fieldFallows.fieldId, id), eq(fieldFallows.status, "active")))]); const occupiedAreaHa = [...occupiedPlantations, ...occupiedFallows].reduce((sum, row) => sum + Number(row.areaHa), 0); if (usableAreaHa + 0.00005 < occupiedAreaHa) throw new FieldDomainError(409, "FIELD_USABLE_AREA_OCCUPIED", { occupiedAreaHa: roundedArea(occupiedAreaHa) });
       if (input.geometry) { const existing = await tx.select({ id: farmFields.id, code: farmFields.code, geometry: farmFields.geometry }).from(farmFields).where(and(eq(farmFields.status, "active"), ne(farmFields.id, id))); const overlaps = existing.map((candidate) => ({ id: candidate.id, code: candidate.code, areaHa: roundedArea(polygonOverlapAreaHa(geometry, candidate.geometry)) })).filter(({ areaHa }) => areaHa >= 0.0001); if (overlaps.length) throw new FieldDomainError(409, "FIELD_GEOMETRY_OVERLAP", { overlaps }); }
       const [updated] = await tx.update(farmFields).set({ ...input, geometry, totalAreaHa: String(totalAreaHa), usableAreaHa: String(usableAreaHa), updatedAt: new Date() }).where(eq(farmFields.id, id)).returning();

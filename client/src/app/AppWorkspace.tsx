@@ -5,6 +5,7 @@ import type { HomepageCopy } from "../home-copy";
 import { formatWorkspaceMessage, workspaceCopies, workspaceStateCopies } from "./workspace-locales";
 import { irrigationCopies } from "./operations/irrigation-locales";
 import { agronomyCopies } from "./agronomy/agronomy-locales";
+import EntitlementCenter from "./entitlements/EntitlementCenter";
 import "../mockup/mockup.css";
 import "./workspace.css";
 
@@ -53,7 +54,7 @@ function commonCopy() {
 }
 
 export default function AppWorkspace() {
-  const { session, loading, error, selectOrganization, logout } = useAuth();
+  const { session, config, loading, error, selectOrganization, logout } = useAuth();
   const { locale, copy, setLocale, options } = useI18n();
   const common = workspaceCopies[locale];
   const stateCopy = workspaceStateCopies[locale];
@@ -73,6 +74,8 @@ export default function AppWorkspace() {
 
   const active = navigation.find((item) => item.id === module) || navigation[0];
   const initials = session.user.name.split(/\s+/).slice(0, 2).map((part) => part[0]).join("").toUpperCase();
+  const features=session.access.entitlements.features,permissions=session.access.applicationMembership.permissions,permitted=(value:string)=>permissions.includes("*")||permissions.includes(value);
+  const visibleNavigation=navigation.filter(item=>item.id==="inventory"?features.inventory===true:item.id==="costs"?features.costs===true:item.id==="privacy"?features.privacyByDesign===true:item.id==="weather"?Boolean(features.agronomicWeather):true);
 
   function navigate(next: ModuleId) {
     const path = next === "overview" ? "/app" : `/app/${next}`;
@@ -86,7 +89,7 @@ export default function AppWorkspace() {
     <aside className={`farm-sidebar ${sidebarOpen ? "is-open" : ""}`}>
       <div className="farm-brand-row"><a href="/" aria-label="GeroFarm"><img src="/brand/gerofarm-mark.svg" alt="GeroFarm" /></a><button className="sidebar-close" onClick={() => setSidebarOpen(false)} aria-label={common.closeNavigation}>×</button></div>
       <div className="farm-context"><span>{common.currentOrganization}</span>{session.organizations.length > 1 ? <select aria-label={common.organization} value={session.selectedOrganizationId} onChange={(event) => void selectOrganization(event.target.value)}>{session.organizations.map(({ organization }) => <option value={organization.id} key={organization.id}>{organization.name}</option>)}</select> : <strong>{session.access.organization.name}</strong>}</div>
-      <nav className="farm-nav" aria-label={common.navigation}>{navigation.map((item, index) => <div key={item.id}>{item.group && <p>{item.group}</p>}<button className={module === item.id ? "active" : ""} onClick={() => navigate(item.id)}><i>{item.short}</i><span>{item.label}</span>{item.id !== "overview" && <em>·</em>}</button>{index === 6 && <div className="nav-divider" />}</div>)}</nav>
+      <nav className="farm-nav" aria-label={common.navigation}>{visibleNavigation.map((item, index) => <div key={item.id}>{item.group && <p>{item.group}</p>}<button className={module === item.id ? "active" : ""} onClick={() => navigate(item.id)}><i>{item.short}</i><span>{item.label}</span>{item.id !== "overview" && <em>·</em>}</button>{index === 6 && <div className="nav-divider" />}</div>)}</nav>
       <div className="sidebar-foot"><div className="avatar">{initials}</div><div><b>{session.user.name}</b><span>{common.accountRole}</span></div><button onClick={() => void logout()} aria-label={common.signOut}>↪</button></div>
     </aside>
 
@@ -94,10 +97,11 @@ export default function AppWorkspace() {
       <header className="farm-topbar">
         <button className="mobile-menu" onClick={() => setSidebarOpen(true)} aria-label={common.openNavigation}>☰</button>
         <div className="crumb"><span>GeroFarm</span><b>/</b><strong>{active.label}</strong></div>
-        <div className="top-actions workspace-actions"><label><span>{common.language}</span><select aria-label={common.language} value={locale} onChange={(event) => setLocale(event.target.value as typeof locale)}>{options.map((option) => <option key={option.code} value={option.code}>{option.label}</option>)}</select></label><button className="icon-button" aria-label={common.search}>⌕</button><button className="icon-button" aria-label={common.notifications}>◎</button><button className="primary-action" onClick={() => navigate("operations")}><span>＋</span> {common.registerOperation}</button></div>
+        <div className="top-actions workspace-actions"><label><span>{common.language}</span><select aria-label={common.language} value={locale} onChange={(event) => setLocale(event.target.value as typeof locale)}>{options.map((option) => <option key={option.code} value={option.code}>{option.label}</option>)}</select></label><button className="icon-button" aria-label={common.search}>⌕</button><button className="icon-button" aria-label={common.notifications}>◎</button><button className="primary-action" disabled={!session.access.access.writeAllowed||(!permitted("operations.manage")&&!permitted("operations.create"))} onClick={() => navigate("operations")}><span>＋</span> {common.registerOperation}</button></div>
       </header>
 
       <main className="farm-content">
+        <EntitlementCenter config={config}/>
         {module === "overview" ? <Overview name={session.user.name} organization={session.access.organization.name} common={common} /> : module === "farm" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><FarmHoldingsModule /></Suspense> : module === "crops" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><CropsModule /></Suspense> : module === "resources" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><ResourcesModule /></Suspense> : module === "operations" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><OperationsModule /></Suspense> : module === "monitoring" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><AgronomyModule view="monitoring" /></Suspense> : module === "harvests" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><AgronomyModule view="harvests" /></Suspense> : module === "notebook" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><AgronomyModule view="notebook" /></Suspense> : module === "irrigation" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><IrrigationModule /></Suspense> : module === "plans" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><PlansModule /></Suspense> : module === "privacy" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><PrivacyModule /></Suspense> : module === "inventory" || module === "costs" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><EconomicsModule view={module} /></Suspense> : <PendingModule title={active.label} common={common} />}
       </main>
     </div>

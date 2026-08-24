@@ -13,7 +13,8 @@ export type AccountSession = {
   access: {
     organization: OrganizationMembership["organization"];
     membership: OrganizationMembership["membership"];
-    access: { allowed: boolean; reason: string | null; evaluatedAt: string };
+    applicationMembership: { profile: string; status: string; expiresAt: string | null; temporary: boolean; permissions: string[]; permissionOverrides: { allow: string[]; deny: string[] } };
+    access: { allowed: boolean; reason: string | null; evaluatedAt: string; mode: "full" | "read_only" | "denied"; writeAllowed: boolean; exportAllowed: boolean; graceEndsAt: string | null };
     subscription: null | { status: string; plan: { code: string; name: string; status: string } };
     entitlements: { features: Record<string, unknown>; limits: Record<string, unknown>; addons: Array<{ code: string; quantity: number }> };
   };

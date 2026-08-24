@@ -24,8 +24,10 @@ import { createPostgresFertilizationPlanRepository,type FertilizationPlanReposit
 import { createPostgresIrrigationRepository, type IrrigationRepository } from "./irrigation";
 import { createPostgresAgronomyRepository, type AgronomyRepository } from "./agronomy";
 import { createPostgresEconomicsRepository, type EconomicsRepository } from "./economics";
+import { EntitlementError, entitlementSummary } from "./entitlements";
+import type { EntitlementSummary } from "@shared/entitlements";
 
-export type AppOptions = { database?: FarmDatabase; farmHoldingRepository?: FarmHoldingRepository; fieldRepository?: FieldRepository; cropRepository?: CropRepository; cropLifecycleRepository?: CropLifecycleRepository; resourceRepository?:ResourceRepository; operationRepository?:OperationRepository; privacyRepository?:PrivacyRepository; fertilizationPlanRepository?:FertilizationPlanRepository; irrigationRepository?:IrrigationRepository; agronomyRepository?:AgronomyRepository; economicsRepository?:EconomicsRepository; farmContextResolver?: FarmContextResolver };
+export type AppOptions = { database?: FarmDatabase; farmHoldingRepository?: FarmHoldingRepository; fieldRepository?: FieldRepository; cropRepository?: CropRepository; cropLifecycleRepository?: CropLifecycleRepository; resourceRepository?:ResourceRepository; operationRepository?:OperationRepository; privacyRepository?:PrivacyRepository; fertilizationPlanRepository?:FertilizationPlanRepository; irrigationRepository?:IrrigationRepository; agronomyRepository?:AgronomyRepository; economicsRepository?:EconomicsRepository; farmContextResolver?: FarmContextResolver; entitlementResolver?: (context: Awaited<ReturnType<FarmContextResolver>>) => Promise<EntitlementSummary> };
 
 export function createApp(options: AppOptions = {}) {
   const app = express();
@@ -58,6 +60,15 @@ export function createApp(options: AppOptions = {}) {
       administrationUrl: corePublicUrl("/dashboard"),
     });
   });
+
+  app.get("/api/billing/catalog", async (_req, res, next) => { try { res.set("cache-control", "no-store").json({ data: await geroCore.catalog() }); } catch (error) { next(error); } });
+  app.post("/api/billing/checkout", async (req, res, next) => { try {
+    assertSameOrigin(req);
+    const context = await (options.farmContextResolver || resolveFarmContext)(req);
+    const input = z.object({ kind: z.enum(["plan", "addon"]), code: z.string().min(1).max(50), billingPeriod: z.enum(["monthly", "yearly"]), quantity: z.number().int().min(1).max(100), successUrl: z.string().url(), cancelUrl: z.string().url() }).parse(req.body);
+    const result = await geroCore.checkout(req, context.organization.id, input);
+    res.status(201).set("cache-control", "no-store").json({ data: result });
+  } catch (error) { next(error); } });
 
   app.get("/api/auth/me", async (req, res, next) => {
     try {
@@ -137,7 +148,8 @@ export function createApp(options: AppOptions = {}) {
   const irrigationRepository=options.irrigationRepository||(options.database?createPostgresIrrigationRepository(options.database):undefined);
   const agronomyRepository=options.agronomyRepository||(options.database&&operationRepository?createPostgresAgronomyRepository(options.database,operationRepository):undefined);
   const economicsRepository=options.economicsRepository||(options.database?createPostgresEconomicsRepository(options.database):undefined);
-  if (farmHoldingRepository) app.use("/api/farm", createFarmRouter(farmHoldingRepository, options.farmContextResolver || resolveFarmContext, fieldRepository, cropRepository, cropLifecycleRepository,resourceRepository,operationRepository,privacyRepository,fertilizationPlanRepository,irrigationRepository,agronomyRepository,economicsRepository));
+  const accessUsage = options.entitlementResolver || (options.database ? (context: Awaited<ReturnType<FarmContextResolver>>) => entitlementSummary(options.database!, context) : undefined);
+  if (farmHoldingRepository) app.use("/api/farm", createFarmRouter(farmHoldingRepository, options.farmContextResolver || resolveFarmContext, fieldRepository, cropRepository, cropLifecycleRepository,resourceRepository,operationRepository,privacyRepository,fertilizationPlanRepository,irrigationRepository,agronomyRepository,economicsRepository,accessUsage));
 
   app.use("/api", (_req, res) => res.status(404).json({ message: "API route not found", code: "NOT_FOUND" }));
 
@@ -148,6 +160,7 @@ export function createApp(options: AppOptions = {}) {
     if (error instanceof RequestOriginError) return res.status(error.status).json({ message: error.message, code: "ORIGIN_REJECTED" });
     if (error instanceof FieldDomainError) return res.status(error.status).json({ message: error.message, code: error.code, details: error.details });
     if (error instanceof OccupancyError) return res.status(error.status).json({ message: error.message, code: error.code, availableAreaHa: error.availableAreaHa });
+    if (error instanceof EntitlementError) return res.status(error.status).json({ message: error.message, code: error.code, details: error.details });
     if (typeof error === "object" && error && "status" in error && "code" in error && typeof error.status === "number" && typeof error.code === "string") return res.status(error.status).json({ message: error instanceof Error ? error.message : "Domain error", code: error.code });
     if (typeof error === "object" && error && "code" in error && error.code === "23505") return res.status(409).json({ message: "A record with that code already exists", code: "CODE_CONFLICT" });
     console.error("Unhandled GeroFarm request error", error);

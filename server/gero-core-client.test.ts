@@ -28,3 +28,10 @@ test("mutations forward only shared session and CSRF cookies", async () => {
     assert.equal(headers.get("x-csrf-token"), "csrf-token");
   } finally { globalThis.fetch = originalFetch; }
 });
+
+test("catalog and checkout stay authoritative in Gero Core", async () => {
+  const originalFetch = globalThis.fetch; const calls: Array<{ url: string; method: string; body?: string }> = [];
+  globalThis.fetch = async (input, init) => { const url=String(input),method=init?.method||"GET";calls.push({url,method,body:typeof init?.body==="string"?init.body:undefined});return new Response(JSON.stringify({data:method==="GET"?{plans:[],addons:[]}:{url:"https://checkout.example.test/session"}}),{status:200,headers:{"content-type":"application/json"}}); };
+  try { await geroCore.catalog(); const result=await geroCore.checkout({headers:{cookie:"gero_session=session; gero_csrf=csrf"}} as never,"11111111-1111-4111-8111-111111111111",{kind:"addon",code:"virtual_station_1",billingPeriod:"monthly",quantity:2,successUrl:"https://farm.gero.pt/app",cancelUrl:"https://farm.gero.pt/app"});assert.equal(result?.url,"https://checkout.example.test/session");assert.match(calls[0].url,/billing\/catalog\/farm$/);assert.match(calls[1].url,/organizations\/11111111-1111-4111-8111-111111111111\/applications\/farm\/checkout$/);assert.equal(JSON.parse(calls[1].body!).quantity,2); }
+  finally { globalThis.fetch=originalFetch; }
+});
