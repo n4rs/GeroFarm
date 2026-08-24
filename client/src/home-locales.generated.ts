@@ -90,7 +90,7 @@ export const homepageCopies = {
         },
         {
           "title": "Caderno de campo",
-          "description": "Estruture registos e evidências rastreáveis para apoiar a PRODI, o MPB, GLOBALG.A.P. IFA, GRASP, SPRING e outros referenciais aplicáveis. A certificação continua sempre dependente do organismo competente.",
+          "description": "Estruture registos e evidências rastreáveis para apoiar a PRODI, o MPB, GLOBALG.A.P. IFA, GRASP, SPRING e outros referenciais aplicáveis.",
           "status": "Disponível"
         }
       ]
@@ -98,7 +98,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Meteorologia agronómica",
       "title": "Indicadores agronómicos para cada plantação",
-      "description": "As estações virtuais calculam evapotranspiração de referência, radiação solar, DLI estimada, graus-dia, necessidades de frio e molhamento foliar estimado para apoiar o planeamento e a monitorização. Os valores são estimativas, não medições de sensores.",
+      "description": "As estações virtuais calculam remotamente evapotranspiração de referência, radiação solar, DLI estimada, graus-dia, necessidades de frio e molhamento foliar estimado, sem exigir a compra ou instalação de sensores. Para a maioria das explorações, disponibilizam a informação agronómica necessária para planear e acompanhar o campo, evitando custos desnecessários com hardware.",
       "metrics": [
         "Evapotranspiração de referência (ET₀)",
         "Radiação solar",
@@ -134,9 +134,9 @@ export const homepageCopies = {
       ]
     },
     "pricing": {
-      "kicker": "Planos claros",
-      "title": "Comece pequeno. Preserve todo o histórico operacional.",
-      "description": "Escolha a escala e a profundidade de meteorologia agronómica de que a exploração precisa. Nenhum plano limita operações, colheitas ou cadernos.",
+      "kicker": "Planos simples e previsíveis",
+      "title": "Pague pela escala de que precisa, não pelo trabalho que regista.",
+      "description": "Os planos variam por utilizadores, área, talhões e profundidade meteorológica. Operações, colheitas e cadernos continuam sem limites artificiais.",
       "monthly": "Mensal",
       "annual": "Anual",
       "annualNote": "O anual equivale a dez mensalidades",
@@ -356,7 +356,7 @@ export const homepageCopies = {
         },
         {
           "title": "Caderno de campo",
-          "description": "Estruture registros e evidências rastreáveis para apoiar a Produção Integrada e o Manejo Integrado de Pragas (MIP), a produção orgânica, GLOBALG.A.P. IFA, GRASP, SPRING e outros referenciais aplicáveis. A certificação permanece dependente do organismo competente.",
+          "description": "Estruture registros e evidências rastreáveis para apoiar a Produção Integrada e o Manejo Integrado de Pragas (MIP), a produção orgânica, GLOBALG.A.P. IFA, GRASP, SPRING e outros referenciais aplicáveis.",
           "status": "Disponível"
         }
       ]
@@ -364,7 +364,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Clima agronômico",
       "title": "Clima que fala a língua de cada cultura",
-      "description": "Mapeie talhões, conecte plantios, operações, colheitas e meteorologia agronômica e mantenha um caderno de campo claro com o GeroFarm.",
+      "description": "As estações virtuais calculam remotamente evapotranspiração de referência, radiação solar, DLI estimada, graus-dia, necessidades de frio e molhamento foliar estimado, sem exigir a compra ou instalação de sensores. Para a maioria das fazendas, fornecem a informação agronômica necessária para planejar e acompanhar o campo, evitando custos desnecessários com hardware.",
       "metrics": [
         "Evapotranspiração de referência (ET₀)",
         "Radiação solar",
@@ -385,9 +385,9 @@ export const homepageCopies = {
       "costsDesc": "Conheça o custo real de cada plantio e colheita, reunindo mão de obra, equipamentos, insumos e outros recursos sem dupla contabilização."
     },
     "pricing": {
-      "kicker": "Planos claros",
-      "title": "Comece pequeno. Mantenha todo o histórico operacional.",
-      "description": "Escolha a escala e a profundidade da meteorologia agronômica de que a fazenda precisa. Nenhum plano limita operações, colheitas ou cadernos de campo.",
+      "kicker": "Planos simples e previsíveis",
+      "title": "Pague pela escala de que precisa, não pelo trabalho que registra.",
+      "description": "Os planos variam por usuários, área, talhões e profundidade meteorológica. Operações, colheitas e cadernos de campo continuam sem limites artificiais.",
       "monthly": "Mensalmente",
       "annual": "Anual",
       "annualNote": "O faturamento anual equivale a dez pagamentos mensais",
@@ -622,7 +622,7 @@ export const homepageCopies = {
         },
         {
           "title": "Field record",
-          "description": "Build traceable records and evidence to support Integrated Production and Integrated Pest Management (IPM), organic production, GLOBALG.A.P. IFA, GRASP, SPRING and other applicable assurance schemes. Certification remains subject to the competent certification body.",
+          "description": "Build traceable records and evidence to support Integrated Production and Integrated Pest Management (IPM), organic production, GLOBALG.A.P. IFA, GRASP, SPRING and other applicable assurance schemes.",
           "status": "Available"
         }
       ]
@@ -630,7 +630,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Agronomic weather",
       "title": "Agronomic indicators for every crop",
-      "description": "Virtual stations calculate reference evapotranspiration, solar radiation, estimated DLI, growing degree days, chill requirements and estimated leaf wetness to support planning and monitoring. Values are estimates, not sensor measurements.",
+      "description": "Virtual stations remotely calculate reference evapotranspiration, solar radiation, estimated DLI, growing degree days, chill requirements and estimated leaf wetness, without requiring you to purchase or install sensors. For most farms, they provide the agronomic information needed to plan and monitor field work while avoiding unnecessary hardware costs.",
       "metrics": [
         "Reference evapotranspiration (ET₀)",
         "Solar radiation",
@@ -666,9 +666,9 @@ export const homepageCopies = {
       ]
     },
     "pricing": {
-      "kicker": "Clear plans",
-      "title": "Start small. Keep the whole operational history.",
-      "description": "Choose the scale and agronomic-weather depth your farm needs. No plan limits operations, harvests or field records.",
+      "kicker": "Simple, predictable plans",
+      "title": "Pay for the scale you need, not for the work you record.",
+      "description": "Plans vary by users, area, fields and weather depth. Operations, harvests and field records remain free from artificial limits.",
       "monthly": "Monthly",
       "annual": "Annual",
       "annualNote": "Annual billing equals ten monthly payments",
@@ -888,7 +888,7 @@ export const homepageCopies = {
         },
         {
           "title": "Cahier de culture",
-          "description": "Structurez des registres et des preuves traçables pour soutenir la production intégrée et la protection intégrée (IPM), l’agriculture biologique, GLOBALG.A.P. IFA, GRASP, SPRING et d’autres référentiels applicables. La certification reste soumise à l’organisme compétent.",
+          "description": "Structurez des registres et des preuves traçables pour soutenir la production intégrée et la protection intégrée (IPM), l’agriculture biologique, GLOBALG.A.P. IFA, GRASP, SPRING et d’autres référentiels applicables.",
           "status": "Disponible"
         }
       ]
@@ -896,7 +896,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Météo agronomique",
       "title": "Une météo qui parle la langue de chaque culture",
-      "description": "Cartographiez les champs, connectez les cultures, les opérations, les récoltes et la météo agronomique, et conservez un enregistrement clair des champs avec GeroFarm.",
+      "description": "Les stations virtuelles calculent à distance l’évapotranspiration de référence, le rayonnement solaire, le DLI estimé, les degrés-jours, les besoins en froid et l’humectation foliaire estimée, sans achat ni installation de capteurs. Pour la plupart des exploitations, elles fournissent les informations agronomiques nécessaires à la planification et au suivi des cultures, sans coûts matériels inutiles.",
       "metrics": [
         "Évapotranspiration de référence (ET₀)",
         "Rayonnement solaire",
@@ -917,9 +917,9 @@ export const homepageCopies = {
       "costsDesc": "Travail, équipement, intrants et autres ressources projetés dans les coûts des cultures et des récoltes sans double comptage."
     },
     "pricing": {
-      "kicker": "Des plans clairs",
-      "title": "Commencez petit. Conservez tout l’historique opérationnel.",
-      "description": "Aucun plan ne limite les opérations, les récoltes ou les enregistrements sur le terrain.",
+      "kicker": "Des offres simples et prévisibles",
+      "title": "Payez pour l’échelle dont vous avez besoin, pas pour le travail que vous enregistrez.",
+      "description": "Les offres varient selon les utilisateurs, la surface, les parcelles et le niveau de détail météorologique. Les opérations, récoltes et cahiers de culture restent sans limites artificielles.",
       "monthly": "Mensuel",
       "annual": "Annuel",
       "annualNote": "La facturation annuelle équivaut à dix mensualités",
@@ -1154,7 +1154,7 @@ export const homepageCopies = {
         },
         {
           "title": "Cuaderno de campo",
-          "description": "Estructure registros y evidencias trazables para apoyar la producción integrada y la gestión integrada de plagas (GIP), la producción ecológica, GLOBALG.A.P. IFA, GRASP, SPRING y otros referenciales aplicables. La certificación sigue dependiendo del organismo competente.",
+          "description": "Estructure registros y evidencias trazables para apoyar la producción integrada y la gestión integrada de plagas (GIP), la producción ecológica, GLOBALG.A.P. IFA, GRASP, SPRING y otros referenciales aplicables.",
           "status": "Disponible"
         }
       ]
@@ -1162,7 +1162,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Clima agronómico",
       "title": "Un clima que habla el idioma de cada cultivo",
-      "description": "Mapee campos, conecte cultivos, operaciones, cosechas y clima agronómico, y mantenga un registro de campo claro con GeroFarm.",
+      "description": "Las estaciones virtuales calculan a distancia la evapotranspiración de referencia, la radiación solar, el DLI estimado, los grados-día, las necesidades de frío y la humectación foliar estimada, sin comprar ni instalar sensores. Para la mayoría de las explotaciones, aportan la información agronómica necesaria para planificar y seguir el campo, evitando costes innecesarios de hardware.",
       "metrics": [
         "Evapotranspiración de referencia (ET₀)",
         "Radiación solar",
@@ -1183,9 +1183,9 @@ export const homepageCopies = {
       "costsDesc": "Mano de obra, equipo, insumos y otros recursos proyectados en los costos de cultivos y cosechas sin doble contabilización."
     },
     "pricing": {
-      "kicker": "Planes claros",
-      "title": "Empiece poco a poco. Mantenga todo el historial operativo.",
-      "description": "Ningún plan limita operaciones, cosechas o registros de campo.",
+      "kicker": "Planes sencillos y previsibles",
+      "title": "Pague por la escala que necesita, no por el trabajo que registra.",
+      "description": "Los planes varían por usuarios, superficie, parcelas y profundidad meteorológica. Las operaciones, cosechas y cuadernos de campo siguen sin límites artificiales.",
       "monthly": "Mensual",
       "annual": "Anual",
       "annualNote": "La facturación anual equivale a diez pagos mensuales",
@@ -1420,7 +1420,7 @@ export const homepageCopies = {
         },
         {
           "title": "Teeltregistratie",
-          "description": "Structureer traceerbare registraties en bewijs voor geïntegreerde productie en geïntegreerde gewasbescherming (IPM), biologische productie, GLOBALG.A.P. IFA, GRASP, SPRING en andere toepasselijke schema’s. Certificering blijft afhankelijk van de bevoegde certificeringsinstantie.",
+          "description": "Structureer traceerbare registraties en bewijs voor geïntegreerde productie en geïntegreerde gewasbescherming (IPM), biologische productie, GLOBALG.A.P. IFA, GRASP, SPRING en andere toepasselijke schema’s.",
           "status": "Beschikbaar"
         }
       ]
@@ -1428,7 +1428,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Agronomisch weer",
       "title": "Weer dat de taal spreekt van elk gewas",
-      "description": "Breng velden in kaart, verbind gewassen, bewerkingen, oogsten en agronomisch weer en houd een duidelijk veldrecord bij met GeroFarm.",
+      "description": "Virtuele stations berekenen op afstand referentie-evapotranspiratie, zonnestraling, geschatte DLI, groeigraaddagen, koudebehoefte en geschatte bladnatheid, zonder dat u sensoren hoeft te kopen of installeren. Voor de meeste landbouwbedrijven leveren ze de agronomische informatie om het veldwerk te plannen en volgen, zonder onnodige hardwarekosten.",
       "metrics": [
         "Referentie verdamping (ET₀)",
         "Zonnestraling",
@@ -1449,9 +1449,9 @@ export const homepageCopies = {
       "costsDesc": "Arbeid, uitrusting, inputs en andere hulpbronnen worden zonder dubbeltelling in de gewas- en oogstkosten geprojecteerd."
     },
     "pricing": {
-      "kicker": "Duidelijke plannen",
-      "title": "Begin klein. Bewaar de hele operationele geschiedenis.",
-      "description": "Geen enkel plan beperkt de activiteiten, oogsten of veldgegevens.",
+      "kicker": "Eenvoudige, voorspelbare plannen",
+      "title": "Betaal voor de schaal die u nodig hebt, niet voor het werk dat u registreert.",
+      "description": "Plannen verschillen naar gebruikers, oppervlakte, percelen en meteorologische diepgang. Bewerkingen, oogsten en teeltregistraties blijven vrij van kunstmatige limieten.",
       "monthly": "Maandelijks",
       "annual": "Jaarlijks",
       "annualNote": "De jaarlijkse facturering is gelijk aan tien maandelijkse betalingen",
@@ -1686,7 +1686,7 @@ export const homepageCopies = {
         },
         {
           "title": "Schlagkartei",
-          "description": "Strukturieren Sie rückverfolgbare Aufzeichnungen und Nachweise zur Unterstützung der integrierten Produktion und des integrierten Pflanzenschutzes (IPM), des ökologischen Landbaus, von GLOBALG.A.P. IFA, GRASP, SPRING und weiteren anwendbaren Standards. Die Zertifizierung bleibt der zuständigen Zertifizierungsstelle vorbehalten.",
+          "description": "Strukturieren Sie rückverfolgbare Aufzeichnungen und Nachweise zur Unterstützung der integrierten Produktion und des integrierten Pflanzenschutzes (IPM), des ökologischen Landbaus, von GLOBALG.A.P. IFA, GRASP, SPRING und weiteren anwendbaren Standards.",
           "status": "Verfügbar"
         }
       ]
@@ -1694,7 +1694,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Agrarwetter",
       "title": "Wetter, das die Sprache jeder Kultur spricht",
-      "description": "Kartieren Sie Felder, verknüpfen Sie Pflanzen, Betriebe, Ernten und agronomisches Wetter und führen Sie mit GeroFarm eine klare Feldaufzeichnung.",
+      "description": "Virtuelle Stationen berechnen Referenzverdunstung, Sonneneinstrahlung, geschätzte DLI, Wachstumsgradtage, Kältebedarf und geschätzte Blattnässe aus der Ferne – ohne Kauf oder Installation von Sensoren. Für die meisten Betriebe liefern sie die agronomischen Informationen zur Planung und Überwachung der Feldarbeit, ohne unnötige Hardwarekosten.",
       "metrics": [
         "Referenz-Evapotranspiration (ET₀)",
         "Sonnenstrahlung",
@@ -1715,9 +1715,9 @@ export const homepageCopies = {
       "costsDesc": "Arbeitskräfte, Ausrüstung, Betriebsmittel und andere Ressourcen werden ohne Doppelzählung in die Ernte- und Erntekosten projiziert."
     },
     "pricing": {
-      "kicker": "Klare Pläne",
-      "title": "Fangen Sie klein an. Bewahren Sie die gesamte Betriebshistorie auf.",
-      "description": "Kein Plan schränkt den Betrieb, die Ernten oder die Feldaufzeichnungen ein.",
+      "kicker": "Einfache, planbare Tarife",
+      "title": "Zahlen Sie für die benötigte Betriebsgröße, nicht für die dokumentierte Arbeit.",
+      "description": "Die Tarife unterscheiden sich nach Nutzern, Fläche, Schlägen und meteorologischer Tiefe. Maßnahmen, Ernten und Schlagkarteien bleiben ohne künstliche Begrenzungen.",
       "monthly": "Monatlich",
       "annual": "Jährlich",
       "annualNote": "Die jährliche Abrechnung entspricht zehn monatlichen Zahlungen",
@@ -1952,7 +1952,7 @@ export const homepageCopies = {
         },
         {
           "title": "圃場記録",
-          "description": "統合生産・総合的病害虫管理（IPM）、有機生産、GLOBALG.A.P. IFA、GRASP、SPRING、その他の適用基準を支える、追跡可能な記録と証拠を整備します。認証は所管する認証機関の審査によります。",
+          "description": "統合生産・総合的病害虫管理（IPM）、有機生産、GLOBALG.A.P. IFA、GRASP、SPRING、その他の適用基準を支える、追跡可能な記録と証拠を整備します。",
           "status": "利用可能"
         }
       ]
@@ -1960,7 +1960,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "農業天気",
       "title": "それぞれの作物の言葉を語る天気",
-      "description": "GeroFarm を使用して、圃場をマッピングし、作物、作業、収穫、農業気象を結び付け、明確な圃場記録を維持します。",
+      "description": "仮想観測点が基準蒸発散量、日射量、推定DLI、積算温度、低温要求量、推定葉面湿潤を遠隔で算出するため、センサーを購入・設置する必要がありません。多くの農場では、不要な機器費用をかけずに、作業の計画と確認に必要な農業気象情報を得られます。",
       "metrics": [
         "基準蒸発散量 (ET₀)",
         "日射量",
@@ -1981,9 +1981,9 @@ export const homepageCopies = {
       "costsDesc": "労働力、設備、投入物、その他のリソースは、二重計算することなく作物と収穫のコストに投影されます。"
     },
     "pricing": {
-      "kicker": "明確な計画",
-      "title": "小さなことから始めましょう。操作履歴全体を保管します。",
-      "description": "作業、収穫、圃場記録を制限する計画はありません。すべての有料プランでは、GeroGrid (利用可能な場合) を含む将来の統合が可能です。",
+      "kicker": "シンプルで分かりやすいプラン",
+      "title": "記録する作業量ではなく、必要な規模に応じてお支払いください。",
+      "description": "プランは利用者数、面積、圃場数、気象情報の深さによって異なります。作業、収穫、圃場記録に不自然な上限はありません。",
       "monthly": "毎月",
       "annual": "毎年恒例",
       "annualNote": "年間請求額は 10 か月分の支払いに相当します",
@@ -2218,7 +2218,7 @@ export const homepageCopies = {
         },
         {
           "title": "יומן שדה",
-          "description": "ארגנו רישומים וראיות ניתנים למעקב לתמיכה בייצור משולב ובהדברה משולבת (IPM), בייצור אורגני, ב-GLOBALG.A.P. IFA, ב-GRASP, ב-SPRING ובתקנים רלוונטיים נוספים. ההסמכה נשארת באחריות גוף ההסמכה המוסמך.",
+          "description": "ארגנו רישומים וראיות ניתנים למעקב לתמיכה בייצור משולב ובהדברה משולבת (IPM), בייצור אורגני, ב-GLOBALG.A.P. IFA, ב-GRASP, ב-SPRING ובתקנים רלוונטיים נוספים.",
           "status": "זמין"
         }
       ]
@@ -2226,7 +2226,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "מזג אוויר אגרונומי",
       "title": "מזג אוויר שמדבר בשפה של כל גידול",
-      "description": "מפה שדות, חבר יבולים, פעולות, יבול ומזג אוויר אגרונומי, ושמור על רישום שדות ברור עם GeroFarm.",
+      "description": "תחנות וירטואליות מחשבות מרחוק התאדות־דיות ייחוס, קרינת שמש, DLI משוער, ימי מעלה, דרישות קור ורטיבות עלים משוערת, ללא צורך ברכישה או בהתקנה של חיישנים. עבור רוב המשקים הן מספקות את המידע האגרונומי הדרוש לתכנון ולמעקב, בלי עלויות חומרה מיותרות.",
       "metrics": [
         "evapotranspiration התייחסות (ET₀)",
         "קרינת שמש",
@@ -2247,9 +2247,9 @@ export const homepageCopies = {
       "costsDesc": "עבודה, ציוד, תשומות ומשאבים אחרים מוערכים לעלויות היבול והקציר ללא ספירה כפולה."
     },
     "pricing": {
-      "kicker": "תוכניות ברורות",
-      "title": "תתחיל בקטן. שמור את כל ההיסטוריה התפעולית.",
-      "description": "אין תוכנית מגבילה את הפעולות, הקצירים או רישומי השדה.",
+      "kicker": "מסלולים פשוטים וצפויים",
+      "title": "שלמו לפי ההיקף שאתם צריכים, לא לפי העבודה שאתם מתעדים.",
+      "description": "המסלולים משתנים לפי מספר משתמשים, שטח, חלקות ועומק המידע המטאורולוגי. לפעולות, לקטיפים וליומני השדה אין מגבלות מלאכותיות.",
       "monthly": "חודשי",
       "annual": "שנתי",
       "annualNote": "חיוב שנתי שווה לעשרה תשלומים חודשיים",
@@ -2484,7 +2484,7 @@ export const homepageCopies = {
         },
         {
           "title": "Tarla kayıt defteri",
-          "description": "Entegre üretim ve entegre zararlı yönetimi (IPM), organik üretim, GLOBALG.A.P. IFA, GRASP, SPRING ve diğer geçerli standartları destekleyen izlenebilir kayıt ve kanıtları yapılandırın. Belgelendirme yetkili belgelendirme kuruluşunun değerlendirmesine tabidir.",
+          "description": "Entegre üretim ve entegre zararlı yönetimi (IPM), organik üretim, GLOBALG.A.P. IFA, GRASP, SPRING ve diğer geçerli standartları destekleyen izlenebilir kayıt ve kanıtları yapılandırın.",
           "status": "Mevcut"
         }
       ]
@@ -2492,7 +2492,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Tarımsal hava",
       "title": "Her mahsulün dilini konuşan hava durumu",
-      "description": "GeroFarm ile tarlaları haritalandırın, mahsulleri, operasyonları, hasatları ve tarımsal hava durumunu bağlayın ve net bir saha kaydı tutun.",
+      "description": "Sanal istasyonlar referans evapotranspirasyonu, güneş radyasyonunu, tahmini DLI’yi, büyüme derece-günlerini, soğuklanma ihtiyacını ve tahmini yaprak ıslaklığını uzaktan hesaplar; sensör satın almanız veya kurmanız gerekmez. Çoğu işletme için gereksiz donanım maliyetleri olmadan planlama ve izleme için gereken tarımsal bilgiyi sağlar.",
       "metrics": [
         "Referans evapotranspirasyon (ET₀)",
         "Güneş radyasyonu",
@@ -2513,9 +2513,9 @@ export const homepageCopies = {
       "costsDesc": "İşgücü, ekipman, girdiler ve diğer kaynaklar, çifte sayılmadan ürün ve hasat maliyetlerine yansıtılır."
     },
     "pricing": {
-      "kicker": "Planları temizle",
-      "title": "Küçük başlayın. Tüm operasyonel geçmişi saklayın.",
-      "description": "Hiçbir plan operasyonları, hasatları veya saha kayıtlarını sınırlamaz.",
+      "kicker": "Basit ve öngörülebilir planlar",
+      "title": "Kaydettiğiniz iş için değil, ihtiyacınız olan ölçek için ödeme yapın.",
+      "description": "Planlar kullanıcı, alan, parsel ve meteorolojik ayrıntı düzeyine göre değişir. İşlemler, hasatlar ve tarla kayıtları yapay sınırlara tabi değildir.",
       "monthly": "Aylık",
       "annual": "Yıllık",
       "annualNote": "Yıllık faturalandırma on aylık ödemeye eşittir",
@@ -2750,7 +2750,7 @@ export const homepageCopies = {
         },
         {
           "title": "سجل الحقل",
-          "description": "نظّم سجلات وأدلة قابلة للتتبع لدعم الإنتاج المتكامل والإدارة المتكاملة للآفات (IPM)، والإنتاج العضوي، وGLOBALG.A.P. IFA، وGRASP، وSPRING، وغيرها من المعايير المعمول بها. ويظل الاعتماد خاضعًا لجهة التصديق المختصة.",
+          "description": "نظّم سجلات وأدلة قابلة للتتبع لدعم الإنتاج المتكامل والإدارة المتكاملة للآفات (IPM)، والإنتاج العضوي، وGLOBALG.A.P. IFA، وGRASP، وSPRING، وغيرها من المعايير المعمول بها.",
           "status": "متاح"
         }
       ]
@@ -2758,7 +2758,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "الطقس الزراعي",
       "title": "الطقس الذي يتحدث لغة كل محصول",
-      "description": "قم بتخطيط الحقول وربط المحاصيل والعمليات والمحاصيل والطقس الزراعي، واحتفظ بسجل ميداني واضح باستخدام GeroFarm.",
+      "description": "تحسب المحطات الافتراضية عن بُعد التبخر والنتح المرجعي والإشعاع الشمسي وDLI التقديري وأيام الدرجة والاحتياجات الباردة وبلل الأوراق التقديري، من دون شراء أجهزة استشعار أو تركيبها. وتوفر لمعظم المزارع المعلومات الزراعية اللازمة للتخطيط والمتابعة مع تجنب تكاليف أجهزة غير ضرورية.",
       "metrics": [
         "التبخر المرجعي (ET₀)",
         "الإشعاع الشمسي",
@@ -2779,9 +2779,9 @@ export const homepageCopies = {
       "costsDesc": "العمالة والمعدات والمدخلات والموارد الأخرى المتوقعة في تكاليف المحاصيل والحصاد دون حساب مزدوج."
     },
     "pricing": {
-      "kicker": "خطط واضحة",
-      "title": "ابدأ صغيرًا. الحفاظ على التاريخ التشغيلي بأكمله.",
-      "description": "لا توجد خطة تحد من العمليات أو المحاصيل أو السجلات الميدانية.",
+      "kicker": "خطط بسيطة ويمكن توقع تكلفتها",
+      "title": "ادفع مقابل الحجم الذي تحتاج إليه، لا مقابل العمل الذي تسجله.",
+      "description": "تختلف الخطط حسب المستخدمين والمساحة والقطع وعمق بيانات الطقس. وتبقى العمليات والحصاد وسجلات الحقل من دون حدود مصطنعة.",
       "monthly": "شهريا",
       "annual": "سنوي",
       "annualNote": "الفواتير السنوية تساوي عشرة دفعات شهرية",
@@ -3016,7 +3016,7 @@ export const homepageCopies = {
         },
         {
           "title": "Ewidencja polowa",
-          "description": "Twórz identyfikowalne rejestry i dowody wspierające produkcję integrowaną i integrowaną ochronę roślin (IPM), produkcję ekologiczną, GLOBALG.A.P. IFA, GRASP, SPRING oraz inne właściwe standardy. Certyfikacja pozostaje w gestii właściwej jednostki certyfikującej.",
+          "description": "Twórz identyfikowalne rejestry i dowody wspierające produkcję integrowaną i integrowaną ochronę roślin (IPM), produkcję ekologiczną, GLOBALG.A.P. IFA, GRASP, SPRING oraz inne właściwe standardy.",
           "status": "Dostępne"
         }
       ]
@@ -3024,7 +3024,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Pogoda agronomiczna",
       "title": "Pogoda, która mówi językiem każdej uprawy",
-      "description": "Mapuj pola, łącz uprawy, operacje, zbiory i pogodę agronomiczną oraz prowadź przejrzysty zapis pól za pomocą GeroFarm.",
+      "description": "Wirtualne stacje zdalnie obliczają ewapotranspirację referencyjną, promieniowanie słoneczne, szacowane DLI, stopniodni wzrostu, zapotrzebowanie na chłód i szacowaną wilgotność liści, bez zakupu ani instalacji czujników. Większości gospodarstw zapewniają informacje agronomiczne potrzebne do planowania i monitorowania pola, bez zbędnych kosztów sprzętu.",
       "metrics": [
         "Referencyjna ewapotranspiracja (ET₀)",
         "Promieniowanie słoneczne",
@@ -3045,9 +3045,9 @@ export const homepageCopies = {
       "costsDesc": "Praca, sprzęt, nakłady i inne zasoby uwzględnione w kosztach upraw i zbiorów bez podwójnego liczenia."
     },
     "pricing": {
-      "kicker": "Jasne plany",
-      "title": "Zacznij od małych rzeczy. Zachowaj całą historię operacyjną.",
-      "description": "Żaden plan nie ogranicza operacji, zbiorów ani zapisów terenowych.",
+      "kicker": "Proste i przewidywalne plany",
+      "title": "Płać za potrzebną skalę, a nie za rejestrowaną pracę.",
+      "description": "Plany różnią się liczbą użytkowników, powierzchnią, działkami i zakresem danych pogodowych. Zabiegi, zbiory i ewidencja polowa pozostają bez sztucznych limitów.",
       "monthly": "Miesięcznie",
       "annual": "Roczne",
       "annualNote": "Roczne rozliczenie równa się dziesięciu miesięcznym płatnościom",
@@ -3282,7 +3282,7 @@ export const homepageCopies = {
         },
         {
           "title": "Evidencija polja",
-          "description": "Uredite sljedive zapise i dokaze za potporu integriranoj proizvodnji i integriranoj zaštiti bilja (IPM), ekološkoj proizvodnji, GLOBALG.A.P. IFA, GRASP, SPRING i drugim primjenjivim standardima. Certifikacija ostaje u nadležnosti ovlaštenog certifikacijskog tijela.",
+          "description": "Uredite sljedive zapise i dokaze za potporu integriranoj proizvodnji i integriranoj zaštiti bilja (IPM), ekološkoj proizvodnji, GLOBALG.A.P. IFA, GRASP, SPRING i drugim primjenjivim standardima.",
           "status": "na raspolaganju"
         }
       ]
@@ -3290,7 +3290,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Agronomsko vrijeme",
       "title": "Vrijeme koje govori jezikom svake kulture",
-      "description": "Mapirajte polja, povežite usjeve, radnje, žetvu i agronomsko vrijeme i vodite čistu evidenciju polja uz GeroFarm.",
+      "description": "Virtualne stanice daljinski izračunavaju referentnu evapotranspiraciju, sunčevo zračenje, procijenjeni DLI, stupanj-dane, potrebe za hladnoćom i procijenjenu vlažnost lista, bez kupnje ili ugradnje senzora. Većini gospodarstava pružaju agronomske informacije potrebne za planiranje i praćenje rada bez nepotrebnih troškova opreme.",
       "metrics": [
         "Referentna evapotranspiracija (ET₀)",
         "Sunčevo zračenje",
@@ -3311,9 +3311,9 @@ export const homepageCopies = {
       "costsDesc": "Rad, oprema, inputi i drugi resursi projicirani u troškove usjeva i žetve bez dvostrukog računanja."
     },
     "pricing": {
-      "kicker": "Jasni planovi",
-      "title": "Počnite s malim. Čuvajte cijelu operativnu povijest.",
-      "description": "Nijedan plan ne ograničava operacije, žetve ili evidenciju polja.",
+      "kicker": "Jednostavni i predvidljivi paketi",
+      "title": "Plaćajte prema potrebnom opsegu, a ne prema radu koji bilježite.",
+      "description": "Paketi se razlikuju prema korisnicima, površini, parcelama i razini meteoroloških podataka. Zahvati, berbe i evidencije polja ostaju bez umjetnih ograničenja.",
       "monthly": "Mjesečno",
       "annual": "Godišnji",
       "annualNote": "Godišnja naplata iznosi deset mjesečnih rata",
@@ -3548,7 +3548,7 @@ export const homepageCopies = {
         },
         {
           "title": "Ημερολόγιο αγρού",
-          "description": "Οργανώστε ιχνηλάσιμα αρχεία και τεκμήρια για την υποστήριξη της ολοκληρωμένης παραγωγής και της ολοκληρωμένης φυτοπροστασίας (IPM), της βιολογικής παραγωγής, των GLOBALG.A.P. IFA, GRASP, SPRING και άλλων εφαρμοστέων προτύπων. Η πιστοποίηση παραμένει αρμοδιότητα του εξουσιοδοτημένου φορέα.",
+          "description": "Οργανώστε ιχνηλάσιμα αρχεία και τεκμήρια για την υποστήριξη της ολοκληρωμένης παραγωγής και της ολοκληρωμένης φυτοπροστασίας (IPM), της βιολογικής παραγωγής, των GLOBALG.A.P. IFA, GRASP, SPRING και άλλων εφαρμοστέων προτύπων.",
           "status": "Διαθέσιμο"
         }
       ]
@@ -3556,7 +3556,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Αγρονομικός καιρός",
       "title": "Καιρός που μιλάει τη γλώσσα κάθε καλλιέργειας",
-      "description": "Χαρτογραφήστε τα χωράφια, συνδέστε τις καλλιέργειες, τις λειτουργίες, τη συγκομιδή και τον αγρονομικό καιρό και διατηρήστε ένα καθαρό αρχείο αγρών με το GeroFarm.",
+      "description": "Οι εικονικοί σταθμοί υπολογίζουν εξ αποστάσεως την εξατμισοδιαπνοή αναφοράς, την ηλιακή ακτινοβολία, το εκτιμώμενο DLI, τις βαθμοημέρες, τις ανάγκες ψύχους και την εκτιμώμενη διαβροχή φύλλων, χωρίς αγορά ή εγκατάσταση αισθητήρων. Για τις περισσότερες εκμεταλλεύσεις παρέχουν τις αναγκαίες γεωπονικές πληροφορίες χωρίς περιττό κόστος εξοπλισμού.",
       "metrics": [
         "Εξατμισοδιαπνοή αναφοράς (ET₀)",
         "Ηλιακή ακτινοβολία",
@@ -3577,9 +3577,9 @@ export const homepageCopies = {
       "costsDesc": "Εργασία, εξοπλισμός, εισροές και άλλοι πόροι που προβάλλονται στο κόστος των καλλιεργειών και της συγκομιδής χωρίς διπλή καταμέτρηση."
     },
     "pricing": {
-      "kicker": "Ξεκάθαρα σχέδια",
-      "title": "Ξεκινήστε από μικρό. Διατηρήστε ολόκληρο το επιχειρησιακό ιστορικό.",
-      "description": "Κανένα σχέδιο δεν περιορίζει τις λειτουργίες, τις συγκομιδές ή τα αρχεία αγρών.",
+      "kicker": "Απλά και προβλέψιμα προγράμματα",
+      "title": "Πληρώστε για την κλίμακα που χρειάζεστε, όχι για την εργασία που καταγράφετε.",
+      "description": "Τα προγράμματα διαφέρουν ανά χρήστες, έκταση, αγροτεμάχια και βάθος μετεωρολογικών δεδομένων. Οι εργασίες, οι συγκομιδές και τα ημερολόγια αγρού παραμένουν χωρίς τεχνητά όρια.",
       "monthly": "Μηνιαία",
       "annual": "Ετήσιο",
       "annualNote": "Η ετήσια χρέωση ισούται με δέκα μηνιαίες πληρωμές",
@@ -3814,7 +3814,7 @@ export const homepageCopies = {
         },
         {
           "title": "Fältjournal",
-          "description": "Strukturera spårbara journaler och underlag som stöd för integrerad produktion och integrerat växtskydd (IPM), ekologisk produktion, GLOBALG.A.P. IFA, GRASP, SPRING och andra tillämpliga standarder. Certifiering avgörs alltid av behörigt certifieringsorgan.",
+          "description": "Strukturera spårbara journaler och underlag som stöd för integrerad produktion och integrerat växtskydd (IPM), ekologisk produktion, GLOBALG.A.P. IFA, GRASP, SPRING och andra tillämpliga standarder.",
           "status": "Tillgänglig"
         }
       ]
@@ -3822,7 +3822,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Agronomiskt väder",
       "title": "Väder som talar språket för varje gröda",
-      "description": "Kartlägg fält, koppla ihop grödor, operationer, skördar och agronomiskt väder och håll ett tydligt fältregister med GeroFarm.",
+      "description": "Virtuella stationer beräknar referensevapotranspiration, solstrålning, uppskattad DLI, växtgraddagar, kylbehov och uppskattad bladväta på distans, utan att du behöver köpa eller installera sensorer. För de flesta gårdar ger de den agronomiska information som behövs för planering och uppföljning utan onödiga hårdvarukostnader.",
       "metrics": [
         "Referens evapotranspiration (ET₀)",
         "Solstrålning",
@@ -3843,9 +3843,9 @@ export const homepageCopies = {
       "costsDesc": "Arbetskraft, utrustning, insatsvaror och andra resurser räknas in i kostnader för skörd och skörd utan dubbelräkning."
     },
     "pricing": {
-      "kicker": "Tydliga planer",
-      "title": "Börja smått. Behåll hela operationshistoriken.",
-      "description": "Ingen plan begränsar drift, skördar eller fältrekord.",
+      "kicker": "Enkla och förutsägbara planer",
+      "title": "Betala för den skala du behöver, inte för arbetet du registrerar.",
+      "description": "Planerna varierar med användare, areal, skiften och meteorologisk detaljnivå. Åtgärder, skördar och fältjournaler förblir fria från konstgjorda gränser.",
       "monthly": "Månadsvis",
       "annual": "Årlig",
       "annualNote": "Årlig fakturering motsvarar tio månatliga betalningar",
@@ -4080,7 +4080,7 @@ export const homepageCopies = {
         },
         {
           "title": "Skifteloggbok",
-          "description": "Strukturer sporbare journaler og dokumentasjon som støtter integrert produksjon og integrert plantevern (IPM), økologisk produksjon, GLOBALG.A.P. IFA, GRASP, SPRING og andre relevante standarder. Sertifisering avgjøres alltid av et kompetent sertifiseringsorgan.",
+          "description": "Strukturer sporbare journaler og dokumentasjon som støtter integrert produksjon og integrert plantevern (IPM), økologisk produksjon, GLOBALG.A.P. IFA, GRASP, SPRING og andre relevante standarder.",
           "status": "Tilgjengelig"
         }
       ]
@@ -4088,7 +4088,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Agronomisk vær",
       "title": "Vær som snakker språket til hver avling",
-      "description": "Kartlegg åker, koble sammen avlinger, operasjoner, høstinger og agronomisk vær, og hold en klar feltrekord med GeroFarm.",
+      "description": "Virtuelle stasjoner beregner referanse-evapotranspirasjon, solstråling, estimert DLI, vekstgraddager, kuldebehov og estimert bladfuktighet eksternt, uten at du må kjøpe eller installere sensorer. For de fleste gårder gir de den agronomiske informasjonen som trengs for planlegging og oppfølging, uten unødvendige maskinvarekostnader.",
       "metrics": [
         "Referanseevapotranspirasjon (ET₀)",
         "Solinnstråling",
@@ -4109,9 +4109,9 @@ export const homepageCopies = {
       "costsDesc": "Arbeid, utstyr, innsatsvarer og andre ressurser projisert inn i avlings- og høstingskostnader uten dobbelttelling."
     },
     "pricing": {
-      "kicker": "Klare planer",
-      "title": "Begynn i det små. Ta vare på hele driftshistorikken.",
-      "description": "Ingen plan begrenser drift, høsting eller feltrekorder.",
+      "kicker": "Enkle og forutsigbare planer",
+      "title": "Betal for skalaen du trenger, ikke for arbeidet du registrerer.",
+      "description": "Planene varierer etter brukere, areal, skifter og meteorologisk detaljnivå. Tiltak, innhøstinger og skifteloggbøker har ingen kunstige grenser.",
       "monthly": "Månedlig",
       "annual": "Årlig",
       "annualNote": "Årlig fakturering tilsvarer ti månedlige betalinger",
@@ -4346,7 +4346,7 @@ export const homepageCopies = {
         },
         {
           "title": "Markjournal",
-          "description": "Strukturér sporbare journaler og dokumentation til støtte for integreret produktion og integreret plantebeskyttelse (IPM), økologisk produktion, GLOBALG.A.P. IFA, GRASP, SPRING og andre relevante standarder. Certificering afgøres fortsat af det kompetente certificeringsorgan.",
+          "description": "Strukturér sporbare journaler og dokumentation til støtte for integreret produktion og integreret plantebeskyttelse (IPM), økologisk produktion, GLOBALG.A.P. IFA, GRASP, SPRING og andre relevante standarder.",
           "status": "Tilgængelig"
         }
       ]
@@ -4354,7 +4354,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Agronomisk vejr",
       "title": "Vejr, der taler sproget for hver afgrøde",
-      "description": "Kortlæg marker, forbind afgrøder, operationer, høst og agronomisk vejr, og hold en klar markregistrering med GeroFarm.",
+      "description": "Virtuelle stationer beregner referencefordampning, solstråling, estimeret DLI, vækstgraddage, kuldebehov og estimeret bladvådhed på afstand, uden at du skal købe eller installere sensorer. For de fleste bedrifter giver de den agronomiske information, der er nødvendig for planlægning og opfølgning, uden unødige hardwareomkostninger.",
       "metrics": [
         "Reference evapotranspiration (ET₀)",
         "Solstråling",
@@ -4375,9 +4375,9 @@ export const homepageCopies = {
       "costsDesc": "Arbejdskraft, udstyr, input og andre ressourcer beregnet til afgrøde- og høstomkostninger uden dobbelttælling."
     },
     "pricing": {
-      "kicker": "Klare planer",
-      "title": "Start i det små. Gem hele driftshistorien.",
-      "description": "Ingen plan begrænser drift, høst eller markregistrering.",
+      "kicker": "Enkle og forudsigelige planer",
+      "title": "Betal for den skala, du har brug for, ikke for det arbejde, du registrerer.",
+      "description": "Planerne varierer efter brugere, areal, marker og meteorologisk detaljeniveau. Arbejdsgange, høst og markjournaler forbliver uden kunstige grænser.",
       "monthly": "Månedligt",
       "annual": "Årlig",
       "annualNote": "Årlig fakturering svarer til ti månedlige betalinger",
@@ -4612,7 +4612,7 @@ export const homepageCopies = {
         },
         {
           "title": "Quaderno di campagna",
-          "description": "Organizza registri e prove tracciabili a supporto della produzione integrata e della difesa integrata (IPM), della produzione biologica, di GLOBALG.A.P. IFA, GRASP, SPRING e di altri standard applicabili. La certificazione resta soggetta all’organismo competente.",
+          "description": "Organizza registri e prove tracciabili a supporto della produzione integrata e della difesa integrata (IPM), della produzione biologica, di GLOBALG.A.P. IFA, GRASP, SPRING e di altri standard applicabili.",
           "status": "Disponibile"
         }
       ]
@@ -4620,7 +4620,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Il clima agronomico",
       "title": "Un clima che parla la lingua di ogni coltura",
-      "description": "Mappa i campi, collega colture, operazioni, raccolti e condizioni meteorologiche agronomiche e mantieni un chiaro registro del campo con GeroFarm.",
+      "description": "Le stazioni virtuali calcolano da remoto evapotraspirazione di riferimento, radiazione solare, DLI stimato, gradi giorno, fabbisogno in freddo e bagnatura fogliare stimata, senza acquistare o installare sensori. Per la maggior parte delle aziende forniscono le informazioni agronomiche necessarie alla pianificazione e al monitoraggio, evitando costi hardware inutili.",
       "metrics": [
         "Evapotraspirazione di riferimento (ET₀)",
         "Radiazione solare",
@@ -4641,9 +4641,9 @@ export const homepageCopies = {
       "costsDesc": "Manodopera, attrezzature, input e altre risorse proiettate nei costi delle colture e del raccolto senza doppio conteggio."
     },
     "pricing": {
-      "kicker": "Piani chiari",
-      "title": "Inizia in piccolo. Conserva tutta la cronologia operativa.",
-      "description": "Nessun piano limita le operazioni, i raccolti o le registrazioni sul campo.",
+      "kicker": "Piani semplici e prevedibili",
+      "title": "Paga per la scala che ti serve, non per il lavoro che registri.",
+      "description": "I piani variano per utenti, superficie, appezzamenti e profondità meteorologica. Operazioni, raccolti e quaderni di campagna restano senza limiti artificiali.",
       "monthly": "Mensile",
       "annual": "Annuale",
       "annualNote": "La fatturazione annuale equivale a dieci pagamenti mensili",
@@ -4878,7 +4878,7 @@ export const homepageCopies = {
         },
         {
           "title": "Польовий журнал",
-          "description": "Створюйте простежувані записи й докази на підтримку інтегрованого виробництва та інтегрованого захисту рослин (IPM), органічного виробництва, GLOBALG.A.P. IFA, GRASP, SPRING та інших застосовних стандартів. Сертифікація залишається компетенцією уповноваженого органу.",
+          "description": "Створюйте простежувані записи й докази на підтримку інтегрованого виробництва та інтегрованого захисту рослин (IPM), органічного виробництва, GLOBALG.A.P. IFA, GRASP, SPRING та інших застосовних стандартів.",
           "status": "в наявності"
         }
       ]
@@ -4886,7 +4886,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Агрономічна погода",
       "title": "Погода, яка говорить мовою кожної культури",
-      "description": "Створюйте карти полів, зв’язуйте посіви, операції, врожаї та агрономічну погоду, а також зберігайте чіткі записи поля за допомогою GeroFarm.",
+      "description": "Віртуальні станції дистанційно розраховують еталонну евапотранспірацію, сонячну радіацію, орієнтовний DLI, градусо-дні, потребу в холоді та орієнтовну вологість листя без придбання чи встановлення датчиків. Для більшості господарств вони дають потрібну агрономічну інформацію без зайвих витрат на обладнання.",
       "metrics": [
         "Еталонна евапотранспірація (ET₀)",
         "Сонячна радіація",
@@ -4907,9 +4907,9 @@ export const homepageCopies = {
       "costsDesc": "Праця, обладнання, вхідні ресурси та інші ресурси, прогнозовані у витратах на врожай і врожай без подвійного підрахунку."
     },
     "pricing": {
-      "kicker": "Чіткі плани",
-      "title": "Почніть з малого. Зберігайте всю історію експлуатації.",
-      "description": "Жоден план не обмежує операції, врожаї чи польові записи.",
+      "kicker": "Прості й передбачувані плани",
+      "title": "Сплачуйте за потрібний масштаб, а не за роботу, яку реєструєте.",
+      "description": "Плани відрізняються кількістю користувачів, площею, ділянками та глибиною метеоданих. Операції, врожаї та польові журнали не мають штучних обмежень.",
       "monthly": "Щомісяця",
       "annual": "Річний",
       "annualNote": "Річний рахунок дорівнює десяти місячним платежам",
@@ -5144,7 +5144,7 @@ export const homepageCopies = {
         },
         {
           "title": "Registru de câmp",
-          "description": "Structurați registre și dovezi trasabile pentru a sprijini producția integrată și gestionarea integrată a dăunătorilor (IPM), producția ecologică, GLOBALG.A.P. IFA, GRASP, SPRING și alte standarde aplicabile. Certificarea rămâne în responsabilitatea organismului competent.",
+          "description": "Structurați registre și dovezi trasabile pentru a sprijini producția integrată și gestionarea integrată a dăunătorilor (IPM), producția ecologică, GLOBALG.A.P. IFA, GRASP, SPRING și alte standarde aplicabile.",
           "status": "Disponibil"
         }
       ]
@@ -5152,7 +5152,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Vremea agronomică",
       "title": "Vreme care vorbește limba fiecărei culturi",
-      "description": "Hartați câmpurile, conectați culturile, operațiunile, recoltele și vremea agronomică și păstrați o înregistrare clară a câmpului cu GeroFarm.",
+      "description": "Stațiile virtuale calculează de la distanță evapotranspirația de referință, radiația solară, DLI estimat, gradele-zile, necesarul de frig și umectarea foliară estimată, fără cumpărarea sau instalarea senzorilor. Pentru majoritatea exploatațiilor oferă informațiile agronomice necesare planificării și monitorizării, evitând costuri hardware inutile.",
       "metrics": [
         "Evapotranspirație de referință (ET₀)",
         "Radiația solară",
@@ -5173,9 +5173,9 @@ export const homepageCopies = {
       "costsDesc": "Forța de muncă, echipamentele, inputurile și alte resurse proiectate în costurile culturilor și recoltei fără dublă numărare."
     },
     "pricing": {
-      "kicker": "Planuri clare",
-      "title": "Începe mic. Păstrați întregul istoric operațional.",
-      "description": "Niciun plan nu limitează operațiunile, recoltele sau înregistrările de câmp.",
+      "kicker": "Planuri simple și previzibile",
+      "title": "Plătiți pentru dimensiunea de care aveți nevoie, nu pentru munca pe care o înregistrați.",
+      "description": "Planurile variază după utilizatori, suprafață, parcele și profunzimea datelor meteo. Operațiunile, recoltările și registrele de câmp rămân fără limite artificiale.",
       "monthly": "Lunar",
       "annual": "Anual",
       "annualNote": "Facturarea anuală este egală cu zece plăți lunare",
@@ -5410,7 +5410,7 @@ export const homepageCopies = {
         },
         {
           "title": "Lohkokirjanpito",
-          "description": "Rakenna jäljitettävät kirjaukset ja todisteet integroidun tuotannon ja integroidun kasvinsuojelun (IPM), luonnonmukaisen tuotannon, GLOBALG.A.P. IFA:n, GRASP:n, SPRINGin ja muiden sovellettavien standardien tueksi. Sertifioinnista päättää aina toimivaltainen sertifiointielin.",
+          "description": "Rakenna jäljitettävät kirjaukset ja todisteet integroidun tuotannon ja integroidun kasvinsuojelun (IPM), luonnonmukaisen tuotannon, GLOBALG.A.P. IFA:n, GRASP:n, SPRINGin ja muiden sovellettavien standardien tueksi.",
           "status": "Saatavilla"
         }
       ]
@@ -5418,7 +5418,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Agronominen sää",
       "title": "Sää, joka puhuu kunkin sadon kieltä",
-      "description": "Kartoita peltoja, yhdistä sadot, toiminnot, sadonkorjuut ja agronominen sää ja pidä selkeää peltorekisteriä GeroFarm:n avulla.",
+      "description": "Virtuaaliasemat laskevat etänä viite-evapotranspiraation, auringonsäteilyn, arvioidun DLI:n, kasvukauden astepäivät, kylmäntarpeen ja arvioidun lehtikosteuden ilman anturien hankintaa tai asennusta. Useimmille tiloille ne tarjoavat suunnitteluun ja seurantaan tarvittavat agronomiset tiedot ilman tarpeettomia laitekuluja.",
       "metrics": [
         "Vertailuhaihdutustranspiraatio (ET₀)",
         "Auringon säteily",
@@ -5439,9 +5439,9 @@ export const homepageCopies = {
       "costsDesc": "Työvoima, laitteet, tuotantopanokset ja muut resurssit ennustetaan sato- ja satokustannuksiin ilman kaksinkertaista laskentaa."
     },
     "pricing": {
-      "kicker": "Selkeitä suunnitelmia",
-      "title": "Aloita pienestä. Säilytä koko toimintahistoria.",
-      "description": "Mikään suunnitelma ei rajoita toimintaa, satoa tai peltotietueita.",
+      "kicker": "Selkeät ja ennakoitavat paketit",
+      "title": "Maksa tarvitsemastasi mittakaavasta, älä kirjaamasi työn määrästä.",
+      "description": "Paketit vaihtelevat käyttäjien, pinta-alan, lohkojen ja säätietojen syvyyden mukaan. Toimenpiteille, sadonkorjuille ja lohkokirjanpidolle ei aseteta keinotekoisia rajoja.",
       "monthly": "Kuukausittain",
       "annual": "Vuosittainen",
       "annualNote": "Vuosilaskutus vastaa kymmentä kuukausimaksua",
@@ -5676,7 +5676,7 @@ export const homepageCopies = {
         },
         {
           "title": "Дневник на полето",
-          "description": "Структурирайте проследими записи и доказателства в подкрепа на интегрираното производство и интегрираното управление на вредителите (IPM), биологичното производство, GLOBALG.A.P. IFA, GRASP, SPRING и други приложими стандарти. Сертифицирането остава в компетентността на упълномощения орган.",
+          "description": "Структурирайте проследими записи и доказателства в подкрепа на интегрираното производство и интегрираното управление на вредителите (IPM), биологичното производство, GLOBALG.A.P. IFA, GRASP, SPRING и други приложими стандарти.",
           "status": "Наличен"
         }
       ]
@@ -5684,7 +5684,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Агрономическо време",
       "title": "Време, което говори езика на всяка култура",
-      "description": "Картирайте полета, свържете култури, операции, реколти и агрономично време и поддържайте ясен полеви запис с GeroFarm.",
+      "description": "Виртуалните станции изчисляват дистанционно референтната евапотранспирация, слънчевата радиация, прогнозния DLI, градусо-дните, нуждите от студ и прогнозното овлажняване на листата, без покупка или монтаж на сензори. За повечето стопанства те осигуряват нужната агрономическа информация без ненужни разходи за оборудване.",
       "metrics": [
         "Референтна евапотранспирация (ET₀)",
         "Слънчева радиация",
@@ -5705,9 +5705,9 @@ export const homepageCopies = {
       "costsDesc": "Труд, оборудване, суровини и други ресурси, предвидени в разходите за реколта и реколта без двойно отчитане."
     },
     "pricing": {
-      "kicker": "Ясни планове",
-      "title": "Започнете с малко. Пазете цялата оперативна история.",
-      "description": "Никакъв план не ограничава операции, реколти или полеви записи.",
+      "kicker": "Прости и предвидими планове",
+      "title": "Плащайте за необходимия мащаб, а не за работата, която регистрирате.",
+      "description": "Плановете се различават по потребители, площ, парцели и дълбочина на метеорологичните данни. Операциите, реколтите и дневниците нямат изкуствени ограничения.",
       "monthly": "Месечно",
       "annual": "Годишен",
       "annualNote": "Годишното таксуване се равнява на десет месечни плащания",
@@ -5942,7 +5942,7 @@ export const homepageCopies = {
         },
         {
           "title": "Táblatörzskönyv",
-          "description": "Hozzon létre nyomon követhető nyilvántartásokat és bizonyítékokat az integrált termelés és integrált növényvédelem (IPM), az ökológiai termelés, a GLOBALG.A.P. IFA, a GRASP, a SPRING és más alkalmazandó szabványok támogatására. A tanúsítás az illetékes tanúsító szervezet hatáskörébe tartozik.",
+          "description": "Hozzon létre nyomon követhető nyilvántartásokat és bizonyítékokat az integrált termelés és integrált növényvédelem (IPM), az ökológiai termelés, a GLOBALG.A.P. IFA, a GRASP, a SPRING és más alkalmazandó szabványok támogatására.",
           "status": "Elérhető"
         }
       ]
@@ -5950,7 +5950,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Agronómiai időjárás",
       "title": "Időjárás, amely az egyes termények nyelvét beszéli",
-      "description": "A GeroFarm segítségével térképezze fel a táblákat, kapcsolja össze a növényeket, a műveleteket, a betakarítást és az agronómiai időjárást, és vezessen egyértelmű táblát.",
+      "description": "A virtuális állomások távolról számítják a referencia-evapotranszspirációt, a napsugárzást, a becsült DLI-t, a növekedési foknapokat, a hidegigényt és a becsült levélnedvességet, érzékelők megvásárlása vagy telepítése nélkül. A legtöbb gazdaság számára biztosítják a tervezéshez és követéshez szükséges agronómiai információt, felesleges eszközköltség nélkül.",
       "metrics": [
         "Referencia evapotranspiráció (ET₀)",
         "Napsugárzás",
@@ -5971,9 +5971,9 @@ export const homepageCopies = {
       "costsDesc": "Munkaerő, felszerelés, ráfordítások és egyéb erőforrások a termés és a betakarítás költségeibe vetítve, kétszeres számítás nélkül."
     },
     "pricing": {
-      "kicker": "Világos tervek",
-      "title": "Kezdje kicsiben. Őrizze meg a teljes működési előzményeket.",
-      "description": "Egyetlen terv sem korlátozza a műveleteket, a betakarítást vagy a szántóföldi nyilvántartást.",
+      "kicker": "Egyszerű és kiszámítható csomagok",
+      "title": "A szükséges méretért fizessen, ne a rögzített munka mennyiségéért.",
+      "description": "A csomagok felhasználók, terület, táblák és meteorológiai részletesség szerint változnak. A műveletekre, betakarításokra és táblatörzskönyvekre nem vonatkoznak mesterséges korlátok.",
       "monthly": "Havonta",
       "annual": "Éves",
       "annualNote": "Az éves számlázás tíz havi fizetésnek felel meg",
@@ -6208,7 +6208,7 @@ export const homepageCopies = {
         },
         {
           "title": "Akraskrá",
-          "description": "Byggðu upp rekjanlegar skrár og gögn til stuðnings samþættri framleiðslu og samþættum plöntuverndaraðferðum (IPM), lífrænni framleiðslu, GLOBALG.A.P. IFA, GRASP, SPRING og öðrum viðeigandi stöðlum. Vottun er ávallt háð mati viðurkennds vottunaraðila.",
+          "description": "Byggðu upp rekjanlegar skrár og gögn til stuðnings samþættri framleiðslu og samþættum plöntuverndaraðferðum (IPM), lífrænni framleiðslu, GLOBALG.A.P. IFA, GRASP, SPRING og öðrum viðeigandi stöðlum.",
           "status": "Í boði"
         }
       ]
@@ -6216,7 +6216,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Búfræði veður",
       "title": "Veður sem talar tungumál hverrar ræktunar",
-      "description": "Kortleggðu akra, tengdu ræktun, rekstur, uppskeru og landbúnaðarveður og haltu skýrri akurskrá með GeroFarm.",
+      "description": "Sýndarveðurstöðvar reikna fjarstýrt viðmiðunargufun, sólgeislun, áætlað DLI, vaxtargráðudaga, kuldaþörf og áætlaðan laufblauta án þess að kaupa eða setja upp skynjara. Fyrir flest bú veita þær nauðsynlegar upplýsingar til skipulagningar og eftirfylgni án óþarfa tækjakostnaðar.",
       "metrics": [
         "Viðmiðunaruppgufun (ET₀)",
         "Sólargeislun",
@@ -6237,9 +6237,9 @@ export const homepageCopies = {
       "costsDesc": "Vinnuafli, búnaður, aðföng og önnur tilföng reiknuð inn í uppskeru- og uppskerukostnað án tvítalningar."
     },
     "pricing": {
-      "kicker": "Skýr áætlanir",
-      "title": "Byrjaðu smátt. Geymdu alla rekstrarsöguna.",
-      "description": "Engin áætlun takmarkar rekstur, uppskeru eða akurskrár.",
+      "kicker": "Einfaldar og fyrirsjáanlegar áskriftir",
+      "title": "Greiddu fyrir þá stærð sem þú þarft, ekki fyrir vinnuna sem þú skráir.",
+      "description": "Áskriftir miðast við notendur, flatarmál, reiti og dýpt veðurupplýsinga. Aðgerðir, uppskera og akraskrár eru áfram án gervilegra takmarkana.",
       "monthly": "Mánaðarlega",
       "annual": "Árlegt",
       "annualNote": "Árleg innheimta jafngildir tíu mánaðarlegum greiðslum",
@@ -6474,7 +6474,7 @@ export const homepageCopies = {
         },
         {
           "title": "Poľný denník",
-          "description": "Vytvárajte vysledovateľné záznamy a dôkazy na podporu integrovanej produkcie a integrovanej ochrany rastlín (IPM), ekologickej produkcie, GLOBALG.A.P. IFA, GRASP, SPRING a ďalších platných štandardov. Certifikácia zostáva v právomoci príslušného certifikačného orgánu.",
+          "description": "Vytvárajte vysledovateľné záznamy a dôkazy na podporu integrovanej produkcie a integrovanej ochrany rastlín (IPM), ekologickej produkcie, GLOBALG.A.P. IFA, GRASP, SPRING a ďalších platných štandardov.",
           "status": "Dostupné"
         }
       ]
@@ -6482,7 +6482,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Agronomické počasie",
       "title": "Počasie, ktoré hovorí jazykom každej plodiny",
-      "description": "Mapujte polia, spojte plodiny, operácie, úrodu a agronomické počasie a udržujte si prehľadné záznamy o poli so GeroFarm.",
+      "description": "Virtuálne stanice na diaľku počítajú referenčnú evapotranspiráciu, slnečné žiarenie, odhadované DLI, rastové stupňodní, potrebu chladu a odhadovanú vlhkosť listov bez nákupu či inštalácie senzorov. Väčšine hospodárstiev poskytujú agronomické informácie potrebné na plánovanie a sledovanie bez zbytočných nákladov na hardvér.",
       "metrics": [
         "Referenčná evapotranspirácia (ET₀)",
         "Slnečné žiarenie",
@@ -6503,9 +6503,9 @@ export const homepageCopies = {
       "costsDesc": "Práca, vybavenie, vstupy a iné zdroje premietnuté do nákladov na úrodu a zber bez dvojitého započítania."
     },
     "pricing": {
-      "kicker": "Jasné plány",
-      "title": "Začnite v malom. Uchovávajte celú prevádzkovú históriu.",
-      "description": "Žiadny plán neobmedzuje operácie, úrodu ani záznamy v teréne.",
+      "kicker": "Jednoduché a predvídateľné plány",
+      "title": "Plaťte za rozsah, ktorý potrebujete, nie za prácu, ktorú evidujete.",
+      "description": "Plány sa líšia počtom používateľov, výmerou, parcelami a hĺbkou meteorologických údajov. Zásahy, zbery a poľné denníky zostávajú bez umelých obmedzení.",
       "monthly": "Mesačne",
       "annual": "Ročný",
       "annualNote": "Ročné vyúčtovanie sa rovná desiatim mesačným platbám",
@@ -6740,7 +6740,7 @@ export const homepageCopies = {
         },
         {
           "title": "Lauko žurnalas",
-          "description": "Kurkite atsekamus įrašus ir įrodymus, padedančius laikytis integruotos gamybos ir integruotos kenkėjų kontrolės (IPM), ekologinės gamybos, GLOBALG.A.P. IFA, GRASP, SPRING ir kitų taikomų standartų. Sertifikavimą visada atlieka kompetentinga sertifikavimo įstaiga.",
+          "description": "Kurkite atsekamus įrašus ir įrodymus, padedančius laikytis integruotos gamybos ir integruotos kenkėjų kontrolės (IPM), ekologinės gamybos, GLOBALG.A.P. IFA, GRASP, SPRING ir kitų taikomų standartų.",
           "status": "Galima"
         }
       ]
@@ -6748,7 +6748,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Agronominis oras",
       "title": "Oras, kuris kalba kiekvieno derliaus kalba",
-      "description": "Su GeroFarm susirašykite laukus, sujunkite pasėlius, operacijas, derlių ir agronominius orus bei veskite aiškų lauko įrašą.",
+      "description": "Virtualios stotys nuotoliniu būdu apskaičiuoja etaloninę evapotranspiraciją, saulės spinduliuotę, numatomą DLI, augimo laipsniadienius, šalčio poreikį ir numatomą lapų drėgnumą, todėl nereikia pirkti ar montuoti jutiklių. Daugumai ūkių jos suteikia planavimui ir stebėjimui reikalingą agronominę informaciją be nereikalingų įrangos išlaidų.",
       "metrics": [
         "Etaloninė evapotranspiracija (ET₀)",
         "Saulės spinduliuotė",
@@ -6769,9 +6769,9 @@ export const homepageCopies = {
       "costsDesc": "Darbo jėga, įranga, sąnaudos ir kiti ištekliai numatyti pasėlių ir derliaus sąnaudoms be dvigubo skaičiavimo."
     },
     "pricing": {
-      "kicker": "Aiškūs planai",
-      "title": "Pradėkite nuo mažo. Išsaugokite visą veiklos istoriją.",
-      "description": "Joks planas neriboja operacijų, derliaus ar lauko įrašų.",
+      "kicker": "Paprasti ir nuspėjami planai",
+      "title": "Mokėkite už reikalingą mastą, o ne už registruojamą darbą.",
+      "description": "Planai skiriasi pagal naudotojus, plotą, laukus ir meteorologinių duomenų išsamumą. Operacijoms, derliui ir lauko žurnalams netaikomi dirbtiniai limitai.",
       "monthly": "Kas mėnesį",
       "annual": "Metinis",
       "annualNote": "Metinis atsiskaitymas lygus dešimčiai mėnesinių mokėjimų",
@@ -7006,7 +7006,7 @@ export const homepageCopies = {
         },
         {
           "title": "Poljski dnevnik",
-          "description": "Uredite sledljive evidence in dokazila v podporo integrirani pridelavi in integriranemu varstvu rastlin (IPM), ekološki pridelavi, GLOBALG.A.P. IFA, GRASP, SPRING ter drugim veljavnim standardom. Certificiranje ostaja v pristojnosti pooblaščenega certifikacijskega organa.",
+          "description": "Uredite sledljive evidence in dokazila v podporo integrirani pridelavi in integriranemu varstvu rastlin (IPM), ekološki pridelavi, GLOBALG.A.P. IFA, GRASP, SPRING ter drugim veljavnim standardom.",
           "status": "Na voljo"
         }
       ]
@@ -7014,7 +7014,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Agronomsko vreme",
       "title": "Vreme, ki govori jezik vsakega pridelka",
-      "description": "Preslikajte polja, povežite pridelke, operacije, žetve in agronomsko vreme ter vodite jasen zapis polja z GeroFarm.",
+      "description": "Virtualne postaje na daljavo izračunavajo referenčno evapotranspiracijo, sončno sevanje, ocenjeno DLI, rastne stopinjske dni, potrebe po hladu in ocenjeno omočenost listov, brez nakupa ali namestitve senzorjev. Večini gospodarstev zagotavljajo agronomske informacije za načrtovanje in spremljanje brez nepotrebnih stroškov opreme.",
       "metrics": [
         "Referenčna evapotranspiracija (ET₀)",
         "Sončno sevanje",
@@ -7035,9 +7035,9 @@ export const homepageCopies = {
       "costsDesc": "Delo, oprema, vložki in drugi viri, predvideni v stroških pridelka in žetve brez dvojnega štetja."
     },
     "pricing": {
-      "kicker": "Jasni načrti",
-      "title": "Začni z majhnim. Hranite celotno zgodovino delovanja.",
-      "description": "Noben načrt ne omejuje operacij, žetev ali zapisov na terenu.",
+      "kicker": "Preprosti in predvidljivi paketi",
+      "title": "Plačajte za obseg, ki ga potrebujete, ne za delo, ki ga beležite.",
+      "description": "Paketi se razlikujejo po uporabnikih, površini, parcelah in globini meteoroloških podatkov. Opravila, spravila in poljski dnevniki ostajajo brez umetnih omejitev.",
       "monthly": "Mesečno",
       "annual": "Letna",
       "annualNote": "Letni obračun je enak desetim mesečnim plačilom",
@@ -7272,7 +7272,7 @@ export const homepageCopies = {
         },
         {
           "title": "Lauka žurnāls",
-          "description": "Veidojiet izsekojamus ierakstus un pierādījumus integrētās ražošanas un integrētās augu aizsardzības (IPM), bioloģiskās ražošanas, GLOBALG.A.P. IFA, GRASP, SPRING un citu piemērojamo standartu atbalstam. Sertifikāciju vienmēr veic kompetentā sertifikācijas iestāde.",
+          "description": "Veidojiet izsekojamus ierakstus un pierādījumus integrētās ražošanas un integrētās augu aizsardzības (IPM), bioloģiskās ražošanas, GLOBALG.A.P. IFA, GRASP, SPRING un citu piemērojamo standartu atbalstam.",
           "status": "Pieejams"
         }
       ]
@@ -7280,7 +7280,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Agronomiskie laikapstākļi",
       "title": "Laikapstākļi, kas runā katras kultūras valodā",
-      "description": "Kartējiet laukus, savienojiet kultūras, darbības, ražas un agronomiskos laikapstākļus un saglabājiet skaidru lauka uzskaiti, izmantojot GeroFarm.",
+      "description": "Virtuālās stacijas attālināti aprēķina references evapotranspirāciju, saules starojumu, aplēsto DLI, augšanas grādu dienas, aukstuma vajadzību un aplēsto lapu mitrumu, neprasot iegādāties vai uzstādīt sensorus. Vairumam saimniecību tās nodrošina plānošanai un uzraudzībai vajadzīgo agronomisko informāciju bez liekām aparatūras izmaksām.",
       "metrics": [
         "Atsauces evapotranspirācija (ET₀)",
         "Saules starojums",
@@ -7301,9 +7301,9 @@ export const homepageCopies = {
       "costsDesc": "Darbaspēks, aprīkojums, izejmateriāli un citi resursi, kas tiek prognozēti ražas un ražas izmaksās bez dubultas uzskaites."
     },
     "pricing": {
-      "kicker": "Skaidri plāni",
-      "title": "Sāciet ar mazumiņu. Saglabājiet visu darbības vēsturi.",
-      "description": "Neviens plāns neierobežo darbības, ražas vai lauka ierakstus.",
+      "kicker": "Vienkārši un paredzami plāni",
+      "title": "Maksājiet par vajadzīgo mērogu, nevis par reģistrēto darbu.",
+      "description": "Plāni atšķiras pēc lietotāju skaita, platības, laukiem un meteoroloģisko datu dziļuma. Darbībām, ražām un lauku žurnāliem nav mākslīgu ierobežojumu.",
       "monthly": "Ikmēneša",
       "annual": "Gada",
       "annualNote": "Gada rēķins ir vienāds ar desmit ikmēneša maksājumiem",

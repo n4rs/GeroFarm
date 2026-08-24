@@ -29,18 +29,23 @@ test("homepage leads with capabilities and paid privacy controls", () => {
   assert.match(ptPT.hero.description, /simples de usar/);
   assert.match(ptPT.hero.description, /planos acessíveis/);
   assert.match(ptPT.modules.title, /o que tem, o que utiliza e quanto custa/);
+  assert.match(ptPT.weather.description, /sem exigir a compra ou instalação de sensores/);
+  assert.match(ptPT.weather.description, /maioria das explorações/);
+  assert.match(ptPT.weather.description, /custos desnecessários com hardware/);
+  assert.equal(ptPT.pricing.title, "Pague pela escala de que precisa, não pelo trabalho que regista.");
+  assert.match(ptPT.pricing.description, /sem limites artificiais/);
   assert.equal(ptPT.privacy.items.length, 7);
-  assert.doesNotMatch(text, /Agricultura de campo, ligada|respetivas tags|Exemplos por tag|PDF.*Free|Free.*PDF|Profundidade adaptável|Módulo opcional|Incluída em todos os planos/i);
+  assert.doesNotMatch(text, /Agricultura de campo, ligada|respetivas tags|Exemplos por tag|PDF.*Free|Free.*PDF|Profundidade adaptável|Módulo opcional|Incluída em todos os planos|Os valores são estimativas|Comece pequeno\. Preserve/i);
 });
 
 test("field records support assurance evidence without claiming certification", () => {
   const ptLogbook = ptPT.platform.cards[7].description;
   const enLogbook = en.platform.cards[7].description;
   for (const term of ["PRODI", "MPB", "GLOBALG.A.P. IFA", "GRASP", "SPRING"]) assert.match(ptLogbook, new RegExp(term.replaceAll(".", "\\.")));
-  assert.match(ptLogbook, /organismo competente/);
+  assert.doesNotMatch(ptLogbook, /organismo competente|certificação continua/i);
   assert.match(enLogbook, /Integrated Pest Management \(IPM\)/);
   assert.match(enLogbook, /organic production/);
-  assert.match(enLogbook, /competent certification body/);
+  assert.doesNotMatch(enLogbook, /certification body|certification remains/i);
 });
 
 test("future integrations are not presented as active", () => {

@@ -39,7 +39,9 @@ export function applyHomepageCommercialReview(copies: Record<SupportedLocale, Ho
   for (const [locale, review] of Object.entries(reviews) as Array<[Exclude<SupportedLocale, "en" | "pt-PT">, CommercialReview]>) {
     const copy = copies[locale];
     Object.assign(copy.hero, { title: review.heroTitle, accent: review.heroAccent, description: review.heroDescription });
-    copy.platform.cards[7].description = review.logbookDescription;
+    const schemeEnd = review.logbookDescription.indexOf("SPRING") + "SPRING".length;
+    const sentenceEnd = review.logbookDescription.slice(schemeEnd).search(/[.!?。]/u);
+    copy.platform.cards[7].description = sentenceEnd < 0 ? review.logbookDescription : review.logbookDescription.slice(0, schemeEnd + sentenceEnd + 1);
     Object.assign(copy.modules, { kicker: review.modulesKicker, title: review.modulesTitle, description: review.modulesDescription });
   }
 }
