@@ -10,3 +10,9 @@ Estado em 2026-08-24:
 - Dependências futuras não bloqueantes: contratos do GeroCore para catálogo/stock central, integração GeroGrid apenas para horários, credenciais e acessos QA.
 
 Não declarar estes pontos validados até existirem evidências separadas de migração, asset atual, health, DOM/UI e consola.
+
+## Monitorização, colheita e caderno de campo
+
+- A meteorologia automática de uma observação continua dependente do contrato meteorológico do GeroCore. O GeroFarm preserva `automaticWeather`, a correção do utilizador e a justificação separadamente, mas a chamada real ao Core deve ser ligada apenas na fase final de dependências GeroCore.
+- A inspeção visual local desta fase usou a rota de desenvolvimento sem organização persistida. A validação publicada dos formulários requer uma organização QA com contexto GeroFarm; fica reservada para a tarefa exclusiva de intervenções e não bloqueia a implementação autónoma.
+- Não foi observado nem aguardado qualquer deploy nesta fase, por regra explícita. Health, assets do DigitalOcean, migração publicada e UI de produção permanecem sem validação até uma intervenção separada.

@@ -20,10 +20,12 @@ import { createFertilizationPlanSchema } from "@shared/fertilization-plans";
 import type { FertilizationPlanRepository } from "./fertilization-plans";
 import { createIrrigationSchema, createIrrigationSectorSchema, createMeterReadingSchema, createWaterAnalysisSchema, createWaterMeterSchema } from "@shared/irrigation";
 import type { IrrigationRepository } from "./irrigation";
+import { createHarvestSchema, createLaboratoryResultSchema, createLaboratorySampleSchema, createMonitoringSchema, notebookScopeSchema } from "@shared/agronomy";
+import type { AgronomyRepository } from "./agronomy";
 
 const idSchema = z.string().uuid();
 
-export function createFarmRouter(repository: FarmHoldingRepository, resolveContext: FarmContextResolver, fields?: FieldRepository, crops?: CropRepository, lifecycle?: CropLifecycleRepository, resources?: ResourceRepository, operations?: OperationRepository, privacy?: PrivacyRepository, fertilizationPlans?: FertilizationPlanRepository, irrigation?: IrrigationRepository) {
+export function createFarmRouter(repository: FarmHoldingRepository, resolveContext: FarmContextResolver, fields?: FieldRepository, crops?: CropRepository, lifecycle?: CropLifecycleRepository, resources?: ResourceRepository, operations?: OperationRepository, privacy?: PrivacyRepository, fertilizationPlans?: FertilizationPlanRepository, irrigation?: IrrigationRepository, agronomy?: AgronomyRepository) {
   const router = Router();
   router.get("/holdings", async (req, res, next) => {
     try { const context = await resolveContext(req); res.set("cache-control", "no-store").json({ data: await repository.list(context) }); } catch (error) { next(error); }
@@ -66,6 +68,17 @@ export function createFarmRouter(repository: FarmHoldingRepository, resolveConte
     router.post("/irrigation/records",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req);res.status(201).json({data:await irrigation.createIrrigation(context,createIrrigationSchema.parse(req.body))})}catch(error){next(error)}});
     router.post("/irrigation/schedules/finalize-due",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req);res.json({data:{finalized:await irrigation.finalizeDue(context)}})}catch(error){next(error)}});
     router.post("/irrigation/records/:id/reverse",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req);const data=await irrigation.reverse(context,idSchema.parse(req.params.id));if(!data)return res.status(404).json({code:"IRRIGATION_NOT_FOUND"});return res.json({data})}catch(error){next(error)}});
+  }
+  if(agronomy){
+    router.get("/agronomy",async(req,res,next)=>{try{const context=await resolveContext(req);res.set("cache-control","no-store").json({data:await agronomy.overview(context)})}catch(error){next(error)}});
+    router.post("/monitorings",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req);res.status(201).json({data:await agronomy.createMonitoring(context,createMonitoringSchema.parse(req.body))})}catch(error){next(error)}});
+    router.post("/laboratory-samples",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req);res.status(201).json({data:await agronomy.createSample(context,createLaboratorySampleSchema.parse(req.body))})}catch(error){next(error)}});
+    router.post("/laboratory-results",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req);res.status(201).json({data:await agronomy.createResult(context,createLaboratoryResultSchema.parse(req.body))})}catch(error){next(error)}});
+    router.post("/harvests",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req);res.status(201).json({data:await agronomy.createHarvest(context,createHarvestSchema.parse(req.body))})}catch(error){next(error)}});
+    router.post("/field-notebooks/current",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req);res.json({data:await agronomy.currentNotebook(context,notebookScopeSchema.parse(req.body))})}catch(error){next(error)}});
+    router.post("/field-notebooks",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req);res.status(201).json({data:await agronomy.issueNotebook(context,notebookScopeSchema.parse(req.body))})}catch(error){next(error)}});
+    router.get("/field-notebooks/:id/pdf",async(req,res,next)=>{try{const context=await resolveContext(req),pdf=await agronomy.pdf(context,idSchema.parse(req.params.id));if(!pdf)return res.status(404).json({code:"NOTEBOOK_PDF_NOT_FOUND"});return res.set({"cache-control":"no-store","content-type":"application/pdf","content-disposition":`attachment; filename="${pdf.filename}"`}).send(pdf.data)}catch(error){next(error)}});
+    router.delete("/field-notebooks/:id",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req),deleted=await agronomy.deleteNotebook(context,idSchema.parse(req.params.id));if(!deleted)return res.status(404).json({code:"NOTEBOOK_NOT_FOUND"});return res.status(204).end()}catch(error){next(error)}});
   }
   return router;
 }

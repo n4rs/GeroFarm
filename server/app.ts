@@ -22,8 +22,9 @@ import { createPostgresOperationRepository,type OperationRepository } from "./op
 import { createPostgresPrivacyRepository,type PrivacyRepository } from "./privacy";
 import { createPostgresFertilizationPlanRepository,type FertilizationPlanRepository } from "./fertilization-plans";
 import { createPostgresIrrigationRepository, type IrrigationRepository } from "./irrigation";
+import { createPostgresAgronomyRepository, type AgronomyRepository } from "./agronomy";
 
-export type AppOptions = { database?: FarmDatabase; farmHoldingRepository?: FarmHoldingRepository; fieldRepository?: FieldRepository; cropRepository?: CropRepository; cropLifecycleRepository?: CropLifecycleRepository; resourceRepository?:ResourceRepository; operationRepository?:OperationRepository; privacyRepository?:PrivacyRepository; fertilizationPlanRepository?:FertilizationPlanRepository; irrigationRepository?:IrrigationRepository; farmContextResolver?: FarmContextResolver };
+export type AppOptions = { database?: FarmDatabase; farmHoldingRepository?: FarmHoldingRepository; fieldRepository?: FieldRepository; cropRepository?: CropRepository; cropLifecycleRepository?: CropLifecycleRepository; resourceRepository?:ResourceRepository; operationRepository?:OperationRepository; privacyRepository?:PrivacyRepository; fertilizationPlanRepository?:FertilizationPlanRepository; irrigationRepository?:IrrigationRepository; agronomyRepository?:AgronomyRepository; farmContextResolver?: FarmContextResolver };
 
 export function createApp(options: AppOptions = {}) {
   const app = express();
@@ -133,7 +134,8 @@ export function createApp(options: AppOptions = {}) {
   const privacyRepository=options.privacyRepository||(options.database?createPostgresPrivacyRepository(options.database):undefined);
   const fertilizationPlanRepository=options.fertilizationPlanRepository||(options.database?createPostgresFertilizationPlanRepository(options.database,operationRepository):undefined);
   const irrigationRepository=options.irrigationRepository||(options.database?createPostgresIrrigationRepository(options.database):undefined);
-  if (farmHoldingRepository) app.use("/api/farm", createFarmRouter(farmHoldingRepository, options.farmContextResolver || resolveFarmContext, fieldRepository, cropRepository, cropLifecycleRepository,resourceRepository,operationRepository,privacyRepository,fertilizationPlanRepository,irrigationRepository));
+  const agronomyRepository=options.agronomyRepository||(options.database&&operationRepository?createPostgresAgronomyRepository(options.database,operationRepository):undefined);
+  if (farmHoldingRepository) app.use("/api/farm", createFarmRouter(farmHoldingRepository, options.farmContextResolver || resolveFarmContext, fieldRepository, cropRepository, cropLifecycleRepository,resourceRepository,operationRepository,privacyRepository,fertilizationPlanRepository,irrigationRepository,agronomyRepository));
 
   app.use("/api", (_req, res) => res.status(404).json({ message: "API route not found", code: "NOT_FOUND" }));
 
