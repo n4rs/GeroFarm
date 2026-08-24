@@ -5,7 +5,6 @@ import type { HomepageCopy } from "../home-copy";
 import { formatWorkspaceMessage, workspaceCopies, workspaceStateCopies } from "./workspace-locales";
 import "../mockup/mockup.css";
 import "./workspace.css";
-import { privacyCopies } from "./privacy/privacy-locales.generated";
 
 const FarmHoldingsModule = lazy(() => import("./farm/FarmHoldingsModule"));
 const CropsModule = lazy(() => import("./crops/CropsModule"));
@@ -50,7 +49,7 @@ export default function AppWorkspace() {
   const { locale, copy, setLocale, options } = useI18n();
   const common = workspaceCopies[locale];
   const stateCopy = workspaceStateCopies[locale];
-  const navigation = useMemo(() => moduleNavigation(copy, common, privacyCopies[locale]["nav.dataProtection"]), [copy, common, locale]);
+  const navigation = useMemo(() => moduleNavigation(copy, common, copy.privacy.title), [copy, common]);
   const [module, setModule] = useState<ModuleId>(() => routeModule());
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
