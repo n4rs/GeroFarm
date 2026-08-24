@@ -19,8 +19,9 @@ import { createPostgresCropLifecycleRepository, type CropLifecycleRepository } f
 import { OccupancyError } from "@shared/crop-lifecycle";
 import { createPostgresResourceRepository,type ResourceRepository } from "./resources";
 import { createPostgresOperationRepository,type OperationRepository } from "./operations";
+import { createPostgresPrivacyRepository,type PrivacyRepository } from "./privacy";
 
-export type AppOptions = { database?: FarmDatabase; farmHoldingRepository?: FarmHoldingRepository; fieldRepository?: FieldRepository; cropRepository?: CropRepository; cropLifecycleRepository?: CropLifecycleRepository; resourceRepository?:ResourceRepository; operationRepository?:OperationRepository; farmContextResolver?: FarmContextResolver };
+export type AppOptions = { database?: FarmDatabase; farmHoldingRepository?: FarmHoldingRepository; fieldRepository?: FieldRepository; cropRepository?: CropRepository; cropLifecycleRepository?: CropLifecycleRepository; resourceRepository?:ResourceRepository; operationRepository?:OperationRepository; privacyRepository?:PrivacyRepository; farmContextResolver?: FarmContextResolver };
 
 export function createApp(options: AppOptions = {}) {
   const app = express();
@@ -127,7 +128,8 @@ export function createApp(options: AppOptions = {}) {
   const cropLifecycleRepository = options.cropLifecycleRepository || (options.database ? createPostgresCropLifecycleRepository(options.database) : undefined);
   const resourceRepository=options.resourceRepository||(options.database?createPostgresResourceRepository(options.database):undefined);
   const operationRepository=options.operationRepository||(options.database?createPostgresOperationRepository(options.database):undefined);
-  if (farmHoldingRepository) app.use("/api/farm", createFarmRouter(farmHoldingRepository, options.farmContextResolver || resolveFarmContext, fieldRepository, cropRepository, cropLifecycleRepository,resourceRepository,operationRepository));
+  const privacyRepository=options.privacyRepository||(options.database?createPostgresPrivacyRepository(options.database):undefined);
+  if (farmHoldingRepository) app.use("/api/farm", createFarmRouter(farmHoldingRepository, options.farmContextResolver || resolveFarmContext, fieldRepository, cropRepository, cropLifecycleRepository,resourceRepository,operationRepository,privacyRepository));
 
   app.use("/api", (_req, res) => res.status(404).json({ message: "API route not found", code: "NOT_FOUND" }));
 

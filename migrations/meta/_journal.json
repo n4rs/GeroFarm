@@ -57,6 +57,13 @@
       "when": 1787546400000,
       "tag": "0007_operation_destinations",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1787550000000,
+      "tag": "0008_privacy_by_design",
+      "breakpoints": true
     }
   ]
 }

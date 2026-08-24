@@ -5,23 +5,25 @@ import type { HomepageCopy } from "../home-copy";
 import { formatWorkspaceMessage, workspaceCopies, workspaceStateCopies } from "./workspace-locales";
 import "../mockup/mockup.css";
 import "./workspace.css";
+import { privacyCopies } from "./privacy/privacy-locales.generated";
 
 const FarmHoldingsModule = lazy(() => import("./farm/FarmHoldingsModule"));
 const CropsModule = lazy(() => import("./crops/CropsModule"));
 const ResourcesModule = lazy(() => import("./resources/ResourcesModule"));
 const OperationsModule = lazy(() => import("./operations/OperationsModule"));
+const PrivacyModule = lazy(() => import("./privacy/PrivacyModule"));
 
-type ModuleId = "overview" | "farm" | "crops" | "operations" | "plans" | "weather" | "harvests" | "notebook" | "resources" | "inventory" | "costs" | "settings";
+type ModuleId = "overview" | "farm" | "crops" | "operations" | "plans" | "weather" | "harvests" | "notebook" | "resources" | "inventory" | "costs" | "privacy" | "settings";
 type NavigationItem = { id: ModuleId; label: string; short: string; group?: string };
 
-const validModules = new Set<ModuleId>(["overview", "farm", "crops", "operations", "plans", "weather", "harvests", "notebook", "resources", "inventory", "costs", "settings"]);
+const validModules = new Set<ModuleId>(["overview", "farm", "crops", "operations", "plans", "weather", "harvests", "notebook", "resources", "inventory", "costs", "privacy", "settings"]);
 
 function routeModule(pathname = window.location.pathname): ModuleId {
   const candidate = pathname.split("/").filter(Boolean)[1] as ModuleId | undefined;
   return candidate && validModules.has(candidate) ? candidate : "overview";
 }
 
-function moduleNavigation(copy: HomepageCopy, common: ReturnType<typeof commonCopy>): NavigationItem[] {
+function moduleNavigation(copy: HomepageCopy, common: ReturnType<typeof commonCopy>, privacyLabel = "Privacy by Design"): NavigationItem[] {
   return [
     { id: "overview", label: common.overview, short: "01" },
     { id: "farm", label: copy.platform.cards[0].title, short: "02" },
@@ -34,7 +36,8 @@ function moduleNavigation(copy: HomepageCopy, common: ReturnType<typeof commonCo
     { id: "resources", label: copy.platform.cards[6].title, short: "09", group: copy.modules.kicker },
     { id: "inventory", label: copy.modules.inventory, short: "10" },
     { id: "costs", label: copy.modules.costs, short: "11" },
-    { id: "settings", label: common.settings, short: "12" },
+    { id: "privacy", label: privacyLabel, short: "12" },
+    { id: "settings", label: common.settings, short: "13" },
   ];
 }
 
@@ -47,7 +50,7 @@ export default function AppWorkspace() {
   const { locale, copy, setLocale, options } = useI18n();
   const common = workspaceCopies[locale];
   const stateCopy = workspaceStateCopies[locale];
-  const navigation = useMemo(() => moduleNavigation(copy, common), [copy, common]);
+  const navigation = useMemo(() => moduleNavigation(copy, common, privacyCopies[locale]["nav.dataProtection"]), [copy, common, locale]);
   const [module, setModule] = useState<ModuleId>(() => routeModule());
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -88,7 +91,7 @@ export default function AppWorkspace() {
       </header>
 
       <main className="farm-content">
-        {module === "overview" ? <Overview name={session.user.name} organization={session.access.organization.name} common={common} /> : module === "farm" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><FarmHoldingsModule /></Suspense> : module === "crops" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><CropsModule /></Suspense> : module === "resources" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><ResourcesModule /></Suspense> : module === "operations" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><OperationsModule /></Suspense> : <PendingModule title={active.label} common={common} />}
+        {module === "overview" ? <Overview name={session.user.name} organization={session.access.organization.name} common={common} /> : module === "farm" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><FarmHoldingsModule /></Suspense> : module === "crops" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><CropsModule /></Suspense> : module === "resources" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><ResourcesModule /></Suspense> : module === "operations" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><OperationsModule /></Suspense> : module === "privacy" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><PrivacyModule /></Suspense> : <PendingModule title={active.label} common={common} />}
       </main>
     </div>
   </div>;
