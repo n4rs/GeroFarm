@@ -8,8 +8,14 @@ import {
   selectedOrganizationId,
   setSelectedOrganization,
 } from "./organization-selection";
+import type { FarmDatabase } from "./database";
+import { resolveFarmContext, type FarmContextResolver } from "./farm-context";
+import { createPostgresFarmHoldingRepository, type FarmHoldingRepository } from "./farm-holdings";
+import { createFarmRouter } from "./farm-routes";
 
-export function createApp() {
+export type AppOptions = { database?: FarmDatabase; farmHoldingRepository?: FarmHoldingRepository; farmContextResolver?: FarmContextResolver };
+
+export function createApp(options: AppOptions = {}) {
   const app = express();
   app.disable("x-powered-by");
   app.set("trust proxy", 1);
@@ -108,13 +114,17 @@ export function createApp() {
     } catch (error) { next(error); }
   });
 
+  const farmHoldingRepository = options.farmHoldingRepository || (options.database ? createPostgresFarmHoldingRepository(options.database) : null);
+  if (farmHoldingRepository) app.use("/api/farm", createFarmRouter(farmHoldingRepository, options.farmContextResolver || resolveFarmContext));
+
   app.use("/api", (_req, res) => res.status(404).json({ message: "API route not found", code: "NOT_FOUND" }));
 
   app.use((error: unknown, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
     res.set("cache-control", "no-store");
-    if (error instanceof z.ZodError) return res.status(400).json({ message: "Invalid request", code: "VALIDATION_ERROR" });
+    if (error instanceof z.ZodError) return res.status(400).json({ message: "Invalid request", code: "VALIDATION_ERROR", issues: error.issues.map(({ path, code }) => ({ path, code })) });
     if (error instanceof CoreApiError) return res.status(error.status).json({ message: error.message, code: error.code });
     if (error instanceof RequestOriginError) return res.status(error.status).json({ message: error.message, code: "ORIGIN_REJECTED" });
+    if (typeof error === "object" && error && "code" in error && error.code === "23505") return res.status(409).json({ message: "A record with that code already exists", code: "CODE_CONFLICT" });
     console.error("Unhandled GeroFarm request error", error);
     return res.status(503).json({ message: "GeroFarm is temporarily unavailable", code: "SERVICE_UNAVAILABLE" });
   });

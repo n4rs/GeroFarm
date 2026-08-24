@@ -1,5 +1,6 @@
 import { supportedLocales } from "../client/src/home-copy";
 import { workspaceCopies, workspaceStateCopies } from "../client/src/app/workspace-locales";
+import { farmHoldingCopies } from "../client/src/app/farm/farm-holding-locales";
 
 function placeholders(value: string) { return [...value.matchAll(/\{(\w+)\}/g)].map((match) => match[1]).sort(); }
 
@@ -20,5 +21,18 @@ for (const locale of supportedLocales) {
   }
 }
 
+const moduleCatalogues = { farmHoldings: farmHoldingCopies };
+for (const [catalogueName, catalogue] of Object.entries(moduleCatalogues)) {
+  const keys = Object.keys(catalogue.en).sort();
+  for (const locale of supportedLocales) {
+    if (JSON.stringify(Object.keys(catalogue[locale]).sort()) !== JSON.stringify(keys)) findings.push(`${catalogueName}.${locale}: key mismatch`);
+    for (const key of keys) {
+      const value = catalogue[locale][key as keyof typeof catalogue.en];
+      if (!value.trim()) findings.push(`${catalogueName}.${locale}.${key}: blank value`);
+      if (locale !== "en" && value === catalogue.en[key as keyof typeof catalogue.en] && value.length >= 18) findings.push(`${catalogueName}.${locale}.${key}: untranslated English sentence`);
+    }
+  }
+}
+
 if (findings.length) throw new Error(`Application locale review failed:\n${findings.join("\n")}`);
-console.log(`Reviewed ${supportedLocales.length} application locales with key, placeholder and untranslated-sentence checks.`);
+console.log(`Reviewed ${supportedLocales.length} application locales across ${1 + Object.keys(moduleCatalogues).length} catalogues.`);

@@ -5,9 +5,9 @@ import { fileURLToPath } from "node:url";
 import { createApp } from "./app";
 import { createDatabase } from "./database";
 
-const app = createApp();
-const server = createServer(app);
 const persistence = process.env.DATABASE_URL ? createDatabase() : null;
+const app = createApp({ database: persistence?.db });
+const server = createServer(app);
 
 if (process.env.NODE_ENV === "production") {
   const publicDirectory = fileURLToPath(new URL("./public", import.meta.url));

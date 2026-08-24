@@ -8,6 +8,13 @@
       "when": 1787514315052,
       "tag": "0000_sloppy_dorian_gray",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1787524800000,
+      "tag": "0001_farm_holdings",
+      "breakpoints": true
     }
   ]
 }

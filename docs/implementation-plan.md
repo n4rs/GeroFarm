@@ -2,8 +2,8 @@
 
 Every completed module includes the database model and tenant isolation, server API, authenticated interface, audit rules, tests, production build and reviewed translations for all 28 homepage locales. A module is only pushed to `main` after those checks pass.
 
-1. Authenticated workspace, navigation and shared application internationalisation.
-2. Farms and fields: geometry, KML/KMZ, usable area, codes, overlap and occupancy.
+1. [Complete] Authenticated workspace, navigation and shared application internationalisation.
+2. [In progress] Farms and fields: agricultural holdings are complete; field geometry, KML/KMZ, usable area, codes, overlap and occupancy follow in the next delivery.
 3. Agronomic catalogue, varieties, plantations, permanent campaigns, temporary cycles, uprooting, fallow and rotation.
 4. Workers, certificates, contractors, equipment and the shared performed-operation model.
 5. Soil preparation, crop installation and cultural work.

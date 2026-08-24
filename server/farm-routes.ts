@@ -1,0 +1,22 @@
+import { Router } from "express";
+import { z } from "zod";
+import { createFarmHoldingSchema, updateFarmHoldingSchema } from "@shared/farm-holdings";
+import type { FarmContextResolver } from "./farm-context";
+import type { FarmHoldingRepository } from "./farm-holdings";
+import { assertSameOrigin } from "./organization-selection";
+
+const idSchema = z.string().uuid();
+
+export function createFarmRouter(repository: FarmHoldingRepository, resolveContext: FarmContextResolver) {
+  const router = Router();
+  router.get("/holdings", async (req, res, next) => {
+    try { const context = await resolveContext(req); res.set("cache-control", "no-store").json({ data: await repository.list(context) }); } catch (error) { next(error); }
+  });
+  router.post("/holdings", async (req, res, next) => {
+    try { assertSameOrigin(req); const context = await resolveContext(req); const created = await repository.create(context, createFarmHoldingSchema.parse(req.body)); res.status(201).set("cache-control", "no-store").json({ data: created }); } catch (error) { next(error); }
+  });
+  router.patch("/holdings/:id", async (req, res, next) => {
+    try { assertSameOrigin(req); const context = await resolveContext(req); const updated = await repository.update(context, idSchema.parse(req.params.id), updateFarmHoldingSchema.parse(req.body)); if (!updated) return res.status(404).json({ message: "Farm holding not found", code: "FARM_HOLDING_NOT_FOUND" }); return res.set("cache-control", "no-store").json({ data: updated }); } catch (error) { next(error); }
+  });
+  return router;
+}

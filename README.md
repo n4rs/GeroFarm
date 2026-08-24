@@ -17,6 +17,7 @@ Fundação técnica do GeroFarm, uma aplicação nova que corre em paralelo com 
 - Portão linguístico próprio para paridade de chaves, placeholders, frases por idioma e regras plurais com `Intl.PluralRules`.
 - PostgreSQL/Drizzle com credenciais separadas de runtime e migrations.
 - Schema `farm`, projeção local mínima da organização e Row-Level Security forçada.
+- Explorações agrícolas locais com código estável, fuso horário, estado, isolamento por organização e auditoria imutável.
 - Inicializador seguro para a base lógica `gero_farm`, sem acesso à base do GeroCore.
 - Job `db-migrate` executado antes de cada deployment.
 - App Spec de referência para DigitalOcean em `.do/app.yaml`.

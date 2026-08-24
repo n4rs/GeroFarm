@@ -41,6 +41,14 @@ test("initial migration enforces tenant RLS and least-privilege runtime grants",
   assert.match(migration, /ALTER DEFAULT PRIVILEGES FOR ROLE "gero_farm_migrator"/);
 });
 
+test("farm holding migration enforces tenant isolation and immutable audit events", () => {
+  const migration = readFileSync(resolve("migrations/0001_farm_holdings.sql"), "utf8");
+  assert.match(migration, /ALTER TABLE "farm"\."farm_holdings" FORCE ROW LEVEL SECURITY/);
+  assert.match(migration, /CREATE POLICY "farm_holdings_tenant_isolation"/);
+  assert.match(migration, /CREATE UNIQUE INDEX "farm_holdings_organization_code_unique"/);
+  assert.match(migration, /REVOKE UPDATE, DELETE ON TABLE "farm"\."audit_events"/);
+});
+
 test("production bootstrap resets only the explicitly pinned empty farm database", () => {
   const bootstrap = readFileSync(resolve("script/bootstrap-production-database.ts"), "utf8");
   assert.match(bootstrap, /Type RESET \$\{bootstrapTarget\.database\}/);
