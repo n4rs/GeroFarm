@@ -15,8 +15,10 @@ import { createFarmRouter } from "./farm-routes";
 import { createPostgresFieldRepository, type FieldRepository } from "./fields";
 import { FieldDomainError } from "./field-geometry";
 import { createPostgresCropRepository, type CropRepository } from "./crops";
+import { createPostgresCropLifecycleRepository, type CropLifecycleRepository } from "./crop-lifecycle";
+import { OccupancyError } from "@shared/crop-lifecycle";
 
-export type AppOptions = { database?: FarmDatabase; farmHoldingRepository?: FarmHoldingRepository; fieldRepository?: FieldRepository; cropRepository?: CropRepository; farmContextResolver?: FarmContextResolver };
+export type AppOptions = { database?: FarmDatabase; farmHoldingRepository?: FarmHoldingRepository; fieldRepository?: FieldRepository; cropRepository?: CropRepository; cropLifecycleRepository?: CropLifecycleRepository; farmContextResolver?: FarmContextResolver };
 
 export function createApp(options: AppOptions = {}) {
   const app = express();
@@ -120,7 +122,8 @@ export function createApp(options: AppOptions = {}) {
   const farmHoldingRepository = options.farmHoldingRepository || (options.database ? createPostgresFarmHoldingRepository(options.database) : null);
   const fieldRepository = options.fieldRepository || (options.database ? createPostgresFieldRepository(options.database) : undefined);
   const cropRepository = options.cropRepository || (options.database ? createPostgresCropRepository(options.database) : undefined);
-  if (farmHoldingRepository) app.use("/api/farm", createFarmRouter(farmHoldingRepository, options.farmContextResolver || resolveFarmContext, fieldRepository, cropRepository));
+  const cropLifecycleRepository = options.cropLifecycleRepository || (options.database ? createPostgresCropLifecycleRepository(options.database) : undefined);
+  if (farmHoldingRepository) app.use("/api/farm", createFarmRouter(farmHoldingRepository, options.farmContextResolver || resolveFarmContext, fieldRepository, cropRepository, cropLifecycleRepository));
 
   app.use("/api", (_req, res) => res.status(404).json({ message: "API route not found", code: "NOT_FOUND" }));
 
@@ -130,6 +133,8 @@ export function createApp(options: AppOptions = {}) {
     if (error instanceof CoreApiError) return res.status(error.status).json({ message: error.message, code: error.code });
     if (error instanceof RequestOriginError) return res.status(error.status).json({ message: error.message, code: "ORIGIN_REJECTED" });
     if (error instanceof FieldDomainError) return res.status(error.status).json({ message: error.message, code: error.code, details: error.details });
+    if (error instanceof OccupancyError) return res.status(error.status).json({ message: error.message, code: error.code, availableAreaHa: error.availableAreaHa });
+    if (typeof error === "object" && error && "status" in error && "code" in error && typeof error.status === "number" && typeof error.code === "string") return res.status(error.status).json({ message: error instanceof Error ? error.message : "Domain error", code: error.code });
     if (typeof error === "object" && error && "code" in error && error.code === "23505") return res.status(409).json({ message: "A record with that code already exists", code: "CODE_CONFLICT" });
     console.error("Unhandled GeroFarm request error", error);
     return res.status(503).json({ message: "GeroFarm is temporarily unavailable", code: "SERVICE_UNAVAILABLE" });

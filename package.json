@@ -21,7 +21,9 @@
     "i18n:review-app": "tsx script/review-app-locales.ts",
     "catalog:import-legacy-cultures": "tsx script/import-legacy-culture-names.ts",
     "i18n:generate-crops": "tsx script/generate-crop-locales.ts",
-    "i18n:review-crops": "tsx script/review-crop-locales.ts"
+    "i18n:review-crops": "tsx script/review-crop-locales.ts",
+    "i18n:generate-lifecycle": "tsx script/generate-lifecycle-locales.ts",
+    "i18n:review-lifecycle": "tsx script/review-lifecycle-locales.ts"
   },
   "dependencies": {
     "@turf/area": "^7.4.0",

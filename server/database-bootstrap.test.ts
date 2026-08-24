@@ -57,6 +57,18 @@ test("field migration enforces stable codes, valid areas and tenant isolation", 
   assert.match(migration, /ALTER TABLE "farm"\."fields" FORCE ROW LEVEL SECURITY/);
 });
 
+test("crop lifecycle migration isolates tenants and preserves dated rotation history", () => {
+  const migration = readFileSync(resolve("migrations/0004_crop_lifecycle.sql"), "utf8");
+  for (const table of ["plantations", "crop_periods", "plantation_uprootings", "field_fallows"]) {
+    assert.match(migration, new RegExp(`ALTER TABLE "farm"\\."${table}" FORCE ROW LEVEL SECURITY`));
+    assert.match(migration, new RegExp(`CREATE POLICY "${table}_tenant_isolation"`));
+  }
+  assert.match(migration, /plantations_dates_valid/);
+  assert.match(migration, /crop_periods_dates_valid/);
+  assert.match(migration, /field_fallows_dates_valid/);
+  assert.match(migration, /plantation_uprootings_plantation_unique/);
+});
+
 test("production bootstrap resets only the explicitly pinned empty farm database", () => {
   const bootstrap = readFileSync(resolve("script/bootstrap-production-database.ts"), "utf8");
   assert.match(bootstrap, /Type RESET \$\{bootstrapTarget\.database\}/);

@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { boolean, check, index, jsonb, numeric, pgPolicy, pgSchema, timestamp, uniqueIndex, uuid, varchar } from "drizzle-orm/pg-core";
+import { boolean, check, date, index, jsonb, numeric, pgPolicy, pgSchema, timestamp, uniqueIndex, uuid, varchar } from "drizzle-orm/pg-core";
 import type { FieldPolygon } from "./fields";
 
 export const farmSchema = pgSchema("farm");
@@ -113,3 +113,23 @@ export const cropVarieties = farmSchema.table("crop_varieties", {
 ]).enableRLS();
 
 export type CropVariety = typeof cropVarieties.$inferSelect;
+
+export const plantations = farmSchema.table("plantations", {
+  id: uuid("id").primaryKey(), organizationId: uuid("organization_id").notNull().references(() => farmOrganizations.organizationId), fieldId: uuid("field_id").notNull().references(() => farmFields.id), cultureId: varchar("culture_id", { length: 32 }).notNull(), varietyId: uuid("variety_id").references(() => cropVarieties.id),
+  name: varchar("name", { length: 160 }).notNull(), kind: varchar("kind", { length: 16 }).notNull(), areaHa: numeric("area_ha", { precision: 12, scale: 4 }).notNull(), startedOn: date("started_on").notNull(), endedOn: date("ended_on"), status: varchar("status", { length: 16 }).notNull().default("active"), createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+}, (table) => [index("plantations_field_status_idx").on(table.organizationId, table.fieldId, table.status), check("plantations_kind_valid", sql`${table.kind} in ('permanent','temporary')`), check("plantations_status_valid", sql`${table.status} in ('active','ended','uprooted')`), check("plantations_area_valid", sql`${table.areaHa} > 0`), check("plantations_dates_valid", sql`${table.endedOn} is null or ${table.endedOn} >= ${table.startedOn}`), pgPolicy("plantations_tenant_isolation", { as: "restrictive", for: "all", to: "public", using: sql`${table.organizationId} = nullif(current_setting('app.organization_id', true), '')::uuid`, withCheck: sql`${table.organizationId} = nullif(current_setting('app.organization_id', true), '')::uuid` })]).enableRLS();
+export type Plantation = typeof plantations.$inferSelect;
+
+export const cropPeriods = farmSchema.table("crop_periods", {
+  id: uuid("id").primaryKey(), organizationId: uuid("organization_id").notNull().references(() => farmOrganizations.organizationId), plantationId: uuid("plantation_id").notNull().references(() => plantations.id), kind: varchar("kind", { length: 16 }).notNull(), name: varchar("name", { length: 160 }).notNull(), startedOn: date("started_on").notNull(), endedOn: date("ended_on"), status: varchar("status", { length: 16 }).notNull().default("active"), createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+}, (table) => [index("crop_periods_plantation_status_idx").on(table.organizationId, table.plantationId, table.status), check("crop_periods_kind_valid", sql`${table.kind} in ('campaign','cycle')`), check("crop_periods_status_valid", sql`${table.status} in ('active','closed')`), check("crop_periods_dates_valid", sql`${table.endedOn} is null or ${table.endedOn} >= ${table.startedOn}`), pgPolicy("crop_periods_tenant_isolation", { as: "restrictive", for: "all", to: "public", using: sql`${table.organizationId} = nullif(current_setting('app.organization_id', true), '')::uuid`, withCheck: sql`${table.organizationId} = nullif(current_setting('app.organization_id', true), '')::uuid` })]).enableRLS();
+export type CropPeriod = typeof cropPeriods.$inferSelect;
+
+export const plantationUprootings = farmSchema.table("plantation_uprootings", {
+  id: uuid("id").primaryKey(), organizationId: uuid("organization_id").notNull().references(() => farmOrganizations.organizationId), plantationId: uuid("plantation_id").notNull().references(() => plantations.id), uprootedOn: date("uprooted_on").notNull(), reason: varchar("reason", { length: 500 }).notNull(), createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+}, (table) => [uniqueIndex("plantation_uprootings_plantation_unique").on(table.plantationId), pgPolicy("plantation_uprootings_tenant_isolation", { as: "restrictive", for: "all", to: "public", using: sql`${table.organizationId} = nullif(current_setting('app.organization_id', true), '')::uuid`, withCheck: sql`${table.organizationId} = nullif(current_setting('app.organization_id', true), '')::uuid` })]).enableRLS();
+
+export const fieldFallows = farmSchema.table("field_fallows", {
+  id: uuid("id").primaryKey(), organizationId: uuid("organization_id").notNull().references(() => farmOrganizations.organizationId), fieldId: uuid("field_id").notNull().references(() => farmFields.id), name: varchar("name", { length: 160 }).notNull(), areaHa: numeric("area_ha", { precision: 12, scale: 4 }).notNull(), startedOn: date("started_on").notNull(), endedOn: date("ended_on"), status: varchar("status", { length: 16 }).notNull().default("active"), createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+}, (table) => [index("field_fallows_field_status_idx").on(table.organizationId, table.fieldId, table.status), check("field_fallows_area_valid", sql`${table.areaHa} > 0`), check("field_fallows_status_valid", sql`${table.status} in ('active','closed')`), check("field_fallows_dates_valid", sql`${table.endedOn} is null or ${table.endedOn} >= ${table.startedOn}`), pgPolicy("field_fallows_tenant_isolation", { as: "restrictive", for: "all", to: "public", using: sql`${table.organizationId} = nullif(current_setting('app.organization_id', true), '')::uuid`, withCheck: sql`${table.organizationId} = nullif(current_setting('app.organization_id', true), '')::uuid` })]).enableRLS();
+export type FieldFallow = typeof fieldFallows.$inferSelect;
