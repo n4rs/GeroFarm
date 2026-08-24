@@ -1,0 +1,6 @@
+import assert from "node:assert/strict";
+import test from "node:test";
+import { supportedLocales } from "@shared/locales";
+import { monitoringWeatherCopies } from "./monitoring-weather-locales";
+test("monitoring weather has complete localized copy for all 28 locales",()=>{assert.deepEqual(Object.keys(monitoringWeatherCopies).sort(),[...supportedLocales].sort());const keys=Object.keys(monitoringWeatherCopies.en).sort();for(const locale of supportedLocales){assert.deepEqual(Object.keys(monitoringWeatherCopies[locale]).sort(),keys);for(const value of Object.values(monitoringWeatherCopies[locale]))assert.ok(value.trim(),`${locale} has an empty monitoring weather term`);if(locale!=="en")for(const key of ["no_plantation","no_station","plan_history_unavailable","core_unavailable","data_unavailable"] as const)assert.notEqual(monitoringWeatherCopies[locale][key],monitoringWeatherCopies.en[key],`${locale}.${key} uses English fallback`)}});
+test("monitoring weather preserves agronomic wording and RTL scripts",()=>{assert.match(monitoringWeatherCopies["pt-PT"].subject,/Plantação.*campanha.*ciclo/u);assert.match(monitoringWeatherCopies.he.no_station,/[\u0590-\u05ff]/u);assert.match(monitoringWeatherCopies.ar.no_station,/[\u0600-\u06ff]/u);assert.doesNotMatch(monitoringWeatherCopies["pt-BR"].no_plantation,/guardada/u)});

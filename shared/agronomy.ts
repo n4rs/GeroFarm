@@ -10,12 +10,28 @@ export const findingSchema = z.object({
   presence: z.enum(["present", "absent"]), plantsObserved: z.number().int().nonnegative().optional(), plantsAffected: z.number().int().nonnegative().optional(),
   incidencePercent: z.number().min(0).max(100).optional(), severity: z.number().min(0).max(100).optional(), count: z.number().nonnegative().optional(), countUnit: z.string().trim().max(60).optional(), notes: z.string().trim().max(2000).optional(),
 }).superRefine((value, ctx) => { if (value.kind === "other" && !value.customKind) ctx.addIssue({ code: "custom", path: ["customKind"], message: "required" }); if (value.plantsAffected !== undefined && value.plantsObserved !== undefined && value.plantsAffected > value.plantsObserved) ctx.addIssue({ code: "custom", path: ["plantsAffected"], message: "cannot exceed observed plants" }); });
+export const monitoringWeatherMetricsSchema = z.object({
+  temperatureC: z.number().nullable(), apparentTemperatureC: z.number().nullable(), precipitationProbability: z.number().nullable(),
+  precipitationIntensityMmPerHour: z.number().nullable(), precipitationAccumulationMm: z.number().nullable(), humidityPercent: z.number().nullable(),
+  windSpeedKph: z.number().nullable(), windGustKph: z.number().nullable(), windBearingDegrees: z.number().nullable(), solarRadiationWm2: z.number().nullable(),
+}).strict();
+export type MonitoringWeatherMetrics = z.infer<typeof monitoringWeatherMetricsSchema>;
+export type MonitoringWeatherSubject = { subjectType:"plantation"|"campaign"; subjectId:string; plantationId:string; cropPeriodId:string|null };
+export type AutomaticMonitoringWeather = {
+  status:"available"; requestedAt:string; capturedAt:string; subject:MonitoringWeatherSubject;
+  provenance:{ requestedFor:string; station:{id:string;name:string;latitude:number;longitude:number;elevationM:number|null;timezone:string}; assignment:{id:string;effectiveFrom:string;effectiveTo:string|null}|null };
+  fetchedAt:string; cached:boolean; stale:boolean; cacheStatus:"miss"|"fresh"|"stale"; temporalStatus:"observed"|"forecast"; valueSource:"measured"|"estimated"; values:MonitoringWeatherMetrics;
+}|{
+  status:"unavailable"; reason:"no_plantation"|"no_station"|"plan_history_unavailable"|"core_unavailable"|"data_unavailable"; requestedAt:string; capturedAt:string; subject:MonitoringWeatherSubject|null;
+};
+export const correctedMonitoringWeatherSchema = monitoringWeatherMetricsSchema.partial().refine(value=>Object.keys(value).length>0,{message:"at least one corrected weather value is required"});
 export const createMonitoringSchema = z.object({
-  observedAt: z.string().datetime({ offset: true }), technicianWorkerId: uuid.optional(), fieldIds: z.array(uuid).min(1), plantationIds: z.array(uuid).default([]), cropPeriodIds: z.array(uuid).default([]),
-  geometry: z.record(z.unknown()).optional(), automaticWeather: z.record(z.unknown()).default({}), correctedWeather: z.record(z.unknown()).optional(), correctionReason: z.string().trim().max(500).optional(),
+  observedAt: z.string().datetime({ offset: true }), technicianWorkerId: uuid.optional(), fieldIds: z.array(uuid).min(1), weatherSubject:z.object({plantationId:uuid,cropPeriodId:uuid.nullable().default(null)}).strict().nullable().default(null),
+  geometry: z.record(z.unknown()).optional(), correctedWeather: correctedMonitoringWeatherSchema.optional(), correctionReason: z.string().trim().min(1).max(500).optional(),
   findings: z.array(findingSchema).min(1), linkedOperationIds: z.array(uuid).default([]), attachments: z.array(attachmentSchema).default([]), notes: z.string().trim().max(2000).optional(),
-}).superRefine((value, ctx) => { if (value.correctedWeather && !value.correctionReason) ctx.addIssue({ code: "custom", path: ["correctionReason"], message: "required when weather is corrected" }); });
+}).strict().superRefine((value, ctx) => { if (value.correctedWeather && !value.correctionReason) ctx.addIssue({ code: "custom", path: ["correctionReason"], message: "required when weather is corrected" }); if(!value.correctedWeather&&value.correctionReason)ctx.addIssue({code:"custom",path:["correctionReason"],message:"weather correction is required"}); });
 export type CreateMonitoringInput = z.infer<typeof createMonitoringSchema>;
+export type PersistedMonitoringInput=Omit<CreateMonitoringInput,"weatherSubject">&{plantationIds:string[];cropPeriodIds:string[];automaticWeather:AutomaticMonitoringWeather};
 
 export const createLaboratorySampleSchema = z.object({ sampledOn: z.string().date(), responsibleWorkerId: uuid.optional(), type: z.enum(["soil", "water", "leaf", "other"]), method: z.string().trim().min(1).max(180), fieldIds: z.array(uuid).default([]), irrigationSectorIds: z.array(uuid).default([]), plantationIds: z.array(uuid).default([]), cropPeriodIds: z.array(uuid).default([]), notes: z.string().trim().max(2000).optional() }).superRefine((v,ctx)=>{ const count=v.fieldIds.length+v.irrigationSectorIds.length+v.plantationIds.length; if(!count)ctx.addIssue({code:"custom",path:["fieldIds"],message:"at least one target is required"}); if(v.type==="soil"&&!v.fieldIds.length)ctx.addIssue({code:"custom",path:["fieldIds"],message:"soil analysis requires fields"}); if(v.type==="water"&&!v.irrigationSectorIds.length)ctx.addIssue({code:"custom",path:["irrigationSectorIds"],message:"water analysis requires irrigation sectors"}); if(v.type==="leaf"&&(!v.plantationIds.length||!v.cropPeriodIds.length))ctx.addIssue({code:"custom",path:["cropPeriodIds"],message:"leaf analysis requires selected plantations and periods"}); });
 export const createLaboratoryResultSchema = z.object({ sampleId: uuid, resultedOn: z.string().date(), laboratory: z.string().trim().min(1).max(180), bulletinNumber: z.string().trim().min(1).max(120), bulletinUrl: z.string().url().max(1000).optional(), validUntil: z.string().date().optional(), results: z.array(z.object({ parameter: z.string().trim().min(1).max(120), value: z.number(), unit: z.string().trim().min(1).max(40), reference: z.string().trim().max(160).optional() })).min(1) });

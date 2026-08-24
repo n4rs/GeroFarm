@@ -22,9 +22,11 @@ import { createIrrigationSchema, createIrrigationSectorSchema, createMeterReadin
 import type { IrrigationRepository } from "./irrigation";
 import { createHarvestSchema, createLaboratoryResultSchema, createLaboratorySampleSchema, createMonitoringSchema, notebookScopeSchema } from "@shared/agronomy";
 import type { AgronomyRepository } from "./agronomy";
+import { captureMonitoringWeather } from "./monitoring-weather";
 import { consumeInventorySchema,createFarmCostSchema,createInventoryProductSchema,receiveInventorySchema,regularizeConsumptionSchema } from "@shared/economics";
 import type { EconomicsRepository } from "./economics";
 import type { EntitlementSummary } from "@shared/entitlements";
+import { weatherCapabilities } from "@shared/weather";
 import { assertAccess, assertNotebookExport, EntitlementError, requestAccessOptions } from "./entitlements";
 
 const idSchema = z.string().uuid();
@@ -77,7 +79,7 @@ export function createFarmRouter(repository: FarmHoldingRepository, baseResolveC
   }
   if(agronomy){
     router.get("/agronomy",async(req,res,next)=>{try{const context=await resolveContext(req);res.set("cache-control","no-store").json({data:await agronomy.overview(context)})}catch(error){next(error)}});
-    router.post("/monitorings",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req);res.status(201).json({data:await agronomy.createMonitoring(context,createMonitoringSchema.parse(req.body))})}catch(error){next(error)}});
+    router.post("/monitorings",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req),input=createMonitoringSchema.parse(req.body),historyAllowed=!context.access||weatherCapabilities(context.access.entitlements.features.agronomicWeather).history;res.status(201).json({data:await agronomy.createMonitoring(context,input,(subject,requestedAt)=>captureMonitoringWeather(req,context.organization.id,subject,requestedAt,historyAllowed))})}catch(error){next(error)}});
     router.post("/laboratory-samples",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req);res.status(201).json({data:await agronomy.createSample(context,createLaboratorySampleSchema.parse(req.body))})}catch(error){next(error)}});
     router.post("/laboratory-results",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req);res.status(201).json({data:await agronomy.createResult(context,createLaboratoryResultSchema.parse(req.body))})}catch(error){next(error)}});
     router.post("/harvests",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req);res.status(201).json({data:await agronomy.createHarvest(context,createHarvestSchema.parse(req.body))})}catch(error){next(error)}});

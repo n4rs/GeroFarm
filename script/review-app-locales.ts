@@ -8,6 +8,7 @@ import { resourceCopies } from "../client/src/app/resources/resource-locales.gen
 import { operationCopies } from "../client/src/app/operations/operation-locales.generated";
 import { economicCopies } from "../client/src/app/economics/economic-locales";
 import { settingsCopies } from "../client/src/app/settings/settings-locales";
+import { monitoringWeatherCopies } from "../client/src/app/agronomy/monitoring-weather-locales";
 
 function placeholders(value: string) { return [...value.matchAll(/\{(\w+)\}/g)].map((match) => match[1]).sort(); }
 
@@ -28,7 +29,7 @@ for (const locale of supportedLocales) {
   }
 }
 
-const moduleCatalogues = { farmHoldings: farmHoldingCopies, fields: fieldCopies, crops: cropCopies, lifecycle: lifecycleCopies, resources: resourceCopies, operations: operationCopies, economics: economicCopies, settings: settingsCopies };
+const moduleCatalogues = { farmHoldings: farmHoldingCopies, fields: fieldCopies, crops: cropCopies, lifecycle: lifecycleCopies, resources: resourceCopies, operations: operationCopies, economics: economicCopies, settings: settingsCopies, monitoringWeather: monitoringWeatherCopies };
 for (const [catalogueName, catalogue] of Object.entries(moduleCatalogues)) {
   const messages = catalogue as unknown as Record<string, Record<string, string>>;
   const keys = Object.keys(messages.en).sort();
