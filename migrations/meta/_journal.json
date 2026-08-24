@@ -43,6 +43,13 @@
       "when": 1787539200000,
       "tag": "0005_resources",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1787542800000,
+      "tag": "0006_operations",
+      "breakpoints": true
     }
   ]
 }

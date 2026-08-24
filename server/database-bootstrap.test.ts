@@ -76,6 +76,8 @@ test("resource migration isolates people, certificates, contractors and equipmen
   assert.match(migration, /equipment_organization_code_unique/);
 });
 
+test("operation migration keeps one tenant-scoped physical operation and shared resources",()=>{const migration=readFileSync(resolve("migrations/0006_operations.sql"),"utf8");assert.match(migration,/operation_sequences_organization_year_unique/);assert.match(migration,/operations_organization_code_unique/);for(const table of["operations","operation_workers","operation_equipment","operation_contractors"])assert.match(migration,new RegExp(`FORCE ROW LEVEL SECURITY[^]*${table}_tenant_isolation|${table}_tenant_isolation[^]*FORCE ROW LEVEL SECURITY`));assert.match(migration,/REVOKE DELETE ON TABLE "farm"\."operations"/)});
+
 test("production bootstrap resets only the explicitly pinned empty farm database", () => {
   const bootstrap = readFileSync(resolve("script/bootstrap-production-database.ts"), "utf8");
   assert.match(bootstrap, /Type RESET \$\{bootstrapTarget\.database\}/);
