@@ -1,5 +1,4 @@
-import { useEffect, useState, type ReactNode } from "react";
-import { supportedLocales } from "./home-copy";
+import { useState, type ReactNode } from "react";
 import { useI18n } from "./i18n";
 import { openCookiePreferences } from "./cookie-consent";
 import { cookieMessage } from "./cookie-messages";
@@ -32,17 +31,6 @@ function scrollTo(id: string) { document.getElementById(id)?.scrollIntoView({ be
 export default function MarketingHome() {
   const { locale, copy, setLocale, options } = useI18n();
   const [annual, setAnnual] = useState(false); const [menu, setMenu] = useState(false);
-  useEffect(() => {
-    document.title = copy.metaTitle;
-    const canonicalUrl = new URL(window.location.href); canonicalUrl.pathname = "/"; canonicalUrl.search = locale === "pt-PT" ? "" : `?lang=${locale}`; canonicalUrl.hash = "";
-    const meta = (selector: string, attr: "name" | "property", key: string, content: string) => { let element = document.head.querySelector<HTMLMetaElement>(selector); if (!element) { element = document.createElement("meta"); element.setAttribute(attr, key); document.head.appendChild(element); } element.content = content; };
-    meta('meta[name="description"]', "name", "description", copy.metaDescription); meta('meta[property="og:title"]', "property", "og:title", copy.metaTitle); meta('meta[property="og:description"]', "property", "og:description", copy.metaDescription); meta('meta[property="og:image"]', "property", "og:image", `${window.location.origin}/images/gerofarm-field-intelligence-hero.webp`); meta('meta[property="og:locale"]', "property", "og:locale", locale.replace("-", "_"));
-    let canonical = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]'); if (!canonical) { canonical = document.createElement("link"); canonical.rel = "canonical"; document.head.appendChild(canonical); } canonical.href = canonicalUrl.toString();
-    document.head.querySelectorAll('link[rel="alternate"][data-gerofarm]').forEach((node) => node.remove());
-    for (const code of supportedLocales) { const link = document.createElement("link"); link.rel = "alternate"; link.hreflang = code; link.href = `${window.location.origin}/?lang=${code}`; link.dataset.gerofarm = "true"; document.head.appendChild(link); }
-    const x = document.createElement("link"); x.rel = "alternate"; x.hreflang = "x-default"; x.href = `${window.location.origin}/?lang=en`; x.dataset.gerofarm = "true"; document.head.appendChild(x);
-    let schema = document.head.querySelector<HTMLScriptElement>('#gerofarm-schema'); if (!schema) { schema = document.createElement("script"); schema.id = "gerofarm-schema"; schema.type = "application/ld+json"; document.head.appendChild(schema); } schema.text = JSON.stringify({ "@context": "https://schema.org", "@type": "SoftwareApplication", name: "GeroFarm", applicationCategory: "BusinessApplication", operatingSystem: "Web", description: copy.metaDescription, offers: [{ "@type": "Offer", name: "Start", price: "7.90", priceCurrency: "EUR" }, { "@type": "Offer", name: "Grow", price: "24.90", priceCurrency: "EUR" }, { "@type": "Offer", name: "Professional", price: "69.90", priceCurrency: "EUR" }] });
-  }, [copy, locale]);
 
   return <div className="marketing" id="top">
     <header className="site-header"><div className="shell header-inner"><Brand /><nav className={menu ? "main-nav open" : "main-nav"} aria-label={copy.nav.menu}>{[["platform", copy.nav.platform], ["weather", copy.nav.weather], ["privacy", copy.nav.privacy], ["plans", copy.nav.plans], ["faq", copy.nav.faq]].map(([id, label]) => <button key={id} onClick={() => { scrollTo(id); setMenu(false); }}>{label}</button>)}</nav><div className="header-actions"><label className="language"><span className="sr-only">{copy.nav.language}</span><select aria-label={copy.nav.language} value={locale} onChange={(event) => setLocale(event.target.value as typeof locale)}>{options.map((option) => <option key={option.code} value={option.code}>{option.label}</option>)}</select></label><a className="login-link" href="/login">{copy.nav.login}</a><a className="button small" href="/register">{copy.nav.start}</a><button className="menu-button" aria-expanded={menu} aria-label={copy.nav.menu} onClick={() => setMenu((value) => !value)}><span/><span/><span/></button></div></div></header>

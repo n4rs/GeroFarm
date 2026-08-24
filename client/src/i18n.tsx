@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { homepageCopies } from "./home-locales.generated";
 import { supportedLocales, type HomepageCopy, type SupportedLocale } from "./home-copy";
+import { isPublicSeoHomepage, localizedSeoPath, seoLocaleFromPath } from "@shared/seo";
 
 const nativeNames: Record<SupportedLocale, string> = {
   "pt-PT": "Português (Portugal)", "pt-BR": "Português (Brasil)", en: "English", fr: "Français", es: "Español", nl: "Nederlands", de: "Deutsch", ja: "日本語", he: "עברית", tr: "Türkçe", ar: "العربية", pl: "Polski", hr: "Hrvatski", el: "Ελληνικά", sv: "Svenska", no: "Norsk", da: "Dansk", it: "Italiano", uk: "Українська", ro: "Română", fi: "Suomi", bg: "Български", hu: "Magyar", is: "Íslenska", sk: "Slovenčina", lt: "Lietuvių", sl: "Slovenščina", lv: "Latviešu",
@@ -21,6 +22,8 @@ export function normalizeLocale(value?: string | null): SupportedLocale | null {
 }
 
 export function detectLocale(search = window.location.search, languages = navigator.languages): SupportedLocale {
+  const fromPath = seoLocaleFromPath(window.location.pathname);
+  if (fromPath) return fromPath;
   const fromUrl = normalizeLocale(new URLSearchParams(search).get("lang"));
   if (fromUrl) return fromUrl;
   const stored = normalizeLocale(localStorage.getItem(storageKey));
@@ -36,6 +39,10 @@ export function I18nProvider({ children, preferredLocale }: { children: ReactNod
   const [locale, setLocaleState] = useState<SupportedLocale>(() => detectLocale());
   const setLocale = (next: SupportedLocale) => {
     localStorage.setItem(storageKey, next);
+    if (isPublicSeoHomepage(window.location.pathname)) {
+      window.location.assign(localizedSeoPath(next));
+      return;
+    }
     const url = new URL(window.location.href); url.searchParams.set("lang", next);
     window.history.replaceState(window.history.state, "", url);
     setLocaleState(next);
