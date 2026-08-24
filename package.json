@@ -29,7 +29,8 @@
     "i18n:generate-operations": "tsx script/generate-operation-locales.ts && tsx script/generate-soil-operation-locales.ts && tsx script/review-soil-operation-terms.ts && tsx script/generate-crop-installation-locales.ts && tsx script/generate-cultural-work-locales.ts && tsx script/generate-fertilization-locales.ts",
     "i18n:review-operations": "tsx script/review-operation-locales.ts && tsx script/review-spraying-locales.ts",
     "i18n:generate-plans": "tsx script/generate-plan-locales.ts",
-    "i18n:review-plans": "tsx script/review-plan-terms.ts && tsx script/review-plan-locales.ts"
+    "i18n:review-plans": "tsx script/review-plan-terms.ts && tsx script/review-plan-locales.ts",
+    "i18n:review-irrigation": "tsx script/review-irrigation-locales.ts"
   },
   "dependencies": {
     "@turf/area": "^7.4.0",

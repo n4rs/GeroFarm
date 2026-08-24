@@ -3,7 +3,7 @@ import { product } from "@shared/product";
 import { CoreApiError, geroCore, type CoreMe, type CoreOrganization } from "./gero-core-client";
 import { selectedOrganizationId } from "./organization-selection";
 
-export type FarmRequestContext = { user: CoreMe; organization: CoreOrganization["organization"]; membership: CoreOrganization["membership"] };
+export type FarmRequestContext = { user: CoreMe; organization: CoreOrganization["organization"] & { timezone?: string }; membership: CoreOrganization["membership"] };
 export type FarmContextResolver = (req: Request) => Promise<FarmRequestContext>;
 
 export const resolveFarmContext: FarmContextResolver = async (req) => {
@@ -15,5 +15,6 @@ export const resolveFarmContext: FarmContextResolver = async (req) => {
   if (selected.membership.status !== "active") throw new CoreApiError(403, "Membership is not active", "MEMBERSHIP_INACTIVE");
   const access = await geroCore.access(req, selected.organization.id);
   if (access.application.code !== product.code || !access.access.allowed) throw new CoreApiError(403, "Application access denied", "ACCESS_DENIED");
-  return { user, organization: selected.organization, membership: selected.membership };
+  const timezone = typeof user.preferences.timezone === "string" ? user.preferences.timezone : "Europe/Lisbon";
+  return { user, organization: { ...selected.organization, timezone }, membership: selected.membership };
 };

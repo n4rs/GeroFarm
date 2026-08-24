@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
 import { and, asc, eq, sql } from "drizzle-orm";
-import { fertilizationPlanFields, fertilizationPlans, farmAuditEvents, farmFields, plantations } from "@shared/schema";
+import { fertilizationPlanFields, fertilizationPlans, farmAuditEvents, farmFields, irrigationRecords, plantations } from "@shared/schema";
 import {
   calculateDeliveredNutrients,
   calculatePlannedNutrients,
@@ -32,11 +32,12 @@ export function createPostgresFertilizationPlanRepository(
     const [operationRows, stored] = await Promise.all([
       operations.list(context),
       withOrganizationTransaction(db, context.organization.id, async (tx) => {
-        const [plans, fields] = await Promise.all([
+        const [plans, fields, irrigations] = await Promise.all([
           tx.select().from(fertilizationPlans).orderBy(asc(fertilizationPlans.cultureId), asc(fertilizationPlans.version)),
           tx.select().from(fertilizationPlanFields).orderBy(asc(fertilizationPlanFields.createdAt)),
+          tx.select().from(irrigationRecords).orderBy(asc(irrigationRecords.performedAt)),
         ]);
-        return { plans, fields };
+        return { plans, fields, irrigations };
       }),
     ]);
     return stored.plans.map((plan): FertilizationPlanDto => ({
@@ -67,9 +68,12 @@ export function createPostgresFertilizationPlanRepository(
           coverCropContributionKgHa: field.coverCropContributionKgHa || undefined,
         };
         const delivered = calculateDeliveredNutrients(operationRows, base, plan.startsOn, plan.endsOn);
+        const irrigationRows = stored.irrigations.filter((irrigation) => irrigation.status !== "scheduled" && irrigation.status !== "reversed" && irrigation.performedAt && irrigation.performedAt.toISOString().slice(0, 10) >= plan.startsOn && irrigation.performedAt.toISOString().slice(0, 10) <= plan.endsOn && irrigation.applications.some((application) => application.fieldIds.includes(field.fieldId)));
+        const actualIrrigationM3Ha = Math.round(irrigationRows.reduce((sum, irrigation) => sum + number(irrigation.doseM3Ha), 0) * 1000) / 1000;
+        const irrigationNitrateKgHa = Math.round(irrigationRows.reduce((sum, irrigation) => sum + number(irrigation.doseM3Ha) * number(irrigation.nitrateAnalysisSnapshot?.nitrateMgL) / 1000, 0) * 1000) / 1000;
         const planned = calculatePlannedNutrients(base);
         const balanceKgHa = Object.fromEntries(planNutrientKeys.map((key) => [key, Math.round((base.objectivesKgHa[key] - delivered.deliveredKgHa[key]) * 1000) / 1000])) as FertilizationPlanFieldDto["balanceKgHa"];
-        const result = { ...base, ...delivered, ...planned, balanceKgHa };
+        const result = { ...base, ...delivered, ...planned, balanceKgHa, actualIrrigationM3Ha, irrigationNitrateKgHa, irrigationOperationCount: irrigationRows.length };
         return { ...result, warnings: planWarnings(result, plan.endsOn) };
       }),
     }));

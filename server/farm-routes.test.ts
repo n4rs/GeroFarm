@@ -52,7 +52,7 @@ test("fertilization plan routes create a draft and explicitly put it into force"
   const rows: FertilizationPlanDto[] = [];
   const plans: FertilizationPlanRepository = {
     async list() { return rows; },
-    async create(_received, input) { const row: FertilizationPlanDto = { id: "71ae85bb-6242-4dc2-83b6-086a6d46f3f0", ...input, version: 1, status: "draft", createdAt: new Date().toISOString(), fields: input.fields.map((field) => ({ id: crypto.randomUUID(), ...field, deliveredKg: emptyNutrients(), deliveredKgHa: emptyNutrients(), plannedKgHa: emptyNutrients(), plannedBalanceKgHa: emptyNutrients(), balanceKgHa: field.objectivesKgHa, unknownCompositionOperationCount: 0, operationCount: 0, warnings: [] })) }; rows.push(row); return row; },
+    async create(_received, input) { const row: FertilizationPlanDto = { id: "71ae85bb-6242-4dc2-83b6-086a6d46f3f0", ...input, version: 1, status: "draft", createdAt: new Date().toISOString(), fields: input.fields.map((field) => ({ id: crypto.randomUUID(), ...field, deliveredKg: emptyNutrients(), deliveredKgHa: emptyNutrients(), plannedKgHa: emptyNutrients(), plannedBalanceKgHa: emptyNutrients(), balanceKgHa: field.objectivesKgHa, unknownCompositionOperationCount: 0, operationCount: 0, actualIrrigationM3Ha: 0, irrigationNitrateKgHa: 0, irrigationOperationCount: 0, warnings: [] })) }; rows.push(row); return row; },
     async activate(_received, id) { const row = rows.find((item) => item.id === id); if (!row) return null; row.status = "in_force"; return row; },
   };
   const server = createServer(createApp({ farmHoldingRepository: repository(), farmContextResolver: async () => context, fertilizationPlanRepository: plans }));

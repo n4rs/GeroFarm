@@ -65,6 +65,9 @@ export type FertilizationPlanFieldDto = CreateFertilizationPlanInput["fields"][n
   balanceKgHa: NutrientAmounts;
   unknownCompositionOperationCount: number;
   operationCount: number;
+  actualIrrigationM3Ha: number;
+  irrigationNitrateKgHa: number;
+  irrigationOperationCount: number;
   warnings: Array<"missing_irrigation_sector" | "missing_nitrate_analysis" | "stale_nitrate_analysis" | "unknown_composition" | "objective_exceeded">;
 };
 export type FertilizationPlanDto = Omit<CreateFertilizationPlanInput, "fields"> & {
