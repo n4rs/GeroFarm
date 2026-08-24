@@ -81,7 +81,11 @@ async function coreRequest<T>(req: Request, path: string): Promise<T> {
 
   const body = await parseBody<T>(response);
   if (!response.ok) {
-    const status = response.status === 401 || response.status === 404 ? response.status : 503;
+    const status = [400, 401, 403, 404, 409, 422, 429].includes(
+      response.status,
+    )
+      ? response.status
+      : 503;
     throw new CoreApiError(status, body?.error?.message || "Unable to validate Gero Core access", body?.error?.code);
   }
   if (body?.data === undefined) throw new CoreApiError(503, "Gero Core returned an invalid response", "CORE_INVALID_RESPONSE");
@@ -122,7 +126,7 @@ async function coreMutation<T>(req: Request, path: string, method: "PATCH" | "PO
 
   const parsed = response.status === 204 ? null : await parseBody<T>(response);
   if (!response.ok) {
-    const status = [400, 401, 403, 404, 409].includes(response.status) ? response.status : 503;
+    const status = [400, 401, 403, 404, 409, 422, 429].includes(response.status) ? response.status : 503;
     throw new CoreApiError(status, parsed?.error?.message || "Gero Core request failed", parsed?.error?.code);
   }
   return { data: parsed?.data, cookies: response.headers.getSetCookie() };

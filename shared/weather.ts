@@ -1,12 +1,7 @@
 export type WeatherTemporalStatus = "observed" | "forecast";
 export type WeatherValueSource = "measured" | "estimated";
 export type WeatherPrecipitationType =
-  | "none"
-  | "rain"
-  | "snow"
-  | "sleet"
-  | "mixed"
-  | "unknown";
+  "none" | "rain" | "snow" | "sleet" | "mixed" | "unknown";
 
 export type WeatherDataPoint = {
   at: string;
@@ -87,6 +82,52 @@ export type AgronomicWeatherIndicators = {
   estimatedPar: WeatherDerivation;
   estimatedDli: WeatherDerivation;
 };
+export type WeatherAccumulationMetric = WeatherDerivation & {
+  coverage: {
+    requestedDays: number;
+    availableDays: number;
+    requestedHours: number;
+    availableHours: number;
+  };
+};
+export type AgronomicWeatherAccumulation = {
+  contractVersion: "2";
+  subject: {
+    subjectType: "plantation" | "campaign";
+    subjectId: string;
+    campaignId: string | null;
+  };
+  interval: { from: string; to: string; maximumDays: number };
+  coverage: {
+    requestedDays: number;
+    availableDays: number;
+    requestedHours: number;
+    availableHours: number;
+    complete: boolean;
+  };
+  temporalStatus: { observedHours: number; forecastHours: number };
+  valueSource: { measuredHours: number; estimatedHours: number };
+  stationPeriods: Array<{
+    from: string;
+    to: string;
+    station: WeatherVirtualStation;
+    assignment: WeatherStationAssignment;
+  }>;
+  profilePeriods: Array<{
+    from: string;
+    to: string;
+    profile: WeatherAgronomicProfile | null;
+  }>;
+  warnings: Array<{
+    code: "STATION_NOT_ASSIGNED" | "PROFILE_NOT_FOUND" | "INCOMPLETE_DAY";
+    from: string;
+    to: string;
+    detail: string;
+  }>;
+  metrics: {
+    [K in keyof AgronomicWeatherIndicators]: WeatherAccumulationMetric;
+  };
+};
 export type WeatherAgronomicProfile = {
   id: string;
   organizationId: string;
@@ -130,33 +171,6 @@ export type WeatherStationInput = {
   timezone: string;
 };
 export type WeatherSubjectType = "plantation" | "campaign";
-export type WeatherIndicatorInput = {
-  campaignId?: string;
-  at: string;
-  latitude: number;
-  elevationM: number;
-  temperatureMinC: number;
-  temperatureMaxC: number;
-  relativeHumidityMeanPercent: number;
-  windSpeed2mMps: number;
-  solarRadiationMjM2Day: number;
-  temporalStatus: WeatherTemporalStatus;
-  hourly: Array<{
-    temperatureC: number;
-    relativeHumidityPercent: number | null;
-    precipitationMm: number | null;
-    solarRadiationWm2: number | null;
-  }>;
-  parameters?: {
-    degreeDayBaseC?: number;
-    degreeDayUpperC?: number | null;
-    leafWetnessHumidityPercent?: number;
-  };
-};
-export type WeatherIndicatorResponse = {
-  profile: WeatherAgronomicProfile | null;
-  indicators: AgronomicWeatherIndicators;
-};
 export type WeatherProfileInput = {
   cropId: string;
   varietyId: string;
@@ -164,39 +178,21 @@ export type WeatherProfileInput = {
   parameters: Record<string, unknown>;
   validFrom: string;
 };
-export type WeatherIndicatorKey = keyof AgronomicWeatherIndicators;
-export type WeatherAccumulation = {
-  from: string;
-  to: string;
-  daysRequested: number;
-  daysWithData: number;
-  values: Record<
-    WeatherIndicatorKey,
-    {
-      unit: string;
-      observed: number;
-      forecast: number;
-      total: number;
-      dailyAverage: number | null;
-    }
-  >;
-  provenance: Array<{
-    stationId: string;
-    stationName: string;
-    effectiveFrom: string;
-    effectiveTo: string | null;
-  }>;
-};
 
 export const weatherContractVersion = "2" as const;
+
 export type AgronomicWeatherLevel =
   | "essential"
   | "campaign"
   | "professional"
   | "custom";
+
 export function weatherCapabilities(value: unknown) {
   const level: AgronomicWeatherLevel =
-    value === "campaign" || value === "professional" || value === "custom"
+    value === "campaign" ||
+    value === "professional" ||
+    value === "custom" ||
+    value === "essential"
       ? value
       : "essential";
   return {
@@ -220,9 +216,34 @@ export function fieldCentroid(coordinates: Array<[number, number]>) {
       ? coordinates.slice(0, -1)
       : coordinates;
   if (!points.length) return null;
+  if (points.length < 3)
+    return {
+      longitude:
+        points.reduce((sum, point) => sum + point[0], 0) / points.length,
+      latitude:
+        points.reduce((sum, point) => sum + point[1], 0) / points.length,
+    };
+  let twiceArea = 0,
+    longitude = 0,
+    latitude = 0;
+  for (let index = 0; index < points.length; index += 1) {
+    const current = points[index],
+      next = points[(index + 1) % points.length],
+      cross = current[0] * next[1] - next[0] * current[1];
+    twiceArea += cross;
+    longitude += (current[0] + next[0]) * cross;
+    latitude += (current[1] + next[1]) * cross;
+  }
+  if (Math.abs(twiceArea) < 1e-12)
+    return {
+      longitude:
+        points.reduce((sum, point) => sum + point[0], 0) / points.length,
+      latitude:
+        points.reduce((sum, point) => sum + point[1], 0) / points.length,
+    };
   return {
-    longitude: points.reduce((sum, point) => sum + point[0], 0) / points.length,
-    latitude: points.reduce((sum, point) => sum + point[1], 0) / points.length,
+    longitude: longitude / (3 * twiceArea),
+    latitude: latitude / (3 * twiceArea),
   };
 }
 
@@ -275,167 +296,4 @@ export function accumulationWindowStart(
   const end = new Date(`${endDate}T12:00:00Z`);
   end.setUTCDate(end.getUTCDate() - (Number(window) - 1));
   return end.toISOString().slice(0, 10);
-}
-
-const mean = (values: number[]) =>
-  values.length
-    ? values.reduce((sum, value) => sum + value, 0) / values.length
-    : null;
-
-/** Normalises Core report fields into the Core indicator request; it never computes an agronomic indicator. */
-export function indicatorInputFromReport(
-  report: WeatherReport,
-  campaignId?: string,
-): WeatherIndicatorInput | null {
-  const requestedDate = (
-    report.station?.requestedFor ||
-    report.current?.at ||
-    report.daily.data[0]?.at ||
-    ""
-  ).slice(0, 10);
-  const day =
-    report.daily.data.find(
-      (point) => point.at.slice(0, 10) === requestedDate,
-    ) || report.daily.data[0];
-  const sameDay = day
-    ? report.hourly.data.filter(
-        (point) => point.at.slice(0, 10) === day.at.slice(0, 10),
-      )
-    : [];
-  const hourly = (sameDay.length ? sameDay : report.hourly.data)
-    .filter((point) => point.temperatureC !== null)
-    .slice(0, 48);
-  if (
-    !day ||
-    day.temperatureMinC === null ||
-    day.temperatureMaxC === null ||
-    !hourly.length
-  )
-    return null;
-  const humidity = mean(
-    hourly.flatMap((point) =>
-      point.humidityPercent === null ? [] : [point.humidityPercent],
-    ),
-  );
-  const windKph = mean(
-    hourly.flatMap((point) =>
-      point.windSpeedKph === null ? [] : [point.windSpeedKph],
-    ),
-  );
-  const solar = hourly.flatMap((point) =>
-    point.solarRadiationWm2 === null ? [] : [point.solarRadiationWm2],
-  );
-  if (humidity === null || windKph === null || !solar.length) return null;
-  return {
-    ...(campaignId ? { campaignId } : {}),
-    at: day.at,
-    latitude: report.latitude,
-    elevationM: day.elevationM ?? report.current?.elevationM ?? 0,
-    temperatureMinC: day.temperatureMinC,
-    temperatureMaxC: day.temperatureMaxC,
-    relativeHumidityMeanPercent: humidity,
-    windSpeed2mMps: windKph / 3.6,
-    // Unit/time integration required by the Core input contract. The returned solar-energy indicator remains Core-derived and versioned.
-    solarRadiationMjM2Day: solar.reduce(
-      (sum, value) => sum + value * 0.0036,
-      0,
-    ),
-    temporalStatus: day.temporalStatus,
-    hourly: hourly.map((point) => ({
-      temperatureC: point.temperatureC!,
-      relativeHumidityPercent: point.humidityPercent,
-      precipitationMm: point.precipitationAccumulationMm,
-      solarRadiationWm2: point.solarRadiationWm2,
-    })),
-  };
-}
-
-export function dateRange(from: string, to: string) {
-  const start = new Date(`${from}T12:00:00Z`),
-    end = new Date(`${to}T12:00:00Z`);
-  if (
-    !Number.isFinite(start.valueOf()) ||
-    !Number.isFinite(end.valueOf()) ||
-    start > end
-  )
-    return [];
-  const result: string[] = [];
-  for (
-    const cursor = new Date(start);
-    cursor <= end;
-    cursor.setUTCDate(cursor.getUTCDate() + 1)
-  )
-    result.push(cursor.toISOString().slice(0, 10));
-  return result;
-}
-
-export function aggregateWeatherIndicators(
-  from: string,
-  to: string,
-  rows: Array<{ response: WeatherIndicatorResponse; report: WeatherReport }>,
-): WeatherAccumulation {
-  const keys: WeatherIndicatorKey[] = [
-    "et0",
-    "degreeDays",
-    "chillHoursBelow7_2C",
-    "modifiedChillHours",
-    "utahChillUnits",
-    "dynamicModelChillPortions",
-    "estimatedLeafWetnessHours",
-    "solarEnergy",
-    "estimatedPar",
-    "estimatedDli",
-  ];
-  const values = Object.fromEntries(
-    keys.map((key) => {
-      const items = rows
-        .map(({ response }) => response.indicators[key])
-        .filter((item) => item.value !== null);
-      const observed = items
-          .filter((item) => item.temporalStatus === "observed")
-          .reduce((sum, item) => sum + item.value!, 0),
-        forecast = items
-          .filter((item) => item.temporalStatus === "forecast")
-          .reduce((sum, item) => sum + item.value!, 0),
-        total = observed + forecast;
-      return [
-        key,
-        {
-          unit: items[0]?.unit || "",
-          observed,
-          forecast,
-          total,
-          dailyAverage: items.length ? total / items.length : null,
-        },
-      ];
-    }),
-  ) as WeatherAccumulation["values"];
-  const provenance = new Map<
-    string,
-    WeatherAccumulation["provenance"][number]
-  >();
-  for (const { report } of rows) {
-    const station = report.station?.station,
-      assignment = report.station?.assignment;
-    if (station) {
-      const key = assignment?.id || `${station.id}:direct`;
-      provenance.set(key, {
-        stationId: station.id,
-        stationName: station.name,
-        effectiveFrom:
-          assignment?.effectiveFrom || report.station!.requestedFor,
-        effectiveTo: assignment?.effectiveTo || null,
-      });
-    }
-  }
-  return {
-    from,
-    to,
-    daysRequested: dateRange(from, to).length,
-    daysWithData: rows.length,
-    values,
-    provenance: [...provenance.values()].sort((a, b) =>
-      a.effectiveFrom.localeCompare(b.effectiveFrom),
-    ),
-  };
 }

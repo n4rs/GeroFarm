@@ -34,7 +34,8 @@ Não declarar estes pontos validados até existirem evidências separadas de mig
 
 ## Meteorologia agronómica central
 
-- O consumidor GeroFarm foi revisto contra o contrato Core `baf1687`, `/openapi/weather-v2.json` e os tipos provider-independent de `@gero/shared`; não existe segredo, SDK, URL autenticado ou formato do fornecedor no GeroFarm.
-- A utilização publicada depende de o Gero Core disponibilizar `baf1687` e de a migração aditiva meteorológica Core ser aplicada pelo processo controlado próprio. Esta fase não verificou nem tentou essas intervenções.
+- O consumidor GeroFarm foi revisto contra o contrato Core `78b8b53`, `/openapi/weather-v2.json` e os tipos provider-independent de `@gero/shared`; não existe segredo, SDK, URL autenticado ou formato do fornecedor no GeroFarm.
+- As acumulações usam exclusivamente `GET .../weather/subjects/{subjectType}/{subjectId}/agronomic-accumulation`: cobertura, proveniência, perfis, avisos e indicadores chegam calculados e versionados pelo Core; o GeroFarm não agrega nem recalcula dados meteorológicos.
+- A utilização publicada depende de o Gero Core disponibilizar `78b8b53` e de a migração aditiva meteorológica Core ser aplicada pelo processo controlado próprio. Esta fase não verificou nem tentou essas intervenções.
 - A validação de produção fica reservada para uma organização QA autorizada com níveis Start/Grow/Professional/Custom, incluindo limite efetivo de estações, continuidade da proveniência após mudança de estação, read-only e janelas de 7/30/90 dias.
 - Não observar deploy, assets, painéis, credenciais, migrações ou UI publicada como parte da implementação autónoma do consumidor.

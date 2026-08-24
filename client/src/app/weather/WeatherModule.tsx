@@ -1,23 +1,24 @@
 import { useCallback, useEffect, useState, type FormEvent } from "react";
 import type { CropPeriodDto, PlantationDto } from "@shared/crop-lifecycle";
 import type { FieldDto } from "@shared/fields";
+import type { OperationDto } from "@shared/operations";
 import {
   accumulationStart,
   accumulationWindowStart,
   activeStationCount,
   fieldCentroid,
-  indicatorInputFromReport,
   weatherCapabilities,
   type AccumulationSettings,
-  type WeatherAccumulation,
-  type WeatherIndicatorResponse,
+  type AgronomicWeatherAccumulation,
+  type AgronomicWeatherIndicators,
+  type WeatherAccumulationMetric,
   type WeatherReport,
   type WeatherStationSuggestion,
   type WeatherVirtualStation,
 } from "@shared/weather";
 import { useAuth } from "../../auth";
 import { useI18n } from "../../i18n";
-import { weatherCopies, type WeatherCopy } from "./weather-locales";
+import { weatherCopies, type WeatherCopy } from "./weather-locales.generated";
 import "./weather.css";
 
 type Lifecycle = { plantations: PlantationDto[]; periods: CropPeriodDto[] };
@@ -63,21 +64,19 @@ export default function WeatherModule() {
       plantations: [],
       periods: [],
     }),
-    [fields, setFields] = useState<FieldDto[]>([]);
+    [fields, setFields] = useState<FieldDto[]>([]),
+    [operations, setOperations] = useState<OperationDto[]>([]);
   const [selectedStation, setSelectedStation] = useState(""),
     [selectedPlantation, setSelectedPlantation] = useState(""),
-    [report, setReport] = useState<WeatherReport | null>(null),
-    [derived, setDerived] = useState<WeatherIndicatorResponse | null>(null);
+    [report, setReport] = useState<WeatherReport | null>(null);
   const [historyDate, setHistoryDate] = useState(today()),
     [loading, setLoading] = useState(true),
     [failed, setFailed] = useState(false),
     [dialog, setDialog] = useState<"create" | "rename" | null>(null);
   const writeAllowed = Boolean(
     session?.access.access.writeAllowed &&
-      (session.access.applicationMembership.permissions.includes("*") ||
-        session.access.applicationMembership.permissions.includes(
-          "farm.manage",
-        )),
+    (session.access.applicationMembership.permissions.includes("*") ||
+      session.access.applicationMembership.permissions.includes("farm.manage")),
   );
   const limit =
     typeof session?.access.entitlements.limits.virtualStations === "number"
@@ -85,12 +84,19 @@ export default function WeatherModule() {
       : null;
   const level = session?.access.entitlements.features.agronomicWeather;
   const capabilities = weatherCapabilities(level);
+  const featureAvailable =
+    session?.access.entitlements.features.weather === true ||
+    typeof level === "string";
   const load = useCallback(async () => {
+    if (!featureAvailable) {
+      setLoading(false);
+      return;
+    }
     setLoading(true);
     setFailed(false);
     try {
-      const [stationRows, lifecycleResponse, fieldResponse] = await Promise.all(
-        [
+      const [stationRows, lifecycleResponse, fieldResponse, operationResponse] =
+        await Promise.all([
           api<WeatherVirtualStation[]>("stations"),
           fetch("/api/farm/crop-lifecycle", { credentials: "include" }).then(
             json<Lifecycle>,
@@ -98,11 +104,14 @@ export default function WeatherModule() {
           fetch("/api/farm/fields", { credentials: "include" }).then(
             json<FieldDto[]>,
           ),
-        ],
-      );
+          fetch("/api/farm/operations", { credentials: "include" }).then(
+            json<OperationDto[]>,
+          ),
+        ]);
       setStations(stationRows);
       setLifecycle(lifecycleResponse);
       setFields(fieldResponse);
+      setOperations(operationResponse);
       setSelectedStation(
         (value) =>
           value || stationRows.find((item) => !item.archivedAt)?.id || "",
@@ -119,7 +128,7 @@ export default function WeatherModule() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [featureAvailable]);
   useEffect(() => {
     void load();
   }, [load]);
@@ -131,18 +140,10 @@ export default function WeatherModule() {
       }
       setFailed(false);
       try {
-        const next = await api<WeatherReport>(
-          `stations/${stationId}/report${at ? `?at=${encodeURIComponent(dateTime(at))}` : ""}`,
-        );
-        setReport(next);
-        const input = indicatorInputFromReport(next);
-        setDerived(
-          input
-            ? await api<WeatherIndicatorResponse>("indicators", {
-                method: "POST",
-                body: JSON.stringify(input),
-              })
-            : null,
+        setReport(
+          await api<WeatherReport>(
+            `stations/${stationId}/report${at ? `?at=${encodeURIComponent(dateTime(at))}` : ""}`,
+          ),
         );
       } catch {
         setFailed(true);
@@ -162,6 +163,12 @@ export default function WeatherModule() {
         <span className="spinner" />
       </div>
     );
+  if (!featureAvailable)
+    return (
+      <section className="panel module-state">
+        <p>{t.noData}</p>
+      </section>
+    );
   return (
     <>
       <section className="page-heading weather-heading">
@@ -171,7 +178,7 @@ export default function WeatherModule() {
           <span>{t.description}</span>
         </div>
         <div>
-          <b>{typeof level === "string" ? level : "Core v2"}</b>
+          <b>{t.conditions}</b>
           <span>
             {t.activeStations}: {active} / {limit ?? "∞"}
           </span>
@@ -229,11 +236,13 @@ export default function WeatherModule() {
           plantations={lifecycle.plantations}
           periods={lifecycle.periods}
           fields={fields}
+          operations={operations}
           stations={stations.filter((item) => !item.archivedAt)}
           selected={selectedPlantation}
           writeAllowed={writeAllowed}
           advanced={capabilities.campaignProfiles}
           t={t}
+          locale={locale}
           onSelect={setSelectedPlantation}
           onReport={(next) => {
             setReport(next);
@@ -243,11 +252,10 @@ export default function WeatherModule() {
       ) : (
         <Conditions
           report={report}
-          derived={derived}
+          canHistory={capabilities.history}
           stations={stations.filter((item) => !item.archivedAt)}
           selectedStation={selectedStation}
           historyDate={historyDate}
-          canHistory={capabilities.history}
           t={t}
           locale={locale}
           onStation={setSelectedStation}
@@ -361,11 +369,10 @@ function Stations({
 
 function Conditions({
   report,
-  derived,
+  canHistory,
   stations,
   selectedStation,
   historyDate,
-  canHistory,
   t,
   locale,
   onStation,
@@ -373,11 +380,10 @@ function Conditions({
   onHistory,
 }: {
   report: WeatherReport | null;
-  derived: WeatherIndicatorResponse | null;
+  canHistory: boolean;
   stations: WeatherVirtualStation[];
   selectedStation: string;
   historyDate: string;
-  canHistory: boolean;
   t: WeatherCopy;
   locale: string;
   onStation: (id: string) => void;
@@ -434,7 +440,7 @@ function Conditions({
               {t.cache}:{" "}
               {report.meta.cache.status === "stale" ? t.stale : t.fresh}
             </span>
-            <span>Core contract v{report.meta.contractVersion}</span>
+            <span>v{report.meta.contractVersion}</span>
           </div>
           <section className="weather-current">
             <article>
@@ -470,7 +476,6 @@ function Conditions({
           </section>
           <Provenance report={report} t={t} />
           <Forecast report={report} t={t} locale={locale} />
-          {derived && <Indicators response={derived} t={t} locale={locale} />}
         </>
       )}
     </section>
@@ -568,58 +573,141 @@ function Metric({ label, value }: { label: string; value: string }) {
   );
 }
 
-const indicatorRows = (response: WeatherIndicatorResponse, t: WeatherCopy) =>
+const metricRows = (metrics: AgronomicWeatherIndicators, t: WeatherCopy) =>
   [
-    [t.et0, response.indicators.et0],
-    [t.degreeDays, response.indicators.degreeDays],
-    [t.chillHours, response.indicators.chillHoursBelow7_2C],
-    [t.modifiedChill, response.indicators.modifiedChillHours],
-    [t.utah, response.indicators.utahChillUnits],
-    [t.dynamicChill, response.indicators.dynamicModelChillPortions],
-    [t.leafWetness, response.indicators.estimatedLeafWetnessHours],
-    [t.solarEnergy, response.indicators.solarEnergy],
-    [t.par, response.indicators.estimatedPar],
-    [t.dli, response.indicators.estimatedDli],
+    [t.et0, metrics.et0],
+    [t.degreeDays, metrics.degreeDays],
+    [t.chillHours, metrics.chillHoursBelow7_2C],
+    [t.modifiedChill, metrics.modifiedChillHours],
+    [t.utah, metrics.utahChillUnits],
+    [t.dynamicChill, metrics.dynamicModelChillPortions],
+    [t.leafWetness, metrics.estimatedLeafWetnessHours],
+    [t.solarEnergy, metrics.solarEnergy],
+    [t.par, metrics.estimatedPar],
+    [t.dli, metrics.estimatedDli],
   ] as const;
-function Indicators({
-  response,
+function AccumulationPanel({
+  value,
   t,
   locale,
 }: {
-  response: WeatherIndicatorResponse;
+  value: AgronomicWeatherAccumulation;
+  t: WeatherCopy;
+  locale: string;
+}) {
+  const date = (input: string) =>
+    new Date(`${input}T12:00:00Z`).toLocaleDateString(locale);
+  const warning = (
+    code: AgronomicWeatherAccumulation["warnings"][number]["code"],
+  ) =>
+    code === "STATION_NOT_ASSIGNED"
+      ? t.noAssignment
+      : code === "PROFILE_NOT_FOUND"
+        ? `${t.profile}: ${t.noData}`
+        : t.noData;
+  return (
+    <section className="panel indicator-panel accumulation-panel">
+      <header>
+        <div>
+          <h3>{t.indicators}</h3>
+          <p>
+            {date(value.interval.from)} — {date(value.interval.to)}
+          </p>
+        </div>
+        <span>
+          {t.daily}: {value.coverage.availableDays} /{" "}
+          {value.coverage.requestedDays} · {t.hourly}:{" "}
+          {value.coverage.availableHours} / {value.coverage.requestedHours}
+        </span>
+      </header>
+      <div className="weather-badges">
+        <span>
+          {t.observed}: {value.temporalStatus.observedHours}
+        </span>
+        <span>
+          {t.forecast}: {value.temporalStatus.forecastHours}
+        </span>
+        <span>
+          {t.measured}: {value.valueSource.measuredHours}
+        </span>
+        <span>
+          {t.estimated}: {value.valueSource.estimatedHours}
+        </span>
+      </div>
+      {value.warnings.length > 0 && (
+        <aside className="weather-error">
+          {value.warnings.map((item) => (
+            <p key={`${item.code}-${item.from}-${item.to}`}>
+              {warning(item.code)} · {date(item.from)} — {date(item.to)}
+            </p>
+          ))}
+        </aside>
+      )}
+      <div className="weather-periods">
+        <article>
+          <h4>{t.provenance}</h4>
+          {value.stationPeriods.map((period) => (
+            <p key={`${period.assignment.id}-${period.from}`}>
+              {period.station.name} · {date(period.from)} — {date(period.to)}
+            </p>
+          ))}
+        </article>
+        <article>
+          <h4>{t.profile}</h4>
+          {value.profilePeriods.map((period) => (
+            <p key={`${period.from}-${period.profile?.id || "none"}`}>
+              {period.profile?.methodVersion || t.noData} · {date(period.from)}{" "}
+              — {date(period.to)}
+            </p>
+          ))}
+        </article>
+      </div>
+      <div className="indicator-grid">
+        {metricRows(value.metrics, t).map(([label, item]) => (
+          <AccumulationMetricCard
+            key={label}
+            label={label}
+            item={item as WeatherAccumulationMetric}
+            t={t}
+            locale={locale}
+          />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function AccumulationMetricCard({
+  label,
+  item,
+  t,
+  locale,
+}: {
+  label: string;
+  item: WeatherAccumulationMetric;
   t: WeatherCopy;
   locale: string;
 }) {
   return (
-    <section className="panel indicator-panel">
-      <header>
-        <h3>{t.indicators}</h3>
-        {response.profile && (
-          <span>
-            {t.profile}: {response.profile.methodVersion}
-          </span>
-        )}
-      </header>
-      <div className="indicator-grid">
-        {indicatorRows(response, t).map(([label, item]) => (
-          <article key={label}>
-            <span>{label}</span>
-            <b>{format(item.value, item.unit, locale, 2)}</b>
-            <Badge value={item.temporalStatus} t={t} />
-            <details>
-              <summary>{t.details}</summary>
-              <p>
-                {t.method}: {item.method}
-              </p>
-              <p>
-                {t.version}: {item.version}
-              </p>
-              <pre>{JSON.stringify(item.inputs, null, 2)}</pre>
-            </details>
-          </article>
-        ))}
-      </div>
-    </section>
+    <article>
+      <span>{label}</span>
+      <b>{format(item.value, item.unit, locale, 2)}</b>
+      <small>
+        {t.daily}: {item.coverage.availableDays}/{item.coverage.requestedDays} ·{" "}
+        {t.hourly}: {item.coverage.availableHours}/
+        {item.coverage.requestedHours}
+      </small>
+      <details>
+        <summary>{t.details}</summary>
+        <p>
+          {t.method}: {item.method}
+        </p>
+        <p>
+          {t.version}: {item.version}
+        </p>
+        <pre>{JSON.stringify(item.inputs, null, 2)}</pre>
+      </details>
+    </article>
   );
 }
 
@@ -627,22 +715,26 @@ function PlantationWeather({
   plantations,
   periods,
   fields,
+  operations,
   stations,
   selected,
   writeAllowed,
   advanced,
   t,
+  locale,
   onSelect,
   onReport,
 }: {
   plantations: PlantationDto[];
   periods: CropPeriodDto[];
   fields: FieldDto[];
+  operations: OperationDto[];
   stations: WeatherVirtualStation[];
   selected: string;
   writeAllowed: boolean;
   advanced: boolean;
   t: WeatherCopy;
+  locale: string;
   onSelect: (id: string) => void;
   onReport: (report: WeatherReport) => void;
 }) {
@@ -654,6 +746,12 @@ function PlantationWeather({
         item.plantationId === plantation?.id && item.status === "active",
     ) || periods.find((item) => item.plantationId === plantation?.id);
   const field = fields.find((item) => item.id === plantation?.fieldId);
+  const installation = operations.find(
+    (item) =>
+      item.createdPlantationId === plantation?.id && item.cropInstallation,
+  );
+  const installationDate =
+    installation?.performedAt.slice(0, 10) || plantation?.startedOn;
   const center = field ? fieldCentroid(field.geometry.coordinates[0]) : null;
   const [suggestions, setSuggestions] = useState<WeatherStationSuggestion[]>(
       [],
@@ -663,31 +761,41 @@ function PlantationWeather({
     [window, setWindow] = useState<"7" | "30" | "90" | "custom">("30"),
     [customStart, setCustomStart] = useState(today()),
     [hideWarning, setHideWarning] = useState(false),
-    [accumulation, setAccumulation] = useState<WeatherAccumulation | null>(
-      null,
-    ),
-    [accumulating, setAccumulating] = useState(false);
+    [accumulationFailed, setAccumulationFailed] = useState(false),
+    [accumulation, setAccumulation] =
+      useState<AgronomicWeatherAccumulation | null>(null);
   const [settings, setSettings] = useState<AccumulationSettings>({
     plantationKind: plantation?.kind || "temporary",
-    establishment: "sown",
-    hasDormancy: plantation?.kind === "permanent",
+    establishment:
+      plantation?.kind === "permanent"
+        ? "not_applicable"
+        : installation?.cropInstallation?.method === "sowing"
+        ? "sown"
+        : "transplanted",
+    hasDormancy: false,
     campaignStartDate: campaign?.startedOn,
-    sowingDate: plantation?.startedOn,
+    sowingDate: installationDate,
+    transplantDate: installationDate,
   });
   useEffect(() => {
     if (plantation) {
       setSettings({
         plantationKind: plantation.kind,
         establishment:
-          plantation.kind === "temporary" ? "sown" : "not_applicable",
-        hasDormancy: plantation.kind === "permanent",
+          plantation.kind === "permanent"
+            ? "not_applicable"
+            : installation?.cropInstallation?.method === "sowing"
+            ? "sown"
+            : "transplanted",
+        hasDormancy: false,
         campaignStartDate: campaign?.startedOn,
-        sowingDate: plantation.startedOn,
+        sowingDate: installationDate,
+        transplantDate: installationDate,
       });
-      setHideWarning(false);
       setAccumulation(null);
+      setAccumulationFailed(false);
     }
-  }, [plantation?.id, campaign?.id]);
+  }, [plantation?.id, campaign?.id, installation?.id]);
   const start = accumulationStart(settings),
     windowDate = accumulationWindowStart(today(), window, customStart),
     effectiveStart =
@@ -721,24 +829,22 @@ function PlantationWeather({
     );
   }
   async function loadAccumulation() {
-    if (!advanced || !effectiveStart) return;
-    setAccumulating(true);
+    if (
+      !advanced ||
+      !effectiveStart ||
+      (start.basis === "missing_vegetative_start" && !hideWarning)
+    )
+      return;
+    setAccumulationFailed(false);
     try {
       setAccumulation(
-        await api<WeatherAccumulation>(
-          `subjects/plantation/${plantation.id}/accumulations`,
-          {
-            method: "POST",
-            body: JSON.stringify({
-              from: effectiveStart,
-              to: today(),
-              ...(campaign ? { campaignId: campaign.id } : {}),
-            }),
-          },
+        await api<AgronomicWeatherAccumulation>(
+          `subjects/plantation/${plantation.id}/agronomic-accumulation?from=${effectiveStart}&to=${today()}${campaign ? `&campaignId=${encodeURIComponent(campaign.id)}` : ""}`,
         ),
       );
-    } finally {
-      setAccumulating(false);
+      if (start.basis === "missing_vegetative_start") setHideWarning(false);
+    } catch {
+      setAccumulationFailed(true);
     }
   }
   async function saveProfile(event: FormEvent<HTMLFormElement>) {
@@ -766,6 +872,7 @@ function PlantationWeather({
         },
       }),
     });
+    await loadAccumulation();
   }
   return (
     <section className="panel weather-panel plantation-weather">
@@ -829,11 +936,12 @@ function PlantationWeather({
           <div className="window-buttons">
             {(["7", "30", "90", "custom"] as const).map((value) => (
               <button
+                type="button"
                 className={window === value ? "active" : ""}
                 onClick={() => setWindow(value)}
                 key={value}
               >
-                {value === "custom" ? t.custom : `${value} d`}
+                {value === "custom" ? t.custom : value}
               </button>
             ))}
           </div>
@@ -843,6 +951,119 @@ function PlantationWeather({
               value={customStart}
               onChange={(event) => setCustomStart(event.target.value)}
             />
+          )}
+          <label>
+            <span>{t.profile}</span>
+            <select
+              value={
+                settings.plantationKind === "temporary"
+                  ? settings.establishment
+                  : settings.hasDormancy
+                    ? "dormant"
+                    : "campaign"
+              }
+              onChange={(event) =>
+                setSettings((value) =>
+                  value.plantationKind === "temporary"
+                    ? {
+                        ...value,
+                        establishment: event.target.value as
+                          "sown" | "transplanted",
+                      }
+                    : {
+                        ...value,
+                        hasDormancy: event.target.value === "dormant",
+                      },
+                )
+              }
+            >
+              {settings.plantationKind === "temporary" ? (
+                <>
+                  <option value="sown">{t.sowingFallback}</option>
+                  <option value="transplanted">{t.transplant}</option>
+                </>
+              ) : (
+                <>
+                  <option value="dormant">{t.vegetativeStart}</option>
+                  <option value="campaign">{t.campaignStart}</option>
+                </>
+              )}
+            </select>
+          </label>
+          {settings.plantationKind === "temporary" &&
+          settings.establishment === "sown" ? (
+            <>
+              <label>
+                <span>{t.sowingFallback}</span>
+                <input
+                  type="date"
+                  value={settings.sowingDate || ""}
+                  onChange={(event) =>
+                    setSettings((value) => ({
+                      ...value,
+                      sowingDate: event.target.value || undefined,
+                    }))
+                  }
+                />
+              </label>
+              <label>
+                <span>{t.emergence}</span>
+                <input
+                  type="date"
+                  value={settings.emergenceDate || ""}
+                  onChange={(event) =>
+                    setSettings((value) => ({
+                      ...value,
+                      emergenceDate: event.target.value || undefined,
+                    }))
+                  }
+                />
+              </label>
+            </>
+          ) : settings.plantationKind === "temporary" ? (
+            <label>
+              <span>{t.transplant}</span>
+              <input
+                type="date"
+                value={settings.transplantDate || ""}
+                onChange={(event) =>
+                  setSettings((value) => ({
+                    ...value,
+                    transplantDate: event.target.value || undefined,
+                  }))
+                }
+              />
+            </label>
+          ) : settings.hasDormancy ? (
+            <label>
+              <span>{t.vegetativeStart}</span>
+              <input
+                id="vegetative-start-date"
+                type="date"
+                value={settings.vegetativeStartDate || ""}
+                onChange={(event) => {
+                  setSettings((value) => ({
+                    ...value,
+                    vegetativeStartDate: event.target.value || undefined,
+                  }));
+                  setHideWarning(false);
+                }}
+              />
+            </label>
+          ) : (
+            <label>
+              <span>{t.campaignStart}</span>
+              <input
+                type="date"
+                value={settings.campaignStartDate || ""}
+                onChange={(event) =>
+                  setSettings((value) => ({
+                    ...value,
+                    campaignStartDate: event.target.value || undefined,
+                  }))
+                }
+              />
+            </label>
           )}
           <p>
             {t.effectiveFrom}: <b>{effectiveStart || "—"}</b>
@@ -854,148 +1075,44 @@ function PlantationWeather({
                 ? t.sowingFallback
                 : start.basis === "transplant"
                   ? t.transplant
-                  : start.basis === "vegetative_start"
+                  : start.basis === "vegetative_start" ||
+                      start.basis === "missing_vegetative_start"
                     ? t.vegetativeStart
                     : t.campaignStart}
           </p>
-          <button
-            disabled={!advanced || !effectiveStart || accumulating}
-            onClick={() => void loadAccumulation()}
-          >
-            {t.indicators}
-          </button>
         </article>
       </div>
       {start.basis === "missing_vegetative_start" && !hideWarning && (
         <aside className="vegetative-warning">
           <p>{t.vegetativeWarning}</p>
           <button
+            type="button"
             onClick={() =>
-              setSettings((value) => ({
-                ...value,
-                vegetativeStartDate: today(),
-              }))
+              document.getElementById("vegetative-start-date")?.focus()
             }
           >
             {t.indicateDate}
           </button>
-          <button onClick={() => setHideWarning(true)}>
+          <button type="button" onClick={() => setHideWarning(true)}>
             {t.continueWithout}
           </button>
         </aside>
       )}
-      <section className="accumulation-dates">
-        <h3>{t.effectiveFrom}</h3>
-        {plantation.kind === "temporary" ? (
-          <>
-            <label>
-              <span>
-                {t.sowingFallback} / {t.transplant}
-              </span>
-              <select
-                value={settings.establishment}
-                onChange={(event) =>
-                  setSettings((value) => ({
-                    ...value,
-                    establishment: event.target
-                      .value as AccumulationSettings["establishment"],
-                  }))
-                }
-              >
-                <option value="sown">{t.sowingFallback}</option>
-                <option value="transplanted">{t.transplant}</option>
-              </select>
-            </label>
-            {settings.establishment === "sown" ? (
-              <>
-                <label>
-                  <span>{t.sowingFallback}</span>
-                  <input
-                    type="date"
-                    value={settings.sowingDate || ""}
-                    onChange={(event) =>
-                      setSettings((value) => ({
-                        ...value,
-                        sowingDate: event.target.value,
-                      }))
-                    }
-                  />
-                </label>
-                <label>
-                  <span>{t.emergence}</span>
-                  <input
-                    type="date"
-                    value={settings.emergenceDate || ""}
-                    onChange={(event) =>
-                      setSettings((value) => ({
-                        ...value,
-                        emergenceDate: event.target.value || undefined,
-                      }))
-                    }
-                  />
-                </label>
-              </>
-            ) : (
-              <label>
-                <span>{t.transplant}</span>
-                <input
-                  type="date"
-                  value={settings.transplantDate || ""}
-                  onChange={(event) =>
-                    setSettings((value) => ({
-                      ...value,
-                      transplantDate: event.target.value || undefined,
-                    }))
-                  }
-                />
-              </label>
-            )}
-          </>
-        ) : (
-          <>
-            <label className="check-line">
-              <input
-                type="checkbox"
-                checked={settings.hasDormancy}
-                onChange={(event) =>
-                  setSettings((value) => ({
-                    ...value,
-                    hasDormancy: event.target.checked,
-                  }))
-                }
-              />
-              <span>{t.vegetativeStart}</span>
-            </label>
-            <label>
-              <span>
-                {settings.hasDormancy ? t.vegetativeStart : t.campaignStart}
-              </span>
-              <input
-                type="date"
-                value={
-                  (settings.hasDormancy
-                    ? settings.vegetativeStartDate
-                    : settings.campaignStartDate) || ""
-                }
-                onChange={(event) =>
-                  setSettings((value) =>
-                    settings.hasDormancy
-                      ? {
-                          ...value,
-                          vegetativeStartDate: event.target.value || undefined,
-                        }
-                      : {
-                          ...value,
-                          campaignStartDate: event.target.value || undefined,
-                        },
-                  )
-                }
-              />
-            </label>
-          </>
-        )}
-      </section>
-      {accumulation && <AccumulationView data={accumulation} t={t} />}
+      <button
+        type="button"
+        className="primary-action accumulation-action"
+        disabled={
+          !advanced ||
+          !effectiveStart ||
+          (start.basis === "missing_vegetative_start" && !hideWarning)
+        }
+        onClick={() => void loadAccumulation()}
+      >
+        {t.refresh} · {t.indicators}
+      </button>
+      {accumulationFailed && (
+        <aside className="weather-error">{t.loadError}</aside>
+      )}
       <form
         className="weather-profile"
         onSubmit={(event) => void saveProfile(event)}
@@ -1042,65 +1159,9 @@ function PlantationWeather({
           {t.saveProfile}
         </button>
       </form>
-    </section>
-  );
-}
-
-function AccumulationView({
-  data,
-  t,
-}: {
-  data: WeatherAccumulation;
-  t: WeatherCopy;
-}) {
-  const labels: Record<keyof WeatherAccumulation["values"], string> = {
-    et0: t.et0,
-    degreeDays: t.degreeDays,
-    chillHoursBelow7_2C: t.chillHours,
-    modifiedChillHours: t.modifiedChill,
-    utahChillUnits: t.utah,
-    dynamicModelChillPortions: t.dynamicChill,
-    estimatedLeafWetnessHours: t.leafWetness,
-    solarEnergy: t.solarEnergy,
-    estimatedPar: t.par,
-    estimatedDli: t.dli,
-  };
-  return (
-    <section className="accumulation-results">
-      <header>
-        <h3>{t.indicators}</h3>
-        <span>
-          {data.from} → {data.to} · {data.daysWithData}/{data.daysRequested}
-        </span>
-      </header>
-      <div>
-        {Object.entries(data.values).map(([key, value]) => (
-          <article key={key}>
-            <span>{labels[key as keyof typeof labels]}</span>
-            <b>
-              {value.total.toFixed(2)} {value.unit}
-            </b>
-            <small>
-              {t.observed}: {value.observed.toFixed(2)} · {t.forecast}:{" "}
-              {value.forecast.toFixed(2)}
-            </small>
-            <em>
-              {value.dailyAverage === null
-                ? "—"
-                : `${value.dailyAverage.toFixed(2)} ${value.unit}/d`}
-            </em>
-          </article>
-        ))}
-      </div>
-      <aside>
-        <strong>{t.provenance}</strong>
-        {data.provenance.map((item) => (
-          <span key={`${item.stationId}-${item.effectiveFrom}`}>
-            {item.stationName}: {item.effectiveFrom.slice(0, 10)} →{" "}
-            {item.effectiveTo?.slice(0, 10) || data.to}
-          </span>
-        ))}
-      </aside>
+      {accumulation && (
+        <AccumulationPanel value={accumulation} t={t} locale={locale} />
+      )}
     </section>
   );
 }

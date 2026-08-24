@@ -30,7 +30,9 @@
     "i18n:review-operations": "tsx script/review-operation-locales.ts && tsx script/review-spraying-locales.ts",
     "i18n:generate-plans": "tsx script/generate-plan-locales.ts",
     "i18n:review-plans": "tsx script/review-plan-terms.ts && tsx script/review-plan-locales.ts",
-    "i18n:review-irrigation": "tsx script/review-irrigation-locales.ts"
+    "i18n:review-irrigation": "tsx script/review-irrigation-locales.ts",
+    "i18n:generate-weather": "tsx script/generate-weather-locales.ts",
+    "i18n:review-weather": "tsx script/review-weather-locales.ts"
   },
   "dependencies": {
     "@turf/area": "^7.4.0",
