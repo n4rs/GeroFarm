@@ -127,6 +127,13 @@
       "when": 1787616000000,
       "tag": "0017_optional_inventory_costs",
       "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "7",
+      "when": 1787702400000,
+      "tag": "0018_local_agronomic_weather",
+      "breakpoints": true
     }
   ]
 }

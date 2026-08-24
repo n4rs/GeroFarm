@@ -117,11 +117,7 @@ export default function WeatherModule() {
           value || stationRows.find((item) => !item.archivedAt)?.id || "",
       );
       setSelectedPlantation(
-        (value) =>
-          value ||
-          lifecycleResponse.plantations.find((item) => item.status === "active")
-            ?.id ||
-          "",
+        (value) => {const active=lifecycleResponse.plantations.filter(item=>item.status==="active");return value||(active.length===1?active[0].id:"")},
       );
     } catch {
       setFailed(true);
@@ -132,9 +128,9 @@ export default function WeatherModule() {
   useEffect(() => {
     void load();
   }, [load]);
-  const loadStationReport = useCallback(
-    async (stationId: string, at?: string) => {
-      if (!stationId) {
+  const loadPlantationConditions = useCallback(
+    async (plantationId: string, at = today()) => {
+      if (!plantationId) {
         setReport(null);
         return;
       }
@@ -142,7 +138,7 @@ export default function WeatherModule() {
       try {
         setReport(
           await api<WeatherReport>(
-            `stations/${stationId}/report${at ? `?at=${encodeURIComponent(dateTime(at))}` : ""}`,
+            `subjects/plantation/${plantationId}/conditions?from=${at}&to=${at}`,
           ),
         );
       } catch {
@@ -152,8 +148,9 @@ export default function WeatherModule() {
     [],
   );
   useEffect(() => {
-    if (selectedStation) void loadStationReport(selectedStation);
-  }, [selectedStation, loadStationReport]);
+    if (selectedPlantation) void loadPlantationConditions(selectedPlantation);
+    else setReport(null);
+  }, [selectedPlantation, loadPlantationConditions]);
   const active = activeStationCount(stations),
     capacityReached = limit !== null && active >= limit;
   const selected = stations.find((item) => item.id === selectedStation) || null;
@@ -244,8 +241,8 @@ export default function WeatherModule() {
           t={t}
           locale={locale}
           onSelect={setSelectedPlantation}
-          onReport={(next) => {
-            setReport(next);
+          onConditions={async () => {
+            await loadPlantationConditions(selectedPlantation);
             setTab("conditions");
           }}
         />
@@ -253,14 +250,14 @@ export default function WeatherModule() {
         <Conditions
           report={report}
           canHistory={capabilities.history}
-          stations={stations.filter((item) => !item.archivedAt)}
-          selectedStation={selectedStation}
+          plantations={lifecycle.plantations}
+          selectedPlantation={selectedPlantation}
           historyDate={historyDate}
           t={t}
           locale={locale}
-          onStation={setSelectedStation}
+          onPlantation={setSelectedPlantation}
           onHistoryDate={setHistoryDate}
-          onHistory={() => void loadStationReport(selectedStation, historyDate)}
+          onHistory={() => void loadPlantationConditions(selectedPlantation, historyDate)}
         />
       )}
       {dialog && (
@@ -370,27 +367,27 @@ function Stations({
 function Conditions({
   report,
   canHistory,
-  stations,
-  selectedStation,
+  plantations,
+  selectedPlantation,
   historyDate,
   t,
   locale,
-  onStation,
+  onPlantation,
   onHistoryDate,
   onHistory,
 }: {
   report: WeatherReport | null;
   canHistory: boolean;
-  stations: WeatherVirtualStation[];
-  selectedStation: string;
+  plantations: PlantationDto[];
+  selectedPlantation: string;
   historyDate: string;
   t: WeatherCopy;
   locale: string;
-  onStation: (id: string) => void;
+  onPlantation: (id: string) => void;
   onHistoryDate: (date: string) => void;
   onHistory: () => void;
 }) {
-  if (!stations.length)
+  if (!plantations.length)
     return (
       <section className="panel module-state">
         <p>{t.noData}</p>
@@ -401,14 +398,15 @@ function Conditions({
     <section className="weather-dashboard">
       <div className="weather-toolbar">
         <label>
-          <span>{t.selectStation}</span>
+          <span>{t.plantations}</span>
           <select
-            value={selectedStation}
-            onChange={(event) => onStation(event.target.value)}
+            value={selectedPlantation}
+            onChange={(event) => onPlantation(event.target.value)}
           >
-            {stations.map((station) => (
-              <option key={station.id} value={station.id}>
-                {station.name}
+            <option value="">{t.plantations}</option>
+            {plantations.map((plantation) => (
+              <option key={plantation.id} value={plantation.id}>
+                {plantation.name}
               </option>
             ))}
           </select>
@@ -692,6 +690,8 @@ function AccumulationMetricCard({
     <article>
       <span>{label}</span>
       <b>{format(item.value, item.unit, locale, 2)}</b>
+      {item.state !== "available" && <small>{t.noData}</small>}
+      <small>{t.observed}: {format(item.components.observed,item.unit,locale,2)} · {t.forecast}: {format(item.components.forecast,item.unit,locale,2)}</small>
       <small>
         {t.daily}: {item.coverage.availableDays}/{item.coverage.requestedDays} ·{" "}
         {t.hourly}: {item.coverage.availableHours}/
@@ -705,6 +705,9 @@ function AccumulationMetricCard({
         <p>
           {t.version}: {item.version}
         </p>
+        <p>{t.inputs}: {item.inputIds.length} · {item.inputHash}</p>
+        <p>{t.refresh}: {item.provenance.fetchedAt.length ? item.provenance.fetchedAt.map(value=>new Date(value).toLocaleString(locale)).join(" · ") : t.noData}</p>
+        {item.coverage.gaps.map((gap,index)=><p key={`${gap.from}-${gap.to}-${index}`}>{t.noData}: {new Date(`${gap.from}T12:00:00Z`).toLocaleDateString(locale)} — {new Date(`${gap.to}T12:00:00Z`).toLocaleDateString(locale)}</p>)}
         <pre>{JSON.stringify(item.inputs, null, 2)}</pre>
       </details>
     </article>
@@ -723,7 +726,7 @@ function PlantationWeather({
   t,
   locale,
   onSelect,
-  onReport,
+  onConditions,
 }: {
   plantations: PlantationDto[];
   periods: CropPeriodDto[];
@@ -736,15 +739,13 @@ function PlantationWeather({
   t: WeatherCopy;
   locale: string;
   onSelect: (id: string) => void;
-  onReport: (report: WeatherReport) => void;
+  onConditions: () => Promise<void>;
 }) {
   const plantation =
-    plantations.find((item) => item.id === selected) || plantations[0];
-  const campaign =
-    periods.find(
-      (item) =>
-        item.plantationId === plantation?.id && item.status === "active",
-    ) || periods.find((item) => item.plantationId === plantation?.id);
+    plantations.find((item) => item.id === selected) || (plantations.length===1?plantations[0]:undefined);
+  const relevantPeriods = periods.filter(
+    (item) => item.plantationId === plantation?.id,
+  );
   const field = fields.find((item) => item.id === plantation?.fieldId);
   const installation = operations.find(
     (item) =>
@@ -760,10 +761,14 @@ function PlantationWeather({
     [effectiveFrom, setEffectiveFrom] = useState(today()),
     [window, setWindow] = useState<"7" | "30" | "90" | "custom">("30"),
     [customStart, setCustomStart] = useState(today()),
+    [periodId, setPeriodId] = useState(
+      relevantPeriods.length === 1 ? relevantPeriods[0].id : "",
+    ),
     [hideWarning, setHideWarning] = useState(false),
     [accumulationFailed, setAccumulationFailed] = useState(false),
     [accumulation, setAccumulation] =
       useState<AgronomicWeatherAccumulation | null>(null);
+  const campaign = relevantPeriods.find((item) => item.id === periodId);
   const [settings, setSettings] = useState<AccumulationSettings>({
     plantationKind: plantation?.kind || "temporary",
     establishment:
@@ -777,6 +782,9 @@ function PlantationWeather({
     sowingDate: installationDate,
     transplantDate: installationDate,
   });
+  useEffect(() => {
+    setPeriodId(relevantPeriods.length === 1 ? relevantPeriods[0].id : "");
+  }, [plantation?.id]);
   useEffect(() => {
     if (plantation) {
       setSettings({
@@ -808,6 +816,7 @@ function PlantationWeather({
         <p>{t.noData}</p>
       </section>
     );
+  const subject=plantation;
   async function suggest() {
     if (center)
       setSuggestions(
@@ -817,21 +826,20 @@ function PlantationWeather({
       );
   }
   async function assign() {
-    await api(`subjects/plantation/${plantation.id}/station`, {
+    await api(`subjects/plantation/${subject.id}/station`, {
       method: "POST",
       body: JSON.stringify({
         stationId,
         effectiveFrom: dateTime(effectiveFrom),
       }),
     });
-    onReport(
-      await api<WeatherReport>(`subjects/plantation/${plantation.id}/report`),
-    );
+    await onConditions();
   }
   async function loadAccumulation() {
     if (
       !advanced ||
       !effectiveStart ||
+      (relevantPeriods.length > 0 && !campaign) ||
       (start.basis === "missing_vegetative_start" && !hideWarning)
     )
       return;
@@ -839,7 +847,7 @@ function PlantationWeather({
     try {
       setAccumulation(
         await api<AgronomicWeatherAccumulation>(
-          `subjects/plantation/${plantation.id}/agronomic-accumulation?from=${effectiveStart}&to=${today()}${campaign ? `&campaignId=${encodeURIComponent(campaign.id)}` : ""}`,
+          `subjects/plantation/${subject.id}/agronomic-series?from=${effectiveStart}&to=${today()}${campaign ? `&campaignId=${encodeURIComponent(campaign.id)}` : ""}`,
         ),
       );
       if (start.basis === "missing_vegetative_start") setHideWarning(false);
@@ -854,8 +862,9 @@ function PlantationWeather({
     await api(`campaigns/${campaign.id}/agronomic-profiles`, {
       method: "POST",
       body: JSON.stringify({
-        cropId: plantation.cultureId,
-        varietyId: plantation.varietyId || "default",
+        plantationId: subject.id,
+        cropId: subject.cultureId,
+        varietyId: subject.varietyId || "default",
         methodVersion: "gerofarm-ui-v1",
         validFrom: dateTime(String(form.get("validFrom"))),
         parameters: {
@@ -891,6 +900,12 @@ function PlantationWeather({
             </option>
           ))}
         </select>
+        {relevantPeriods.length > 0 && (
+          <select value={periodId} onChange={(event) => setPeriodId(event.target.value)} aria-label={t.campaign}>
+            <option value="">{t.campaign}</option>
+            {relevantPeriods.map((period) => <option key={period.id} value={period.id}>{period.name}</option>)}
+          </select>
+        )}
       </header>
       <div className="assignment-grid">
         <article>
@@ -1104,6 +1119,7 @@ function PlantationWeather({
         disabled={
           !advanced ||
           !effectiveStart ||
+          (relevantPeriods.length > 0 && !campaign) ||
           (start.basis === "missing_vegetative_start" && !hideWarning)
         }
         onClick={() => void loadAccumulation()}

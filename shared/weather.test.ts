@@ -112,7 +112,7 @@ test("commercial weather levels expose only their contracted depth", () => {
   assert.equal(weatherCapabilities("custom").export, true);
 });
 
-test("GeroFarm weather code contains no local indicator or accumulation algorithm", async () => {
+test("GeroFarm owns agronomic derivations and consumes only the Core base-series route", async () => {
   const sources = await Promise.all([
     readFile(new URL("./weather.ts", import.meta.url), "utf8"),
     readFile(new URL("../server/weather-routes.ts", import.meta.url), "utf8"),
@@ -123,12 +123,12 @@ test("GeroFarm weather code contains no local indicator or accumulation algorith
       ),
       "utf8",
     ),
+    readFile(new URL("../server/agronomic-weather-engine.ts", import.meta.url), "utf8"),
   ]);
   const source = sources.join("\n");
-  assert.doesNotMatch(
-    source,
-    /aggregateWeatherIndicators|indicatorInputFromReport|solarRadiationMjM2Day|windSpeed2mMps/u,
-  );
   assert.doesNotMatch(source, /pirate\s*weather/iu);
-  assert.match(source, /agronomic-accumulation/u);
+  assert.doesNotMatch(source, /geroCore\.weather\.get<AgronomicWeatherAccumulation/u);
+  assert.doesNotMatch(source, /geroCore\.weather\.get<WeatherReport/u);
+  assert.match(source, /synchronizeWeatherSeries/u);
+  assert.match(source, /fao56DailyEt0/u);
 });

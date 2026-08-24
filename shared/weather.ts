@@ -61,6 +61,44 @@ export type WeatherStationSuggestion = {
   station: WeatherVirtualStation;
   distanceKm: number;
 };
+export type WeatherSeriesGapReason =
+  | "station_not_assigned"
+  | "provider_unavailable"
+  | "hourly_data_unavailable"
+  | "daily_data_unavailable";
+export type WeatherSeriesHour = Pick<WeatherDataPoint,
+  "at" | "temperatureC" | "apparentTemperatureC" | "precipitationProbability" |
+  "precipitationIntensityMmPerHour" | "precipitationAccumulationMm" |
+  "precipitationType" | "humidityPercent" | "windSpeedKph" | "windGustKph" |
+  "windBearingDegrees" | "pressureHpa" | "cloudCoverPercent" | "uvIndex" |
+  "dewPointC" | "solarRadiationWm2" | "elevationM" | "temporalStatus" | "valueSource">;
+export type WeatherSeriesDay = Omit<WeatherSeriesHour, "at"> & {
+  date: string;
+  temperatureMinC: number | null;
+  temperatureMaxC: number | null;
+};
+export type WeatherBaseSeries = {
+  contractVersion: "2";
+  subject: { subjectType: "plantation" | "campaign"; subjectId: string };
+  interval: { from: string; to: string; maximumDays: number };
+  page: { from: string; to: string; sizeDays: number; nextCursor: string | null };
+  timezone: string | null;
+  units: "metric";
+  hourly: WeatherSeriesHour[];
+  daily: WeatherSeriesDay[];
+  stationPeriods: Array<{ from: string; to: string; station: WeatherVirtualStation; assignment: WeatherStationAssignment }>;
+  coverage: {
+    requestedDays: number; daysWithHourlyData: number; daysWithDailyData: number;
+    requestedHours: number; availableHours: number; complete: boolean;
+    gaps: Array<{ from: string; to: string; reason: WeatherSeriesGapReason }>;
+  };
+  meta: {
+    provider: string; fetchedAt: string | null; cached: boolean; stale: boolean;
+    cache: { status: "miss" | "fresh" | "stale" | "mixed" | "not_requested"; requests: number; hits: number; misses: number };
+  };
+};
+export type AgronomicResultState = "available" | "insufficient_data" | "not_applicable";
+export type AgronomicCoverage = { requestedDays: number; availableDays: number; requestedHours: number; availableHours: number; gaps: Array<{ from: string; to: string; reason: string }> };
 export type WeatherDerivation = {
   value: number | null;
   unit: string;
@@ -69,6 +107,13 @@ export type WeatherDerivation = {
   valueSource: "estimated";
   temporalStatus: WeatherTemporalStatus;
   inputs: Record<string, unknown>;
+  state: AgronomicResultState;
+  inputHash: string;
+  inputIds: string[];
+  interval: { from: string; to: string };
+  coverage: AgronomicCoverage;
+  provenance: { stationIds: string[]; fetchedAt: string[] };
+  components: { observed: number | null; forecast: number | null };
 };
 export type AgronomicWeatherIndicators = {
   et0: WeatherDerivation;
@@ -83,12 +128,7 @@ export type AgronomicWeatherIndicators = {
   estimatedDli: WeatherDerivation;
 };
 export type WeatherAccumulationMetric = WeatherDerivation & {
-  coverage: {
-    requestedDays: number;
-    availableDays: number;
-    requestedHours: number;
-    availableHours: number;
-  };
+  coverage: AgronomicCoverage;
 };
 export type AgronomicWeatherAccumulation = {
   contractVersion: "2";
@@ -119,7 +159,7 @@ export type AgronomicWeatherAccumulation = {
     profile: WeatherAgronomicProfile | null;
   }>;
   warnings: Array<{
-    code: "STATION_NOT_ASSIGNED" | "PROFILE_NOT_FOUND" | "INCOMPLETE_DAY";
+    code: "STATION_NOT_ASSIGNED" | "PROFILE_NOT_FOUND" | "INCOMPLETE_DAY" | "INSUFFICIENT_DATA" | "CORE_UNAVAILABLE";
     from: string;
     to: string;
     detail: string;

@@ -1,0 +1,5 @@
+import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
+import test from "node:test";
+
+test("weather persistence is additive, tenant-isolated and idempotent",async()=>{const sql=await readFile(new URL("../migrations/0018_local_agronomic_weather.sql",import.meta.url),"utf8"),policies:Record<string,string>={weather_syncs:"weather_syncs_tenant_isolation",weather_samples:"weather_samples_tenant_isolation",weather_agronomic_profiles:"weather_profiles_tenant_isolation",weather_agronomic_results:"weather_results_tenant_isolation"};for(const [table,policy] of Object.entries(policies)){assert.match(sql,new RegExp(`ALTER TABLE "farm"\\."${table}" ENABLE ROW LEVEL SECURITY`));assert.match(sql,new RegExp(`CREATE POLICY "${policy}"`))}assert.match(sql,/weather_samples_idempotent_unique/u);assert.match(sql,/"organization_id","plantation_id","station_id","resolution","sample_at"/u);assert.match(sql,/REFERENCES "farm"\."plantations"/u);assert.match(sql,/REFERENCES "farm"\."crop_periods"/u);assert.doesNotMatch(sql,/api[_-]?key|secret|raw[_-]?payload|pirate/iu)});
