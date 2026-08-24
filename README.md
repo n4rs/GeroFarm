@@ -12,7 +12,9 @@ Fundação técnica do GeroFarm, uma aplicação nova que corre em paralelo com 
 - Autorização fail-closed para a aplicação Core com código `farm`.
 - Planos e entitlements recebidos do GeroCore, sem os simular no frontend.
 - Logout e preferência de idioma encaminhados com a proteção CSRF do GeroCore.
-- Shell pública e área autenticada temporária em `/app`.
+- Shell pública e área autenticada em `/app`.
+- Área autenticada baseada no mockup, com navegação responsiva, RTL e catálogo inicial nas mesmas 28 línguas da homepage.
+- Portão linguístico próprio para paridade de chaves, placeholders, frases por idioma e regras plurais com `Intl.PluralRules`.
 - PostgreSQL/Drizzle com credenciais separadas de runtime e migrations.
 - Schema `farm`, projeção local mínima da organização e Row-Level Security forçada.
 - Inicializador seguro para a base lógica `gero_farm`, sem acesso à base do GeroCore.

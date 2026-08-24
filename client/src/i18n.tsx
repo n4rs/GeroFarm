@@ -32,7 +32,7 @@ export function detectLocale(search = window.location.search, languages = naviga
 type I18nValue = { locale: SupportedLocale; copy: HomepageCopy; setLocale: (locale: SupportedLocale) => void; options: Array<{ code: SupportedLocale; label: string }> };
 const I18nContext = createContext<I18nValue | null>(null);
 
-export function I18nProvider({ children }: { children: ReactNode }) {
+export function I18nProvider({ children, preferredLocale }: { children: ReactNode; preferredLocale?: string | null }) {
   const [locale, setLocaleState] = useState<SupportedLocale>(() => detectLocale());
   const setLocale = (next: SupportedLocale) => {
     localStorage.setItem(storageKey, next);
@@ -40,6 +40,11 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     window.history.replaceState(window.history.state, "", url);
     setLocaleState(next);
   };
+  useEffect(() => {
+    const manual = normalizeLocale(new URLSearchParams(window.location.search).get("lang")) || normalizeLocale(localStorage.getItem(storageKey));
+    const account = normalizeLocale(preferredLocale);
+    if (!manual && account) setLocaleState(account);
+  }, [preferredLocale]);
   useEffect(() => { document.documentElement.lang = locale; document.documentElement.dir = rtl.has(locale) ? "rtl" : "ltr"; }, [locale]);
   const value = useMemo<I18nValue>(() => ({ locale, copy: homepageCopies[locale], setLocale, options: supportedLocales.map((code) => ({ code, label: nativeNames[code] })) }), [locale]);
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
