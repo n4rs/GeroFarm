@@ -5,6 +5,7 @@ import MarketingHome from "./MarketingHome";
 import { I18nProvider } from "./i18n";
 import CookieConsentManager from "./CookieConsentManager";
 import { legalDocumentKind } from "./legal-routes";
+import MockupWorkspace from "./mockup/MockupWorkspace";
 
 const LegalDocumentPage = lazy(() => import("./LegalDocumentPage"));
 
@@ -45,6 +46,7 @@ export default function App() {
   const path = window.location.pathname;
   const handoff = reservedApplicationHandoff(window.location.href);
   if (handoff) return <CoreHandoff destination={handoff} />;
+  if (path === "/mockup" || path.startsWith("/mockup/")) return <MockupWorkspace />;
   if (path === "/login") return <AccountRedirect destination="loginUrl" />;
   if (path === "/register") return <AccountRedirect destination="registerUrl" />;
   if (path === "/app" || path.startsWith("/app/")) return <AuthProvider><Workspace /></AuthProvider>;
