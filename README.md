@@ -1,8 +1,8 @@
 # GeroFarm
 
-Fundação técnica do GeroFarm, uma aplicação nova que corre em paralelo com o GeroCampo. Esta etapa contém servidor, shell web, integração central de identidade e acesso e a fundação isolada de persistência; ainda não contém a plataforma agrícola.
+O GeroFarm é uma aplicação agrícola nova que corre em paralelo com o GeroCampo. Contém a plataforma agrícola, a integração central de identidade, acesso, idioma, entitlements e meteorologia, e persistência isolada por organização.
 
-## Incluído nesta etapa
+## Incluído
 
 - Node.js 22, TypeScript, Express, React e Vite.
 - Health check em `GET /api/health`.
