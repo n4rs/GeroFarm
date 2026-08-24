@@ -77,6 +77,7 @@ test("resource migration isolates people, certificates, contractors and equipmen
 });
 
 test("operation migration keeps one tenant-scoped physical operation and shared resources",()=>{const migration=readFileSync(resolve("migrations/0006_operations.sql"),"utf8");assert.match(migration,/operation_sequences_organization_year_unique/);assert.match(migration,/operations_organization_code_unique/);for(const table of["operations","operation_workers","operation_equipment","operation_contractors"])assert.match(migration,new RegExp(`FORCE ROW LEVEL SECURITY[^]*${table}_tenant_isolation|${table}_tenant_isolation[^]*FORCE ROW LEVEL SECURITY`));assert.match(migration,/REVOKE DELETE ON TABLE "farm"\."operations"/)});
+test("operation destinations migrate existing work without duplicating shared resources",()=>{const migration=readFileSync(resolve("migrations/0007_operation_destinations.sql"),"utf8");assert.match(migration,/INSERT INTO "farm"\."operation_destinations"[^]*coalesce\(operation\.area_ha,field\.usable_area_ha\),100/);assert.match(migration,/operation_destinations_tenant_isolation/);assert.match(migration,/FORCE ROW LEVEL SECURITY/);assert.match(migration,/DROP COLUMN "field_id"/);assert.match(migration,/DROP COLUMN "area_ha"/);assert.match(migration,/REVOKE DELETE ON TABLE "farm"\."operation_destinations"/)});
 
 test("production bootstrap resets only the explicitly pinned empty farm database", () => {
   const bootstrap = readFileSync(resolve("script/bootstrap-production-database.ts"), "utf8");
