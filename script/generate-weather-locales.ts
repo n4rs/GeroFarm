@@ -169,150 +169,250 @@ const overrides: Partial<Record<SupportedLocale, Partial<WeatherCopy>>> = {
   "pt-BR": ptBR,
   fr: {
     degreeDays: "Degrés-jours de croissance",
+    chillHours: "Heures de froid sous 7,2 °C",
+    modifiedChill: "Heures de froid modifiées",
+    utah: "Unités de froid Utah",
+    dynamicChill: "Portions de froid du modèle dynamique",
     leafWetness: "Humectation foliaire estimée",
     vegetativeWarning:
       "Le début du cycle végétatif est manquant. Cette date n'est jamais déduite d'une opération agricole.",
   },
   es: {
     degreeDays: "Grados-día de crecimiento",
+    chillHours: "Horas de frío por debajo de 7,2 °C",
+    modifiedChill: "Horas de frío modificadas",
+    utah: "Unidades de frío Utah",
+    dynamicChill: "Porciones de frío del Modelo Dinámico",
     leafWetness: "Mojado foliar estimado",
     vegetativeWarning:
       "Falta el inicio del ciclo vegetativo. Esta fecha nunca se infiere a partir de una operación agrícola.",
   },
   nl: {
     degreeDays: "Groeigraaddagen",
+    chillHours: "Koude-uren onder 7,2 °C",
+    modifiedChill: "Aangepaste koude-uren",
+    utah: "Utah-koude-eenheden",
+    dynamicChill: "Koudeporties volgens het dynamisch model",
     leafWetness: "Geschatte bladnatheid",
     vegetativeWarning:
       "Het begin van de vegetatieve cyclus ontbreekt. Deze datum wordt nooit uit een landbouwbewerking afgeleid.",
   },
   de: {
     degreeDays: "Wachstumsgradtage",
+    chillHours: "Kältestunden unter 7,2 °C",
+    modifiedChill: "Modifizierte Kältestunden",
+    utah: "Utah-Kälteeinheiten",
+    dynamicChill: "Kälteportionen nach dem Dynamischen Modell",
     leafWetness: "Geschätzte Blattnässe",
     vegetativeWarning:
       "Der Beginn des Vegetationszyklus fehlt. Dieses Datum wird niemals aus einem Arbeitsgang abgeleitet.",
   },
   ja: {
     degreeDays: "生育積算温度",
+    chillHours: "7.2 °C以下の低温遭遇時間",
+    modifiedChill: "修正低温時間",
+    utah: "ユタ低温単位",
+    dynamicChill: "動的モデルの低温ポーション",
     leafWetness: "推定葉面湿潤",
     vegetativeWarning:
       "栄養成長サイクルの開始日がありません。この日付を農作業から推測することはありません。",
   },
   he: {
     degreeDays: "ימי מעלה לגידול",
+    chillHours: "שעות קור מתחת ל-7.2 °C",
+    modifiedChill: "שעות קור מתוקנות",
+    utah: "יחידות קור יוטה",
+    dynamicChill: "מנות צינון לפי המודל הדינמי",
     leafWetness: "רטיבות עלים מוערכת",
     vegetativeWarning:
       "תאריך תחילת המחזור הווגטטיבי חסר. לעולם אין להסיק אותו מפעולה חקלאית.",
   },
   tr: {
     degreeDays: "Büyüme derece-günleri",
+    chillHours: "7,2 °C altındaki soğuklanma saatleri",
+    modifiedChill: "Değiştirilmiş soğuklanma saatleri",
+    utah: "Utah soğuklanma birimleri",
+    dynamicChill: "Dinamik Model soğuklanma porsiyonları",
     leafWetness: "Tahmini yaprak ıslaklığı",
     vegetativeWarning:
       "Vejetatif döngünün başlangıç tarihi eksik. Bu tarih hiçbir zaman bir tarımsal işlemden çıkarılmaz.",
   },
   ar: {
     degreeDays: "أيام درجة النمو",
+    chillHours: "ساعات البرودة تحت 7.2 °م",
+    modifiedChill: "ساعات البرودة المعدلة",
+    utah: "وحدات برودة يوتا",
+    dynamicChill: "حصص البرودة وفق النموذج الديناميكي",
     leafWetness: "البلل الورقي التقديري",
     vegetativeWarning:
       "تاريخ بداية دورة النمو الخضري مفقود. لا يُستنتج هذا التاريخ مطلقًا من عملية زراعية.",
   },
   pl: {
     degreeDays: "Stopniodni wzrostu",
+    chillHours: "Godziny chłodu poniżej 7,2 °C",
+    modifiedChill: "Zmodyfikowane godziny chłodu",
+    utah: "Jednostki chłodu Utah",
+    dynamicChill: "Porcje chłodu według modelu dynamicznego",
     leafWetness: "Szacowane zwilżenie liści",
     vegetativeWarning:
       "Brakuje daty rozpoczęcia cyklu wegetacyjnego. Data ta nigdy nie jest wyznaczana na podstawie zabiegu agrotechnicznego.",
   },
   hr: {
     degreeDays: "Stupanj-dani rasta",
+    chillHours: "Sati hladnoće ispod 7,2 °C",
+    modifiedChill: "Modificirani sati hladnoće",
+    utah: "Utah jedinice hladnoće",
+    dynamicChill: "Porcije hladnoće prema dinamičkom modelu",
     leafWetness: "Procijenjeno vlaženje lista",
     vegetativeWarning:
       "Nedostaje datum početka vegetacijskog ciklusa. Taj se datum nikada ne izvodi iz agrotehničkog zahvata.",
   },
   el: {
     degreeDays: "Βαθμοημέρες ανάπτυξης",
+    chillHours: "Ώρες ψύχους κάτω από 7,2 °C",
+    modifiedChill: "Τροποποιημένες ώρες ψύχους",
+    utah: "Μονάδες ψύχους Utah",
+    dynamicChill: "Μερίδες ψύχους του Δυναμικού Μοντέλου",
     leafWetness: "Εκτιμώμενη διαβροχή φύλλων",
     vegetativeWarning:
       "Λείπει η ημερομηνία έναρξης του βλαστικού κύκλου. Η ημερομηνία αυτή δεν συνάγεται ποτέ από μια γεωργική εργασία.",
   },
   sv: {
     degreeDays: "Tillväxtgraddagar",
+    chillHours: "Köldtimmar under 7,2 °C",
+    modifiedChill: "Modifierade köldtimmar",
+    utah: "Utah-köldenheter",
+    dynamicChill: "Köldportioner enligt den dynamiska modellen",
     leafWetness: "Beräknad bladväta",
     vegetativeWarning:
       "Startdatum för den vegetativa cykeln saknas. Datumet härleds aldrig från en odlingsåtgärd.",
   },
   no: {
     degreeDays: "Vekstgraddager",
+    chillHours: "Kuldetimer under 7,2 °C",
+    modifiedChill: "Modifiserte kuldetimer",
+    utah: "Utah-kuldeenheter",
+    dynamicChill: "Kuldeporsjoner etter dynamisk modell",
     leafWetness: "Estimert bladvåthet",
     vegetativeWarning:
       "Startdatoen for den vegetative syklusen mangler. Datoen utledes aldri fra et agronomisk tiltak.",
   },
   da: {
     degreeDays: "Vækstgraddage",
+    chillHours: "Kuldetimer under 7,2 °C",
+    modifiedChill: "Modificerede kuldetimer",
+    utah: "Utah-kuldeenheder",
+    dynamicChill: "Kuldeportioner efter den dynamiske model",
     leafWetness: "Estimeret bladvådhed",
     vegetativeWarning:
       "Startdatoen for den vegetative cyklus mangler. Datoen udledes aldrig af en dyrkningshandling.",
   },
   it: {
     degreeDays: "Gradi giorno di crescita",
+    chillHours: "Ore di freddo sotto 7,2 °C",
+    modifiedChill: "Ore di freddo modificate",
+    utah: "Unità di freddo Utah",
+    dynamicChill: "Porzioni di freddo del Modello Dinamico",
     leafWetness: "Bagnatura fogliare stimata",
     vegetativeWarning:
       "Manca la data di inizio del ciclo vegetativo. Questa data non viene mai dedotta da un'operazione agronomica.",
   },
   uk: {
     degreeDays: "Сума активних температур",
+    chillHours: "Години холоду нижче 7,2 °C",
+    modifiedChill: "Модифіковані години холоду",
+    utah: "Одиниці холоду Utah",
+    dynamicChill: "Порції холоду за Динамічною моделлю",
     leafWetness: "Оцінене зволоження листя",
     vegetativeWarning:
       "Відсутня дата початку вегетаційного циклу. Цю дату ніколи не визначають за агротехнічною операцією.",
   },
   ro: {
     degreeDays: "Grade-zile de creștere",
+    chillHours: "Ore de frig sub 7,2 °C",
+    modifiedChill: "Ore de frig modificate",
+    utah: "Unități de frig Utah",
+    dynamicChill: "Porții de frig după modelul dinamic",
     leafWetness: "Umezeală foliară estimată",
     vegetativeWarning:
       "Lipsește data de început a ciclului vegetativ. Această dată nu este niciodată dedusă dintr-o lucrare agricolă.",
   },
   fi: {
     degreeDays: "Kasvukauden lämpösumma",
+    chillHours: "Kylmätunnit alle 7,2 °C",
+    modifiedChill: "Muokatut kylmätunnit",
+    utah: "Utah-kylmäyksiköt",
+    dynamicChill: "Dynaamisen mallin kylmäannokset",
     leafWetness: "Arvioitu lehtikosteus",
     vegetativeWarning:
       "Kasvukauden alkamispäivä puuttuu. Päivämäärää ei koskaan päätellä viljelytoimenpiteestä.",
   },
   bg: {
     degreeDays: "Растежни градус-дни",
+    chillHours: "Часове на студ под 7,2 °C",
+    modifiedChill: "Модифицирани часове на студ",
+    utah: "Единици студ Utah",
+    dynamicChill: "Студови порции по Динамичния модел",
     leafWetness: "Оценена листна влажност",
     vegetativeWarning:
       "Липсва датата за начало на вегетационния цикъл. Тази дата никога не се извежда от агротехническа операция.",
   },
   hu: {
     degreeDays: "Növekedési foknapok",
+    chillHours: "Hidegórák 7,2 °C alatt",
+    modifiedChill: "Módosított hidegórák",
+    utah: "Utah hidegegységek",
+    dynamicChill: "A dinamikus modell hidegporciói",
     leafWetness: "Becsült levélnedvesség",
     vegetativeWarning:
       "Hiányzik a vegetációs ciklus kezdő dátuma. Ezt a dátumot soha nem következtetjük ki egy műveletből.",
   },
   is: {
     degreeDays: "Vaxtargráðudagar",
+    chillHours: "Kælistundir undir 7,2 °C",
+    modifiedChill: "Breyttar kælistundir",
+    utah: "Utah-kælieiningar",
+    dynamicChill: "Kælihlutar samkvæmt kvika líkaninu",
     leafWetness: "Áætluð blaðvæta",
     vegetativeWarning:
       "Upphafsdag gróðurhringsins vantar. Dagsetningin er aldrei ályktuð út frá ræktunaraðgerð.",
   },
   sk: {
     degreeDays: "Rastové stupňodni",
+    chillHours: "Hodiny chladu pod 7,2 °C",
+    modifiedChill: "Modifikované hodiny chladu",
+    utah: "Utah jednotky chladu",
+    dynamicChill: "Chladové porcie podľa dynamického modelu",
     leafWetness: "Odhadované ovlhčenie listov",
     vegetativeWarning:
       "Chýba dátum začiatku vegetačného cyklu. Tento dátum sa nikdy neodvodzuje z agrotechnického zásahu.",
   },
   lt: {
     degreeDays: "Augimo laipsniadieniai",
+    chillHours: "Šalčio valandos žemiau 7,2 °C",
+    modifiedChill: "Modifikuotos šalčio valandos",
+    utah: "Utah šalčio vienetai",
+    dynamicChill: "Dinaminio modelio šalčio porcijos",
     leafWetness: "Apskaičiuotas lapų drėgnumas",
     vegetativeWarning:
       "Trūksta vegetatyvinio ciklo pradžios datos. Ši data niekada nenustatoma pagal agronominę operaciją.",
   },
   sl: {
     degreeDays: "Rastne stopinjske dni",
+    chillHours: "Hladne ure pod 7,2 °C",
+    modifiedChill: "Spremenjene hladne ure",
+    utah: "Utah hladne enote",
+    dynamicChill: "Hladne porcije po dinamičnem modelu",
     leafWetness: "Ocenjena omočenost listov",
     vegetativeWarning:
       "Manjka datum začetka vegetacijskega cikla. Ta datum se nikoli ne sklepa iz agrotehničnega ukrepa.",
   },
   lv: {
     degreeDays: "Augšanas grāddienas",
+    chillHours: "Aukstuma stundas zem 7,2 °C",
+    modifiedChill: "Modificētās aukstuma stundas",
+    utah: "Utah aukstuma vienības",
+    dynamicChill: "Dinamiskā modeļa aukstuma porcijas",
     leafWetness: "Aprēķināts lapu mitrums",
     vegetativeWarning:
       "Trūkst veģetatīvā cikla sākuma datuma. Šo datumu nekad nenosaka pēc agrotehniskas darbības.",

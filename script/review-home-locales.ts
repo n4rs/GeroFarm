@@ -34,6 +34,21 @@ const reviewedTerms: Record<Exclude<SupportedLocale, "en" | "pt-PT">, Terms> = {
   lv: { field: "Lauks", cultivation: "Audzēšana", operation: "Darbība", harvest: "Ražas novākšana", logbook: "Lauka žurnāls", cookies: "Sīkdatnes", degreeDays: "Augšanas grādu dienas", tagExamples: "Piemēri pēc audzēšanas taga" },
 };
 
+const reviewedChillRequirements: Record<Exclude<SupportedLocale, "en" | "pt-PT">, string> = {
+  "pt-BR": "Necessidades de frio", fr: "Besoins en froid", es: "Necesidades de frío",
+  nl: "Koudebehoefte", de: "Kältebedarf", ja: "低温要求量", he: "דרישות קור",
+  tr: "Soğuklanma ihtiyacı", ar: "الاحتياجات من البرودة", pl: "Zapotrzebowanie na chłód",
+  hr: "Potrebe za hladnoćom", el: "Ανάγκες ψύχους", sv: "Köldbehov", no: "Kuldebehov",
+  da: "Kuldebehov", it: "Fabbisogno in freddo", uk: "Потреба в холоді", ro: "Necesar de frig",
+  fi: "Kylmäntarve", bg: "Нужда от студ", hu: "Hidegigény", is: "Kuldaþörf",
+  sk: "Potreba chladu", lt: "Šalčio poreikis", sl: "Potreba po hladu", lv: "Aukstuma vajadzība",
+};
+const generatedChillLiterals: Partial<Record<Exclude<SupportedLocale, "en" | "pt-PT">, string>> = {
+  nl: "Chill-vereisten", de: "Chill-Anforderungen", sv: "Chillkrav", no: "Chill krav",
+  da: "Chill krav", hu: "Chill követelmények", is: "Chill kröfur", lt: "Chill reikalavimai",
+  lv: "Chill prasības",
+};
+
 const reviewed = structuredClone(homepageCopies) as Record<SupportedLocale, HomepageCopy>;
 reviewed.en = structuredClone(en);
 reviewed["pt-PT"] = structuredClone(ptPT);
@@ -43,9 +58,16 @@ for (const copy of Object.values(reviewed)) {
 }
 for (const [locale, terms] of Object.entries(reviewedTerms) as Array<[Exclude<SupportedLocale, "en" | "pt-PT">, Terms]>) {
   const copy = reviewed[locale];
+  const generatedDegreeDays = copy.weather.metrics[3];
+  const generatedChillRequirement = copy.weather.metrics[4];
   copy.flow.stages = [terms.field, terms.cultivation, terms.operation, terms.harvest, terms.logbook];
   copy.platform.cards[7].title = terms.logbook;
   copy.weather.metrics[3] = terms.degreeDays;
+  copy.weather.metrics[4] = reviewedChillRequirements[locale];
+  for (const plan of copy.pricing.plans) plan.features = plan.features.map((feature) => feature
+    .replaceAll(generatedDegreeDays, terms.degreeDays)
+    .replaceAll(generatedChillRequirement, reviewedChillRequirements[locale])
+    .replaceAll(generatedChillLiterals[locale] || reviewedChillRequirements[locale], reviewedChillRequirements[locale]));
   copy.footer.cookies = terms.cookies;
   if (copy.faq.items.length === 5) copy.faq.items.splice(2, 0, { q: `${copy.modules.inventory} + ${copy.modules.costs}`, a: copy.modules.description });
 }

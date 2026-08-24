@@ -9,6 +9,8 @@ test("Portuguese weather semantics distinguish temporal status and value source"
 test("every locale translates long weather guidance without an English fallback",()=>{const english=weatherCopies.en;for(const locale of supportedLocales){if(locale==="en")continue;const copy=weatherCopies[locale];for(const key of ["readOnly","limitReached","historicalProvenance","vegetativeWarning"] as const)assert.notEqual(copy[key],english[key],`${locale}.${key}`)}});
 test("reviewed agronomic terms reject known literal weather mistranslations",()=>{const bad=/Groeilast dagen|ימים? עלייה במעלה|الدرجات الناضجة|Wilgotnościowo-stopniodniowy|Växttillväxtgrader|Vaxandi gráður daga|Augšanas dienas grādi/iu;for(const locale of supportedLocales){assert.doesNotMatch(weatherCopies[locale].degreeDays,bad,locale);assert.doesNotMatch(weatherCopies[locale].leafWetness,bad,locale)}});
 
+test("chill accumulation terminology remains agronomic in every translated locale",()=>{const bad=/Kalthours|Kalthour|Kælímetrar|chill-punkte|chill portions|cooling portions|休眠時間|שעות צ'יפ|koele porties|kylningstimmar|soğutma kısımları|porcje chłodzenia|odjeljci hlađenja|ψυχρής κατανομής|køleportioner|raffreddamento|рăcire|viilentävät osuudet|охладени порции|hűtési részek|chladenia častí|vėsinimo dalys|segmenti hlajenja|atdzesētās daļas/iu;for(const locale of supportedLocales){if(locale==="en")continue;const copy=weatherCopies[locale];for(const key of ["chillHours","modifiedChill","utah","dynamicChill"] as const)assert.doesNotMatch(copy[key],bad,`${locale}.${key}`)}});
+
 test("generated weather catalog has no runtime English spread or fallback", async () => {
   const source = await readFile(
     new URL("./weather-locales.generated.ts", import.meta.url),

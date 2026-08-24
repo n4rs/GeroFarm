@@ -370,7 +370,7 @@ export const homepageCopies = {
         "Radiação solar",
         "Integral de luz diária estimada (DLI)",
         "Graus-dia",
-        "Requisitos de frio",
+        "Necessidades de frio",
         "Umidade foliar estimada",
         "Indicadores por safra"
       ]
@@ -902,7 +902,7 @@ export const homepageCopies = {
         "Rayonnement solaire",
         "Intégrale de lumière quotidienne estimée (DLI)",
         "Degrés-jours de croissance",
-        "Exigences de refroidissement",
+        "Besoins en froid",
         "Humidité estimée des feuilles",
         "Indicateurs par culture"
       ]
@@ -1168,7 +1168,7 @@ export const homepageCopies = {
         "Radiación solar",
         "Integral de luz diaria estimada (DLI)",
         "Grados-día de crecimiento",
-        "Requisitos de enfriamiento",
+        "Necesidades de frío",
         "Humedad foliar estimada",
         "Indicadores por cultivo"
       ]
@@ -1434,7 +1434,7 @@ export const homepageCopies = {
         "Zonnestraling",
         "Geschatte dagelijkse lichtintegraal (DLI)",
         "Groeigraaddagen",
-        "Chill-vereisten",
+        "Koudebehoefte",
         "Geschatte bladnatheid",
         "Indicatoren per gewas"
       ]
@@ -1505,7 +1505,7 @@ export const homepageCopies = {
             "500 ha",
             "250 velden",
             "5 virtuele stations",
-            "Weer dat de taal spreekt van elk gewas · Referentie verdamping (ET₀) · Zonnestraling · Geschatte dagelijkse lichtintegraal (DLI) · Groeigraaddagen · Chill-vereisten · Geschatte bladnatheid",
+            "Weer dat de taal spreekt van elk gewas · Referentie verdamping (ET₀) · Zonnestraling · Geschatte dagelijkse lichtintegraal (DLI) · Groeigraaddagen · Koudebehoefte · Geschatte bladnatheid",
             "Privacy by Design",
             "Inventaris inbegrepen",
             "Kosten inbegrepen"
@@ -1700,7 +1700,7 @@ export const homepageCopies = {
         "Sonnenstrahlung",
         "Geschätztes tägliches Lichtintegral (DLI)",
         "Wachstumsgradtage",
-        "Chill-Anforderungen",
+        "Kältebedarf",
         "Geschätzte Blattnässe",
         "Indikatoren nach Kultur"
       ]
@@ -1771,7 +1771,7 @@ export const homepageCopies = {
             "500 ha",
             "250 Felder",
             "5 virtuelle Stationen",
-            "Wetter, das die Sprache jeder Kultur spricht · Referenz-Evapotranspiration (ET₀) · Sonnenstrahlung · Geschätztes tägliches Lichtintegral (DLI) · Wachstumsgradtage · Chill-Anforderungen · Geschätzte Blattnässe",
+            "Wetter, das die Sprache jeder Kultur spricht · Referenz-Evapotranspiration (ET₀) · Sonnenstrahlung · Geschätztes tägliches Lichtintegral (DLI) · Wachstumsgradtage · Kältebedarf · Geschätzte Blattnässe",
             "Privacy by Design",
             "Inklusive Inventar",
             "Kosten inklusive"
@@ -1966,7 +1966,7 @@ export const homepageCopies = {
         "日射量",
         "一日の推定光量積分値 (DLI)",
         "積算温度",
-        "冷却要件",
+        "低温要求量",
         "推定葉湿り量",
         "作物別指標"
       ]
@@ -2232,7 +2232,7 @@ export const homepageCopies = {
         "קרינת שמש",
         "אינטגרל אור יומי משוער (DLI)",
         "ימי מעלה",
-        "דרישות צינה",
+        "דרישות קור",
         "רטיבות עלים משוערת",
         "אינדיקטורים לפי יבול"
       ]
@@ -2498,7 +2498,7 @@ export const homepageCopies = {
         "Güneş radyasyonu",
         "Tahmini günlük ışık integrali (DLI)",
         "Büyüme derece-günleri",
-        "Soğutma gereksinimleri",
+        "Soğuklanma ihtiyacı",
         "Tahmini yaprak ıslaklığı",
         "Mahsullere göre göstergeler"
       ]
@@ -2764,7 +2764,7 @@ export const homepageCopies = {
         "الإشعاع الشمسي",
         "تكامل الضوء اليومي المقدر (DLI)",
         "أيام الدرجة الحرارية",
-        "متطلبات البرد",
+        "الاحتياجات من البرودة",
         "يقدر رطوبة الأوراق",
         "المؤشرات حسب المحاصيل"
       ]
@@ -3030,7 +3030,7 @@ export const homepageCopies = {
         "Promieniowanie słoneczne",
         "Szacowana dzienna całka światła (DLI)",
         "Stopniodni wzrostu",
-        "Wymagania dotyczące relaksu",
+        "Zapotrzebowanie na chłód",
         "Szacowana wilgotność liści",
         "Wskaźniki według upraw"
       ]
@@ -3296,7 +3296,7 @@ export const homepageCopies = {
         "Sunčevo zračenje",
         "Procijenjeni dnevni integral svjetlosti (DLI)",
         "Stupanj-dani rasta",
-        "Zahtjevi za hlađenje",
+        "Potrebe za hladnoćom",
         "Procijenjena vlažnost lišća",
         "Pokazatelji po usjevima"
       ]
@@ -3562,7 +3562,7 @@ export const homepageCopies = {
         "Ηλιακή ακτινοβολία",
         "Εκτιμώμενο ολοκλήρωμα ημερήσιου φωτός (DLI)",
         "Βαθμοημέρες ανάπτυξης",
-        "Απαιτήσεις ψύχους",
+        "Ανάγκες ψύχους",
         "Εκτιμώμενη υγρασία των φύλλων",
         "Δείκτες ανά καλλιέργεια"
       ]
@@ -3828,7 +3828,7 @@ export const homepageCopies = {
         "Solstrålning",
         "Uppskattad dagsljusintegral (DLI)",
         "Växtgraddagar",
-        "Chillkrav",
+        "Köldbehov",
         "Uppskattad bladväta",
         "Indikatorer efter gröda"
       ]
@@ -3899,7 +3899,7 @@ export const homepageCopies = {
             "500 ha",
             "250 fält",
             "5 virtuella stationer",
-            "Väder som talar språket för varje gröda · Referens evapotranspiration (ET₀) · Solstrålning · Uppskattad dagsljusintegral (DLI) · Växtgraddagar · Chillkrav · Uppskattad bladväta",
+            "Väder som talar språket för varje gröda · Referens evapotranspiration (ET₀) · Solstrålning · Uppskattad dagsljusintegral (DLI) · Växtgraddagar · Köldbehov · Uppskattad bladväta",
             "Privacy by Design",
             "Inventarie ingår",
             "Kostnader ingår"
@@ -4094,7 +4094,7 @@ export const homepageCopies = {
         "Solinnstråling",
         "Estimert daglig lysintegral (DLI)",
         "Vekstgraddager",
-        "Chill krav",
+        "Kuldebehov",
         "Estimert bladfuktighet",
         "Indikatorer etter avling"
       ]
@@ -4165,7 +4165,7 @@ export const homepageCopies = {
             "500 ha",
             "250 felt",
             "5 virtuelle stasjoner",
-            "Vær som snakker språket til hver avling · Referanseevapotranspirasjon (ET₀) · Solinnstråling · Estimert daglig lysintegral (DLI) · Vekstgraddager · Chill krav · Estimert bladfuktighet",
+            "Vær som snakker språket til hver avling · Referanseevapotranspirasjon (ET₀) · Solinnstråling · Estimert daglig lysintegral (DLI) · Vekstgraddager · Kuldebehov · Estimert bladfuktighet",
             "Privacy by Design",
             "Inventar inkludert",
             "Kostnader inkludert"
@@ -4360,7 +4360,7 @@ export const homepageCopies = {
         "Solstråling",
         "Estimeret dagligt lysintegral (DLI)",
         "Vækstgraddage",
-        "Chill krav",
+        "Kuldebehov",
         "Estimeret bladvæde",
         "Indikatorer efter afgrøde"
       ]
@@ -4431,7 +4431,7 @@ export const homepageCopies = {
             "500 ha",
             "250 felter",
             "5 virtuelle stationer",
-            "Vejr, der taler sproget for hver afgrøde · Reference evapotranspiration (ET₀) · Solstråling · Estimeret dagligt lysintegral (DLI) · Vækstgraddage · Chill krav · Estimeret bladvæde",
+            "Vejr, der taler sproget for hver afgrøde · Reference evapotranspiration (ET₀) · Solstråling · Estimeret dagligt lysintegral (DLI) · Vækstgraddage · Kuldebehov · Estimeret bladvæde",
             "Privacy by Design",
             "Inventar inkluderet",
             "Omkostninger inkluderet"
@@ -4626,7 +4626,7 @@ export const homepageCopies = {
         "Radiazione solare",
         "Integrale della luce giornaliera stimata (DLI)",
         "Gradi giorno di crescita",
-        "Requisiti di raffreddamento",
+        "Fabbisogno in freddo",
         "Bagnatura fogliare stimata",
         "Indicatori per coltura"
       ]
@@ -4892,7 +4892,7 @@ export const homepageCopies = {
         "Сонячна радіація",
         "Розрахунковий добовий світловий інтеграл (DLI)",
         "Градусо-дні росту",
-        "Вимоги до охолодження",
+        "Потреба в холоді",
         "Розрахункова вологість листя",
         "Показники по культурах"
       ]
@@ -5158,7 +5158,7 @@ export const homepageCopies = {
         "Radiația solară",
         "Integrala luminoasă zilnică estimată (DLI)",
         "Grade-zile de creștere",
-        "Cerințe de răcire",
+        "Necesar de frig",
         "Umiditatea estimată a frunzelor",
         "Indicatori după cultură"
       ]
@@ -5424,7 +5424,7 @@ export const homepageCopies = {
         "Auringon säteily",
         "Arvioitu päivittäinen valointegraali (DLI)",
         "Kasvukauden astepäivät",
-        "Jäähdytysvaatimukset",
+        "Kylmäntarve",
         "Arvioitu lehtien kosteus",
         "Indikaattorit sadon mukaan"
       ]
@@ -5690,7 +5690,7 @@ export const homepageCopies = {
         "Слънчева радиация",
         "Очакван интеграл на дневната светлина (DLI)",
         "Градусо-дни на растеж",
-        "Изисквания за охлаждане",
+        "Нужда от студ",
         "Прогнозна влажност на листата",
         "Показатели по култури"
       ]
@@ -5956,7 +5956,7 @@ export const homepageCopies = {
         "Napsugárzás",
         "Becsült napi fényintegrál (DLI)",
         "Növekedési foknapok",
-        "Chill követelmények",
+        "Hidegigény",
         "A levél becsült nedvessége",
         "Mutatók termés szerint"
       ]
@@ -6027,7 +6027,7 @@ export const homepageCopies = {
             "500 ha",
             "250 mező",
             "5 virtuális állomás",
-            "Időjárás, amely az egyes termények nyelvét beszéli · Referencia evapotranspiráció (ET₀) · Napsugárzás · Becsült napi fényintegrál (DLI) · Növekedési foknapok · Chill követelmények · A levél becsült nedvessége",
+            "Időjárás, amely az egyes termények nyelvét beszéli · Referencia evapotranspiráció (ET₀) · Napsugárzás · Becsült napi fényintegrál (DLI) · Növekedési foknapok · Hidegigény · A levél becsült nedvessége",
             "Adatvédelem tervezés által",
             "A készlet tartalmazza",
             "A költségek benne vannak"
@@ -6222,7 +6222,7 @@ export const homepageCopies = {
         "Sólargeislun",
         "Áætlaður dagsljósaþáttur (DLI)",
         "Vaxtargráðudagar",
-        "Chill kröfur",
+        "Kuldaþörf",
         "Áætluð laufbleyta",
         "Vísar eftir uppskeru"
       ]
@@ -6293,7 +6293,7 @@ export const homepageCopies = {
             "500 ha",
             "250 reitir",
             "5 sýndarstöðvar",
-            "Veður sem talar tungumál hverrar ræktunar · Viðmiðunaruppgufun (ET₀) · Sólargeislun · Áætlaður dagsljósaþáttur (DLI) · Vaxtargráðudagar · Chill kröfur · Áætluð laufbleyta",
+            "Veður sem talar tungumál hverrar ræktunar · Viðmiðunaruppgufun (ET₀) · Sólargeislun · Áætlaður dagsljósaþáttur (DLI) · Vaxtargráðudagar · Kuldaþörf · Áætluð laufbleyta",
             "Privacy by Design",
             "Birgðir innifalinn",
             "Kostnaður innifalinn"
@@ -6488,7 +6488,7 @@ export const homepageCopies = {
         "Slnečné žiarenie",
         "Odhadovaný integrál denného osvetlenia (DLI)",
         "Rastové stupňodní",
-        "Požiadavky na chladenie",
+        "Potreba chladu",
         "Odhadovaná vlhkosť listov",
         "Ukazovatele podľa plodiny"
       ]
@@ -6754,7 +6754,7 @@ export const homepageCopies = {
         "Saulės spinduliuotė",
         "Numatomas dienos šviesos integralas (DLI)",
         "Augimo laipsniadieniai",
-        "Chill reikalavimai",
+        "Šalčio poreikis",
         "Numatomas lapų drėgnumas",
         "Rodikliai pagal pasėlius"
       ]
@@ -6825,7 +6825,7 @@ export const homepageCopies = {
             "500 ha",
             "250 laukų",
             "5 virtualios stotys",
-            "Oras, kuris kalba kiekvieno derliaus kalba · Etaloninė evapotranspiracija (ET₀) · Saulės spinduliuotė · Numatomas dienos šviesos integralas (DLI) · Augimo laipsniadieniai · Chill reikalavimai · Numatomas lapų drėgnumas",
+            "Oras, kuris kalba kiekvieno derliaus kalba · Etaloninė evapotranspiracija (ET₀) · Saulės spinduliuotė · Numatomas dienos šviesos integralas (DLI) · Augimo laipsniadieniai · Šalčio poreikis · Numatomas lapų drėgnumas",
             "Privatumas pagal dizainą",
             "Įtrauktas inventorius",
             "Įskaičiuotos išlaidos"
@@ -7020,7 +7020,7 @@ export const homepageCopies = {
         "Sončno sevanje",
         "Ocenjeni dnevni svetlobni integral (DLI)",
         "Rastne stopinjske dni",
-        "Zahteve za hlajenje",
+        "Potreba po hladu",
         "Ocenjena vlažnost listov",
         "Indikatorji po posevku"
       ]
@@ -7286,7 +7286,7 @@ export const homepageCopies = {
         "Saules starojums",
         "Paredzamais ikdienas gaismas integrāls (DLI)",
         "Augšanas grādu dienas",
-        "Chill prasības",
+        "Aukstuma vajadzība",
         "Paredzamais lapu mitrums",
         "Rādītāji pēc ražas"
       ]
@@ -7357,7 +7357,7 @@ export const homepageCopies = {
             "500 ha",
             "250 lauki",
             "5 virtuālās stacijas",
-            "Laikapstākļi, kas runā katras kultūras valodā · Atsauces evapotranspirācija (ET₀) · Saules starojums · Paredzamais ikdienas gaismas integrāls (DLI) · Augšanas grādu dienas · Chill prasības · Paredzamais lapu mitrums",
+            "Laikapstākļi, kas runā katras kultūras valodā · Atsauces evapotranspirācija (ET₀) · Saules starojums · Paredzamais ikdienas gaismas integrāls (DLI) · Augšanas grādu dienas · Aukstuma vajadzība · Paredzamais lapu mitrums",
             "Dizaina konfidencialitāte",
             "Iekļauts inventārs",
             "Cenā iekļautas izmaksas"

@@ -82,3 +82,12 @@ test("every locale has complete translated marketing copy", () => {
     }
   }
 });
+
+test("homepage chill requirement terminology is agronomic in every locale", () => {
+  const literal = /Chill[- ]?(Anforderungen|vereisten|krav|követelmények|kröfur|reikalavimai|prasības)|Kalthours|Kælímetrar/iu;
+  for (const locale of supportedLocales) {
+    const copy = homepageCopies[locale];
+    assert.doesNotMatch(copy.weather.metrics[4], literal, locale);
+    for (const plan of copy.pricing.plans) for (const feature of plan.features) assert.doesNotMatch(feature, literal, locale);
+  }
+});
