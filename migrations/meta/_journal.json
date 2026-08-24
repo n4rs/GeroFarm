@@ -22,6 +22,13 @@
       "when": 1787528400000,
       "tag": "0002_fields",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1787532000000,
+      "tag": "0003_crop_catalog",
+      "breakpoints": true
     }
   ]
 }

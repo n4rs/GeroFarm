@@ -98,3 +98,18 @@ export const farmFields = farmSchema.table("fields", {
 ]).enableRLS();
 
 export type FarmField = typeof farmFields.$inferSelect;
+
+export const cropVarieties = farmSchema.table("crop_varieties", {
+  id: uuid("id").primaryKey(),
+  organizationId: uuid("organization_id").notNull().references(() => farmOrganizations.organizationId),
+  cultureId: varchar("culture_id", { length: 32 }).notNull(),
+  name: varchar("name", { length: 160 }).notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+}, (table) => [
+  uniqueIndex("crop_varieties_organization_culture_name_unique").on(table.organizationId, table.cultureId, table.name),
+  index("crop_varieties_organization_culture_idx").on(table.organizationId, table.cultureId),
+  check("crop_varieties_culture_id_format", sql`${table.cultureId} ~ '^pt-drap-[0-9]{3}$'`),
+  pgPolicy("crop_varieties_tenant_isolation", { as: "restrictive", for: "all", to: "public", using: sql`${table.organizationId} = nullif(current_setting('app.organization_id', true), '')::uuid`, withCheck: sql`${table.organizationId} = nullif(current_setting('app.organization_id', true), '')::uuid` }),
+]).enableRLS();
+
+export type CropVariety = typeof cropVarieties.$inferSelect;

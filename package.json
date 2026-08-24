@@ -11,14 +11,17 @@
     "build": "vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outfile=dist/index.js && esbuild script/migrate.ts --platform=node --packages=external --bundle --format=esm --outfile=dist/migrate.js",
     "start": "node dist/index.js",
     "check": "tsc --noEmit",
-    "test": "tsx --test shared/*.test.ts server/*.test.ts client/src/*.test.ts client/src/app/*.test.ts client/src/app/farm/*.test.ts",
+    "test": "tsx --test shared/*.test.ts server/*.test.ts client/src/*.test.ts client/src/app/*.test.ts client/src/app/farm/*.test.ts client/src/app/crops/*.test.ts",
     "db:check": "tsx script/check-migrations.ts",
     "db:migrate": "tsx script/migrate.ts",
     "db:migrate:prod": "node dist/migrate.js",
     "db:bootstrap-production": "tsx script/bootstrap-production-database.ts",
     "i18n:generate-home": "tsx script/generate-home-locales.ts",
     "i18n:review-home": "tsx script/review-home-locales.ts",
-    "i18n:review-app": "tsx script/review-app-locales.ts"
+    "i18n:review-app": "tsx script/review-app-locales.ts",
+    "catalog:import-legacy-cultures": "tsx script/import-legacy-culture-names.ts",
+    "i18n:generate-crops": "tsx script/generate-crop-locales.ts",
+    "i18n:review-crops": "tsx script/review-crop-locales.ts"
   },
   "dependencies": {
     "@turf/area": "^7.4.0",

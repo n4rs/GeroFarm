@@ -7,11 +7,12 @@ import "../mockup/mockup.css";
 import "./workspace.css";
 
 const FarmHoldingsModule = lazy(() => import("./farm/FarmHoldingsModule"));
+const CropsModule = lazy(() => import("./crops/CropsModule"));
 
-type ModuleId = "overview" | "farm" | "operations" | "plans" | "weather" | "harvests" | "notebook" | "resources" | "inventory" | "costs" | "settings";
+type ModuleId = "overview" | "farm" | "crops" | "operations" | "plans" | "weather" | "harvests" | "notebook" | "resources" | "inventory" | "costs" | "settings";
 type NavigationItem = { id: ModuleId; label: string; short: string; group?: string };
 
-const validModules = new Set<ModuleId>(["overview", "farm", "operations", "plans", "weather", "harvests", "notebook", "resources", "inventory", "costs", "settings"]);
+const validModules = new Set<ModuleId>(["overview", "farm", "crops", "operations", "plans", "weather", "harvests", "notebook", "resources", "inventory", "costs", "settings"]);
 
 function routeModule(pathname = window.location.pathname): ModuleId {
   const candidate = pathname.split("/").filter(Boolean)[1] as ModuleId | undefined;
@@ -22,15 +23,16 @@ function moduleNavigation(copy: HomepageCopy, common: ReturnType<typeof commonCo
   return [
     { id: "overview", label: common.overview, short: "01" },
     { id: "farm", label: copy.platform.cards[0].title, short: "02" },
-    { id: "operations", label: copy.platform.cards[2].title, short: "03" },
-    { id: "plans", label: copy.nav.plans, short: "04" },
-    { id: "weather", label: copy.nav.weather, short: "05" },
-    { id: "harvests", label: copy.platform.cards[5].title, short: "06" },
-    { id: "notebook", label: copy.platform.cards[7].title, short: "07" },
-    { id: "resources", label: copy.platform.cards[6].title, short: "08", group: copy.modules.kicker },
-    { id: "inventory", label: copy.modules.inventory, short: "09" },
-    { id: "costs", label: copy.modules.costs, short: "10" },
-    { id: "settings", label: common.settings, short: "11" },
+    { id: "crops", label: copy.platform.cards[1].title, short: "03" },
+    { id: "operations", label: copy.platform.cards[2].title, short: "04" },
+    { id: "plans", label: copy.nav.plans, short: "05" },
+    { id: "weather", label: copy.nav.weather, short: "06" },
+    { id: "harvests", label: copy.platform.cards[5].title, short: "07" },
+    { id: "notebook", label: copy.platform.cards[7].title, short: "08" },
+    { id: "resources", label: copy.platform.cards[6].title, short: "09", group: copy.modules.kicker },
+    { id: "inventory", label: copy.modules.inventory, short: "10" },
+    { id: "costs", label: copy.modules.costs, short: "11" },
+    { id: "settings", label: common.settings, short: "12" },
   ];
 }
 
@@ -84,7 +86,7 @@ export default function AppWorkspace() {
       </header>
 
       <main className="farm-content">
-        {module === "overview" ? <Overview name={session.user.name} organization={session.access.organization.name} common={common} /> : module === "farm" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><FarmHoldingsModule /></Suspense> : <PendingModule title={active.label} common={common} />}
+        {module === "overview" ? <Overview name={session.user.name} organization={session.access.organization.name} common={common} /> : module === "farm" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><FarmHoldingsModule /></Suspense> : module === "crops" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><CropsModule /></Suspense> : <PendingModule title={active.label} common={common} />}
       </main>
     </div>
   </div>;

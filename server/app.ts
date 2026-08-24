@@ -14,8 +14,9 @@ import { createPostgresFarmHoldingRepository, type FarmHoldingRepository } from 
 import { createFarmRouter } from "./farm-routes";
 import { createPostgresFieldRepository, type FieldRepository } from "./fields";
 import { FieldDomainError } from "./field-geometry";
+import { createPostgresCropRepository, type CropRepository } from "./crops";
 
-export type AppOptions = { database?: FarmDatabase; farmHoldingRepository?: FarmHoldingRepository; fieldRepository?: FieldRepository; farmContextResolver?: FarmContextResolver };
+export type AppOptions = { database?: FarmDatabase; farmHoldingRepository?: FarmHoldingRepository; fieldRepository?: FieldRepository; cropRepository?: CropRepository; farmContextResolver?: FarmContextResolver };
 
 export function createApp(options: AppOptions = {}) {
   const app = express();
@@ -118,7 +119,8 @@ export function createApp(options: AppOptions = {}) {
 
   const farmHoldingRepository = options.farmHoldingRepository || (options.database ? createPostgresFarmHoldingRepository(options.database) : null);
   const fieldRepository = options.fieldRepository || (options.database ? createPostgresFieldRepository(options.database) : undefined);
-  if (farmHoldingRepository) app.use("/api/farm", createFarmRouter(farmHoldingRepository, options.farmContextResolver || resolveFarmContext, fieldRepository));
+  const cropRepository = options.cropRepository || (options.database ? createPostgresCropRepository(options.database) : undefined);
+  if (farmHoldingRepository) app.use("/api/farm", createFarmRouter(farmHoldingRepository, options.farmContextResolver || resolveFarmContext, fieldRepository, cropRepository));
 
   app.use("/api", (_req, res) => res.status(404).json({ message: "API route not found", code: "NOT_FOUND" }));
 
