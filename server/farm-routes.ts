@@ -22,10 +22,12 @@ import { createIrrigationSchema, createIrrigationSectorSchema, createMeterReadin
 import type { IrrigationRepository } from "./irrigation";
 import { createHarvestSchema, createLaboratoryResultSchema, createLaboratorySampleSchema, createMonitoringSchema, notebookScopeSchema } from "@shared/agronomy";
 import type { AgronomyRepository } from "./agronomy";
+import { consumeInventorySchema,createFarmCostSchema,createInventoryProductSchema,receiveInventorySchema,regularizeConsumptionSchema } from "@shared/economics";
+import type { EconomicsRepository } from "./economics";
 
 const idSchema = z.string().uuid();
 
-export function createFarmRouter(repository: FarmHoldingRepository, resolveContext: FarmContextResolver, fields?: FieldRepository, crops?: CropRepository, lifecycle?: CropLifecycleRepository, resources?: ResourceRepository, operations?: OperationRepository, privacy?: PrivacyRepository, fertilizationPlans?: FertilizationPlanRepository, irrigation?: IrrigationRepository, agronomy?: AgronomyRepository) {
+export function createFarmRouter(repository: FarmHoldingRepository, resolveContext: FarmContextResolver, fields?: FieldRepository, crops?: CropRepository, lifecycle?: CropLifecycleRepository, resources?: ResourceRepository, operations?: OperationRepository, privacy?: PrivacyRepository, fertilizationPlans?: FertilizationPlanRepository, irrigation?: IrrigationRepository, agronomy?: AgronomyRepository, economics?: EconomicsRepository) {
   const router = Router();
   router.get("/holdings", async (req, res, next) => {
     try { const context = await resolveContext(req); res.set("cache-control", "no-store").json({ data: await repository.list(context) }); } catch (error) { next(error); }
@@ -76,9 +78,18 @@ export function createFarmRouter(repository: FarmHoldingRepository, resolveConte
     router.post("/laboratory-results",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req);res.status(201).json({data:await agronomy.createResult(context,createLaboratoryResultSchema.parse(req.body))})}catch(error){next(error)}});
     router.post("/harvests",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req);res.status(201).json({data:await agronomy.createHarvest(context,createHarvestSchema.parse(req.body))})}catch(error){next(error)}});
     router.post("/field-notebooks/current",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req);res.json({data:await agronomy.currentNotebook(context,notebookScopeSchema.parse(req.body))})}catch(error){next(error)}});
+    router.post("/field-notebooks/xlsx",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req),file=await agronomy.xlsx(context,notebookScopeSchema.parse(req.body));res.set({"cache-control":"no-store","content-type":"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","content-disposition":`attachment; filename="${file.filename}"`}).send(file.data)}catch(error){next(error)}});
     router.post("/field-notebooks",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req);res.status(201).json({data:await agronomy.issueNotebook(context,notebookScopeSchema.parse(req.body))})}catch(error){next(error)}});
     router.get("/field-notebooks/:id/pdf",async(req,res,next)=>{try{const context=await resolveContext(req),pdf=await agronomy.pdf(context,idSchema.parse(req.params.id));if(!pdf)return res.status(404).json({code:"NOTEBOOK_PDF_NOT_FOUND"});return res.set({"cache-control":"no-store","content-type":"application/pdf","content-disposition":`attachment; filename="${pdf.filename}"`}).send(pdf.data)}catch(error){next(error)}});
     router.delete("/field-notebooks/:id",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req),deleted=await agronomy.deleteNotebook(context,idSchema.parse(req.params.id));if(!deleted)return res.status(404).json({code:"NOTEBOOK_NOT_FOUND"});return res.status(204).end()}catch(error){next(error)}});
+  }
+  if(economics){
+    router.get("/economics",async(req,res,next)=>{try{const context=await resolveContext(req);res.set("cache-control","no-store").json({data:await economics.overview(context)})}catch(error){next(error)}});
+    router.post("/inventory/products",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req);res.status(201).json({data:await economics.createProduct(context,createInventoryProductSchema.parse(req.body))})}catch(error){next(error)}});
+    router.post("/inventory/receipts",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req);res.status(201).json({data:await economics.receive(context,receiveInventorySchema.parse(req.body))})}catch(error){next(error)}});
+    router.post("/inventory/consumptions",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req);res.status(201).json({data:await economics.consume(context,consumeInventorySchema.parse(req.body))})}catch(error){next(error)}});
+    router.post("/inventory/consumptions/:id/regularize",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req),data=await economics.regularize(context,idSchema.parse(req.params.id),regularizeConsumptionSchema.parse(req.body));if(!data)return res.status(404).json({code:"CONSUMPTION_NOT_FOUND"});return res.json({data})}catch(error){next(error)}});
+    router.post("/costs",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req);res.status(201).json({data:await economics.createCost(context,createFarmCostSchema.parse(req.body))})}catch(error){next(error)}});
   }
   return router;
 }

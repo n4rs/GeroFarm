@@ -120,6 +120,13 @@
       "when": 1787612400000,
       "tag": "0016_agronomic_monitoring_harvest_notebooks",
       "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "7",
+      "when": 1787616000000,
+      "tag": "0017_optional_inventory_costs",
+      "breakpoints": true
     }
   ]
 }

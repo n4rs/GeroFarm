@@ -1,0 +1,18 @@
+import { z } from "zod";
+
+const money=z.coerce.number().finite().min(0).max(999999999999);
+const quantity=z.coerce.number().finite().positive().max(999999999999);
+export const createInventoryProductSchema=z.object({code:z.string().trim().toUpperCase().regex(/^[A-Z0-9-]{2,24}$/),name:z.string().trim().min(2).max(180),unit:z.string().trim().min(1).max(24),lotTracking:z.boolean().default(false)});
+export const receiveInventorySchema=z.object({productId:z.string().uuid(),lotNumber:z.string().trim().min(1).max(100),supplier:z.string().trim().min(2).max(180).optional(),originDocument:z.string().trim().min(1).max(120).optional(),receivedOn:z.string().date(),quantity,unitCost:money.optional()});
+export const consumeInventorySchema=z.object({operationId:z.string().uuid(),productId:z.string().uuid(),quantity,occurredAt:z.string().datetime()});
+export const regularizeConsumptionSchema=z.object({lotId:z.string().uuid(),occurredAt:z.string().datetime()});
+export const costAllocationSchema=z.object({destinationId:z.string().uuid(),percentage:z.coerce.number().positive().max(100)});
+export const createFarmCostSchema=z.object({operationId:z.string().uuid().optional(),category:z.enum(["material","labour","equipment","contractor","fuel","fixed","other"]),description:z.string().trim().min(2).max(240),netAmount:money,taxAmount:money.default(0),currency:z.string().trim().toUpperCase().regex(/^[A-Z]{3}$/).default("EUR"),occurredOn:z.string().date(),allocations:z.array(costAllocationSchema).default([])}).superRefine((value,ctx)=>{const total=value.allocations.reduce((sum,item)=>sum+item.percentage,0);if(value.allocations.length&&Math.abs(total-100)>0.001)ctx.addIssue({code:z.ZodIssueCode.custom,path:["allocations"],message:"Allocations must total 100%"});if(!value.operationId&&value.allocations.length)ctx.addIssue({code:z.ZodIssueCode.custom,path:["operationId"],message:"General costs cannot use operation destinations"})});
+export type CreateInventoryProductInput=z.infer<typeof createInventoryProductSchema>;export type ReceiveInventoryInput=z.infer<typeof receiveInventorySchema>;export type ConsumeInventoryInput=z.infer<typeof consumeInventorySchema>;export type RegularizeConsumptionInput=z.infer<typeof regularizeConsumptionSchema>;export type CreateFarmCostInput=z.infer<typeof createFarmCostSchema>;
+export type InventoryProductDto=CreateInventoryProductInput&{id:string;status:"active"|"inactive"};
+export type InventoryLotDto={id:string;productId:string;lotNumber:string;supplier?:string;originDocument?:string;receivedOn:string;receivedQuantity:number;availableQuantity:number;unitCost?:number};
+export type ConsumptionDto={id:string;operationId:string;productId:string;requestedQuantity:number;allocatedQuantity:number;unit:string;status:"pending"|"allocated";createdAt:string};
+export type CostDto={id:string;operationId?:string;category:CreateFarmCostInput["category"];description:string;netAmount:number;taxAmount:number;currency:string;occurredOn:string;allocations:Array<{destinationId:string;percentage:number;amount:number}>;status:"active"|"reversed"};
+export type EconomicOperationDto={id:string;code:string;type:string;performedAt:string;destinations:Array<{id:string;fieldId:string;areaHa:number}>};
+export type EconomicsOverview={products:InventoryProductDto[];lots:InventoryLotDto[];consumptions:ConsumptionDto[];costs:CostDto[];operations:EconomicOperationDto[]};
+export function allocateCost(amount:number,allocations:Array<{destinationId:string;percentage:number}>){let assigned=0;return allocations.map((item,index)=>{const part=index===allocations.length-1?Math.round((amount-assigned)*100)/100:Math.round(amount*item.percentage)/100;assigned+=part;return{...item,amount:part}})}

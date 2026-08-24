@@ -16,3 +16,18 @@ Não declarar estes pontos validados até existirem evidências separadas de mig
 - A meteorologia automática de uma observação continua dependente do contrato meteorológico do GeroCore. O GeroFarm preserva `automaticWeather`, a correção do utilizador e a justificação separadamente, mas a chamada real ao Core deve ser ligada apenas na fase final de dependências GeroCore.
 - A inspeção visual local desta fase usou a rota de desenvolvimento sem organização persistida. A validação publicada dos formulários requer uma organização QA com contexto GeroFarm; fica reservada para a tarefa exclusiva de intervenções e não bloqueia a implementação autónoma.
 - Não foi observado nem aguardado qualquer deploy nesta fase, por regra explícita. Health, assets do DigitalOcean, migração publicada e UI de produção permanecem sem validação até uma intervenção separada.
+
+## Inventário e custos opcionais
+
+- Aplicar a migração aditiva `0017_optional_inventory_costs.sql` na base GeroFarm através da ligação de migração autorizada. Não foi aplicada localmente nem em produção nesta fase.
+- Confirmar no GeroCore os direitos comerciais separados para ativar/ocultar Inventário, Custos e acesso a receita/margem. O domínio local está funcional, mas o GeroFarm não deve inventar esses entitlements nem duplicar perfis/roles do Core.
+- Ligar, quando existir contrato aprovado, o catálogo/stock partilhado do GeroCore. Até lá, o catálogo GeroFarm é local à organização e opcional; consumos sem existência ficam `pending` e podem ser regularizados posteriormente.
+- Validar em organização QA os fluxos visíveis de produto, entrada, consumo, regularização e custo ligado a operação conjunta. A validação publicada deve confirmar que uma operação produz um único consumo/custo e apenas imputações por destino.
+- Esta fase não observou deploys. O commit, a migração publicada, os assets, a UI e a consola de produção ficam deliberadamente para a tarefa externa exclusiva.
+
+## Dependências GeroCore que encerram a sequência autónoma
+
+- Primeiro acesso/onboarding, organização única, memberships, roles, acessos temporários, permissões económicas, planos, subscrições e limites são fontes de verdade GeroCore.
+- A rota de Meteorologia depende da estação virtual e do contrato meteorológico Core, incluindo proveniência por período e indicadores derivados. O GeroFarm não contactará Pirate Weather diretamente.
+- Configurações de conta/organização/idioma que alterem fontes de verdade centrais devem usar APIs GeroCore; não criar projeções locais concorrentes.
+- GeroGrid, pagamentos, credenciais, jobs externos e qualquer migração/deploy/QA publicado permanecem fora do trabalho autónomo concluído.
