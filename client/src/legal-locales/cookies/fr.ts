@@ -1,0 +1,26 @@
+import type { enCookies } from "./en";
+
+export const frCookies = {
+  "cookies.banner.title": "Cookies",
+  "cookies.banner.description": "Nous utilisons des technologies essentielles et, avec votre accord, des technologies facultatives.",
+  "cookies.policyLink": "Politique des cookies",
+  "cookies.rejectOptional": "Essentiels uniquement",
+  "cookies.customize": "Personnaliser",
+  "cookies.acceptAll": "Tout accepter",
+  "cookies.manage": "Paramètres des cookies",
+  "cookies.save": "Enregistrer les choix",
+  "cookies.preferences.title": "Préférences relatives aux cookies et technologies",
+  "cookies.preferences.description": "Choisissez les catégories facultatives que GeroFarm peut utiliser sur cet appareil. Vous pouvez modifier ou retirer votre choix à tout moment.",
+  "cookies.category.necessary.title": "Essentiels",
+  "cookies.category.necessary.description": "Nécessaires à l'authentification, à la sécurité, à la langue, aux paramètres d'interface demandés et à la mémorisation de ce choix. Ils ne peuvent pas être désactivés ici.",
+  "cookies.category.preferences.title": "Préférences facultatives",
+  "cookies.category.preferences.description": "Mémorisent des choix non essentiels qui personnalisent la présentation ou le contenu, par exemple pour éviter des témoignages affichés récemment.",
+  "cookies.category.analytics.title": "Analyse",
+  "cookies.category.analytics.description": "Mesurent l'utilisation agrégée et les performances afin d'améliorer le service. Aucun service d'analyse n'est actuellement actif.",
+  "cookies.category.marketing.title": "Marketing",
+  "cookies.category.marketing.description": "Permettent de mesurer les campagnes ou de personnaliser la publicité. GeroFarm n'utilise actuellement aucun traceur marketing et ne vend ni ne partage de données personnelles à des fins de publicité ciblée.",
+  "cookies.alwaysActive": "Toujours actifs",
+  "cookies.currentlyInactive": "Actuellement inactifs",
+  "cookies.gpcDetected": "Le signal Global Privacy Control de votre navigateur a été détecté. Les technologies marketing resteront désactivées.",
+  "cookies.gpcExplanation": "Global Privacy Control est actif dans ce navigateur. Nous le considérons comme une opposition à la vente, au partage et à la publicité ciblée ; les technologies marketing ne peuvent donc pas être activées sur cet appareil.",
+} satisfies Record<keyof typeof enCookies, string>;

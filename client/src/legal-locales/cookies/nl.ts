@@ -1,0 +1,26 @@
+import type { enCookies } from "./en";
+
+export const nlCookies = {
+  "cookies.banner.title": "Cookies",
+  "cookies.banner.description": "Wij gebruiken noodzakelijke technologieën en, met uw toestemming, optionele technologieën.",
+  "cookies.policyLink": "Cookiebeleid",
+  "cookies.rejectOptional": "Alleen noodzakelijke gebruiken",
+  "cookies.customize": "Aanpassen",
+  "cookies.acceptAll": "Alles accepteren",
+  "cookies.manage": "Cookie-instellingen",
+  "cookies.save": "Keuzes opslaan",
+  "cookies.preferences.title": "Voorkeuren voor cookies en technologieën",
+  "cookies.preferences.description": "Kies welke optionele categorieën GeroFarm op dit apparaat mag gebruiken. U kunt uw keuze op elk moment wijzigen of intrekken.",
+  "cookies.category.necessary.title": "Noodzakelijk",
+  "cookies.category.necessary.description": "Nodig voor authenticatie, beveiliging, taal, gevraagde interface-instellingen en het onthouden van deze keuze. Deze technologieën kunnen niet via dit paneel worden uitgeschakeld.",
+  "cookies.category.preferences.title": "Optionele voorkeuren",
+  "cookies.category.preferences.description": "Onthouden niet-noodzakelijke keuzes die de weergave of inhoud personaliseren, zoals het vermijden van onlangs getoonde ervaringen.",
+  "cookies.category.analytics.title": "Analyse",
+  "cookies.category.analytics.description": "Meet geaggregeerd gebruik en prestaties zodat wij de dienst kunnen verbeteren. Er is momenteel geen analysedienst actief.",
+  "cookies.category.marketing.title": "Marketing",
+  "cookies.category.marketing.description": "Ondersteunt campagnemeting of gepersonaliseerde reclame. GeroFarm gebruikt momenteel geen marketingtrackers en verkoopt of deelt geen persoonsgegevens voor gerichte reclame.",
+  "cookies.alwaysActive": "Altijd actief",
+  "cookies.currentlyInactive": "Momenteel niet actief",
+  "cookies.gpcDetected": "Het Global Privacy Control-signaal van uw browser is gedetecteerd. Marketingtechnologieën blijven uitgeschakeld.",
+  "cookies.gpcExplanation": "Global Privacy Control is actief in deze browser. Wij behandelen dit als een afmelding voor verkoop, delen en gerichte reclame, waardoor marketingtechnologieën op dit apparaat niet kunnen worden ingeschakeld.",
+} satisfies Record<keyof typeof enCookies, string>;

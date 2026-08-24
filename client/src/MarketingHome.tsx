@@ -1,6 +1,8 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { supportedLocales } from "./home-copy";
 import { useI18n } from "./i18n";
+import { openCookiePreferences } from "./cookie-consent";
+import { cookieMessage } from "./cookie-messages";
 
 const icons = ["map", "crop", "spray", "water", "fertilize", "harvest", "team", "book"] as const;
 
@@ -54,6 +56,6 @@ export default function MarketingHome() {
       <section className="section shell faq-section" id="faq"><SectionTitle kicker={copy.faq.kicker} title={copy.faq.title} description=""/><div className="faq-list">{copy.faq.items.map((item) => <details key={item.q}><summary>{item.q}<span>+</span></summary><p>{item.a}</p></details>)}</div></section>
       <section className="closing"><div className="shell closing-inner"><div><h2>{copy.closing.title}</h2><p>{copy.closing.description}</p></div><div className="cta-row"><a className="button light-button" href="/register">{copy.closing.primary}<Icon name="arrow" /></a><a className="button transparent" href="/login">{copy.closing.secondary}</a></div></div></section>
     </main>
-    <footer><div className="shell footer-grid"><div><Brand/><p>{copy.footer.tagline}</p></div><div><b>{copy.footer.product}</b><a href="#platform">{copy.nav.platform}</a><a href="#weather">{copy.nav.weather}</a><a href="#plans">{copy.nav.plans}</a></div><div><b>{copy.footer.account}</b><a href="/register">{copy.nav.start}</a><a href="/login">{copy.nav.login}</a></div><div><b>{copy.footer.legal}</b><span>{copy.footer.privacy}</span><span>{copy.footer.terms}</span><span>{copy.footer.cookies}</span></div></div><div className="shell footer-bottom"><p>{copy.footer.future}</p><p>© {new Date().getFullYear()} Gero · {copy.footer.rights}</p></div></footer>
+    <footer><div className="shell footer-grid"><div><Brand/><p>{copy.footer.tagline}</p></div><div><b>{copy.footer.product}</b><a href="#platform">{copy.nav.platform}</a><a href="#weather">{copy.nav.weather}</a><a href="#plans">{copy.nav.plans}</a></div><div><b>{copy.footer.account}</b><a href="/register">{copy.nav.start}</a><a href="/login">{copy.nav.login}</a></div><div><b>{copy.footer.legal}</b><a href={`/privacy-policy?lang=${locale}`}>{copy.footer.privacy}</a><a href={`/terms?lang=${locale}`}>{copy.footer.terms}</a><a href={`/cookie-policy?lang=${locale}`}>{copy.footer.cookies}</a><button className="footer-cookie-button" onClick={openCookiePreferences}>{cookieMessage(locale, "cookies.manage")}</button></div></div><div className="shell footer-bottom"><p>{copy.footer.future}</p><p>© {new Date().getFullYear()} Gero · {copy.footer.rights}</p></div></footer>
   </div>;
 }

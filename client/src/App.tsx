@@ -1,8 +1,12 @@
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { AuthProvider, redirectToAccount, useAuth } from "./auth";
 import { reservedApplicationHandoff } from "./core-navigation";
 import MarketingHome from "./MarketingHome";
 import { I18nProvider } from "./i18n";
+import CookieConsentManager from "./CookieConsentManager";
+import { legalDocumentKind } from "./legal-routes";
+
+const LegalDocumentPage = lazy(() => import("./LegalDocumentPage"));
 
 function AccountRedirect({ destination }: { destination: "loginUrl" | "registerUrl" }) {
   useEffect(() => { void redirectToAccount(destination); }, [destination]);
@@ -13,9 +17,7 @@ function Loading() {
   return <main className="state"><div className="spinner" aria-label="A carregar" /></main>;
 }
 
-function Home() {
-  return <I18nProvider><MarketingHome /></I18nProvider>;
-}
+function PublicPage({ legalKind }: { legalKind: ReturnType<typeof legalDocumentKind> }) { return <I18nProvider><>{legalKind ? <Suspense fallback={<Loading/>}><LegalDocumentPage kind={legalKind}/></Suspense> : <MarketingHome/>}<CookieConsentManager/></></I18nProvider>; }
 
 function Workspace() {
   const { session, loading, error, selectOrganization, updateLocale, logout } = useAuth();
@@ -46,7 +48,7 @@ export default function App() {
   if (path === "/login") return <AccountRedirect destination="loginUrl" />;
   if (path === "/register") return <AccountRedirect destination="registerUrl" />;
   if (path === "/app" || path.startsWith("/app/")) return <AuthProvider><Workspace /></AuthProvider>;
-  return <Home />;
+  return <PublicPage legalKind={legalDocumentKind(path)} />;
 }
 
 function CoreHandoff({ destination }: { destination: string }) {

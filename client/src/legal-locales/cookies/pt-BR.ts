@@ -1,0 +1,26 @@
+import type { enCookies } from "./en";
+
+export const ptBRCookies = {
+  "cookies.banner.title": "Cookies",
+  "cookies.banner.description": "Usamos tecnologias essenciais e, com sua autorização, tecnologias opcionais.",
+  "cookies.policyLink": "Política de cookies",
+  "cookies.rejectOptional": "Usar apenas essenciais",
+  "cookies.customize": "Personalizar",
+  "cookies.acceptAll": "Aceitar todos",
+  "cookies.manage": "Configurações de cookies",
+  "cookies.save": "Salvar escolhas",
+  "cookies.preferences.title": "Preferências de cookies e tecnologias",
+  "cookies.preferences.description": "Escolha quais categorias opcionais o GeroFarm pode usar neste dispositivo. Você pode alterar ou retirar sua escolha a qualquer momento.",
+  "cookies.category.necessary.title": "Essenciais",
+  "cookies.category.necessary.description": "Necessárias para autenticação, segurança, idioma, configurações de interface solicitadas e para lembrar esta escolha. Elas não podem ser desativadas neste painel.",
+  "cookies.category.preferences.title": "Preferências opcionais",
+  "cookies.category.preferences.description": "Lembram escolhas não essenciais que personalizam a apresentação ou o conteúdo, como evitar depoimentos exibidos recentemente.",
+  "cookies.category.analytics.title": "Análise",
+  "cookies.category.analytics.description": "Medem o uso agregado e o desempenho para melhorarmos o serviço. Nenhum serviço de análise está ativo atualmente.",
+  "cookies.category.marketing.title": "Marketing",
+  "cookies.category.marketing.description": "Apoiam a medição de campanhas ou publicidade personalizada. O GeroFarm não usa atualmente rastreadores de marketing nem vende ou compartilha dados pessoais para publicidade direcionada.",
+  "cookies.alwaysActive": "Sempre ativos",
+  "cookies.currentlyInactive": "Atualmente inativos",
+  "cookies.gpcDetected": "O sinal Global Privacy Control do navegador foi detectado. As tecnologias de marketing permanecerão desativadas.",
+  "cookies.gpcExplanation": "O Global Privacy Control está ativo neste navegador. Nós o tratamos como oposição à venda, ao compartilhamento e à publicidade direcionada, portanto as tecnologias de marketing não podem ser ativadas neste dispositivo.",
+} satisfies Record<keyof typeof enCookies, string>;

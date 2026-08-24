@@ -1,0 +1,26 @@
+import type { enCookies } from "./en";
+
+export const ptPTCookies = {
+  "cookies.banner.title": "Cookies",
+  "cookies.banner.description": "Usamos tecnologias essenciais e, com a sua autorização, tecnologias opcionais.",
+  "cookies.policyLink": "Política de cookies",
+  "cookies.rejectOptional": "Usar apenas essenciais",
+  "cookies.customize": "Personalizar",
+  "cookies.acceptAll": "Aceitar todos",
+  "cookies.manage": "Definições de cookies",
+  "cookies.save": "Guardar escolhas",
+  "cookies.preferences.title": "Preferências de cookies e tecnologias",
+  "cookies.preferences.description": "Escolha as categorias opcionais que a GeroFarm pode utilizar neste dispositivo. Pode alterar ou retirar a escolha a qualquer momento.",
+  "cookies.category.necessary.title": "Essenciais",
+  "cookies.category.necessary.description": "Necessárias para autenticação, segurança, idioma, definições da interface pedidas e conservação desta escolha. Estas tecnologias não podem ser desativadas neste painel.",
+  "cookies.category.preferences.title": "Preferências opcionais",
+  "cookies.category.preferences.description": "Memorizam escolhas não essenciais que personalizam a apresentação ou o conteúdo, como evitar testemunhos apresentados recentemente.",
+  "cookies.category.analytics.title": "Análise",
+  "cookies.category.analytics.description": "Medem a utilização agregada e o desempenho para melhorarmos o serviço. Atualmente não está ativo qualquer serviço de análise.",
+  "cookies.category.marketing.title": "Marketing",
+  "cookies.category.marketing.description": "Suportam a medição de campanhas ou publicidade personalizada. Atualmente a GeroFarm não utiliza rastreadores de marketing nem vende ou partilha dados pessoais para publicidade direcionada.",
+  "cookies.alwaysActive": "Sempre ativos",
+  "cookies.currentlyInactive": "Atualmente inativos",
+  "cookies.gpcDetected": "Foi detetado o sinal Global Privacy Control do navegador. As tecnologias de marketing permanecerão desativadas.",
+  "cookies.gpcExplanation": "O Global Privacy Control está ativo neste navegador. Tratamo-lo como oposição à venda, partilha e publicidade direcionada, pelo que as tecnologias de marketing não podem ser ativadas neste dispositivo.",
+} satisfies Record<keyof typeof enCookies, string>;
