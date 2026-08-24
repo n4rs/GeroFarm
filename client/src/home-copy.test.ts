@@ -14,7 +14,8 @@ test("supports exactly the Gero product locale catalogue", () => {
 
 test("approved commercial limits and prices are present", () => {
   const text = JSON.stringify(ptPT);
-  for (const required of ["24,90 €", "249 €", "69,90 €", "699 €", "10 ha", "100 ha", "500 ha", "7 dias", "4,90 €/mês", "sem IVA", "GeroGrid"]) assert.match(text, new RegExp(required.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+  for (const required of ["Start", "7,90 €", "79 €", "15 ha", "5 plantações ativas", "24,90 €", "249 €", "69,90 €", "699 €", "100 ha", "500 ha", "4,90 €/mês", "sem IVA", "Ligação a ERP de faturação"]) assert.match(text, new RegExp(required.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+  assert.doesNotMatch(text, /7 dias de tolerância|Integrações futuras permitidas|Inventário e Custos sob proposta/);
   assert.doesNotMatch(text, /conta Gero|GeroCore/i);
   assert.doesNotMatch(JSON.stringify(en), /Gero account|GeroCore/i);
 });
@@ -28,8 +29,18 @@ test("homepage leads with capabilities and paid privacy controls", () => {
 });
 
 test("future integrations are not presented as active", () => {
-  assert.match(ptPT.pricing.description, /futuras/);
   assert.match(ptPT.faq.items.at(-1)!.a, /Não é apresentada como integração ativa/);
+  assert.doesNotMatch(JSON.stringify(ptPT.pricing.plans.slice(1, 3)), /integrações futuras/i);
+});
+
+test("Start trial preserves data but gates the real field-record export", () => {
+  const start = ptPT.pricing.plans[0];
+  assert.equal(start.name, "Start");
+  assert.equal(start.monthly, "7,90 €");
+  assert.equal(start.annual, "79 €");
+  assert.match(ptPT.faq.items[0].a, /mockup/);
+  assert.match(ptPT.faq.items[0].a, /não pode ser exportado/);
+  assert.match(ptPT.faq.items[0].a, /dados são preservados/);
 });
 
 test("every locale has complete translated marketing copy", () => {

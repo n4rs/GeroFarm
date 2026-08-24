@@ -20,7 +20,7 @@ function setAt(target: Record<string, unknown>, path: Array<string | number>, va
   (cursor as Record<string | number, unknown>)[path.at(-1)!] = value;
 }
 
-const protectedTerms = ["GeroFarm", "GeroGrid", "Gero", "KML", "KMZ", "ET₀", "DLI", "Cookies", "Custom", "Grow", "Professional", "Free"];
+const protectedTerms = ["GeroFarm", "GeroGrid", "Gero", "KML", "KMZ", "ET₀", "DLI", "Cookies", "Custom", "Start", "Grow", "Professional"];
 function disambiguateSource(text: string) {
   return text
     .replaceAll("Field agriculture", "Open-field agriculture")
@@ -110,8 +110,8 @@ ptBR.proof = ["Mapa e KML/KMZ", "Operações agrícolas completas", "Meteorologi
 ptBR.flow.stages = ["Talhão", "Plantio", "Operação", "Colheita", "Caderno de campo"];
 ptBR.platform.description = "Estruture a fazenda, registre o que aconteceu e recupere o contexto de que sua equipe precisa.";
 ptBR.modules.costsDesc = "Mão de obra, equipamentos, insumos e outros recursos projetados nos custos do plantio e da colheita sem dupla contabilização.";
-ptBR.pricing.description = "Nenhum plano limita operações, colheitas ou cadernos de campo. Todos os planos pagos permitem integrações futuras, incluindo o GeroGrid quando estiver disponível.";
-ptBR.pricing.plans[0].features[2] = "5 talhões ativos";
+ptBR.pricing.description = "Escolha a escala e a profundidade da meteorologia agronômica de que a fazenda precisa. Nenhum plano limita operações, colheitas ou cadernos de campo.";
+ptBR.pricing.plans[0].features[3] = "5 talhões ativos";
 ptBR.pricing.plans[1].features[2] = "50 talhões";
 ptBR.pricing.plans[2].features[2] = "250 talhões";
 ptBR.pricing.plans[3].features[1] = "Talhões e estações sob medida";

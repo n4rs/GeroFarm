@@ -39,6 +39,7 @@ for (const [locale, terms] of Object.entries(reviewedTerms) as Array<[Exclude<Su
   copy.platform.cards[7].title = terms.logbook;
   copy.weather.metrics[3] = terms.degreeDays;
   copy.footer.cookies = terms.cookies;
+  if (copy.faq.items.length === 5) copy.faq.items.splice(2, 0, { q: `${copy.modules.inventory} + ${copy.modules.costs}`, a: copy.modules.description });
 }
 
 const ptBR = reviewed["pt-BR"];
@@ -48,8 +49,8 @@ Object.assign(ptBR.hero, { eyebrow: "Gestão completa no campo", title: "Gerenci
 ptBR.proof = ["Mapa e KML/KMZ", "Operações agrícolas completas", "Meteorologia por plantio", "Caderno de campo e rastreabilidade"];
 ptBR.platform.description = "Estruture a fazenda, registre o que aconteceu e recupere o contexto de que sua equipe precisa.";
 ptBR.modules.costsDesc = "Mão de obra, equipamentos, insumos e outros recursos projetados nos custos do plantio e da colheita sem dupla contabilização.";
-ptBR.pricing.description = "Nenhum plano limita operações, colheitas ou cadernos de campo. Todos os planos pagos permitem integrações futuras, incluindo o GeroGrid quando estiver disponível.";
-ptBR.pricing.plans[0].features[2] = "5 talhões ativos";
+ptBR.pricing.description = "Escolha a escala e a profundidade da meteorologia agronômica de que a fazenda precisa. Nenhum plano limita operações, colheitas ou cadernos de campo.";
+ptBR.pricing.plans[0].features[3] = "5 talhões ativos";
 ptBR.pricing.plans[1].features[2] = "50 talhões";
 ptBR.pricing.plans[2].features[2] = "250 talhões";
 ptBR.pricing.plans[3].features[1] = "Talhões e estações sob medida";

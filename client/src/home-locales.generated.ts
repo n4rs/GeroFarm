@@ -24,7 +24,7 @@ export const homepageCopies = {
       "description": "Mapeie talhões, acompanhe plantações e registe operações, rega, fertilização, colheitas, lotes, equipas e equipamentos numa única aplicação.",
       "primary": "Começar com o GeroFarm",
       "secondary": "Ver planos",
-      "note": "Grátis até 30 dias · Sem cartão de crédito",
+      "note": "30 dias gratuitos · Sem cartão de crédito",
       "imageAlt": "Campos agrícolas com limites de talhões mapeados e pontos de observação agronómica",
       "mapLabel": "Talhões mapeados",
       "cropLabel": "Plantações ativas",
@@ -138,7 +138,7 @@ export const homepageCopies = {
     "pricing": {
       "kicker": "Planos claros",
       "title": "Comece pequeno. Preserve todo o histórico operacional.",
-      "description": "Nenhum plano limita operações, colheitas ou cadernos. Todos os planos pagos admitem integrações futuras, incluindo o GeroGrid quando estiver disponível.",
+      "description": "Escolha a escala e a profundidade de meteorologia agronómica de que a exploração precisa. Nenhum plano limita operações, colheitas ou cadernos.",
       "monthly": "Mensal",
       "annual": "Anual",
       "annualNote": "O anual equivale a dez mensalidades",
@@ -151,18 +151,20 @@ export const homepageCopies = {
       "contact": "Pedir proposta",
       "plans": [
         {
-          "name": "Free",
-          "description": "Um início real de 30 dias para uma organização.",
-          "monthly": "0 €",
-          "annual": "0 €",
+          "name": "Start",
+          "description": "Para pequenas explorações que procuram uma rotina digital completa e económica.",
+          "monthly": "7,90 €",
+          "annual": "79 €",
           "features": [
+            "30 dias gratuitos",
             "1 utilizador",
-            "10 ha",
+            "15 ha",
             "5 talhões ativos",
+            "5 plantações ativas",
             "1 estação virtual",
-            "Máximo de 30 dias",
-            "Consulta e exportação após o período",
-            "Operações, colheitas e cadernos sem limite"
+            "Indicadores agronómicos essenciais",
+            "Exportação do caderno após subscrição",
+            "Privacy by Design incluído"
           ]
         },
         {
@@ -175,9 +177,9 @@ export const homepageCopies = {
             "100 ha",
             "50 talhões",
             "2 estações virtuais",
+            "Dashboard meteorológico completo, histórico e comparação dentro da campanha",
             "Privacy by Design incluído",
-            "Inventário e Custos disponíveis como addons",
-            "Integrações futuras permitidas"
+            "Inventário e Custos disponíveis como addons"
           ]
         },
         {
@@ -190,10 +192,10 @@ export const homepageCopies = {
             "500 ha",
             "250 talhões",
             "5 estações virtuais",
+            "Comparação meteorológica entre campanhas e estações, gráficos plurianuais, exportação e relatórios",
             "Privacy by Design incluído",
             "Inventário incluído",
-            "Custos incluídos",
-            "Integrações futuras permitidas"
+            "Custos incluídos"
           ]
         },
         {
@@ -204,10 +206,11 @@ export const homepageCopies = {
           "features": [
             "Utilizadores e área à medida",
             "Talhões e estações à medida",
+            "Meteorologia configurável, estações físicas, API e modelos personalizados",
             "Privacy by Design incluído",
-            "Inventário e Custos sob proposta",
-            "Módulos à medida",
-            "Integrações futuras e à medida"
+            "Inventário e Custos",
+            "Ligação a ERP de faturação",
+            "Módulos à medida"
           ]
         }
       ],
@@ -218,16 +221,15 @@ export const homepageCopies = {
         "Inventário + Custos · 24,90 €/mês ou 249 €/ano",
         "Estação virtual adicional nos planos pagos · 4,90 €/mês ou 49 €/ano"
       ],
-      "paidNote": "Todos os planos pagos incluem Privacy by Design, preservam o histórico operacional completo e podem usar integrações futuras quando forem disponibilizadas.",
-      "grace": "Quando a subscrição termina, a organização tem 7 dias de tolerância com um aviso em cada entrada."
+      "paidNote": "Todos os planos pagos incluem Privacy by Design e exportação do caderno, preservando o histórico operacional completo."
     },
     "faq": {
       "kicker": "Antes de começar",
       "title": "Respostas diretas",
       "items": [
         {
-          "q": "O que acontece depois dos 30 dias Free?",
-          "a": "A organização passa a consulta e exportação. Os dados ficam preservados; criar ou alterar registos operacionais requer um plano pago."
+          "q": "O que inclui o período experimental de 30 dias do Start?",
+          "a": "Pode introduzir dados reais e usar os indicadores agronómicos essenciais. Durante o período experimental, o caderno de campo é um mockup e o caderno real não pode ser exportado. Ao subscrever o Start ou um plano superior, os dados são preservados e a exportação fica disponível."
         },
         {
           "q": "O Privacy by Design está incluído?",
@@ -290,7 +292,7 @@ export const homepageCopies = {
       "description": "Mapeie talhões, acompanhe plantios e registre operações, irrigação, fertilização, colheitas, lotes, equipes e equipamentos em uma única aplicação.",
       "primary": "Comece com GeroFarm",
       "secondary": "Ver planos",
-      "note": "Free por até 30 dias · Não é necessário cartão de crédito",
+      "note": "30 dias grátis · Não é necessário cartão de crédito",
       "imageAlt": "Campos agrícolas com limites de talhões mapeados e pontos de observação agronômica",
       "mapLabel": "Talhões mapeados",
       "cropLabel": "Plantios ativos",
@@ -389,7 +391,7 @@ export const homepageCopies = {
     "pricing": {
       "kicker": "Planos claros",
       "title": "Comece pequeno. Mantenha todo o histórico operacional.",
-      "description": "Nenhum plano limita operações, colheitas ou cadernos de campo. Todos os planos pagos permitem integrações futuras, incluindo o GeroGrid quando estiver disponível.",
+      "description": "Escolha a escala e a profundidade da meteorologia agronômica de que a fazenda precisa. Nenhum plano limita operações, colheitas ou cadernos de campo.",
       "monthly": "Mensalmente",
       "annual": "Anual",
       "annualNote": "O faturamento anual equivale a dez pagamentos mensais",
@@ -402,65 +404,66 @@ export const homepageCopies = {
       "contact": "Solicite uma proposta",
       "plans": [
         {
-          "name": "Free",
-          "description": "Um verdadeiro começo de 30 dias para uma organização.",
-          "monthly": "0€",
-          "annual": "0€",
+          "name": "Start",
+          "description": "Para pequenas fazendas que buscam uma rotina digital completa e econômica.",
+          "monthly": "7,90 €",
+          "annual": "79 €",
           "features": [
+            "30 dias grátis",
             "1 usuário",
-            "10 hectares",
+            "15 ha",
             "5 talhões ativos",
+            "5 plantios ativos",
             "1 estação virtual",
-            "30 dias no máximo",
-            "Caderno de campo"
+            "Indicadores agronômicos essenciais",
+            "Exportação do caderno de campo após a assinatura",
+            "Privacy by Design incluído"
           ]
         },
         {
           "name": "Grow",
-          "description": "Para fazendas que estão construindo uma rotina digital consistente.",
-          "monthly": "24,90€",
-          "annual": "249€",
+          "description": "Para fazendas que estão criando uma rotina digital consistente.",
+          "monthly": "24,90 €",
+          "annual": "249 €",
           "features": [
             "3 usuários",
-            "100 hectares",
+            "100 ha",
             "50 talhões",
             "2 estações virtuais",
-            "Estoque e custos disponíveis como complementos",
-            "Privacy by Design",
-            "Privacy by Design",
-            "Integrações futuras permitidas"
+            "Painel meteorológico completo, histórico e comparação dentro da safra",
+            "Privacy by Design incluído",
+            "Inventário e Custos disponíveis como adicionais"
           ]
         },
         {
           "name": "Professional",
           "description": "Para equipes maiores e operações mais complexas.",
-          "monthly": "69,90€",
-          "annual": "699€",
+          "monthly": "69,90 €",
+          "annual": "699 €",
           "features": [
             "10 usuários",
-            "500 hectares",
+            "500 ha",
             "250 talhões",
             "5 estações virtuais",
+            "Comparação meteorológica entre safras e estações, gráficos plurianuais, exportação e relatórios",
+            "Privacy by Design incluído",
             "Inventário incluído",
-            "Custos incluídos",
-            "Privacy by Design",
-            "Privacy by Design",
-            "Integrações futuras permitidas"
+            "Custos incluídos"
           ]
         },
         {
           "name": "Custom",
-          "description": "Limites, integrações e módulos à medida da organização.",
-          "monthly": "A pedido",
-          "annual": "A pedido",
+          "description": "Limites, integrações e módulos sob medida para a organização.",
+          "monthly": "Sob consulta",
+          "annual": "Sob consulta",
           "features": [
-            "Usuários e área Custom",
+            "Usuários e área sob medida",
             "Talhões e estações sob medida",
-            "Estoque e custos por proposta",
-            "Módulos personalizados",
-            "Privacy by Design",
-            "Privacy by Design",
-            "Integrações futuras e personalizadas"
+            "Meteorologia configurável, estações físicas, API e modelos personalizados",
+            "Privacy by Design incluído",
+            "Inventário e Custos",
+            "Conexão com ERP de faturamento",
+            "Módulos sob medida"
           ]
         }
       ],
@@ -471,20 +474,23 @@ export const homepageCopies = {
         "Inventário + Custos · 24,90€/mês ou 249€/ano",
         "Estação virtual adicional em planos pagos · 4,90€/mês ou 49€/ano"
       ],
-      "paidNote": "Todos os planos pagos mantêm o histórico operacional completo e poderão utilizar integrações futuras quando estiverem disponíveis.",
-      "grace": "Quando uma assinatura termina, a organização tem um período de carência de 7 dias com um aviso a cada login."
+      "paidNote": "Todos os planos pagos incluem Privacy by Design e exportação do caderno de campo, preservando todo o histórico operacional."
     },
     "faq": {
       "kicker": "Antes de começar",
       "title": "Respostas diretas",
       "items": [
         {
-          "q": "O que acontece após os 30 dias Free?",
-          "a": "A organização muda para consulta e exportação. Os dados permanecem preservados; criar ou alterar registros operacionais requer um plano pago."
+          "q": "O que inclui o período de teste de 30 dias do Start?",
+          "a": "Você pode inserir dados reais e usar os indicadores agronômicos essenciais. Durante o teste, o caderno de campo é um mockup e o caderno real não pode ser exportado. Ao assinar o Start ou um plano superior, os dados são preservados e a exportação fica disponível."
         },
         {
           "q": "Privacy by Design",
           "a": "Todos os planos pagos incluem as ferramentas operacionais completas e o módulo Privacy by Design."
+        },
+        {
+          "q": "Inventário + Custos",
+          "a": "Inventário e Custos são módulos opcionais no Grow e Custom e incluídos no Professional."
         },
         {
           "q": "Posso adicionar mais estações virtuais?",
@@ -554,7 +560,7 @@ export const homepageCopies = {
       "description": "Map parcels, manage crops and record operations, irrigation, fertilisation, harvests, lots, teams and equipment in one application.",
       "primary": "Start with GeroFarm",
       "secondary": "View plans",
-      "note": "Free for up to 30 days · No credit card required",
+      "note": "30-day free trial · No credit card required",
       "imageAlt": "Agricultural fields with mapped parcel boundaries and agronomic observation points",
       "mapLabel": "Mapped parcels",
       "cropLabel": "Active crops",
@@ -668,7 +674,7 @@ export const homepageCopies = {
     "pricing": {
       "kicker": "Clear plans",
       "title": "Start small. Keep the whole operational history.",
-      "description": "No plan limits operations, harvests or field records. All paid plans allow future integrations, including GeroGrid when available.",
+      "description": "Choose the scale and agronomic-weather depth your farm needs. No plan limits operations, harvests or field records.",
       "monthly": "Monthly",
       "annual": "Annual",
       "annualNote": "Annual billing equals ten monthly payments",
@@ -681,18 +687,20 @@ export const homepageCopies = {
       "contact": "Request a proposal",
       "plans": [
         {
-          "name": "Free",
-          "description": "A real 30-day start for one organisation.",
-          "monthly": "€0",
-          "annual": "€0",
+          "name": "Start",
+          "description": "For small farms that want a complete, affordable digital routine.",
+          "monthly": "€7.90",
+          "annual": "€79",
           "features": [
+            "30-day free trial",
             "1 user",
-            "10 ha",
+            "15 ha",
             "5 active fields",
+            "5 active crops",
             "1 virtual station",
-            "30 days maximum",
-            "Consultation and export after the period",
-            "Unlimited operations, harvests and field records"
+            "Essential agronomic indicators",
+            "Field record export after subscription",
+            "Privacy by Design included"
           ]
         },
         {
@@ -705,9 +713,9 @@ export const homepageCopies = {
             "100 ha",
             "50 fields",
             "2 virtual stations",
+            "Complete weather dashboard, history and within-campaign comparison",
             "Privacy by Design included",
-            "Inventory and Costs available as add-ons",
-            "Future integrations allowed"
+            "Inventory and Costs available as add-ons"
           ]
         },
         {
@@ -720,10 +728,10 @@ export const homepageCopies = {
             "500 ha",
             "250 fields",
             "5 virtual stations",
+            "Weather comparisons across campaigns and stations, multi-year charts, export and reports",
             "Privacy by Design included",
             "Inventory included",
-            "Costs included",
-            "Future integrations allowed"
+            "Costs included"
           ]
         },
         {
@@ -734,10 +742,11 @@ export const homepageCopies = {
           "features": [
             "Custom users and area",
             "Custom fields and stations",
+            "Configurable weather, physical stations, API and custom models",
             "Privacy by Design included",
-            "Inventory and Costs by proposal",
-            "Tailored modules",
-            "Future and tailored integrations"
+            "Inventory and Costs",
+            "Invoicing ERP connection",
+            "Tailored modules"
           ]
         }
       ],
@@ -748,16 +757,15 @@ export const homepageCopies = {
         "Inventory + Costs · €24.90/month or €249/year",
         "Additional virtual station on paid plans · €4.90/month or €49/year"
       ],
-      "paidNote": "All paid plans include Privacy by Design, keep the full operational history and may use future integrations when they become available.",
-      "grace": "When a subscription ends, the organisation has a 7-day grace period with a notice at every sign-in."
+      "paidNote": "All paid plans include Privacy by Design and field-record export, while keeping the complete operational history."
     },
     "faq": {
       "kicker": "Before you start",
       "title": "Straight answers",
       "items": [
         {
-          "q": "What happens after the 30 Free days?",
-          "a": "The organisation switches to consultation and export. Data stays preserved; creating or changing operational records requires a paid plan."
+          "q": "What does the 30-day Start trial include?",
+          "a": "You can enter real data and use the essential agronomic indicators. During the trial, the field record is a mockup and the real field record cannot be exported. Subscribing to Start or a higher plan preserves the data and unlocks export."
         },
         {
           "q": "Is Privacy by Design included?",
@@ -820,7 +828,7 @@ export const homepageCopies = {
       "description": "Cartographiez les champs, connectez les cultures, les opérations, les récoltes et la météo agronomique, et conservez un enregistrement clair des champs avec GeroFarm.",
       "primary": "Commencez par GeroFarm",
       "secondary": "Voir les forfaits",
-      "note": "Free jusqu'à 30 jours · Aucune carte de crédit requise",
+      "note": "Start jusqu'à 30 jours · Aucune carte de crédit requise",
       "imageAlt": "Champs agricoles avec limites de parcelles cartographiées et points d'observation agronomiques",
       "mapLabel": "Parcelles cartographiées",
       "cropLabel": "Cultures actives",
@@ -919,7 +927,7 @@ export const homepageCopies = {
     "pricing": {
       "kicker": "Des plans clairs",
       "title": "Commencez petit. Conservez tout l’historique opérationnel.",
-      "description": "Aucun plan ne limite les opérations, les récoltes ou les enregistrements sur le terrain. Tous les forfaits payants permettent des intégrations futures, y compris GeroGrid lorsqu'ils sont disponibles.",
+      "description": "Aucun plan ne limite les opérations, les récoltes ou les enregistrements sur le terrain.",
       "monthly": "Mensuel",
       "annual": "Annuel",
       "annualNote": "La facturation annuelle équivaut à dix mensualités",
@@ -932,17 +940,20 @@ export const homepageCopies = {
       "contact": "Demander une proposition",
       "plans": [
         {
-          "name": "Free",
+          "name": "Start",
           "description": "Un vrai début de 30 jours pour une organisation.",
-          "monthly": "0 €",
-          "annual": "0 €",
+          "monthly": "7,90 €",
+          "annual": "79 €",
           "features": [
-            "1 utilisateur",
-            "10 hectares",
-            "5 champs actifs",
-            "1 gare virtuelle",
             "30 jours maximum",
-            "Cahier de culture"
+            "1 utilisateur",
+            "15 ha",
+            "5 champs actifs",
+            "5 Cultures actives",
+            "1 gare virtuelle",
+            "Indicateurs par culture",
+            "Cahier de culture",
+            "Privacy by Design"
           ]
         },
         {
@@ -955,10 +966,9 @@ export const homepageCopies = {
             "100 hectares",
             "50 champs",
             "2 stations virtuelles",
-            "Inventaire et coûts disponibles en tant que modules complémentaires",
+            "Une météo qui parle la langue de chaque culture",
             "Privacy by Design",
-            "Privacy by Design",
-            "Intégrations futures autorisées"
+            "Inventaire et coûts disponibles en tant que modules complémentaires"
           ]
         },
         {
@@ -971,11 +981,10 @@ export const homepageCopies = {
             "500 hectares",
             "250 champs",
             "5 stations virtuelles",
+            "Une météo qui parle la langue de chaque culture · Évapotranspiration de référence (ET₀) · Rayonnement solaire · Intégrale de lumière quotidienne estimée (DLI) · Degrés-jours de croissance · Exigences de refroidissement · Humidité estimée des feuilles",
+            "Privacy by Design",
             "Inventaire inclus",
-            "Frais inclus",
-            "Privacy by Design",
-            "Privacy by Design",
-            "Intégrations futures autorisées"
+            "Frais inclus"
           ]
         },
         {
@@ -986,11 +995,11 @@ export const homepageCopies = {
           "features": [
             "Utilisateurs et zone Custom",
             "Champs et stations Custom",
-            "Inventaire et coûts sur proposition",
-            "Des modules sur mesure",
+            "Une météo qui parle la langue de chaque culture · API",
             "Privacy by Design",
-            "Privacy by Design",
-            "Intégrations futures et sur mesure"
+            "Inventaire + Coûts",
+            "ERP",
+            "Des modules sur mesure"
           ]
         }
       ],
@@ -1001,20 +1010,23 @@ export const homepageCopies = {
         "Inventaire + Frais · 24,90 €/mois ou 249 €/an",
         "Station virtuelle supplémentaire sur les forfaits payants · 4,90 €/mois ou 49 €/an"
       ],
-      "paidNote": "Tous les forfaits payants conservent l'historique opérationnel complet et peuvent utiliser de futures intégrations lorsqu'elles seront disponibles.",
-      "grace": "Lorsqu'un abonnement prend fin, l'organisation dispose d'un délai de grâce de 7 jours avec un préavis à chaque connexion."
+      "paidNote": "Tous les forfaits payants comprennent les outils opérationnels complets et le module Privacy by Design."
     },
     "faq": {
       "kicker": "Avant de commencer",
       "title": "Des réponses claires",
       "items": [
         {
-          "q": "Que se passe-t-il après les 30 jours Free ?",
-          "a": "L'organisation passe à la consultation et à l'export. Les données restent préservées ; la création ou la modification d'enregistrements opérationnels nécessite un forfait payant."
+          "q": "Que se passe-t-il après les 30 jours Start ?",
+          "a": "Cahier de culture · mockup · Start"
         },
         {
           "q": "Privacy by Design",
           "a": "Tous les forfaits payants comprennent les outils opérationnels complets et le module Privacy by Design."
+        },
+        {
+          "q": "Inventaire + Coûts",
+          "a": "L'inventaire et les coûts sont des modules facultatifs sur Grow et Custom, et inclus avec Professional."
         },
         {
           "q": "Puis-je ajouter d'autres stations virtuelles ?",
@@ -1084,7 +1096,7 @@ export const homepageCopies = {
       "description": "Mapee campos, conecte cultivos, operaciones, cosechas y clima agronómico, y mantenga un registro de campo claro con GeroFarm.",
       "primary": "Comience con GeroFarm",
       "secondary": "Ver planos",
-      "note": "Free por hasta 30 días · No se requiere tarjeta de crédito",
+      "note": "Start por hasta 30 días · No se requiere tarjeta de crédito",
       "imageAlt": "Campos agrícolas con límites de parcelas mapeados y puntos de observación agronómica.",
       "mapLabel": "Parcelas mapeadas",
       "cropLabel": "Cultivos activos",
@@ -1183,7 +1195,7 @@ export const homepageCopies = {
     "pricing": {
       "kicker": "Planes claros",
       "title": "Empiece poco a poco. Mantenga todo el historial operativo.",
-      "description": "Ningún plan limita operaciones, cosechas o registros de campo. Todos los planes pagos permiten integraciones futuras, incluido GeroGrid cuando esté disponible.",
+      "description": "Ningún plan limita operaciones, cosechas o registros de campo.",
       "monthly": "Mensual",
       "annual": "Anual",
       "annualNote": "La facturación anual equivale a diez pagos mensuales",
@@ -1196,17 +1208,20 @@ export const homepageCopies = {
       "contact": "Solicitar una propuesta",
       "plans": [
         {
-          "name": "Free",
+          "name": "Start",
           "description": "Un verdadero comienzo de 30 días para una organización.",
-          "monthly": "0€",
-          "annual": "0€",
+          "monthly": "7,90 €",
+          "annual": "79 €",
           "features": [
-            "1 usuario",
-            "10 hectáreas",
-            "5 campos activos",
-            "1 estación virtual",
             "30 días máximo",
-            "Cuaderno de campo"
+            "1 usuario",
+            "15 ha",
+            "5 campos activos",
+            "5 Cultivos activos",
+            "1 estación virtual",
+            "Indicadores por cultivo",
+            "Cuaderno de campo",
+            "Privacy by Design"
           ]
         },
         {
@@ -1219,10 +1234,9 @@ export const homepageCopies = {
             "100 hectáreas",
             "50 campos",
             "2 estaciones virtuales",
-            "Inventario y costos disponibles como complementos",
+            "Un clima que habla el idioma de cada cultivo",
             "Privacy by Design",
-            "Privacy by Design",
-            "Integraciones futuras permitidas"
+            "Inventario y costos disponibles como complementos"
           ]
         },
         {
@@ -1235,11 +1249,10 @@ export const homepageCopies = {
             "500 hectáreas",
             "250 campos",
             "5 estaciones virtuales",
+            "Un clima que habla el idioma de cada cultivo · Evapotranspiración de referencia (ET₀) · Radiación solar · Integral de luz diaria estimada (DLI) · Grados-día de crecimiento · Requisitos de enfriamiento · Humedad foliar estimada",
+            "Privacy by Design",
             "Inventario incluido",
-            "Gastos incluidos",
-            "Privacy by Design",
-            "Privacy by Design",
-            "Integraciones futuras permitidas"
+            "Gastos incluidos"
           ]
         },
         {
@@ -1250,11 +1263,11 @@ export const homepageCopies = {
           "features": [
             "Usuarios y área de Custom",
             "Campos y estaciones Custom",
-            "Inventario y Costos por propuesta",
-            "Módulos a medida",
+            "Un clima que habla el idioma de cada cultivo · API",
             "Privacy by Design",
-            "Privacy by Design",
-            "Integraciones futuras y personalizadas"
+            "inventario + Costos",
+            "ERP",
+            "Módulos a medida"
           ]
         }
       ],
@@ -1265,20 +1278,23 @@ export const homepageCopies = {
         "Inventario + Costes · 24,90€/mes o 249€/año",
         "Estación virtual adicional en planes pagos · 4,90 €/mes o 49 €/año"
       ],
-      "paidNote": "Todos los planes pagos mantienen el historial operativo completo y pueden utilizar integraciones futuras cuando estén disponibles.",
-      "grace": "Cuando finaliza una suscripción, la organización tiene un período de gracia de 7 días con un aviso cada vez que inicia sesión."
+      "paidNote": "Todos los planes de pago incluyen las herramientas operativas completas y el módulo Privacy by Design."
     },
     "faq": {
       "kicker": "Antes de empezar",
       "title": "Respuestas directas",
       "items": [
         {
-          "q": "¿Qué pasa después de los 30 días Free?",
-          "a": "La organización pasa a la consulta y la exportación. Los datos permanecen preservados; Crear o cambiar registros operativos requiere un plan pago."
+          "q": "¿Qué pasa después de los 30 días Start?",
+          "a": "Cuaderno de campo · mockup · Start"
         },
         {
           "q": "Privacy by Design",
           "a": "Todos los planes de pago incluyen las herramientas operativas completas y el módulo Privacy by Design."
+        },
+        {
+          "q": "inventario + Costos",
+          "a": "Inventario y Costos son módulos opcionales en Grow y Custom, y se incluyen con Professional."
         },
         {
           "q": "¿Puedo agregar más estaciones virtuales?",
@@ -1348,7 +1364,7 @@ export const homepageCopies = {
       "description": "Breng velden in kaart, verbind gewassen, bewerkingen, oogsten en agronomisch weer en houd een duidelijk veldrecord bij met GeroFarm.",
       "primary": "Begin met GeroFarm",
       "secondary": "Bekijk plannen",
-      "note": "Free voor maximaal 30 dagen · Geen creditcard vereist",
+      "note": "Start voor maximaal 30 dagen · Geen creditcard vereist",
       "imageAlt": "Landbouwvelden met in kaart gebrachte perceelsgrenzen en agronomische observatiepunten",
       "mapLabel": "In kaart gebrachte percelen",
       "cropLabel": "Actieve gewassen",
@@ -1447,7 +1463,7 @@ export const homepageCopies = {
     "pricing": {
       "kicker": "Duidelijke plannen",
       "title": "Begin klein. Bewaar de hele operationele geschiedenis.",
-      "description": "Geen enkel plan beperkt de activiteiten, oogsten of veldgegevens. Alle betaalde abonnementen maken toekomstige integraties mogelijk, inclusief GeroGrid, indien beschikbaar.",
+      "description": "Geen enkel plan beperkt de activiteiten, oogsten of veldgegevens.",
       "monthly": "Maandelijks",
       "annual": "Jaarlijks",
       "annualNote": "De jaarlijkse facturering is gelijk aan tien maandelijkse betalingen",
@@ -1460,17 +1476,20 @@ export const homepageCopies = {
       "contact": "Vraag een voorstel aan",
       "plans": [
         {
-          "name": "Free",
+          "name": "Start",
           "description": "Een echte 30-dagenstart voor één organisatie.",
-          "monthly": "€ 0",
-          "annual": "€ 0",
+          "monthly": "7,90 €",
+          "annual": "79 €",
           "features": [
-            "1 gebruiker",
-            "10 ha",
-            "5 actieve velden",
-            "1 virtueel station",
             "Maximaal 30 dagen",
-            "Teeltregistratie"
+            "1 gebruiker",
+            "15 ha",
+            "5 actieve velden",
+            "5 Actieve gewassen",
+            "1 virtueel station",
+            "Indicatoren per gewas",
+            "Teeltregistratie",
+            "Privacy by Design"
           ]
         },
         {
@@ -1483,10 +1502,9 @@ export const homepageCopies = {
             "100 ha",
             "50 velden",
             "2 virtuele stations",
-            "Voorraad en kosten beschikbaar als add-ons",
+            "Weer dat de taal spreekt van elk gewas",
             "Privacy by Design",
-            "Privacy by Design",
-            "Toekomstige integraties toegestaan"
+            "Voorraad en kosten beschikbaar als add-ons"
           ]
         },
         {
@@ -1499,11 +1517,10 @@ export const homepageCopies = {
             "500 ha",
             "250 velden",
             "5 virtuele stations",
+            "Weer dat de taal spreekt van elk gewas · Referentie verdamping (ET₀) · Zonnestraling · Geschatte dagelijkse lichtintegraal (DLI) · Groeigraaddagen · Chill-vereisten · Geschatte bladnatheid",
+            "Privacy by Design",
             "Inventaris inbegrepen",
-            "Kosten inbegrepen",
-            "Privacy by Design",
-            "Privacy by Design",
-            "Toekomstige integraties toegestaan"
+            "Kosten inbegrepen"
           ]
         },
         {
@@ -1514,11 +1531,11 @@ export const homepageCopies = {
           "features": [
             "Custom gebruikers en gebied",
             "Custom-velden en stations",
-            "Inventaris en kosten op voorstel",
-            "Op maat gemaakte modules",
+            "Weer dat de taal spreekt van elk gewas · API",
             "Privacy by Design",
-            "Privacy by Design",
-            "Toekomstige en op maat gemaakte integraties"
+            "Inventaris + Kosten",
+            "ERP",
+            "Op maat gemaakte modules"
           ]
         }
       ],
@@ -1529,20 +1546,23 @@ export const homepageCopies = {
         "Inventaris + kosten · € 24,90/maand of € 249/jaar",
         "Extra virtueel station bij betaalde abonnementen · € 4,90/maand of € 49/jaar"
       ],
-      "paidNote": "Alle betaalde abonnementen behouden de volledige operationele geschiedenis en kunnen toekomstige integraties gebruiken wanneer deze beschikbaar komen.",
-      "grace": "Wanneer een abonnement afloopt, heeft de organisatie een respijtperiode van zeven dagen, met een kennisgeving bij elke aanmelding."
+      "paidNote": "Alle betaalde abonnementen bevatten de volledige operationele gereedschapsset en de module Privacy by Design."
     },
     "faq": {
       "kicker": "Voordat je begint",
       "title": "Duidelijke antwoorden",
       "items": [
         {
-          "q": "Wat gebeurt er na de 30 Free-dagen?",
-          "a": "De organisatie schakelt over naar advies en export. Gegevens blijven behouden; voor het maken of wijzigen van operationele records is een betaald abonnement vereist."
+          "q": "Wat gebeurt er na de 30 Start-dagen?",
+          "a": "Teeltregistratie · mockup · Start"
         },
         {
           "q": "Privacy by Design",
           "a": "Alle betaalde abonnementen bevatten de volledige operationele gereedschapsset en de module Privacy by Design."
+        },
+        {
+          "q": "Inventaris + Kosten",
+          "a": "Voorraad en kosten zijn optionele modules op de Grow en Custom, en inbegrepen bij de Professional."
         },
         {
           "q": "Kan ik meer virtuele stations toevoegen?",
@@ -1612,7 +1632,7 @@ export const homepageCopies = {
       "description": "Kartieren Sie Felder, verknüpfen Sie Pflanzen, Betriebe, Ernten und agronomisches Wetter und führen Sie mit GeroFarm eine klare Feldaufzeichnung.",
       "primary": "Beginnen Sie mit GeroFarm",
       "secondary": "Pläne ansehen",
-      "note": "Free für bis zu 30 Tage · Keine Kreditkarte erforderlich",
+      "note": "Start für bis zu 30 Tage · Keine Kreditkarte erforderlich",
       "imageAlt": "Landwirtschaftliche Felder mit kartierten Parzellengrenzen und agronomischen Beobachtungspunkten",
       "mapLabel": "Kartierte Parzellen",
       "cropLabel": "Aktive Pflanzen",
@@ -1711,7 +1731,7 @@ export const homepageCopies = {
     "pricing": {
       "kicker": "Klare Pläne",
       "title": "Fangen Sie klein an. Bewahren Sie die gesamte Betriebshistorie auf.",
-      "description": "Kein Plan schränkt den Betrieb, die Ernten oder die Feldaufzeichnungen ein. Alle kostenpflichtigen Pläne ermöglichen zukünftige Integrationen, einschließlich GeroGrid, sofern verfügbar.",
+      "description": "Kein Plan schränkt den Betrieb, die Ernten oder die Feldaufzeichnungen ein.",
       "monthly": "Monatlich",
       "annual": "Jährlich",
       "annualNote": "Die jährliche Abrechnung entspricht zehn monatlichen Zahlungen",
@@ -1724,17 +1744,20 @@ export const homepageCopies = {
       "contact": "Fordern Sie ein Angebot an",
       "plans": [
         {
-          "name": "Free",
+          "name": "Start",
           "description": "Ein echter 30-Tage-Start für eine Organisation.",
-          "monthly": "0 €",
-          "annual": "0 €",
+          "monthly": "7,90 €",
+          "annual": "79 €",
           "features": [
-            "1 Benutzer",
-            "10 ha",
-            "5 aktive Felder",
-            "1 virtuelle Station",
             "Maximal 30 Tage",
-            "Schlagkartei"
+            "1 Benutzer",
+            "15 ha",
+            "5 aktive Felder",
+            "5 Aktive Pflanzen",
+            "1 virtuelle Station",
+            "Indikatoren nach Kultur",
+            "Schlagkartei",
+            "Privacy by Design"
           ]
         },
         {
@@ -1747,10 +1770,9 @@ export const homepageCopies = {
             "100 ha",
             "50 Felder",
             "2 virtuelle Stationen",
-            "Inventar und Kosten als Add-ons verfügbar",
+            "Wetter, das die Sprache jeder Kultur spricht",
             "Privacy by Design",
-            "Privacy by Design",
-            "Zukünftige Integrationen erlaubt"
+            "Inventar und Kosten als Add-ons verfügbar"
           ]
         },
         {
@@ -1763,11 +1785,10 @@ export const homepageCopies = {
             "500 ha",
             "250 Felder",
             "5 virtuelle Stationen",
+            "Wetter, das die Sprache jeder Kultur spricht · Referenz-Evapotranspiration (ET₀) · Sonnenstrahlung · Geschätztes tägliches Lichtintegral (DLI) · Wachstumsgradtage · Chill-Anforderungen · Geschätzte Blattnässe",
+            "Privacy by Design",
             "Inklusive Inventar",
-            "Kosten inklusive",
-            "Privacy by Design",
-            "Privacy by Design",
-            "Zukünftige Integrationen erlaubt"
+            "Kosten inklusive"
           ]
         },
         {
@@ -1778,11 +1799,11 @@ export const homepageCopies = {
           "features": [
             "Custom Benutzer und Bereich",
             "Custom Felder und Stationen",
-            "Inventar und Kosten nach Vorschlag",
-            "Maßgeschneiderte Module",
+            "Wetter, das die Sprache jeder Kultur spricht · API",
             "Privacy by Design",
-            "Privacy by Design",
-            "Zukünftige und maßgeschneiderte Integrationen"
+            "Inventar + Kosten",
+            "ERP",
+            "Maßgeschneiderte Module"
           ]
         }
       ],
@@ -1793,20 +1814,23 @@ export const homepageCopies = {
         "Inventar + Kosten · 24,90 €/Monat oder 249 €/Jahr",
         "Zusätzliche virtuelle Station bei kostenpflichtigen Tarifen · 4,90 €/Monat oder 49 €/Jahr"
       ],
-      "paidNote": "Alle kostenpflichtigen Pläne behalten den vollständigen Betriebsverlauf und können zukünftige Integrationen nutzen, sobald diese verfügbar sind.",
-      "grace": "Wenn ein Abonnement endet, hat die Organisation eine 7-tägige Kulanzfrist mit einer Benachrichtigung bei jeder Anmeldung."
+      "paidNote": "Alle kostenpflichtigen Pläne beinhalten das komplette Betriebs-Toolkit und das Privacy by Design-Modul."
     },
     "faq": {
       "kicker": "Bevor Sie beginnen",
       "title": "Klare Antworten",
       "items": [
         {
-          "q": "Was passiert nach den 30 Free Tagen?",
-          "a": "Die Organisation stellt auf Beratung und Export um. Daten bleiben erhalten; Für das Erstellen oder Ändern von Betriebsunterlagen ist ein kostenpflichtiger Plan erforderlich."
+          "q": "Was passiert nach den 30 Start Tagen?",
+          "a": "Schlagkartei · mockup · Start"
         },
         {
           "q": "Privacy by Design",
           "a": "Alle kostenpflichtigen Pläne beinhalten das komplette Betriebs-Toolkit und das Privacy by Design-Modul."
+        },
+        {
+          "q": "Inventar + Kosten",
+          "a": "„Inventory“ und „Costs“ sind optionale Module für Grow und Custom und im Professional enthalten."
         },
         {
           "q": "Kann ich weitere virtuelle Stationen hinzufügen?",
@@ -1876,7 +1900,7 @@ export const homepageCopies = {
       "description": "GeroFarm を使用して、圃場をマッピングし、作物、作業、収穫、農業気象を結び付け、明確な圃場記録を維持します。",
       "primary": "GeroFarm から始める",
       "secondary": "プランを見る",
-      "note": "Free 最大 30 日間 · クレジット カードは必要ありません",
+      "note": "Start 最大 30 日間 · クレジット カードは必要ありません",
       "imageAlt": "地図上の区画境界と農業観察ポイントを備えた農地",
       "mapLabel": "マップされたパーセル",
       "cropLabel": "活発な作物",
@@ -1988,17 +2012,20 @@ export const homepageCopies = {
       "contact": "提案をリクエストする",
       "plans": [
         {
-          "name": "Free",
+          "name": "Start",
           "description": "1 つの組織にとって実質 30 日間のスタートです。",
-          "monthly": "0ユーロ",
-          "annual": "0ユーロ",
+          "monthly": "7,90 €",
+          "annual": "79 €",
           "features": [
-            "1ユーザー",
-            "10ヘクタール",
-            "5つのアクティブフィールド",
-            "1 仮想ステーション",
             "最長30日",
-            "圃場記録"
+            "1ユーザー",
+            "15 ha",
+            "5つのアクティブフィールド",
+            "5 活発な作物",
+            "1 仮想ステーション",
+            "作物別指標",
+            "圃場記録",
+            "プライバシーバイデザイン"
           ]
         },
         {
@@ -2011,10 +2038,9 @@ export const homepageCopies = {
             "100ヘクタール",
             "50フィールド",
             "2つの仮想ステーション",
-            "アドオンとして利用可能な在庫とコスト",
+            "それぞれの作物の言葉を語る天気",
             "プライバシーバイデザイン",
-            "プライバシーバイデザイン",
-            "将来の統合が可能"
+            "アドオンとして利用可能な在庫とコスト"
           ]
         },
         {
@@ -2027,11 +2053,10 @@ export const homepageCopies = {
             "500ヘクタール",
             "250フィールド",
             "5つの仮想ステーション",
+            "それぞれの作物の言葉を語る天気 · 基準蒸発散量 (ET₀) · 日射量 · 一日の推定光量積分値 (DLI) · 積算温度 · 冷却要件 · 推定葉湿り量",
+            "プライバシーバイデザイン",
             "在庫を含む",
-            "費用込み",
-            "プライバシーバイデザイン",
-            "プライバシーバイデザイン",
-            "将来の統合が可能"
+            "費用込み"
           ]
         },
         {
@@ -2042,11 +2067,11 @@ export const homepageCopies = {
           "features": [
             "Custom ユーザーとエリア",
             "Custom フィールドとステーション",
-            "提案ごとの在庫とコスト",
-            "カスタマイズされたモジュール",
+            "それぞれの作物の言葉を語る天気 · API",
             "プライバシーバイデザイン",
-            "プライバシーバイデザイン",
-            "将来のカスタマイズされた統合"
+            "在庫 + コスト",
+            "ERP",
+            "カスタマイズされたモジュール"
           ]
         }
       ],
@@ -2057,20 +2082,23 @@ export const homepageCopies = {
         "在庫 + コスト · 24.90 ユーロ/月または 249 ユーロ/年",
         "有料プランでの追加の仮想ステーション · 月額 4.90 ユーロまたは年間 49 ユーロ"
       ],
-      "paidNote": "すべての有料プランは完全な運用履歴を保持しており、将来の統合が利用可能になったときに使用する可能性があります。",
-      "grace": "サブスクリプションが終了すると、組織には 7 日間の猶予期間があり、サインインするたびに通知が表示されます。"
+      "paidNote": "すべての有料プランには、完全な運用ツールキットとプライバシー バイ デザイン モジュールが含まれています。"
     },
     "faq": {
       "kicker": "始める前に",
       "title": "率直な答え",
       "items": [
         {
-          "q": "30 Free 日が経過するとどうなりますか?",
-          "a": "組織は相談と輸出に切り替えます。データは保存されたままになります。操作記録の作成または変更には有料プランが必要です。"
+          "q": "30 Start 日が経過するとどうなりますか?",
+          "a": "圃場記録 · mockup · Start"
         },
         {
           "q": "プライバシーバイデザイン",
           "a": "すべての有料プランには、完全な運用ツールキットとプライバシー バイ デザイン モジュールが含まれています。"
+        },
+        {
+          "q": "在庫 + コスト",
+          "a": "在庫とコストは、Grow および Custom のオプション モジュールであり、Professional に含まれています。"
         },
         {
           "q": "さらに仮想ステーションを追加できますか?",
@@ -2140,7 +2168,7 @@ export const homepageCopies = {
       "description": "מפה שדות, חבר יבולים, פעולות, יבול ומזג אוויר אגרונומי, ושמור על רישום שדות ברור עם GeroFarm.",
       "primary": "התחל עם GeroFarm",
       "secondary": "צפה בתוכניות",
-      "note": "Free עד 30 ימים · אין צורך בכרטיס אשראי",
+      "note": "Start עד 30 ימים · אין צורך בכרטיס אשראי",
       "imageAlt": "שדות חקלאיים עם גבולות חלקות ממופים ונקודות תצפית אגרונומיות",
       "mapLabel": "חבילות ממופות",
       "cropLabel": "גידולים פעילים",
@@ -2239,7 +2267,7 @@ export const homepageCopies = {
     "pricing": {
       "kicker": "תוכניות ברורות",
       "title": "תתחיל בקטן. שמור את כל ההיסטוריה התפעולית.",
-      "description": "אין תוכנית מגבילה את הפעולות, הקצירים או רישומי השדה. כל התוכניות בתשלום מאפשרות אינטגרציות עתידיות, כולל GeroGrid כשהן זמינות.",
+      "description": "אין תוכנית מגבילה את הפעולות, הקצירים או רישומי השדה.",
       "monthly": "חודשי",
       "annual": "שנתי",
       "annualNote": "חיוב שנתי שווה לעשרה תשלומים חודשיים",
@@ -2252,17 +2280,20 @@ export const homepageCopies = {
       "contact": "בקש הצעה",
       "plans": [
         {
-          "name": "Free",
+          "name": "Start",
           "description": "התחלה אמיתית של 30 יום לארגון אחד.",
-          "monthly": "0 אירו",
-          "annual": "0 אירו",
+          "monthly": "7,90 €",
+          "annual": "79 €",
           "features": [
-            "משתמש 1",
-            "10 הא",
-            "5 שדות פעילים",
-            "תחנה וירטואלית אחת",
             "מקסימום 30 יום",
-            "יומן שדה"
+            "משתמש 1",
+            "15 ha",
+            "5 שדות פעילים",
+            "5 גידולים פעילים",
+            "תחנה וירטואלית אחת",
+            "אינדיקטורים לפי יבול",
+            "יומן שדה",
+            "פרטיות לפי עיצוב"
           ]
         },
         {
@@ -2275,10 +2306,9 @@ export const homepageCopies = {
             "100 דונם",
             "50 שדות",
             "2 תחנות וירטואליות",
-            "מלאי ועלויות זמינים כתוספות",
+            "מזג אוויר שמדבר בשפה של כל גידול",
             "פרטיות לפי עיצוב",
-            "פרטיות לפי עיצוב",
-            "שילובים עתידיים מותר"
+            "מלאי ועלויות זמינים כתוספות"
           ]
         },
         {
@@ -2291,11 +2321,10 @@ export const homepageCopies = {
             "500 דונם",
             "250 שדות",
             "5 תחנות וירטואליות",
+            "מזג אוויר שמדבר בשפה של כל גידול · evapotranspiration התייחסות (ET₀) · קרינת שמש · אינטגרל אור יומי משוער (DLI) · ימי מעלה · דרישות צינה · רטיבות עלים משוערת",
+            "פרטיות לפי עיצוב",
             "מלאי כלול",
-            "עלויות כלולות",
-            "פרטיות לפי עיצוב",
-            "פרטיות לפי עיצוב",
-            "שילובים עתידיים מותר"
+            "עלויות כלולות"
           ]
         },
         {
@@ -2306,11 +2335,11 @@ export const homepageCopies = {
           "features": [
             "Custom משתמשים ואזור",
             "Custom שדות ותחנות",
-            "מלאי ועלויות לפי הצעה",
-            "מודולים מותאמים",
+            "מזג אוויר שמדבר בשפה של כל גידול · API",
             "פרטיות לפי עיצוב",
-            "פרטיות לפי עיצוב",
-            "אינטגרציות עתידיות ומותאמות"
+            "מלאי + עלויות",
+            "ERP",
+            "מודולים מותאמים"
           ]
         }
       ],
@@ -2321,20 +2350,23 @@ export const homepageCopies = {
         "מלאי + עלויות · €24.90 לחודש או €249 לשנה",
         "תחנה וירטואלית נוספת בתוכניות בתשלום · 4.90 אירו לחודש או 49 אירו לשנה"
       ],
-      "paidNote": "כל התוכניות בתשלום שומרות על ההיסטוריה התפעולית המלאה ועשויות להשתמש באינטגרציות עתידיות כשהן יהיו זמינות.",
-      "grace": "כאשר מנוי מסתיים, לארגון יש תקופת חסד של 7 ימים עם הודעה בכל כניסה."
+      "paidNote": "כל התוכניות בתשלום כוללות את ערכת הכלים התפעולית המלאה ומודול פרטיות לפי עיצוב."
     },
     "faq": {
       "kicker": "לפני שמתחילים",
       "title": "תשובות ישרות",
       "items": [
         {
-          "q": "מה קורה לאחר 30 הימים של Free?",
-          "a": "הארגון עובר לייעוץ ויצוא. הנתונים נשארים נשמרים; יצירה או שינוי של רשומות תפעוליות דורשת תוכנית בתשלום."
+          "q": "מה קורה לאחר 30 הימים של Start?",
+          "a": "יומן שדה · mockup · Start"
         },
         {
           "q": "פרטיות לפי עיצוב",
           "a": "כל התוכניות בתשלום כוללות את ערכת הכלים התפעולית המלאה ומודול פרטיות לפי עיצוב."
+        },
+        {
+          "q": "מלאי + עלויות",
+          "a": "מלאי ועלויות הם מודולים אופציונליים ב-Grow ו-Custom, וכלולים ב-Professional."
         },
         {
           "q": "האם אני יכול להוסיף עוד תחנות וירטואליות?",
@@ -2404,7 +2436,7 @@ export const homepageCopies = {
       "description": "GeroFarm ile tarlaları haritalandırın, mahsulleri, operasyonları, hasatları ve tarımsal hava durumunu bağlayın ve net bir saha kaydı tutun.",
       "primary": "GeroFarm ile başlayın",
       "secondary": "Planları görüntüle",
-      "note": "30 güne kadar Free · Kredi kartı gerekmez",
+      "note": "30 güne kadar Start · Kredi kartı gerekmez",
       "imageAlt": "Haritalanmış parsel sınırları ve tarımsal gözlem noktaları bulunan tarım alanları",
       "mapLabel": "Haritalanmış parseller",
       "cropLabel": "Aktif mahsuller",
@@ -2503,7 +2535,7 @@ export const homepageCopies = {
     "pricing": {
       "kicker": "Planları temizle",
       "title": "Küçük başlayın. Tüm operasyonel geçmişi saklayın.",
-      "description": "Hiçbir plan operasyonları, hasatları veya saha kayıtlarını sınırlamaz. Tüm ücretli planlar, mevcut olduğunda GeroGrid de dahil olmak üzere gelecekteki entegrasyonlara izin verir.",
+      "description": "Hiçbir plan operasyonları, hasatları veya saha kayıtlarını sınırlamaz.",
       "monthly": "Aylık",
       "annual": "Yıllık",
       "annualNote": "Yıllık faturalandırma on aylık ödemeye eşittir",
@@ -2516,17 +2548,20 @@ export const homepageCopies = {
       "contact": "Teklif isteyin",
       "plans": [
         {
-          "name": "Free",
+          "name": "Start",
           "description": "Tek bir kuruluş için gerçek bir 30 günlük başlangıç.",
-          "monthly": "€0",
-          "annual": "€0",
+          "monthly": "7,90 €",
+          "annual": "79 €",
           "features": [
-            "1 kullanıcı",
-            "10 hektar",
-            "5 aktif alan",
-            "1 sanal istasyon",
             "Maksimum 30 gün",
-            "Tarla kayıt defteri"
+            "1 kullanıcı",
+            "15 ha",
+            "5 aktif alan",
+            "5 Aktif mahsuller",
+            "1 sanal istasyon",
+            "Mahsullere göre göstergeler",
+            "Tarla kayıt defteri",
+            "Tasarıma Göre Gizlilik"
           ]
         },
         {
@@ -2539,10 +2574,9 @@ export const homepageCopies = {
             "100 hektar",
             "50 alan",
             "2 sanal istasyon",
-            "Envanter ve Maliyetler eklenti olarak mevcuttur",
+            "Her mahsulün dilini konuşan hava durumu",
             "Tasarıma Göre Gizlilik",
-            "Tasarıma Göre Gizlilik",
-            "Gelecekteki entegrasyonlara izin veriliyor"
+            "Envanter ve Maliyetler eklenti olarak mevcuttur"
           ]
         },
         {
@@ -2555,11 +2589,10 @@ export const homepageCopies = {
             "500 hektar",
             "250 alan",
             "5 sanal istasyon",
+            "Her mahsulün dilini konuşan hava durumu · Referans evapotranspirasyon (ET₀) · Güneş radyasyonu · Tahmini günlük ışık integrali (DLI) · Büyüme derece-günleri · Soğutma gereksinimleri · Tahmini yaprak ıslaklığı",
+            "Tasarıma Göre Gizlilik",
             "Envanter dahil",
-            "Maliyetler dahil",
-            "Tasarıma Göre Gizlilik",
-            "Tasarıma Göre Gizlilik",
-            "Gelecekteki entegrasyonlara izin veriliyor"
+            "Maliyetler dahil"
           ]
         },
         {
@@ -2570,11 +2603,11 @@ export const homepageCopies = {
           "features": [
             "Custom kullanıcıları ve alanı",
             "Custom alanları ve istasyonları",
-            "Teklife göre Envanter ve Maliyetler",
-            "Özel modüller",
+            "Her mahsulün dilini konuşan hava durumu · API",
             "Tasarıma Göre Gizlilik",
-            "Tasarıma Göre Gizlilik",
-            "Gelecek ve özel entegrasyonlar"
+            "Envanter + Maliyetler",
+            "ERP",
+            "Özel modüller"
           ]
         }
       ],
@@ -2585,20 +2618,23 @@ export const homepageCopies = {
         "Envanter + Maliyetler · 24,90 €/ay veya 249 €/yıl",
         "Ücretli planlarda ek sanal istasyon · Aylık 4,90 € veya yıllık 49 €"
       ],
-      "paidNote": "Tüm ücretli planlar operasyonel geçmişin tamamını tutar ve kullanılabilir olduklarında gelecekteki entegrasyonları kullanabilir.",
-      "grace": "Abonelik sona erdiğinde kuruluşun, her oturum açma işleminde bir bildirimle birlikte 7 günlük bir yetkisiz kullanım süresi vardır."
+      "paidNote": "Tüm ücretli planlar, eksiksiz operasyonel araç setini ve Tasarıma Göre Gizlilik modülünü içerir."
     },
     "faq": {
       "kicker": "Başlamadan önce",
       "title": "Düz cevaplar",
       "items": [
         {
-          "q": "30 Free gününden sonra ne olur?",
-          "a": "Organizasyon danışmanlık ve ihracata geçiyor. Veriler korunur; Operasyonel kayıtların oluşturulması veya değiştirilmesi ücretli bir plan gerektirir."
+          "q": "30 Start gününden sonra ne olur?",
+          "a": "Tarla kayıt defteri · mockup · Start"
         },
         {
           "q": "Tasarıma Göre Gizlilik",
           "a": "Tüm ücretli planlar, eksiksiz operasyonel araç setini ve Tasarıma Göre Gizlilik modülünü içerir."
+        },
+        {
+          "q": "Envanter + Maliyetler",
+          "a": "Envanter ve Maliyetler, Grow ve Custom'deki isteğe bağlı modüllerdir ve Professional'ye dahildir."
         },
         {
           "q": "Daha fazla sanal istasyon ekleyebilir miyim?",
@@ -2668,7 +2704,7 @@ export const homepageCopies = {
       "description": "قم بتخطيط الحقول وربط المحاصيل والعمليات والمحاصيل والطقس الزراعي، واحتفظ بسجل ميداني واضح باستخدام GeroFarm.",
       "primary": "ابدأ بـ GeroFarm",
       "secondary": "عرض الخطط",
-      "note": "Free لمدة تصل إلى 30 يومًا · لا يلزم وجود بطاقة ائتمان",
+      "note": "Start لمدة تصل إلى 30 يومًا · لا يلزم وجود بطاقة ائتمان",
       "imageAlt": "الحقول الزراعية مع تحديد حدود الأراضي ونقاط المراقبة الزراعية",
       "mapLabel": "الطرود المعينة",
       "cropLabel": "المحاصيل النشطة",
@@ -2767,7 +2803,7 @@ export const homepageCopies = {
     "pricing": {
       "kicker": "خطط واضحة",
       "title": "ابدأ صغيرًا. الحفاظ على التاريخ التشغيلي بأكمله.",
-      "description": "لا توجد خطة تحد من العمليات أو المحاصيل أو السجلات الميدانية. تسمح جميع الخطط المدفوعة بعمليات التكامل المستقبلية، بما في ذلك GeroGrid عند توفرها.",
+      "description": "لا توجد خطة تحد من العمليات أو المحاصيل أو السجلات الميدانية.",
       "monthly": "شهريا",
       "annual": "سنوي",
       "annualNote": "الفواتير السنوية تساوي عشرة دفعات شهرية",
@@ -2780,17 +2816,20 @@ export const homepageCopies = {
       "contact": "طلب اقتراح",
       "plans": [
         {
-          "name": "Free",
+          "name": "Start",
           "description": "بداية حقيقية لمدة 30 يومًا لمنظمة واحدة.",
-          "monthly": "0 يورو",
-          "annual": "0 يورو",
+          "monthly": "7,90 €",
+          "annual": "79 €",
           "features": [
-            "مستخدم واحد",
-            "10 هكتار",
-            "5 مجالات نشطة",
-            "1 محطة افتراضية",
             "30 يومًا كحد أقصى",
-            "سجل الحقل"
+            "مستخدم واحد",
+            "15 ha",
+            "5 مجالات نشطة",
+            "5 المحاصيل النشطة",
+            "1 محطة افتراضية",
+            "المؤشرات حسب المحاصيل",
+            "سجل الحقل",
+            "الخصوصية حسب التصميم"
           ]
         },
         {
@@ -2803,10 +2842,9 @@ export const homepageCopies = {
             "100 هكتار",
             "50 حقلاً",
             "2 محطات افتراضية",
-            "المخزون والتكاليف المتاحة كإضافات",
+            "الطقس الذي يتحدث لغة كل محصول",
             "الخصوصية حسب التصميم",
-            "الخصوصية حسب التصميم",
-            "عمليات التكامل المستقبلية مسموحة"
+            "المخزون والتكاليف المتاحة كإضافات"
           ]
         },
         {
@@ -2819,11 +2857,10 @@ export const homepageCopies = {
             "500 هكتار",
             "250 حقل",
             "5 محطات افتراضية",
+            "الطقس الذي يتحدث لغة كل محصول · التبخر المرجعي (ET₀) · الإشعاع الشمسي · تكامل الضوء اليومي المقدر (DLI) · أيام الدرجة الحرارية · متطلبات البرد · يقدر رطوبة الأوراق",
+            "الخصوصية حسب التصميم",
             "وشملت المخزون",
-            "التكاليف متضمنة",
-            "الخصوصية حسب التصميم",
-            "الخصوصية حسب التصميم",
-            "عمليات التكامل المستقبلية مسموحة"
+            "التكاليف متضمنة"
           ]
         },
         {
@@ -2834,11 +2871,11 @@ export const homepageCopies = {
           "features": [
             "مستخدمي Custom والمنطقة",
             "حقول ومحطات Custom",
-            "المخزون والتكاليف حسب الاقتراح",
-            "وحدات مصممة خصيصا",
+            "الطقس الذي يتحدث لغة كل محصول · API",
             "الخصوصية حسب التصميم",
-            "الخصوصية حسب التصميم",
-            "التكامل المستقبلي والمصمم خصيصًا"
+            "المخزون + التكاليف",
+            "ERP",
+            "وحدات مصممة خصيصا"
           ]
         }
       ],
@@ -2849,20 +2886,23 @@ export const homepageCopies = {
         "المخزون + التكاليف · 24.90 يورو في الشهر أو 249 يورو في السنة",
         "محطة افتراضية إضافية على الخطط المدفوعة · 4.90 يورو شهريًا أو 49 يورو سنويًا"
       ],
-      "paidNote": "تحتفظ جميع الخطط المدفوعة بالسجل التشغيلي الكامل وقد تستخدم عمليات التكامل المستقبلية عندما تصبح متاحة.",
-      "grace": "عند انتهاء الاشتراك، تحصل المؤسسة على فترة سماح مدتها 7 أيام مع إشعار عند كل تسجيل دخول."
+      "paidNote": "تشتمل جميع الخطط المدفوعة على مجموعة الأدوات التشغيلية الكاملة ووحدة الخصوصية حسب التصميم."
     },
     "faq": {
       "kicker": "قبل أن تبدأ",
       "title": "إجابات مباشرة",
       "items": [
         {
-          "q": "ماذا يحدث بعد 30 يومًا من Free؟",
-          "a": "تتحول المنظمة إلى الاستشارة والتصدير. تظل البيانات محفوظة؛ يتطلب إنشاء السجلات التشغيلية أو تغييرها خطة مدفوعة."
+          "q": "ماذا يحدث بعد 30 يومًا من Start؟",
+          "a": "سجل الحقل · mockup · Start"
         },
         {
           "q": "الخصوصية حسب التصميم",
           "a": "تشتمل جميع الخطط المدفوعة على مجموعة الأدوات التشغيلية الكاملة ووحدة الخصوصية حسب التصميم."
+        },
+        {
+          "q": "المخزون + التكاليف",
+          "a": "يعد المخزون والتكاليف وحدات اختيارية في Grow وCustom، ويتم تضمينهما في Professional."
         },
         {
           "q": "هل يمكنني إضافة المزيد من المحطات الافتراضية؟",
@@ -2932,7 +2972,7 @@ export const homepageCopies = {
       "description": "Mapuj pola, łącz uprawy, operacje, zbiory i pogodę agronomiczną oraz prowadź przejrzysty zapis pól za pomocą GeroFarm.",
       "primary": "Zacznij od GeroFarm",
       "secondary": "Zobacz plany",
-      "note": "Free do 30 dni · Karta kredytowa nie jest wymagana",
+      "note": "Start do 30 dni · Karta kredytowa nie jest wymagana",
       "imageAlt": "Pola rolne z wytyczonymi granicami działek i punktami obserwacji agronomicznej",
       "mapLabel": "Mapowane działki",
       "cropLabel": "Aktywne uprawy",
@@ -3031,7 +3071,7 @@ export const homepageCopies = {
     "pricing": {
       "kicker": "Jasne plany",
       "title": "Zacznij od małych rzeczy. Zachowaj całą historię operacyjną.",
-      "description": "Żaden plan nie ogranicza operacji, zbiorów ani zapisów terenowych. Wszystkie płatne plany umożliwiają przyszłe integracje, w tym GeroGrid, jeśli jest dostępny.",
+      "description": "Żaden plan nie ogranicza operacji, zbiorów ani zapisów terenowych.",
       "monthly": "Miesięcznie",
       "annual": "Roczne",
       "annualNote": "Roczne rozliczenie równa się dziesięciu miesięcznym płatnościom",
@@ -3044,17 +3084,20 @@ export const homepageCopies = {
       "contact": "Poproś o propozycję",
       "plans": [
         {
-          "name": "Free",
+          "name": "Start",
           "description": "Prawdziwy 30-dniowy start dla jednej organizacji.",
-          "monthly": "0 €",
-          "annual": "0 €",
+          "monthly": "7,90 €",
+          "annual": "79 €",
           "features": [
-            "1 użytkownik",
-            "10 ha",
-            "5 aktywnych pól",
-            "1 stacja wirtualna",
             "Maksymalnie 30 dni",
-            "Ewidencja polowa"
+            "1 użytkownik",
+            "15 ha",
+            "5 aktywnych pól",
+            "5 Aktywne uprawy",
+            "1 stacja wirtualna",
+            "Wskaźniki według upraw",
+            "Ewidencja polowa",
+            "Prywatność już w fazie projektowania"
           ]
         },
         {
@@ -3067,10 +3110,9 @@ export const homepageCopies = {
             "100 ha",
             "50 pól",
             "2 wirtualne stanowiska",
-            "Zapasy i koszty dostępne jako dodatki",
+            "Pogoda, która mówi językiem każdej uprawy",
             "Prywatność już w fazie projektowania",
-            "Prywatność już w fazie projektowania",
-            "Dozwolone przyszłe integracje"
+            "Zapasy i koszty dostępne jako dodatki"
           ]
         },
         {
@@ -3083,11 +3125,10 @@ export const homepageCopies = {
             "500 ha",
             "250 pól",
             "5 stanowisk wirtualnych",
+            "Pogoda, która mówi językiem każdej uprawy · Referencyjna ewapotranspiracja (ET₀) · Promieniowanie słoneczne · Szacowana dzienna całka światła (DLI) · Stopniodni wzrostu · Wymagania dotyczące relaksu · Szacowana wilgotność liści",
+            "Prywatność już w fazie projektowania",
             "Zapasy wliczone w cenę",
-            "Koszty wliczone w cenę",
-            "Prywatność już w fazie projektowania",
-            "Prywatność już w fazie projektowania",
-            "Dozwolone przyszłe integracje"
+            "Koszty wliczone w cenę"
           ]
         },
         {
@@ -3098,11 +3139,11 @@ export const homepageCopies = {
           "features": [
             "Użytkownicy i obszar Custom",
             "Pola i stacje Custom",
-            "Zapasy i koszty według propozycji",
-            "Moduły dostosowane",
+            "Pogoda, która mówi językiem każdej uprawy · API",
             "Prywatność już w fazie projektowania",
-            "Prywatność już w fazie projektowania",
-            "Przyszłe i szyte na miarę integracje"
+            "Zapasy + Koszty",
+            "ERP",
+            "Moduły dostosowane"
           ]
         }
       ],
@@ -3113,20 +3154,23 @@ export const homepageCopies = {
         "Zapasy + koszty · 24,90 €/miesiąc lub 249 €/rok",
         "Dodatkowa stacja wirtualna w planach płatnych · 4,90 €/miesiąc lub 49 €/rok"
       ],
-      "paidNote": "Wszystkie płatne plany zachowują pełną historię operacyjną i mogą korzystać z przyszłych integracji, gdy staną się dostępne.",
-      "grace": "Po zakończeniu subskrypcji organizacja ma 7-dniowy okres karencji z powiadomieniem przy każdym logowaniu."
+      "paidNote": "Wszystkie płatne plany obejmują kompletny zestaw narzędzi operacyjnych i moduł Privacy by Design."
     },
     "faq": {
       "kicker": "Zanim zaczniesz",
       "title": "Proste odpowiedzi",
       "items": [
         {
-          "q": "Co stanie się po 30 dniach Free?",
-          "a": "Organizacja przechodzi na konsultacje i eksport. Dane pozostają zachowane; tworzenie lub zmiana dokumentacji operacyjnej wymaga płatnego planu."
+          "q": "Co stanie się po 30 dniach Start?",
+          "a": "Ewidencja polowa · mockup · Start"
         },
         {
           "q": "Prywatność już w fazie projektowania",
           "a": "Wszystkie płatne plany obejmują kompletny zestaw narzędzi operacyjnych i moduł Privacy by Design."
+        },
+        {
+          "q": "Zapasy + Koszty",
+          "a": "Zapasy i koszty to opcjonalne moduły w Grow i Custom i dołączone do Professional."
         },
         {
           "q": "Czy mogę dodać więcej stacji wirtualnych?",
@@ -3196,7 +3240,7 @@ export const homepageCopies = {
       "description": "Mapirajte polja, povežite usjeve, radnje, žetvu i agronomsko vrijeme i vodite čistu evidenciju polja uz GeroFarm.",
       "primary": "Počnite sa GeroFarm",
       "secondary": "Pogledajte planove",
-      "note": "Free do 30 dana · Kreditna kartica nije potrebna",
+      "note": "Start do 30 dana · Kreditna kartica nije potrebna",
       "imageAlt": "Poljoprivredna polja s ucrtanim granicama parcela i agronomskim osmatračnicama",
       "mapLabel": "Kartirane parcele",
       "cropLabel": "Aktivni usjevi",
@@ -3295,7 +3339,7 @@ export const homepageCopies = {
     "pricing": {
       "kicker": "Jasni planovi",
       "title": "Počnite s malim. Čuvajte cijelu operativnu povijest.",
-      "description": "Nijedan plan ne ograničava operacije, žetve ili evidenciju polja. Svi plaćeni planovi dopuštaju buduće integracije, uključujući GeroGrid kada je dostupan.",
+      "description": "Nijedan plan ne ograničava operacije, žetve ili evidenciju polja.",
       "monthly": "Mjesečno",
       "annual": "Godišnji",
       "annualNote": "Godišnja naplata iznosi deset mjesečnih rata",
@@ -3308,17 +3352,20 @@ export const homepageCopies = {
       "contact": "Zatražite ponudu",
       "plans": [
         {
-          "name": "Free",
+          "name": "Start",
           "description": "Pravi početak od 30 dana za jednu organizaciju.",
-          "monthly": "0 €",
-          "annual": "0 €",
+          "monthly": "7,90 €",
+          "annual": "79 €",
           "features": [
-            "1 korisnik",
-            "10 ha",
-            "5 aktivnih polja",
-            "1 virtualna stanica",
             "Maksimalno 30 dana",
-            "Evidencija polja"
+            "1 korisnik",
+            "15 ha",
+            "5 aktivnih polja",
+            "5 Aktivni usjevi",
+            "1 virtualna stanica",
+            "Pokazatelji po usjevima",
+            "Evidencija polja",
+            "Dizajnirana privatnost"
           ]
         },
         {
@@ -3331,10 +3378,9 @@ export const homepageCopies = {
             "100 ha",
             "50 polja",
             "2 virtualne stanice",
-            "Inventar i troškovi dostupni kao dodaci",
+            "Vrijeme koje govori jezikom svake kulture",
             "Dizajnirana privatnost",
-            "Dizajnirana privatnost",
-            "Dopuštene buduće integracije"
+            "Inventar i troškovi dostupni kao dodaci"
           ]
         },
         {
@@ -3347,11 +3393,10 @@ export const homepageCopies = {
             "500 ha",
             "250 polja",
             "5 virtualnih stanica",
+            "Vrijeme koje govori jezikom svake kulture · Referentna evapotranspiracija (ET₀) · Sunčevo zračenje · Procijenjeni dnevni integral svjetlosti (DLI) · Stupanj-dani rasta · Zahtjevi za hlađenje · Procijenjena vlažnost lišća",
+            "Dizajnirana privatnost",
             "Inventar uključen",
-            "Troškovi uključeni",
-            "Dizajnirana privatnost",
-            "Dizajnirana privatnost",
-            "Dopuštene buduće integracije"
+            "Troškovi uključeni"
           ]
         },
         {
@@ -3362,11 +3407,11 @@ export const homepageCopies = {
           "features": [
             "Custom korisnici i područje",
             "Custom polja i stanice",
-            "Inventar i troškovi prema prijedlogu",
-            "Moduli po mjeri",
+            "Vrijeme koje govori jezikom svake kulture · API",
             "Dizajnirana privatnost",
-            "Dizajnirana privatnost",
-            "Buduće i prilagođene integracije"
+            "Inventar + Troškovi",
+            "ERP",
+            "Moduli po mjeri"
           ]
         }
       ],
@@ -3377,20 +3422,23 @@ export const homepageCopies = {
         "Inventar + troškovi · 24,90 € mjesečno ili 249 € godišnje",
         "Dodatna virtualna postaja na plaćenim planovima · 4,90 €/mjesec ili 49 €/godina"
       ],
-      "paidNote": "Svi plaćeni planovi čuvaju punu operativnu povijest i mogu koristiti buduće integracije kada postanu dostupne.",
-      "grace": "Kada pretplata završi, organizacija ima 7-dnevno razdoblje odgode s obavijesti pri svakoj prijavi."
+      "paidNote": "Svi plaćeni planovi uključuju kompletan operativni alat i modul Privacy by Design."
     },
     "faq": {
       "kicker": "Prije nego počnete",
       "title": "Ispravni odgovori",
       "items": [
         {
-          "q": "Što se događa nakon 30 Free dana?",
-          "a": "Organizacija prelazi na konzultacije i izvoz. Podaci ostaju sačuvani; stvaranje ili mijenjanje operativnih zapisa zahtijeva plaćeni plan."
+          "q": "Što se događa nakon 30 Start dana?",
+          "a": "Evidencija polja · mockup · Start"
         },
         {
           "q": "Dizajnirana privatnost",
           "a": "Svi plaćeni planovi uključuju kompletan operativni alat i modul Privacy by Design."
+        },
+        {
+          "q": "Inventar + Troškovi",
+          "a": "Inventar i troškovi su izborni moduli na Grow i Custom, a uključeni su u Professional."
         },
         {
           "q": "Mogu li dodati više virtualnih stanica?",
@@ -3460,7 +3508,7 @@ export const homepageCopies = {
       "description": "Χαρτογραφήστε τα χωράφια, συνδέστε τις καλλιέργειες, τις λειτουργίες, τη συγκομιδή και τον αγρονομικό καιρό και διατηρήστε ένα καθαρό αρχείο αγρών με το GeroFarm.",
       "primary": "Ξεκινήστε με GeroFarm",
       "secondary": "Προβολή σχεδίων",
-      "note": "Free για έως και 30 ημέρες · Δεν απαιτείται πιστωτική κάρτα",
+      "note": "Start για έως και 30 ημέρες · Δεν απαιτείται πιστωτική κάρτα",
       "imageAlt": "Γεωργικά χωράφια με χαρτογραφημένα όρια αγροτεμαχίων και γεωπονικά σημεία παρατήρησης",
       "mapLabel": "Χαρτογραφημένα δέματα",
       "cropLabel": "Ενεργές καλλιέργειες",
@@ -3559,7 +3607,7 @@ export const homepageCopies = {
     "pricing": {
       "kicker": "Ξεκάθαρα σχέδια",
       "title": "Ξεκινήστε από μικρό. Διατηρήστε ολόκληρο το επιχειρησιακό ιστορικό.",
-      "description": "Κανένα σχέδιο δεν περιορίζει τις λειτουργίες, τις συγκομιδές ή τα αρχεία αγρών. Όλα τα προγράμματα επί πληρωμή επιτρέπουν μελλοντικές ενσωματώσεις, συμπεριλαμβανομένου του GeroGrid όταν είναι διαθέσιμο.",
+      "description": "Κανένα σχέδιο δεν περιορίζει τις λειτουργίες, τις συγκομιδές ή τα αρχεία αγρών.",
       "monthly": "Μηνιαία",
       "annual": "Ετήσιο",
       "annualNote": "Η ετήσια χρέωση ισούται με δέκα μηνιαίες πληρωμές",
@@ -3572,17 +3620,20 @@ export const homepageCopies = {
       "contact": "Ζητήστε μια πρόταση",
       "plans": [
         {
-          "name": "Free",
+          "name": "Start",
           "description": "Ένα πραγματικό ξεκίνημα 30 ημερών για έναν οργανισμό.",
-          "monthly": "€0",
-          "annual": "€0",
+          "monthly": "7,90 €",
+          "annual": "79 €",
           "features": [
-            "1 χρήστης",
-            "10 εκτάρια",
-            "5 ενεργά πεδία",
-            "1 εικονικός σταθμός",
             "30 ημέρες το πολύ",
-            "Ημερολόγιο αγρού"
+            "1 χρήστης",
+            "15 ha",
+            "5 ενεργά πεδία",
+            "5 Ενεργές καλλιέργειες",
+            "1 εικονικός σταθμός",
+            "Δείκτες ανά καλλιέργεια",
+            "Ημερολόγιο αγρού",
+            "Privacy by Design"
           ]
         },
         {
@@ -3595,10 +3646,9 @@ export const homepageCopies = {
             "100 εκτάρια",
             "50 πεδία",
             "2 εικονικοί σταθμοί",
-            "Απόθεμα και Κόστος διαθέσιμα ως πρόσθετα",
+            "Καιρός που μιλάει τη γλώσσα κάθε καλλιέργειας",
             "Privacy by Design",
-            "Privacy by Design",
-            "Επιτρέπονται μελλοντικές ενσωματώσεις"
+            "Απόθεμα και Κόστος διαθέσιμα ως πρόσθετα"
           ]
         },
         {
@@ -3611,11 +3661,10 @@ export const homepageCopies = {
             "500 εκτάρια",
             "250 πεδία",
             "5 εικονικοί σταθμοί",
+            "Καιρός που μιλάει τη γλώσσα κάθε καλλιέργειας · Εξατμισοδιαπνοή αναφοράς (ET₀) · Ηλιακή ακτινοβολία · Εκτιμώμενο ολοκλήρωμα ημερήσιου φωτός (DLI) · Βαθμοημέρες ανάπτυξης · Απαιτήσεις ψύχους · Εκτιμώμενη υγρασία των φύλλων",
+            "Privacy by Design",
             "Περιλαμβάνεται απόθεμα",
-            "Συμπεριλαμβανομένου του κόστους",
-            "Privacy by Design",
-            "Privacy by Design",
-            "Επιτρέπονται μελλοντικές ενσωματώσεις"
+            "Συμπεριλαμβανομένου του κόστους"
           ]
         },
         {
@@ -3626,11 +3675,11 @@ export const homepageCopies = {
           "features": [
             "Χρήστες και περιοχή Custom",
             "Πεδία και σταθμοί Custom",
-            "Απογραφή και Κόστος κατά πρόταση",
-            "Προσαρμοσμένες μονάδες",
+            "Καιρός που μιλάει τη γλώσσα κάθε καλλιέργειας · API",
             "Privacy by Design",
-            "Privacy by Design",
-            "Μελλοντικές και προσαρμοσμένες ενσωματώσεις"
+            "Απογραφή + Κόστος",
+            "ERP",
+            "Προσαρμοσμένες μονάδες"
           ]
         }
       ],
@@ -3641,20 +3690,23 @@ export const homepageCopies = {
         "Απόθεμα + Κόστος · 24,90 €/μήνα ή 249 €/έτος",
         "Πρόσθετος εικονικός σταθμός σε προγράμματα επί πληρωμή · 4,90 €/μήνα ή 49 €/έτος"
       ],
-      "paidNote": "Όλα τα προγράμματα επί πληρωμή διατηρούν το πλήρες ιστορικό λειτουργίας και ενδέχεται να χρησιμοποιήσουν μελλοντικές ενσωματώσεις όταν γίνουν διαθέσιμα.",
-      "grace": "Όταν λήξει μια συνδρομή, ο οργανισμός έχει μια περίοδο χάριτος 7 ημερών με μια ειδοποίηση σε κάθε σύνδεση."
+      "paidNote": "Όλα τα προγράμματα επί πληρωμή περιλαμβάνουν την πλήρη λειτουργική εργαλειοθήκη και την ενότητα Privacy by Design."
     },
     "faq": {
       "kicker": "Πριν ξεκινήσετε",
       "title": "Ευθείες απαντήσεις",
       "items": [
         {
-          "q": "Τι συμβαίνει μετά τις 30 ημέρες Free;",
-          "a": "Ο οργανισμός μεταβαίνει σε διαβούλευση και εξαγωγή. Τα δεδομένα διατηρούνται. Η δημιουργία ή η αλλαγή επιχειρησιακών αρχείων απαιτεί ένα πρόγραμμα επί πληρωμή."
+          "q": "Τι συμβαίνει μετά τις 30 ημέρες Start;",
+          "a": "Ημερολόγιο αγρού · mockup · Start"
         },
         {
           "q": "Privacy by Design",
           "a": "Όλα τα προγράμματα επί πληρωμή περιλαμβάνουν την πλήρη λειτουργική εργαλειοθήκη και την ενότητα Privacy by Design."
+        },
+        {
+          "q": "Απογραφή + Κόστος",
+          "a": "Το Απόθεμα και το Κόστος είναι προαιρετικές ενότητες στα Grow και Custom και περιλαμβάνονται στο Professional."
         },
         {
           "q": "Μπορώ να προσθέσω περισσότερους εικονικούς σταθμούς;",
@@ -3724,7 +3776,7 @@ export const homepageCopies = {
       "description": "Kartlägg fält, koppla ihop grödor, operationer, skördar och agronomiskt väder och håll ett tydligt fältregister med GeroFarm.",
       "primary": "Börja med GeroFarm",
       "secondary": "Se planer",
-      "note": "Free i upp till 30 dagar · Inget kreditkort krävs",
+      "note": "Start i upp till 30 dagar · Inget kreditkort krävs",
       "imageAlt": "Jordbruksfält med kartlagda skiftesgränser och agronomiska observationspunkter",
       "mapLabel": "Kartlagda paket",
       "cropLabel": "Aktiva grödor",
@@ -3823,7 +3875,7 @@ export const homepageCopies = {
     "pricing": {
       "kicker": "Tydliga planer",
       "title": "Börja smått. Behåll hela operationshistoriken.",
-      "description": "Ingen plan begränsar drift, skördar eller fältrekord. Alla betalda planer tillåter framtida integrationer, inklusive GeroGrid när de är tillgängliga.",
+      "description": "Ingen plan begränsar drift, skördar eller fältrekord.",
       "monthly": "Månadsvis",
       "annual": "Årlig",
       "annualNote": "Årlig fakturering motsvarar tio månatliga betalningar",
@@ -3836,17 +3888,20 @@ export const homepageCopies = {
       "contact": "Begär ett förslag",
       "plans": [
         {
-          "name": "Free",
+          "name": "Start",
           "description": "En riktig 30-dagarsstart för en organisation.",
-          "monthly": "0 €",
-          "annual": "0 €",
+          "monthly": "7,90 €",
+          "annual": "79 €",
           "features": [
-            "1 användare",
-            "10 ha",
-            "5 aktiva fält",
-            "1 virtuell station",
             "max 30 dagar",
-            "Fältjournal"
+            "1 användare",
+            "15 ha",
+            "5 aktiva fält",
+            "5 Aktiva grödor",
+            "1 virtuell station",
+            "Indikatorer efter gröda",
+            "Fältjournal",
+            "Privacy by Design"
           ]
         },
         {
@@ -3859,10 +3914,9 @@ export const homepageCopies = {
             "100 ha",
             "50 fält",
             "2 virtuella stationer",
-            "Lager och kostnader tillgängliga som tillägg",
+            "Väder som talar språket för varje gröda",
             "Privacy by Design",
-            "Privacy by Design",
-            "Framtida integrationer tillåtna"
+            "Lager och kostnader tillgängliga som tillägg"
           ]
         },
         {
@@ -3875,11 +3929,10 @@ export const homepageCopies = {
             "500 ha",
             "250 fält",
             "5 virtuella stationer",
+            "Väder som talar språket för varje gröda · Referens evapotranspiration (ET₀) · Solstrålning · Uppskattad dagsljusintegral (DLI) · Växtgraddagar · Chillkrav · Uppskattad bladväta",
+            "Privacy by Design",
             "Inventarie ingår",
-            "Kostnader ingår",
-            "Privacy by Design",
-            "Privacy by Design",
-            "Framtida integrationer tillåtna"
+            "Kostnader ingår"
           ]
         },
         {
@@ -3890,11 +3943,11 @@ export const homepageCopies = {
           "features": [
             "Custom användare och område",
             "Custom fält och stationer",
-            "Inventering och kostnader efter förslag",
-            "Skräddarsydda moduler",
+            "Väder som talar språket för varje gröda · API",
             "Privacy by Design",
-            "Privacy by Design",
-            "Framtida och skräddarsydda integrationer"
+            "Inventering + Kostnader",
+            "ERP",
+            "Skräddarsydda moduler"
           ]
         }
       ],
@@ -3905,20 +3958,23 @@ export const homepageCopies = {
         "Lager + kostnader · 24,90 €/månad eller 249 €/år",
         "Ytterligare virtuell station på betalplaner · 4,90 €/månad eller 49 €/år"
       ],
-      "paidNote": "Alla betalda planer behåller hela drifthistoriken och kan använda framtida integrationer när de blir tillgängliga.",
-      "grace": "När en prenumeration upphör har organisationen en 7-dagars frist med ett meddelande vid varje inloggning."
+      "paidNote": "Alla betalda planer inkluderar den kompletta operativa verktygslådan och Privacy by Design-modulen."
     },
     "faq": {
       "kicker": "Innan du börjar",
       "title": "Raka svar",
       "items": [
         {
-          "q": "Vad händer efter de 30 Free-dagarna?",
-          "a": "Organisationen går över till konsultation och export. Data förblir bevarade; skapa eller ändra driftposter kräver en betald plan."
+          "q": "Vad händer efter de 30 Start-dagarna?",
+          "a": "Fältjournal · mockup · Start"
         },
         {
           "q": "Privacy by Design",
           "a": "Alla betalda planer inkluderar den kompletta operativa verktygslådan och Privacy by Design-modulen."
+        },
+        {
+          "q": "Inventering + Kostnader",
+          "a": "Lager och kostnader är valfria moduler på Grow och Custom, och ingår i Professional."
         },
         {
           "q": "Kan jag lägga till fler virtuella stationer?",
@@ -3988,7 +4044,7 @@ export const homepageCopies = {
       "description": "Kartlegg åker, koble sammen avlinger, operasjoner, høstinger og agronomisk vær, og hold en klar feltrekord med GeroFarm.",
       "primary": "Start med GeroFarm",
       "secondary": "Se planer",
-      "note": "Free i opptil 30 dager · Ingen kredittkort kreves",
+      "note": "Start i opptil 30 dager · Ingen kredittkort kreves",
       "imageAlt": "Jordbruksfelt med kartlagte parsellgrenser og agronomiske observasjonspunkter",
       "mapLabel": "Kartlagte pakker",
       "cropLabel": "Aktive avlinger",
@@ -4087,7 +4143,7 @@ export const homepageCopies = {
     "pricing": {
       "kicker": "Klare planer",
       "title": "Begynn i det små. Ta vare på hele driftshistorikken.",
-      "description": "Ingen plan begrenser drift, høsting eller feltrekorder. Alle betalte planer tillater fremtidige integrasjoner, inkludert GeroGrid når tilgjengelig.",
+      "description": "Ingen plan begrenser drift, høsting eller feltrekorder.",
       "monthly": "Månedlig",
       "annual": "Årlig",
       "annualNote": "Årlig fakturering tilsvarer ti månedlige betalinger",
@@ -4100,17 +4156,20 @@ export const homepageCopies = {
       "contact": "Be om et forslag",
       "plans": [
         {
-          "name": "Free",
+          "name": "Start",
           "description": "En skikkelig 30-dagers start for én organisasjon.",
-          "monthly": "€0",
-          "annual": "€0",
+          "monthly": "7,90 €",
+          "annual": "79 €",
           "features": [
-            "1 bruker",
-            "10 ha",
-            "5 aktive felt",
-            "1 virtuell stasjon",
             "maks 30 dager",
-            "Skifteloggbok"
+            "1 bruker",
+            "15 ha",
+            "5 aktive felt",
+            "5 Aktive avlinger",
+            "1 virtuell stasjon",
+            "Indikatorer etter avling",
+            "Skifteloggbok",
+            "Privacy by Design"
           ]
         },
         {
@@ -4123,10 +4182,9 @@ export const homepageCopies = {
             "100 ha",
             "50 felt",
             "2 virtuelle stasjoner",
-            "Inventar og kostnader tilgjengelig som tillegg",
+            "Vær som snakker språket til hver avling",
             "Privacy by Design",
-            "Privacy by Design",
-            "Fremtidige integrasjoner tillatt"
+            "Inventar og kostnader tilgjengelig som tillegg"
           ]
         },
         {
@@ -4139,11 +4197,10 @@ export const homepageCopies = {
             "500 ha",
             "250 felt",
             "5 virtuelle stasjoner",
+            "Vær som snakker språket til hver avling · Referanseevapotranspirasjon (ET₀) · Solinnstråling · Estimert daglig lysintegral (DLI) · Vekstgraddager · Chill krav · Estimert bladfuktighet",
+            "Privacy by Design",
             "Inventar inkludert",
-            "Kostnader inkludert",
-            "Privacy by Design",
-            "Privacy by Design",
-            "Fremtidige integrasjoner tillatt"
+            "Kostnader inkludert"
           ]
         },
         {
@@ -4154,11 +4211,11 @@ export const homepageCopies = {
           "features": [
             "Custom brukere og område",
             "Custom felt og stasjoner",
-            "Inventar og kostnader etter forslag",
-            "Skreddersydde moduler",
+            "Vær som snakker språket til hver avling · API",
             "Privacy by Design",
-            "Privacy by Design",
-            "Fremtidige og skreddersydde integrasjoner"
+            "Inventar + Kostnader",
+            "ERP",
+            "Skreddersydde moduler"
           ]
         }
       ],
@@ -4169,20 +4226,23 @@ export const homepageCopies = {
         "Inventar + kostnader · €24,90/måned eller €249/år",
         "Ekstra virtuell stasjon på betalte planer · €4,90/måned eller €49/år"
       ],
-      "paidNote": "Alle betalte planer beholder hele driftshistorikken og kan bruke fremtidige integrasjoner når de blir tilgjengelige.",
-      "grace": "Når et abonnement avsluttes, har organisasjonen en 7-dagers frist med et varsel ved hver pålogging."
+      "paidNote": "Alle betalte planer inkluderer det komplette operative verktøysettet og Privacy by Design-modulen."
     },
     "faq": {
       "kicker": "Før du begynner",
       "title": "Rette svar",
       "items": [
         {
-          "q": "Hva skjer etter de 30 Free-dagene?",
-          "a": "Organisasjonen går over til konsultasjon og eksport. Data forblir bevart; opprette eller endre driftsoppføringer krever en betalt plan."
+          "q": "Hva skjer etter de 30 Start-dagene?",
+          "a": "Skifteloggbok · mockup · Start"
         },
         {
           "q": "Privacy by Design",
           "a": "Alle betalte planer inkluderer det komplette operative verktøysettet og Privacy by Design-modulen."
+        },
+        {
+          "q": "Inventar + Kostnader",
+          "a": "Inventar og kostnader er valgfrie moduler på Grow og Custom, og inkludert med Professional."
         },
         {
           "q": "Kan jeg legge til flere virtuelle stasjoner?",
@@ -4252,7 +4312,7 @@ export const homepageCopies = {
       "description": "Kortlæg marker, forbind afgrøder, operationer, høst og agronomisk vejr, og hold en klar markregistrering med GeroFarm.",
       "primary": "Start med GeroFarm",
       "secondary": "Se planer",
-      "note": "Free i op til 30 dage · Intet kreditkort påkrævet",
+      "note": "Start i op til 30 dage · Intet kreditkort påkrævet",
       "imageAlt": "Landbrugsmarker med kortlagte parcelgrænser og agronomiske observationspunkter",
       "mapLabel": "Kortlagte parceller",
       "cropLabel": "Aktive afgrøder",
@@ -4351,7 +4411,7 @@ export const homepageCopies = {
     "pricing": {
       "kicker": "Klare planer",
       "title": "Start i det små. Gem hele driftshistorien.",
-      "description": "Ingen plan begrænser drift, høst eller markregistrering. Alle betalte planer tillader fremtidige integrationer, inklusive GeroGrid, når de er tilgængelige.",
+      "description": "Ingen plan begrænser drift, høst eller markregistrering.",
       "monthly": "Månedligt",
       "annual": "Årlig",
       "annualNote": "Årlig fakturering svarer til ti månedlige betalinger",
@@ -4364,17 +4424,20 @@ export const homepageCopies = {
       "contact": "Anmod om et forslag",
       "plans": [
         {
-          "name": "Free",
+          "name": "Start",
           "description": "En rigtig 30-dages start for én organisation.",
-          "monthly": "€0",
-          "annual": "€0",
+          "monthly": "7,90 €",
+          "annual": "79 €",
           "features": [
-            "1 bruger",
-            "10 ha",
-            "5 aktive felter",
-            "1 virtuel station",
             "max 30 dage",
-            "Markjournal"
+            "1 bruger",
+            "15 ha",
+            "5 aktive felter",
+            "5 Aktive afgrøder",
+            "1 virtuel station",
+            "Indikatorer efter afgrøde",
+            "Markjournal",
+            "Privacy by Design"
           ]
         },
         {
@@ -4387,10 +4450,9 @@ export const homepageCopies = {
             "100 ha",
             "50 felter",
             "2 virtuelle stationer",
-            "Lagerbeholdning og omkostninger tilgængelige som tilføjelser",
+            "Vejr, der taler sproget for hver afgrøde",
             "Privacy by Design",
-            "Privacy by Design",
-            "Fremtidige integrationer tilladt"
+            "Lagerbeholdning og omkostninger tilgængelige som tilføjelser"
           ]
         },
         {
@@ -4403,11 +4465,10 @@ export const homepageCopies = {
             "500 ha",
             "250 felter",
             "5 virtuelle stationer",
+            "Vejr, der taler sproget for hver afgrøde · Reference evapotranspiration (ET₀) · Solstråling · Estimeret dagligt lysintegral (DLI) · Vækstgraddage · Chill krav · Estimeret bladvæde",
+            "Privacy by Design",
             "Inventar inkluderet",
-            "Omkostninger inkluderet",
-            "Privacy by Design",
-            "Privacy by Design",
-            "Fremtidige integrationer tilladt"
+            "Omkostninger inkluderet"
           ]
         },
         {
@@ -4418,11 +4479,11 @@ export const homepageCopies = {
           "features": [
             "Custom brugere og område",
             "Custom felter og stationer",
-            "Inventar og omkostninger efter forslag",
-            "Skræddersyede moduler",
+            "Vejr, der taler sproget for hver afgrøde · API",
             "Privacy by Design",
-            "Privacy by Design",
-            "Fremtidige og skræddersyede integrationer"
+            "Inventar + Omkostninger",
+            "ERP",
+            "Skræddersyede moduler"
           ]
         }
       ],
@@ -4433,20 +4494,23 @@ export const homepageCopies = {
         "Lagerbeholdning + omkostninger · 24,90 €/måned eller 249 €/år",
         "Yderligere virtuel station på betalte planer · €4,90/måned eller €49/år"
       ],
-      "paidNote": "Alle betalte planer beholder den fulde driftshistorik og kan bruge fremtidige integrationer, når de bliver tilgængelige.",
-      "grace": "Når et abonnement slutter, har organisationen en 7-dages henstandsperiode med et varsel ved hver login."
+      "paidNote": "Alle betalte planer inkluderer det komplette operationelle værktøjssæt og Privacy by Design-modulet."
     },
     "faq": {
       "kicker": "Før du starter",
       "title": "Lige svar",
       "items": [
         {
-          "q": "Hvad sker der efter de 30 Free dage?",
-          "a": "Organisationen går over til konsultation og eksport. Data forbliver bevaret; oprettelse eller ændring af operationelle poster kræver en betalt plan."
+          "q": "Hvad sker der efter de 30 Start dage?",
+          "a": "Markjournal · mockup · Start"
         },
         {
           "q": "Privacy by Design",
           "a": "Alle betalte planer inkluderer det komplette operationelle værktøjssæt og Privacy by Design-modulet."
+        },
+        {
+          "q": "Inventar + Omkostninger",
+          "a": "Inventar og omkostninger er valgfrie moduler på Grow og Custom og inkluderet med Professional."
         },
         {
           "q": "Kan jeg tilføje flere virtuelle stationer?",
@@ -4516,7 +4580,7 @@ export const homepageCopies = {
       "description": "Mappa i campi, collega colture, operazioni, raccolti e condizioni meteorologiche agronomiche e mantieni un chiaro registro del campo con GeroFarm.",
       "primary": "Inizia con GeroFarm",
       "secondary": "Visualizza i piani",
-      "note": "Free fino a 30 giorni · Non è richiesta la carta di credito",
+      "note": "Start fino a 30 giorni · Non è richiesta la carta di credito",
       "imageAlt": "Campi agricoli con confini parcellari mappati e punti di osservazione agronomici",
       "mapLabel": "Pacchi mappati",
       "cropLabel": "Colture attive",
@@ -4615,7 +4679,7 @@ export const homepageCopies = {
     "pricing": {
       "kicker": "Piani chiari",
       "title": "Inizia in piccolo. Conserva tutta la cronologia operativa.",
-      "description": "Nessun piano limita le operazioni, i raccolti o le registrazioni sul campo. Tutti i piani a pagamento consentono integrazioni future, incluso GeroGrid quando disponibile.",
+      "description": "Nessun piano limita le operazioni, i raccolti o le registrazioni sul campo.",
       "monthly": "Mensile",
       "annual": "Annuale",
       "annualNote": "La fatturazione annuale equivale a dieci pagamenti mensili",
@@ -4628,17 +4692,20 @@ export const homepageCopies = {
       "contact": "Richiedi una proposta",
       "plans": [
         {
-          "name": "Free",
+          "name": "Start",
           "description": "Un vero inizio di 30 giorni per un'organizzazione.",
-          "monthly": "€0",
-          "annual": "€0",
+          "monthly": "7,90 €",
+          "annual": "79 €",
           "features": [
-            "1 utente",
-            "10 ettari",
-            "5 campi attivi",
-            "1 stazione virtuale",
             "30 giorni massimo",
-            "Quaderno di campagna"
+            "1 utente",
+            "15 ha",
+            "5 campi attivi",
+            "5 Colture attive",
+            "1 stazione virtuale",
+            "Indicatori per coltura",
+            "Quaderno di campagna",
+            "Privacy in base alla progettazione"
           ]
         },
         {
@@ -4651,10 +4718,9 @@ export const homepageCopies = {
             "100 ettari",
             "50 campi",
             "2 stazioni virtuali",
-            "Inventario e costi disponibili come componenti aggiuntivi",
+            "Un clima che parla la lingua di ogni coltura",
             "Privacy in base alla progettazione",
-            "Privacy in base alla progettazione",
-            "Sono consentite future integrazioni"
+            "Inventario e costi disponibili come componenti aggiuntivi"
           ]
         },
         {
@@ -4667,11 +4733,10 @@ export const homepageCopies = {
             "500 ettari",
             "250 campi",
             "5 stazioni virtuali",
+            "Un clima che parla la lingua di ogni coltura · Evapotraspirazione di riferimento (ET₀) · Radiazione solare · Integrale della luce giornaliera stimata (DLI) · Gradi giorno di crescita · Requisiti di raffreddamento · Bagnatura fogliare stimata",
+            "Privacy in base alla progettazione",
             "Inventario incluso",
-            "Costi inclusi",
-            "Privacy in base alla progettazione",
-            "Privacy in base alla progettazione",
-            "Sono consentite future integrazioni"
+            "Costi inclusi"
           ]
         },
         {
@@ -4682,11 +4747,11 @@ export const homepageCopies = {
           "features": [
             "Utenti e area Custom",
             "Campi e stazioni Custom",
-            "Inventario e costi per proposta",
-            "Moduli su misura",
+            "Un clima che parla la lingua di ogni coltura · API",
             "Privacy in base alla progettazione",
-            "Privacy in base alla progettazione",
-            "Integrazioni future e su misura"
+            "Inventario + Costi",
+            "ERP",
+            "Moduli su misura"
           ]
         }
       ],
@@ -4697,20 +4762,23 @@ export const homepageCopies = {
         "Inventario + Costi · 24,90 €/mese o 249 €/anno",
         "Stazione virtuale aggiuntiva sui piani a pagamento · 4,90 €/mese o 49 €/anno"
       ],
-      "paidNote": "Tutti i piani a pagamento mantengono la cronologia operativa completa e potrebbero utilizzare integrazioni future non appena saranno disponibili.",
-      "grace": "Al termine dell'abbonamento, l'organizzazione dispone di un periodo di grazia di 7 giorni con un avviso a ogni accesso."
+      "paidNote": "Tutti i piani a pagamento includono il toolkit operativo completo e il modulo Privacy by Design."
     },
     "faq": {
       "kicker": "Prima di iniziare",
       "title": "Risposte dirette",
       "items": [
         {
-          "q": "Cosa succede dopo i 30 giorni Free?",
-          "a": "L'organizzazione passa alla consultazione e all'esportazione. I dati rimangono conservati; la creazione o la modifica di record operativi richiede un piano a pagamento."
+          "q": "Cosa succede dopo i 30 giorni Start?",
+          "a": "Quaderno di campagna · mockup · Start"
         },
         {
           "q": "Privacy in base alla progettazione",
           "a": "Tutti i piani a pagamento includono il toolkit operativo completo e il modulo Privacy by Design."
+        },
+        {
+          "q": "Inventario + Costi",
+          "a": "Inventario e costi sono moduli opzionali su Grow e Custom e inclusi con Professional."
         },
         {
           "q": "Posso aggiungere più stazioni virtuali?",
@@ -4780,7 +4848,7 @@ export const homepageCopies = {
       "description": "Створюйте карти полів, зв’язуйте посіви, операції, врожаї та агрономічну погоду, а також зберігайте чіткі записи поля за допомогою GeroFarm.",
       "primary": "Почніть із GeroFarm",
       "secondary": "Переглянути плани",
-      "note": "Free до 30 днів · Кредитна картка не потрібна",
+      "note": "Start до 30 днів · Кредитна картка не потрібна",
       "imageAlt": "Сільськогосподарські поля з нанесеними на карту межами ділянок і пунктами агрономічного спостереження",
       "mapLabel": "Нанесені на карту ділянки",
       "cropLabel": "Активні посіви",
@@ -4879,7 +4947,7 @@ export const homepageCopies = {
     "pricing": {
       "kicker": "Чіткі плани",
       "title": "Почніть з малого. Зберігайте всю історію експлуатації.",
-      "description": "Жоден план не обмежує операції, врожаї чи польові записи. Усі платні плани допускають майбутню інтеграцію, включаючи GeroGrid, якщо вони доступні.",
+      "description": "Жоден план не обмежує операції, врожаї чи польові записи.",
       "monthly": "Щомісяця",
       "annual": "Річний",
       "annualNote": "Річний рахунок дорівнює десяти місячним платежам",
@@ -4892,17 +4960,20 @@ export const homepageCopies = {
       "contact": "Запит на пропозицію",
       "plans": [
         {
-          "name": "Free",
+          "name": "Start",
           "description": "Справжній 30-денний старт для однієї організації.",
-          "monthly": "0 євро",
-          "annual": "0 євро",
+          "monthly": "7,90 €",
+          "annual": "79 €",
           "features": [
-            "1 користувач",
-            "10 га",
-            "5 активних полів",
-            "1 віртуальна станція",
             "30 днів максимум",
-            "Польовий журнал"
+            "1 користувач",
+            "15 ha",
+            "5 активних полів",
+            "5 Активні посіви",
+            "1 віртуальна станція",
+            "Показники по культурах",
+            "Польовий журнал",
+            "Конфіденційність за проектом"
           ]
         },
         {
@@ -4915,10 +4986,9 @@ export const homepageCopies = {
             "100 га",
             "50 полів",
             "2 віртуальні станції",
-            "Інвентар і витрати доступні як доповнення",
+            "Погода, яка говорить мовою кожної культури",
             "Конфіденційність за проектом",
-            "Конфіденційність за проектом",
-            "Майбутні інтеграції дозволені"
+            "Інвентар і витрати доступні як доповнення"
           ]
         },
         {
@@ -4931,11 +5001,10 @@ export const homepageCopies = {
             "500 га",
             "250 полів",
             "5 віртуальних станцій",
+            "Погода, яка говорить мовою кожної культури · Еталонна евапотранспірація (ET₀) · Сонячна радіація · Розрахунковий добовий світловий інтеграл (DLI) · Градусо-дні росту · Вимоги до охолодження · Розрахункова вологість листя",
+            "Конфіденційність за проектом",
             "Інвентар включений",
-            "Витрати включені",
-            "Конфіденційність за проектом",
-            "Конфіденційність за проектом",
-            "Майбутні інтеграції дозволені"
+            "Витрати включені"
           ]
         },
         {
@@ -4946,11 +5015,11 @@ export const homepageCopies = {
           "features": [
             "Користувачі та область Custom",
             "Custom поля та станції",
-            "Інвентаризація та витрати за пропозицією",
-            "Спеціальні модулі",
+            "Погода, яка говорить мовою кожної культури · API",
             "Конфіденційність за проектом",
-            "Конфіденційність за проектом",
-            "Майбутні та індивідуальні інтеграції"
+            "Інвентар + Витрати",
+            "ERP",
+            "Спеціальні модулі"
           ]
         }
       ],
@@ -4961,20 +5030,23 @@ export const homepageCopies = {
         "Інвентар + витрати · €24,90/місяць або €249/рік",
         "Додаткова віртуальна станція на платних планах · 4,90 євро/місяць або 49 євро/рік"
       ],
-      "paidNote": "Усі платні плани зберігають повну історію операцій і можуть використовувати майбутні інтеграції, коли вони стануть доступними.",
-      "grace": "Коли підписка закінчується, організація має 7-денний пільговий період із сповіщенням під час кожного входу."
+      "paidNote": "Усі платні плани включають повний операційний інструментарій і модуль Privacy by Design."
     },
     "faq": {
       "kicker": "Перш ніж почати",
       "title": "Прямі відповіді",
       "items": [
         {
-          "q": "Що станеться після 30 Free днів?",
-          "a": "Організація переходить на консультації та експорт. Дані зберігаються; для створення або зміни оперативних записів потрібен платний план."
+          "q": "Що станеться після 30 Start днів?",
+          "a": "Польовий журнал · mockup · Start"
         },
         {
           "q": "Конфіденційність за проектом",
           "a": "Усі платні плани включають повний операційний інструментарій і модуль Privacy by Design."
+        },
+        {
+          "q": "Інвентар + Витрати",
+          "a": "Інвентаризація та витрати є додатковими модулями для Grow і Custom і включені до Professional."
         },
         {
           "q": "Чи можу я додати більше віртуальних станцій?",
@@ -5044,7 +5116,7 @@ export const homepageCopies = {
       "description": "Hartați câmpurile, conectați culturile, operațiunile, recoltele și vremea agronomică și păstrați o înregistrare clară a câmpului cu GeroFarm.",
       "primary": "Începeți cu GeroFarm",
       "secondary": "Vezi planuri",
-      "note": "Free timp de până la 30 de zile · Nu este necesar un card de credit",
+      "note": "Start timp de până la 30 de zile · Nu este necesar un card de credit",
       "imageAlt": "Terenuri agricole cu granițele parcelelor cartografiate și puncte de observare agronomică",
       "mapLabel": "Parcele cartografiate",
       "cropLabel": "Culturi active",
@@ -5143,7 +5215,7 @@ export const homepageCopies = {
     "pricing": {
       "kicker": "Planuri clare",
       "title": "Începe mic. Păstrați întregul istoric operațional.",
-      "description": "Niciun plan nu limitează operațiunile, recoltele sau înregistrările de câmp. Toate planurile plătite permit integrări viitoare, inclusiv GeroGrid atunci când este disponibil.",
+      "description": "Niciun plan nu limitează operațiunile, recoltele sau înregistrările de câmp.",
       "monthly": "Lunar",
       "annual": "Anual",
       "annualNote": "Facturarea anuală este egală cu zece plăți lunare",
@@ -5156,17 +5228,20 @@ export const homepageCopies = {
       "contact": "Solicitați o propunere",
       "plans": [
         {
-          "name": "Free",
+          "name": "Start",
           "description": "Un adevărat început de 30 de zile pentru o singură organizație.",
-          "monthly": "0 €",
-          "annual": "0 €",
+          "monthly": "7,90 €",
+          "annual": "79 €",
           "features": [
-            "1 utilizator",
-            "10 ha",
-            "5 câmpuri active",
-            "1 statie virtuala",
             "30 de zile maxim",
-            "Registru de câmp"
+            "1 utilizator",
+            "15 ha",
+            "5 câmpuri active",
+            "5 Culturi active",
+            "1 statie virtuala",
+            "Indicatori după cultură",
+            "Registru de câmp",
+            "Confidențialitate prin design"
           ]
         },
         {
@@ -5179,10 +5254,9 @@ export const homepageCopies = {
             "100 ha",
             "50 de câmpuri",
             "2 posturi virtuale",
-            "Inventar și costuri disponibile ca suplimente",
+            "Vreme care vorbește limba fiecărei culturi",
             "Confidențialitate prin design",
-            "Confidențialitate prin design",
-            "Integrari viitoare permise"
+            "Inventar și costuri disponibile ca suplimente"
           ]
         },
         {
@@ -5195,11 +5269,10 @@ export const homepageCopies = {
             "500 ha",
             "250 de câmpuri",
             "5 posturi virtuale",
+            "Vreme care vorbește limba fiecărei culturi · Evapotranspirație de referință (ET₀) · Radiația solară · Integrala luminoasă zilnică estimată (DLI) · Grade-zile de creștere · Cerințe de răcire · Umiditatea estimată a frunzelor",
+            "Confidențialitate prin design",
             "Inventar inclus",
-            "Costuri incluse",
-            "Confidențialitate prin design",
-            "Confidențialitate prin design",
-            "Integrari viitoare permise"
+            "Costuri incluse"
           ]
         },
         {
@@ -5210,11 +5283,11 @@ export const homepageCopies = {
           "features": [
             "Custom utilizatori și zonă",
             "Custom câmpuri și stații",
-            "Inventar și costuri la propunere",
-            "Module personalizate",
+            "Vreme care vorbește limba fiecărei culturi · API",
             "Confidențialitate prin design",
-            "Confidențialitate prin design",
-            "Integrari viitoare și personalizate"
+            "Inventar + Costuri",
+            "ERP",
+            "Module personalizate"
           ]
         }
       ],
@@ -5225,20 +5298,23 @@ export const homepageCopies = {
         "Inventar + Costuri · 24,90 €/lună sau 249 €/an",
         "Stație virtuală suplimentară pe planuri plătite · 4,90 EUR/lună sau 49 EUR/an"
       ],
-      "paidNote": "Toate planurile plătite păstrează istoricul operațional complet și pot folosi integrări viitoare când devin disponibile.",
-      "grace": "Când se încheie un abonament, organizația are o perioadă de grație de 7 zile cu o notificare la fiecare conectare."
+      "paidNote": "Toate planurile plătite includ setul de instrumente operațional complet și modulul Privacy by Design."
     },
     "faq": {
       "kicker": "Înainte de a începe",
       "title": "Răspunsuri directe",
       "items": [
         {
-          "q": "Ce se întâmplă după cele 30 de zile Free?",
-          "a": "Organizația trece la consultare și export. Datele rămân păstrate; crearea sau modificarea înregistrărilor operaționale necesită un plan plătit."
+          "q": "Ce se întâmplă după cele 30 de zile Start?",
+          "a": "Registru de câmp · mockup · Start"
         },
         {
           "q": "Confidențialitate prin design",
           "a": "Toate planurile plătite includ setul de instrumente operațional complet și modulul Privacy by Design."
+        },
+        {
+          "q": "Inventar + Costuri",
+          "a": "Inventarul și Costurile sunt module opționale pe Grow și Custom și sunt incluse cu Professional."
         },
         {
           "q": "Pot adăuga mai multe posturi virtuale?",
@@ -5308,7 +5384,7 @@ export const homepageCopies = {
       "description": "Kartoita peltoja, yhdistä sadot, toiminnot, sadonkorjuut ja agronominen sää ja pidä selkeää peltorekisteriä GeroFarm:n avulla.",
       "primary": "Aloita GeroFarm:llä",
       "secondary": "Katso suunnitelmat",
-      "note": "Free jopa 30 päivää · Luottokorttia ei tarvita",
+      "note": "Start jopa 30 päivää · Luottokorttia ei tarvita",
       "imageAlt": "Maatalouspellot, joissa on kartoitetut lohkorajat ja agronomiset havaintopisteet",
       "mapLabel": "Kartoitetut paketit",
       "cropLabel": "Aktiiviset viljelykasvit",
@@ -5407,7 +5483,7 @@ export const homepageCopies = {
     "pricing": {
       "kicker": "Selkeitä suunnitelmia",
       "title": "Aloita pienestä. Säilytä koko toimintahistoria.",
-      "description": "Mikään suunnitelma ei rajoita toimintaa, satoa tai peltotietueita. Kaikki maksetut suunnitelmat mahdollistavat tulevat integraatiot, mukaan lukien GeroGrid, jos saatavilla.",
+      "description": "Mikään suunnitelma ei rajoita toimintaa, satoa tai peltotietueita.",
       "monthly": "Kuukausittain",
       "annual": "Vuosittainen",
       "annualNote": "Vuosilaskutus vastaa kymmentä kuukausimaksua",
@@ -5420,17 +5496,20 @@ export const homepageCopies = {
       "contact": "Pyydä ehdotus",
       "plans": [
         {
-          "name": "Free",
+          "name": "Start",
           "description": "Todellinen 30 päivän aloitus yhdelle organisaatiolle.",
-          "monthly": "0 €",
-          "annual": "0 €",
+          "monthly": "7,90 €",
+          "annual": "79 €",
           "features": [
-            "1 käyttäjä",
-            "10 ha",
-            "5 aktiivista kenttää",
-            "1 virtuaalinen asema",
             "enintään 30 päivää",
-            "Lohkokirjanpito"
+            "1 käyttäjä",
+            "15 ha",
+            "5 aktiivista kenttää",
+            "5 Aktiiviset viljelykasvit",
+            "1 virtuaalinen asema",
+            "Indikaattorit sadon mukaan",
+            "Lohkokirjanpito",
+            "Yksityisyys suunnittelusta"
           ]
         },
         {
@@ -5443,10 +5522,9 @@ export const homepageCopies = {
             "100 ha",
             "50 kenttää",
             "2 virtuaalista asemaa",
-            "Varasto ja kulut saatavilla lisäosina",
+            "Sää, joka puhuu kunkin sadon kieltä",
             "Yksityisyys suunnittelusta",
-            "Yksityisyys suunnittelusta",
-            "Tulevat integraatiot sallittu"
+            "Varasto ja kulut saatavilla lisäosina"
           ]
         },
         {
@@ -5459,11 +5537,10 @@ export const homepageCopies = {
             "500 ha",
             "250 kenttää",
             "5 virtuaaliasemaa",
+            "Sää, joka puhuu kunkin sadon kieltä · Vertailuhaihdutustranspiraatio (ET₀) · Auringon säteily · Arvioitu päivittäinen valointegraali (DLI) · Kasvukauden astepäivät · Jäähdytysvaatimukset · Arvioitu lehtien kosteus",
+            "Yksityisyys suunnittelusta",
             "Varasto mukana",
-            "Mukana kulut",
-            "Yksityisyys suunnittelusta",
-            "Yksityisyys suunnittelusta",
-            "Tulevat integraatiot sallittu"
+            "Mukana kulut"
           ]
         },
         {
@@ -5474,11 +5551,11 @@ export const homepageCopies = {
           "features": [
             "Custom käyttäjät ja alue",
             "Custom kentät ja asemat",
-            "Varasto ja kustannukset ehdotuksen mukaan",
-            "Räätälöidyt moduulit",
+            "Sää, joka puhuu kunkin sadon kieltä · API",
             "Yksityisyys suunnittelusta",
-            "Yksityisyys suunnittelusta",
-            "Tulevaisuuden ja räätälöityjä integraatioita"
+            "Varasto + Kustannukset",
+            "ERP",
+            "Räätälöidyt moduulit"
           ]
         }
       ],
@@ -5489,20 +5566,23 @@ export const homepageCopies = {
         "Varasto + kulut · 24,90 €/kk tai 249 €/vuosi",
         "Lisävirtuaaliasema maksullisissa paketeissa · 4,90 €/kk tai 49 €/vuosi"
       ],
-      "paidNote": "Kaikki maksulliset suunnitelmat säilyttävät koko toimintahistorian ja voivat käyttää tulevia integraatioita, kun ne tulevat saataville.",
-      "grace": "Kun tilaus päättyy, organisaatiolla on 7 päivän lisäaika, josta ilmoitetaan jokaisen kirjautumisen yhteydessä."
+      "paidNote": "Kaikki maksetut suunnitelmat sisältävät täydellisen operatiivisen työkalupakin ja Privacy by Design -moduulin."
     },
     "faq": {
       "kicker": "Ennen kuin aloitat",
       "title": "Suorat vastaukset",
       "items": [
         {
-          "q": "Mitä tapahtuu 30 Free päivän jälkeen?",
-          "a": "Organisaatio siirtyy konsultointiin ja vientiin. Tiedot säilyvät; operatiivisten tietueiden luominen tai muuttaminen vaatii maksetun suunnitelman."
+          "q": "Mitä tapahtuu 30 Start päivän jälkeen?",
+          "a": "Lohkokirjanpito · mockup · Start"
         },
         {
           "q": "Yksityisyys suunnittelusta",
           "a": "Kaikki maksetut suunnitelmat sisältävät täydellisen operatiivisen työkalupakin ja Privacy by Design -moduulin."
+        },
+        {
+          "q": "Varasto + Kustannukset",
+          "a": "Varasto ja Kustannukset ovat valinnaisia moduuleja Grow- ja Custom-paketeissa ja sisältyvät Professional-pakettiin."
         },
         {
           "q": "Voinko lisätä virtuaalisia asemia?",
@@ -5572,7 +5652,7 @@ export const homepageCopies = {
       "description": "Картирайте полета, свържете култури, операции, реколти и агрономично време и поддържайте ясен полеви запис с GeroFarm.",
       "primary": "Започнете с GeroFarm",
       "secondary": "Вижте планове",
-      "note": "Free за до 30 дни · Не се изисква кредитна карта",
+      "note": "Start за до 30 дни · Не се изисква кредитна карта",
       "imageAlt": "Земеделски ниви с нанесени граници на парцели и точки за агрономическо наблюдение",
       "mapLabel": "Картирани парцели",
       "cropLabel": "Активни култури",
@@ -5671,7 +5751,7 @@ export const homepageCopies = {
     "pricing": {
       "kicker": "Ясни планове",
       "title": "Започнете с малко. Пазете цялата оперативна история.",
-      "description": "Никакъв план не ограничава операции, реколти или полеви записи. Всички платени планове позволяват бъдещи интеграции, включително GeroGrid, когато са налични.",
+      "description": "Никакъв план не ограничава операции, реколти или полеви записи.",
       "monthly": "Месечно",
       "annual": "Годишен",
       "annualNote": "Годишното таксуване се равнява на десет месечни плащания",
@@ -5684,17 +5764,20 @@ export const homepageCopies = {
       "contact": "Поискайте предложение",
       "plans": [
         {
-          "name": "Free",
+          "name": "Start",
           "description": "Истински 30-дневен старт за една организация.",
-          "monthly": "0 евро",
-          "annual": "0 евро",
+          "monthly": "7,90 €",
+          "annual": "79 €",
           "features": [
-            "1 потребител",
-            "10 ха",
-            "5 активни полета",
-            "1 виртуална станция",
             "30 дни максимум",
-            "Дневник на полето"
+            "1 потребител",
+            "15 ha",
+            "5 активни полета",
+            "5 Активни култури",
+            "1 виртуална станция",
+            "Показатели по култури",
+            "Дневник на полето",
+            "Поверителност по дизайн"
           ]
         },
         {
@@ -5707,10 +5790,9 @@ export const homepageCopies = {
             "100 ха",
             "50 полета",
             "2 виртуални станции",
-            "Инвентар и разходи, налични като добавки",
+            "Време, което говори езика на всяка култура",
             "Поверителност по дизайн",
-            "Поверителност по дизайн",
-            "Позволени бъдещи интеграции"
+            "Инвентар и разходи, налични като добавки"
           ]
         },
         {
@@ -5723,11 +5805,10 @@ export const homepageCopies = {
             "500 ха",
             "250 полета",
             "5 виртуални станции",
+            "Време, което говори езика на всяка култура · Референтна евапотранспирация (ET₀) · Слънчева радиация · Очакван интеграл на дневната светлина (DLI) · Градусо-дни на растеж · Изисквания за охлаждане · Прогнозна влажност на листата",
+            "Поверителност по дизайн",
             "Включен инвентар",
-            "Включени разходи",
-            "Поверителност по дизайн",
-            "Поверителност по дизайн",
-            "Позволени бъдещи интеграции"
+            "Включени разходи"
           ]
         },
         {
@@ -5738,11 +5819,11 @@ export const homepageCopies = {
           "features": [
             "Custom потребители и област",
             "Custom полета и станции",
-            "Инвентаризация и разходи по предложение",
-            "Персонализирани модули",
+            "Време, което говори езика на всяка култура · API",
             "Поверителност по дизайн",
-            "Поверителност по дизайн",
-            "Бъдещи и персонализирани интеграции"
+            "Инвентаризация + Разходи",
+            "ERP",
+            "Персонализирани модули"
           ]
         }
       ],
@@ -5753,20 +5834,23 @@ export const homepageCopies = {
         "Инвентар + разходи · €24,90/месец или €249/година",
         "Допълнителна виртуална станция на платени планове · €4,90/месец или €49/година"
       ],
-      "paidNote": "Всички платени планове запазват пълната оперативна история и могат да използват бъдещи интеграции, когато станат налични.",
-      "grace": "Когато абонаментът приключи, организацията има 7-дневен гратисен период с известие при всяко влизане."
+      "paidNote": "Всички платени планове включват пълния оперативен инструментариум и модула за поверителност чрез проектиране."
     },
     "faq": {
       "kicker": "Преди да започнете",
       "title": "Прави отговори",
       "items": [
         {
-          "q": "Какво се случва след 30 Free дни?",
-          "a": "Организацията преминава към консултации и експорт. Данните остават запазени; създаването или промяната на оперативни записи изисква платен план."
+          "q": "Какво се случва след 30 Start дни?",
+          "a": "Дневник на полето · mockup · Start"
         },
         {
           "q": "Поверителност по дизайн",
           "a": "Всички платени планове включват пълния оперативен инструментариум и модула за поверителност чрез проектиране."
+        },
+        {
+          "q": "Инвентаризация + Разходи",
+          "a": "Инвентаризацията и разходите са незадължителни модули на Grow и Custom и са включени в Professional."
         },
         {
           "q": "Мога ли да добавя още виртуални станции?",
@@ -5836,7 +5920,7 @@ export const homepageCopies = {
       "description": "A GeroFarm segítségével térképezze fel a táblákat, kapcsolja össze a növényeket, a műveleteket, a betakarítást és az agronómiai időjárást, és vezessen egyértelmű táblát.",
       "primary": "Kezdje a GeroFarm-vel",
       "secondary": "Tervek megtekintése",
-      "note": "Free akár 30 napig · Nem szükséges hitelkártya",
+      "note": "Start akár 30 napig · Nem szükséges hitelkártya",
       "imageAlt": "Mezőgazdasági táblák feltérképezett parcellahatárokkal és agronómiai megfigyelőpontokkal",
       "mapLabel": "Feltérképezett parcellák",
       "cropLabel": "Aktív növények",
@@ -5935,7 +6019,7 @@ export const homepageCopies = {
     "pricing": {
       "kicker": "Világos tervek",
       "title": "Kezdje kicsiben. Őrizze meg a teljes működési előzményeket.",
-      "description": "Egyetlen terv sem korlátozza a műveleteket, a betakarítást vagy a szántóföldi nyilvántartást. Minden fizetős csomag lehetővé teszi a jövőbeni integrációt, beleértve a GeroGrid-t is, ha elérhető.",
+      "description": "Egyetlen terv sem korlátozza a műveleteket, a betakarítást vagy a szántóföldi nyilvántartást.",
       "monthly": "Havonta",
       "annual": "Éves",
       "annualNote": "Az éves számlázás tíz havi fizetésnek felel meg",
@@ -5948,17 +6032,20 @@ export const homepageCopies = {
       "contact": "Kérjen ajánlatot",
       "plans": [
         {
-          "name": "Free",
+          "name": "Start",
           "description": "Igazi 30 napos kezdés egy szervezet számára.",
-          "monthly": "0 €",
-          "annual": "0 €",
+          "monthly": "7,90 €",
+          "annual": "79 €",
           "features": [
-            "1 felhasználó",
-            "10 ha",
-            "5 aktív mező",
-            "1 virtuális állomás",
             "maximum 30 nap",
-            "Táblatörzskönyv"
+            "1 felhasználó",
+            "15 ha",
+            "5 aktív mező",
+            "5 Aktív növények",
+            "1 virtuális állomás",
+            "Mutatók termés szerint",
+            "Táblatörzskönyv",
+            "Adatvédelem tervezés által"
           ]
         },
         {
@@ -5971,10 +6058,9 @@ export const homepageCopies = {
             "100 ha",
             "50 mező",
             "2 virtuális állomás",
-            "A készlet és a költségek kiegészítőként elérhetők",
+            "Időjárás, amely az egyes termények nyelvét beszéli",
             "Adatvédelem tervezés által",
-            "Adatvédelem tervezés által",
-            "A jövőbeni integrációk megengedettek"
+            "A készlet és a költségek kiegészítőként elérhetők"
           ]
         },
         {
@@ -5987,11 +6073,10 @@ export const homepageCopies = {
             "500 ha",
             "250 mező",
             "5 virtuális állomás",
+            "Időjárás, amely az egyes termények nyelvét beszéli · Referencia evapotranspiráció (ET₀) · Napsugárzás · Becsült napi fényintegrál (DLI) · Növekedési foknapok · Chill követelmények · A levél becsült nedvessége",
+            "Adatvédelem tervezés által",
             "A készlet tartalmazza",
-            "A költségek benne vannak",
-            "Adatvédelem tervezés által",
-            "Adatvédelem tervezés által",
-            "A jövőbeni integrációk megengedettek"
+            "A költségek benne vannak"
           ]
         },
         {
@@ -6002,11 +6087,11 @@ export const homepageCopies = {
           "features": [
             "Custom felhasználók és terület",
             "Custom mezők és állomások",
-            "Készlet és költségek ajánlat szerint",
-            "Testre szabott modulok",
+            "Időjárás, amely az egyes termények nyelvét beszéli · API",
             "Adatvédelem tervezés által",
-            "Adatvédelem tervezés által",
-            "Jövőbeli és személyre szabott integrációk"
+            "Leltár + Költségek",
+            "ERP",
+            "Testre szabott modulok"
           ]
         }
       ],
@@ -6017,20 +6102,23 @@ export const homepageCopies = {
         "Készlet + költségek · 24,90 €/hó vagy 249 €/év",
         "További virtuális állomás fizetős csomagokhoz · 4,90 €/hó vagy 49 €/év"
       ],
-      "paidNote": "Minden fizetős csomag megőrzi a teljes működési előzményeket, és felhasználhatja a jövőbeli integrációkat, amikor elérhetővé válik.",
-      "grace": "Az előfizetés lejártakor a szervezet 7 napos türelmi időt kap, minden bejelentkezéskor értesítést küldve."
+      "paidNote": "Minden fizetett terv tartalmazza a teljes működési eszközkészletet és a Tervezett adatvédelem modult."
     },
     "faq": {
       "kicker": "Mielőtt elkezdené",
       "title": "Egyenes válaszok",
       "items": [
         {
-          "q": "Mi történik a 30 Free nap után?",
-          "a": "A szervezet áttér a konzultációra és az exportra. Az adatok megmaradnak; működési rekordok létrehozásához vagy módosításához fizetős terv szükséges."
+          "q": "Mi történik a 30 Start nap után?",
+          "a": "Táblatörzskönyv · mockup · Start"
         },
         {
           "q": "Adatvédelem tervezés által",
           "a": "Minden fizetett terv tartalmazza a teljes működési eszközkészletet és a Tervezett adatvédelem modult."
+        },
+        {
+          "q": "Leltár + Költségek",
+          "a": "A Készlet és a Költségek opcionális modulok a Grow és Custom csomagban, a Professional csomag pedig tartalmazza őket."
         },
         {
           "q": "Hozzáadhatok több virtuális állomást?",
@@ -6100,7 +6188,7 @@ export const homepageCopies = {
       "description": "Kortleggðu akra, tengdu ræktun, rekstur, uppskeru og landbúnaðarveður og haltu skýrri akurskrá með GeroFarm.",
       "primary": "Byrjaðu með GeroFarm",
       "secondary": "Skoða áætlanir",
-      "note": "Free í allt að 30 daga · Ekkert kreditkort krafist",
+      "note": "Start í allt að 30 daga · Ekkert kreditkort krafist",
       "imageAlt": "Landbúnaðarreitir með kortlögðum lóðamörkum og landbúnaðarathugunarstöðum",
       "mapLabel": "Kortlagðir bögglar",
       "cropLabel": "Virk ræktun",
@@ -6199,7 +6287,7 @@ export const homepageCopies = {
     "pricing": {
       "kicker": "Skýr áætlanir",
       "title": "Byrjaðu smátt. Geymdu alla rekstrarsöguna.",
-      "description": "Engin áætlun takmarkar rekstur, uppskeru eða akurskrár. Allar greiddar áætlanir leyfa framtíðarsamþættingu, þar á meðal GeroGrid þegar þær eru tiltækar.",
+      "description": "Engin áætlun takmarkar rekstur, uppskeru eða akurskrár.",
       "monthly": "Mánaðarlega",
       "annual": "Árlegt",
       "annualNote": "Árleg innheimta jafngildir tíu mánaðarlegum greiðslum",
@@ -6212,17 +6300,20 @@ export const homepageCopies = {
       "contact": "Óska eftir tillögu",
       "plans": [
         {
-          "name": "Free",
+          "name": "Start",
           "description": "Sannkölluð 30 daga byrjun fyrir eina stofnun.",
-          "monthly": "€0",
-          "annual": "€0",
+          "monthly": "7,90 €",
+          "annual": "79 €",
           "features": [
-            "1 notandi",
-            "10 ha",
-            "5 virkir reitir",
-            "1 sýndarstöð",
             "30 dagar að hámarki",
-            "Akraskrá"
+            "1 notandi",
+            "15 ha",
+            "5 virkir reitir",
+            "5 Virk ræktun",
+            "1 sýndarstöð",
+            "Vísar eftir uppskeru",
+            "Akraskrá",
+            "Privacy by Design"
           ]
         },
         {
@@ -6235,10 +6326,9 @@ export const homepageCopies = {
             "100 ha",
             "50 reitir",
             "2 sýndarstöðvar",
-            "Birgðir og kostnaður í boði sem viðbætur",
+            "Veður sem talar tungumál hverrar ræktunar",
             "Privacy by Design",
-            "Privacy by Design",
-            "Samþættingar í framtíðinni leyfðar"
+            "Birgðir og kostnaður í boði sem viðbætur"
           ]
         },
         {
@@ -6251,11 +6341,10 @@ export const homepageCopies = {
             "500 ha",
             "250 reitir",
             "5 sýndarstöðvar",
+            "Veður sem talar tungumál hverrar ræktunar · Viðmiðunaruppgufun (ET₀) · Sólargeislun · Áætlaður dagsljósaþáttur (DLI) · Vaxtargráðudagar · Chill kröfur · Áætluð laufbleyta",
+            "Privacy by Design",
             "Birgðir innifalinn",
-            "Kostnaður innifalinn",
-            "Privacy by Design",
-            "Privacy by Design",
-            "Samþættingar í framtíðinni leyfðar"
+            "Kostnaður innifalinn"
           ]
         },
         {
@@ -6266,11 +6355,11 @@ export const homepageCopies = {
           "features": [
             "Custom notendur og svæði",
             "Custom reitir og stöðvar",
-            "Birgðir og kostnaður eftir tillögu",
-            "Sérsniðnar einingar",
+            "Veður sem talar tungumál hverrar ræktunar · API",
             "Privacy by Design",
-            "Privacy by Design",
-            "Framtíðar og sérsniðnar samþættingar"
+            "Birgðir + Kostnaður",
+            "ERP",
+            "Sérsniðnar einingar"
           ]
         }
       ],
@@ -6281,20 +6370,23 @@ export const homepageCopies = {
         "Birgðir + kostnaður · €24,90/mánuði eða €249/ári",
         "Viðbótar sýndarstöð á greiddum áætlunum · €4,90/mánuði eða €49/ári"
       ],
-      "paidNote": "Allar greiddar áætlanir halda fullri rekstrarsögu og gætu notað framtíðarsamþættingar þegar þær verða tiltækar.",
-      "grace": "Þegar áskrift lýkur hefur stofnunin 7 daga frest með tilkynningu við hverja innskráningu."
+      "paidNote": "Allar greiddar áætlanir innihalda heildar verkfærakistuna og Privacy by Design einingu."
     },
     "faq": {
       "kicker": "Áður en þú byrjar",
       "title": "Bein svör",
       "items": [
         {
-          "q": "Hvað gerist eftir 30 Free dagana?",
-          "a": "Samtökin skipta yfir í samráð og útflutning. Gögn haldast varðveitt; að búa til eða breyta rekstrarskrám krefst greiddra áætlunar."
+          "q": "Hvað gerist eftir 30 Start dagana?",
+          "a": "Akraskrá · mockup · Start"
         },
         {
           "q": "Privacy by Design",
           "a": "Allar greiddar áætlanir innihalda heildar verkfærakistuna og Privacy by Design einingu."
+        },
+        {
+          "q": "Birgðir + Kostnaður",
+          "a": "Birgðir og kostnaður eru valfrjálsar einingar á Grow og Custom og fylgja með Professional."
         },
         {
           "q": "Get ég bætt við fleiri sýndarstöðvum?",
@@ -6364,7 +6456,7 @@ export const homepageCopies = {
       "description": "Mapujte polia, spojte plodiny, operácie, úrodu a agronomické počasie a udržujte si prehľadné záznamy o poli so GeroFarm.",
       "primary": "Začnite s GeroFarm",
       "secondary": "Zobraziť plány",
-      "note": "Free až na 30 dní · Nevyžaduje sa žiadna kreditná karta",
+      "note": "Start až na 30 dní · Nevyžaduje sa žiadna kreditná karta",
       "imageAlt": "Poľnohospodárske polia s mapovanými hranicami parciel a agronomickými pozorovacími bodmi",
       "mapLabel": "Zmapované parcely",
       "cropLabel": "Aktívne plodiny",
@@ -6463,7 +6555,7 @@ export const homepageCopies = {
     "pricing": {
       "kicker": "Jasné plány",
       "title": "Začnite v malom. Uchovávajte celú prevádzkovú históriu.",
-      "description": "Žiadny plán neobmedzuje operácie, úrodu ani záznamy v teréne. Všetky platené plány umožňujú budúce integrácie vrátane GeroGrid, ak bude k dispozícii.",
+      "description": "Žiadny plán neobmedzuje operácie, úrodu ani záznamy v teréne.",
       "monthly": "Mesačne",
       "annual": "Ročný",
       "annualNote": "Ročné vyúčtovanie sa rovná desiatim mesačným platbám",
@@ -6476,17 +6568,20 @@ export const homepageCopies = {
       "contact": "Požiadať o návrh",
       "plans": [
         {
-          "name": "Free",
+          "name": "Start",
           "description": "Skutočný 30-dňový štart pre jednu organizáciu.",
-          "monthly": "0 €",
-          "annual": "0 €",
+          "monthly": "7,90 €",
+          "annual": "79 €",
           "features": [
-            "1 používateľ",
-            "10 ha",
-            "5 aktívnych polí",
-            "1 virtuálna stanica",
             "maximálne 30 dní",
-            "Poľný denník"
+            "1 používateľ",
+            "15 ha",
+            "5 aktívnych polí",
+            "5 Aktívne plodiny",
+            "1 virtuálna stanica",
+            "Ukazovatele podľa plodiny",
+            "Poľný denník",
+            "Ochrana súkromia už od návrhu"
           ]
         },
         {
@@ -6499,10 +6594,9 @@ export const homepageCopies = {
             "100 ha",
             "50 polí",
             "2 virtuálne stanice",
-            "Zásoby a náklady sú k dispozícii ako doplnky",
+            "Počasie, ktoré hovorí jazykom každej plodiny",
             "Ochrana súkromia už od návrhu",
-            "Ochrana súkromia už od návrhu",
-            "Budúce integrácie povolené"
+            "Zásoby a náklady sú k dispozícii ako doplnky"
           ]
         },
         {
@@ -6515,11 +6609,10 @@ export const homepageCopies = {
             "500 ha",
             "250 polí",
             "5 virtuálnych staníc",
+            "Počasie, ktoré hovorí jazykom každej plodiny · Referenčná evapotranspirácia (ET₀) · Slnečné žiarenie · Odhadovaný integrál denného osvetlenia (DLI) · Rastové stupňodní · Požiadavky na chladenie · Odhadovaná vlhkosť listov",
+            "Ochrana súkromia už od návrhu",
             "Vrátane inventára",
-            "Vrátane nákladov",
-            "Ochrana súkromia už od návrhu",
-            "Ochrana súkromia už od návrhu",
-            "Budúce integrácie povolené"
+            "Vrátane nákladov"
           ]
         },
         {
@@ -6530,11 +6623,11 @@ export const homepageCopies = {
           "features": [
             "Používatelia a oblasť Custom",
             "Polia a stanice Custom",
-            "Zásoby a náklady podľa návrhu",
-            "Moduly na mieru",
+            "Počasie, ktoré hovorí jazykom každej plodiny · API",
             "Ochrana súkromia už od návrhu",
-            "Ochrana súkromia už od návrhu",
-            "Budúce a prispôsobené integrácie"
+            "Inventár + náklady",
+            "ERP",
+            "Moduly na mieru"
           ]
         }
       ],
@@ -6545,20 +6638,23 @@ export const homepageCopies = {
         "Zásoby + náklady · 24,90 €/mesiac alebo 249 €/rok",
         "Ďalšia virtuálna stanica na platených programoch · 4,90 €/mesiac alebo 49 €/rok"
       ],
-      "paidNote": "Všetky platené plány uchovávajú celú prevádzkovú históriu a môžu používať budúce integrácie, keď budú k dispozícii.",
-      "grace": "Po skončení predplatného má organizácia 7-dňovú lehotu s upozornením pri každom prihlásení."
+      "paidNote": "Všetky platené plány zahŕňajú kompletnú súpravu prevádzkových nástrojov a modul Privacy by Design."
     },
     "faq": {
       "kicker": "Skôr ako začnete",
       "title": "Priame odpovede",
       "items": [
         {
-          "q": "Čo sa stane po 30 dňoch Free?",
-          "a": "Organizácia prechádza na konzultácie a export. Údaje zostanú zachované; vytváranie alebo zmena prevádzkových záznamov si vyžaduje platený plán."
+          "q": "Čo sa stane po 30 dňoch Start?",
+          "a": "Poľný denník · mockup · Start"
         },
         {
           "q": "Ochrana súkromia už od návrhu",
           "a": "Všetky platené plány zahŕňajú kompletnú súpravu prevádzkových nástrojov a modul Privacy by Design."
+        },
+        {
+          "q": "Inventár + náklady",
+          "a": "Zásoby a náklady sú voliteľné moduly na Grow a Custom a sú súčasťou Professional."
         },
         {
           "q": "Môžem pridať ďalšie virtuálne stanice?",
@@ -6628,7 +6724,7 @@ export const homepageCopies = {
       "description": "Su GeroFarm susirašykite laukus, sujunkite pasėlius, operacijas, derlių ir agronominius orus bei veskite aiškų lauko įrašą.",
       "primary": "Pradėkite nuo GeroFarm",
       "secondary": "Žiūrėti planus",
-      "note": "Free iki 30 dienų · Nereikia kredito kortelės",
+      "note": "Start iki 30 dienų · Nereikia kredito kortelės",
       "imageAlt": "Žemės ūkio laukai su pažymėtomis sklypų ribomis ir agronominiais stebėjimo punktais",
       "mapLabel": "Sužymėti siuntiniai",
       "cropLabel": "Aktyvūs pasėliai",
@@ -6727,7 +6823,7 @@ export const homepageCopies = {
     "pricing": {
       "kicker": "Aiškūs planai",
       "title": "Pradėkite nuo mažo. Išsaugokite visą veiklos istoriją.",
-      "description": "Joks planas neriboja operacijų, derliaus ar lauko įrašų. Visi mokami planai leidžia ateityje integruoti, įskaitant GeroGrid, jei įmanoma.",
+      "description": "Joks planas neriboja operacijų, derliaus ar lauko įrašų.",
       "monthly": "Kas mėnesį",
       "annual": "Metinis",
       "annualNote": "Metinis atsiskaitymas lygus dešimčiai mėnesinių mokėjimų",
@@ -6740,17 +6836,20 @@ export const homepageCopies = {
       "contact": "Prašyti pasiūlymo",
       "plans": [
         {
-          "name": "Free",
+          "name": "Start",
           "description": "Tikras 30 dienų startas vienai organizacijai.",
-          "monthly": "0 €",
-          "annual": "0 €",
+          "monthly": "7,90 €",
+          "annual": "79 €",
           "features": [
-            "1 vartotojas",
-            "10 ha",
-            "5 aktyvūs laukai",
-            "1 virtuali stotis",
             "daugiausiai 30 dienų",
-            "Lauko žurnalas"
+            "1 vartotojas",
+            "15 ha",
+            "5 aktyvūs laukai",
+            "5 Aktyvūs pasėliai",
+            "1 virtuali stotis",
+            "Rodikliai pagal pasėlius",
+            "Lauko žurnalas",
+            "Privatumas pagal dizainą"
           ]
         },
         {
@@ -6763,10 +6862,9 @@ export const homepageCopies = {
             "100 ha",
             "50 laukų",
             "2 virtualios stotys",
-            "Atsargos ir išlaidos galimos kaip priedai",
+            "Oras, kuris kalba kiekvieno derliaus kalba",
             "Privatumas pagal dizainą",
-            "Privatumas pagal dizainą",
-            "Leidžiama ateities integracija"
+            "Atsargos ir išlaidos galimos kaip priedai"
           ]
         },
         {
@@ -6779,11 +6877,10 @@ export const homepageCopies = {
             "500 ha",
             "250 laukų",
             "5 virtualios stotys",
+            "Oras, kuris kalba kiekvieno derliaus kalba · Etaloninė evapotranspiracija (ET₀) · Saulės spinduliuotė · Numatomas dienos šviesos integralas (DLI) · Augimo laipsniadieniai · Chill reikalavimai · Numatomas lapų drėgnumas",
+            "Privatumas pagal dizainą",
             "Įtrauktas inventorius",
-            "Įskaičiuotos išlaidos",
-            "Privatumas pagal dizainą",
-            "Privatumas pagal dizainą",
-            "Leidžiama ateities integracija"
+            "Įskaičiuotos išlaidos"
           ]
         },
         {
@@ -6794,11 +6891,11 @@ export const homepageCopies = {
           "features": [
             "Custom vartotojai ir sritis",
             "Custom laukai ir stotys",
-            "Inventorius ir išlaidos pagal pasiūlymą",
-            "Pritaikomi moduliai",
+            "Oras, kuris kalba kiekvieno derliaus kalba · API",
             "Privatumas pagal dizainą",
-            "Privatumas pagal dizainą",
-            "Ateities ir pritaikytos integracijos"
+            "Inventorius + Išlaidos",
+            "ERP",
+            "Pritaikomi moduliai"
           ]
         }
       ],
@@ -6809,20 +6906,23 @@ export const homepageCopies = {
         "Inventorius + Išlaidos · 24,90 €/mėn arba 249 €/metai",
         "Papildoma virtuali stotis pagal mokamus planus · 4,90 €/mėn arba 49 € per metus"
       ],
-      "paidNote": "Visuose mokamuose planuose saugoma visa veiklos istorija ir gali būti naudojamos būsimos integracijos, kai jos bus pasiekiamos.",
-      "grace": "Pasibaigus prenumeratai, organizacija turi 7 dienų atidėjimo laikotarpį, apie kurį pranešama kiekvieną kartą prisijungus."
+      "paidNote": "Į visus mokamus planus įtrauktas visas veiklos įrankių rinkinys ir „Privacy by Design“ modulis."
     },
     "faq": {
       "kicker": "Prieš pradėdami",
       "title": "Tiesūs atsakymai",
       "items": [
         {
-          "q": "Kas atsitiks po 30 Free dienų?",
-          "a": "Organizacija pereina prie konsultavimo ir eksporto. Duomenys išsaugomi; operatyviniams įrašams kurti ar keisti reikalingas mokamas planas."
+          "q": "Kas atsitiks po 30 Start dienų?",
+          "a": "Lauko žurnalas · mockup · Start"
         },
         {
           "q": "Privatumas pagal dizainą",
           "a": "Į visus mokamus planus įtrauktas visas veiklos įrankių rinkinys ir „Privacy by Design“ modulis."
+        },
+        {
+          "q": "Inventorius + Išlaidos",
+          "a": "Inventorius ir sąnaudos yra pasirenkami Grow ir Custom moduliai, įtraukti į Professional."
         },
         {
           "q": "Ar galiu pridėti daugiau virtualių stočių?",
@@ -6892,7 +6992,7 @@ export const homepageCopies = {
       "description": "Preslikajte polja, povežite pridelke, operacije, žetve in agronomsko vreme ter vodite jasen zapis polja z GeroFarm.",
       "primary": "Začnite z GeroFarm",
       "secondary": "Ogled načrtov",
-      "note": "Free do 30 dni · Kreditna kartica ni potrebna",
+      "note": "Start do 30 dni · Kreditna kartica ni potrebna",
       "imageAlt": "Kmetijska polja s kartiranimi mejami parcel in agronomskimi opazovalnicami",
       "mapLabel": "Kartirane parcele",
       "cropLabel": "Aktivni pridelki",
@@ -6991,7 +7091,7 @@ export const homepageCopies = {
     "pricing": {
       "kicker": "Jasni načrti",
       "title": "Začni z majhnim. Hranite celotno zgodovino delovanja.",
-      "description": "Noben načrt ne omejuje operacij, žetev ali zapisov na terenu. Vsi plačljivi načrti omogočajo prihodnje integracije, vključno z GeroGrid, ko bo na voljo.",
+      "description": "Noben načrt ne omejuje operacij, žetev ali zapisov na terenu.",
       "monthly": "Mesečno",
       "annual": "Letna",
       "annualNote": "Letni obračun je enak desetim mesečnim plačilom",
@@ -7004,17 +7104,20 @@ export const homepageCopies = {
       "contact": "Zahtevajte predlog",
       "plans": [
         {
-          "name": "Free",
+          "name": "Start",
           "description": "Pravi 30-dnevni začetek za eno organizacijo.",
-          "monthly": "0 €",
-          "annual": "0 €",
+          "monthly": "7,90 €",
+          "annual": "79 €",
           "features": [
-            "1 uporabnik",
-            "10 ha",
-            "5 aktivnih polj",
-            "1 virtualna postaja",
             "največ 30 dni",
-            "Poljski dnevnik"
+            "1 uporabnik",
+            "15 ha",
+            "5 aktivnih polj",
+            "5 Aktivni pridelki",
+            "1 virtualna postaja",
+            "Indikatorji po posevku",
+            "Poljski dnevnik",
+            "Privacy by Design"
           ]
         },
         {
@@ -7027,10 +7130,9 @@ export const homepageCopies = {
             "100 ha",
             "50 polj",
             "2 virtualni postaji",
-            "Inventar in stroški so na voljo kot dodatki",
+            "Vreme, ki govori jezik vsakega pridelka",
             "Privacy by Design",
-            "Privacy by Design",
-            "Dovoljene bodoče integracije"
+            "Inventar in stroški so na voljo kot dodatki"
           ]
         },
         {
@@ -7043,11 +7145,10 @@ export const homepageCopies = {
             "500 ha",
             "250 polj",
             "5 virtualnih postaj",
+            "Vreme, ki govori jezik vsakega pridelka · Referenčna evapotranspiracija (ET₀) · Sončno sevanje · Ocenjeni dnevni svetlobni integral (DLI) · Rastne stopinjske dni · Zahteve za hlajenje · Ocenjena vlažnost listov",
+            "Privacy by Design",
             "Inventar vključen",
-            "Stroški vključeni",
-            "Privacy by Design",
-            "Privacy by Design",
-            "Dovoljene bodoče integracije"
+            "Stroški vključeni"
           ]
         },
         {
@@ -7058,11 +7159,11 @@ export const homepageCopies = {
           "features": [
             "Custom uporabniki in območje",
             "Custom polja in postaje",
-            "Zaloge in stroški po predlogu",
-            "Moduli po meri",
+            "Vreme, ki govori jezik vsakega pridelka · API",
             "Privacy by Design",
-            "Privacy by Design",
-            "Prihodnje in prilagojene integracije"
+            "Inventar + Stroški",
+            "ERP",
+            "Moduli po meri"
           ]
         }
       ],
@@ -7073,20 +7174,23 @@ export const homepageCopies = {
         "Inventar + stroški · 24,90 €/mesec ali 249 €/leto",
         "Dodatna virtualna postaja na plačljivih paketih · 4,90 €/mesec ali 49 €/leto"
       ],
-      "paidNote": "Vsi plačljivi načrti hranijo celotno zgodovino delovanja in lahko uporabljajo prihodnje integracije, ko bodo na voljo.",
-      "grace": "Ko se naročnina konča, ima organizacija 7-dnevno podaljšano obdobje z obvestilom ob vsaki prijavi."
+      "paidNote": "Vsi plačljivi načrti vključujejo celoten nabor operativnih orodij in modul Privacy by Design."
     },
     "faq": {
       "kicker": "Preden začnete",
       "title": "Pravi odgovori",
       "items": [
         {
-          "q": "Kaj se zgodi po 30 Free dneh?",
-          "a": "Organizacija preide na svetovanje in izvoz. Podatki ostanejo ohranjeni; ustvarjanje ali spreminjanje operativnih zapisov zahteva plačan načrt."
+          "q": "Kaj se zgodi po 30 Start dneh?",
+          "a": "Poljski dnevnik · mockup · Start"
         },
         {
           "q": "Privacy by Design",
           "a": "Vsi plačljivi načrti vključujejo celoten nabor operativnih orodij in modul Privacy by Design."
+        },
+        {
+          "q": "Inventar + Stroški",
+          "a": "Zaloge in stroški so izbirni moduli na Grow in Custom ter vključeni v Professional."
         },
         {
           "q": "Ali lahko dodam več virtualnih postaj?",
@@ -7156,7 +7260,7 @@ export const homepageCopies = {
       "description": "Kartējiet laukus, savienojiet kultūras, darbības, ražas un agronomiskos laikapstākļus un saglabājiet skaidru lauka uzskaiti, izmantojot GeroFarm.",
       "primary": "Sāciet ar GeroFarm",
       "secondary": "Skatīt plānus",
-      "note": "Free līdz 30 dienām · Kredītkarte nav nepieciešama",
+      "note": "Start līdz 30 dienām · Kredītkarte nav nepieciešama",
       "imageAlt": "Lauksaimniecības lauki ar kartētām zemes gabalu robežām un agronomiskajiem novērojumu punktiem",
       "mapLabel": "Kartēti pakas",
       "cropLabel": "Aktīvās kultūras",
@@ -7255,7 +7359,7 @@ export const homepageCopies = {
     "pricing": {
       "kicker": "Skaidri plāni",
       "title": "Sāciet ar mazumiņu. Saglabājiet visu darbības vēsturi.",
-      "description": "Neviens plāns neierobežo darbības, ražas vai lauka ierakstus. Visi maksas plāni pieļauj turpmāku integrāciju, tostarp GeroGrid, ja tas ir pieejams.",
+      "description": "Neviens plāns neierobežo darbības, ražas vai lauka ierakstus.",
       "monthly": "Ikmēneša",
       "annual": "Gada",
       "annualNote": "Gada rēķins ir vienāds ar desmit ikmēneša maksājumiem",
@@ -7268,17 +7372,20 @@ export const homepageCopies = {
       "contact": "Pieprasiet priekšlikumu",
       "plans": [
         {
-          "name": "Free",
+          "name": "Start",
           "description": "Īsts 30 dienu sākums vienai organizācijai.",
-          "monthly": "0 €",
-          "annual": "0 €",
+          "monthly": "7,90 €",
+          "annual": "79 €",
           "features": [
-            "1 lietotājs",
-            "10 ha",
-            "5 aktīvi lauki",
-            "1 virtuālā stacija",
             "Maksimāli 30 dienas",
-            "Lauka žurnāls"
+            "1 lietotājs",
+            "15 ha",
+            "5 aktīvi lauki",
+            "5 Aktīvās kultūras",
+            "1 virtuālā stacija",
+            "Rādītāji pēc ražas",
+            "Lauka žurnāls",
+            "Dizaina konfidencialitāte"
           ]
         },
         {
@@ -7291,10 +7398,9 @@ export const homepageCopies = {
             "100 ha",
             "50 lauki",
             "2 virtuālās stacijas",
-            "Inventārs un izmaksas pieejami kā papildinājumi",
+            "Laikapstākļi, kas runā katras kultūras valodā",
             "Dizaina konfidencialitāte",
-            "Dizaina konfidencialitāte",
-            "Atļauta turpmākā integrācija"
+            "Inventārs un izmaksas pieejami kā papildinājumi"
           ]
         },
         {
@@ -7307,11 +7413,10 @@ export const homepageCopies = {
             "500 ha",
             "250 lauki",
             "5 virtuālās stacijas",
+            "Laikapstākļi, kas runā katras kultūras valodā · Atsauces evapotranspirācija (ET₀) · Saules starojums · Paredzamais ikdienas gaismas integrāls (DLI) · Augšanas grādu dienas · Chill prasības · Paredzamais lapu mitrums",
+            "Dizaina konfidencialitāte",
             "Iekļauts inventārs",
-            "Cenā iekļautas izmaksas",
-            "Dizaina konfidencialitāte",
-            "Dizaina konfidencialitāte",
-            "Atļauta turpmākā integrācija"
+            "Cenā iekļautas izmaksas"
           ]
         },
         {
@@ -7322,11 +7427,11 @@ export const homepageCopies = {
           "features": [
             "Custom lietotāji un apgabals",
             "Custom lauki un stacijas",
-            "Inventārs un izmaksas pēc priekšlikuma",
-            "Pielāgoti moduļi",
+            "Laikapstākļi, kas runā katras kultūras valodā · API",
             "Dizaina konfidencialitāte",
-            "Dizaina konfidencialitāte",
-            "Nākotnes un pielāgotas integrācijas"
+            "Inventārs + Izmaksas",
+            "ERP",
+            "Pielāgoti moduļi"
           ]
         }
       ],
@@ -7337,20 +7442,23 @@ export const homepageCopies = {
         "Inventārs + Izmaksas · €24,90/mēn vai €249/gadā",
         "Papildu virtuālā stacija maksas plānos · €4.90/mēn vai €49/gadā"
       ],
-      "paidNote": "Visos apmaksātajos plānos tiek saglabāta visa darbības vēsture un var tikt izmantotas turpmākās integrācijas, kad tās būs pieejamas.",
-      "grace": "Kad abonements beidzas, organizācijai ir 7 dienu pagarinājuma periods ar paziņojumu katrā pierakstīšanās reizē."
+      "paidNote": "Visos apmaksātajos plānos ir iekļauts pilns darbības rīku komplekts un modulis Privacy by Design."
     },
     "faq": {
       "kicker": "Pirms sākat",
       "title": "Taisnas atbildes",
       "items": [
         {
-          "q": "Kas notiek pēc 30 Free dienām?",
-          "a": "Organizācija pāriet uz konsultācijām un eksportu. Dati tiek saglabāti; lai izveidotu vai mainītu darbības ierakstus, ir nepieciešams apmaksāts plāns."
+          "q": "Kas notiek pēc 30 Start dienām?",
+          "a": "Lauka žurnāls · mockup · Start"
         },
         {
           "q": "Dizaina konfidencialitāte",
           "a": "Visos apmaksātajos plānos ir iekļauts pilns darbības rīku komplekts un modulis Privacy by Design."
+        },
+        {
+          "q": "Inventārs + Izmaksas",
+          "a": "Inventāri un izmaksas ir izvēles moduļi Grow un Custom, un tie ir iekļauti komplektā Professional."
         },
         {
           "q": "Vai varu pievienot vairāk virtuālo staciju?",
