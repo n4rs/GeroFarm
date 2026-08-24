@@ -10,10 +10,12 @@ import { createVarietySchema, cultureCatalog } from "@shared/crops";
 import type { CropRepository } from "./crops";
 import { closeCropPeriodSchema, createCropPeriodSchema, createFallowSchema, createPlantationSchema, uprootPlantationSchema } from "@shared/crop-lifecycle";
 import type { CropLifecycleRepository } from "./crop-lifecycle";
+import { createCertificateSchema,createContractorSchema,createEquipmentSchema,createWorkerSchema } from "@shared/resources";
+import type { ResourceRepository } from "./resources";
 
 const idSchema = z.string().uuid();
 
-export function createFarmRouter(repository: FarmHoldingRepository, resolveContext: FarmContextResolver, fields?: FieldRepository, crops?: CropRepository, lifecycle?: CropLifecycleRepository) {
+export function createFarmRouter(repository: FarmHoldingRepository, resolveContext: FarmContextResolver, fields?: FieldRepository, crops?: CropRepository, lifecycle?: CropLifecycleRepository, resources?: ResourceRepository) {
   const router = Router();
   router.get("/holdings", async (req, res, next) => {
     try { const context = await resolveContext(req); res.set("cache-control", "no-store").json({ data: await repository.list(context) }); } catch (error) { next(error); }
@@ -43,5 +45,6 @@ export function createFarmRouter(repository: FarmHoldingRepository, resolveConte
     router.post("/fallows", async (req, res, next) => { try { assertSameOrigin(req); const context = await resolveContext(req); res.status(201).json({ data: await lifecycle.createFallow(context, createFallowSchema.parse(req.body)) }); } catch (error) { next(error); } });
     router.post("/fallows/:id/close", async (req, res, next) => { try { assertSameOrigin(req); const context = await resolveContext(req); const { endedOn } = closeCropPeriodSchema.parse(req.body); const data = await lifecycle.closeFallow(context, idSchema.parse(req.params.id), endedOn); if (!data) return res.status(404).json({ code: "FALLOW_NOT_FOUND" }); return res.json({ data }); } catch (error) { next(error); } });
   }
+  if(resources){router.get("/resources",async(req,res,next)=>{try{const context=await resolveContext(req);res.set("cache-control","no-store").json({data:await resources.list(context)})}catch(error){next(error)}});router.post("/workers",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req);res.status(201).json({data:await resources.createWorker(context,createWorkerSchema.parse(req.body))})}catch(error){next(error)}});router.post("/worker-certificates",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req);res.status(201).json({data:await resources.createCertificate(context,createCertificateSchema.parse(req.body))})}catch(error){next(error)}});router.post("/contractors",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req);res.status(201).json({data:await resources.createContractor(context,createContractorSchema.parse(req.body))})}catch(error){next(error)}});router.post("/equipment",async(req,res,next)=>{try{assertSameOrigin(req);const context=await resolveContext(req);res.status(201).json({data:await resources.createEquipment(context,createEquipmentSchema.parse(req.body))})}catch(error){next(error)}})}
   return router;
 }

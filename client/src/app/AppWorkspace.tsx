@@ -8,6 +8,7 @@ import "./workspace.css";
 
 const FarmHoldingsModule = lazy(() => import("./farm/FarmHoldingsModule"));
 const CropsModule = lazy(() => import("./crops/CropsModule"));
+const ResourcesModule = lazy(() => import("./resources/ResourcesModule"));
 
 type ModuleId = "overview" | "farm" | "crops" | "operations" | "plans" | "weather" | "harvests" | "notebook" | "resources" | "inventory" | "costs" | "settings";
 type NavigationItem = { id: ModuleId; label: string; short: string; group?: string };
@@ -86,7 +87,7 @@ export default function AppWorkspace() {
       </header>
 
       <main className="farm-content">
-        {module === "overview" ? <Overview name={session.user.name} organization={session.access.organization.name} common={common} /> : module === "farm" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><FarmHoldingsModule /></Suspense> : module === "crops" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><CropsModule /></Suspense> : <PendingModule title={active.label} common={common} />}
+        {module === "overview" ? <Overview name={session.user.name} organization={session.access.organization.name} common={common} /> : module === "farm" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><FarmHoldingsModule /></Suspense> : module === "crops" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><CropsModule /></Suspense> : module === "resources" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><ResourcesModule /></Suspense> : <PendingModule title={active.label} common={common} />}
       </main>
     </div>
   </div>;

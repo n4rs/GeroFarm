@@ -17,8 +17,9 @@ import { FieldDomainError } from "./field-geometry";
 import { createPostgresCropRepository, type CropRepository } from "./crops";
 import { createPostgresCropLifecycleRepository, type CropLifecycleRepository } from "./crop-lifecycle";
 import { OccupancyError } from "@shared/crop-lifecycle";
+import { createPostgresResourceRepository,type ResourceRepository } from "./resources";
 
-export type AppOptions = { database?: FarmDatabase; farmHoldingRepository?: FarmHoldingRepository; fieldRepository?: FieldRepository; cropRepository?: CropRepository; cropLifecycleRepository?: CropLifecycleRepository; farmContextResolver?: FarmContextResolver };
+export type AppOptions = { database?: FarmDatabase; farmHoldingRepository?: FarmHoldingRepository; fieldRepository?: FieldRepository; cropRepository?: CropRepository; cropLifecycleRepository?: CropLifecycleRepository; resourceRepository?:ResourceRepository; farmContextResolver?: FarmContextResolver };
 
 export function createApp(options: AppOptions = {}) {
   const app = express();
@@ -123,7 +124,8 @@ export function createApp(options: AppOptions = {}) {
   const fieldRepository = options.fieldRepository || (options.database ? createPostgresFieldRepository(options.database) : undefined);
   const cropRepository = options.cropRepository || (options.database ? createPostgresCropRepository(options.database) : undefined);
   const cropLifecycleRepository = options.cropLifecycleRepository || (options.database ? createPostgresCropLifecycleRepository(options.database) : undefined);
-  if (farmHoldingRepository) app.use("/api/farm", createFarmRouter(farmHoldingRepository, options.farmContextResolver || resolveFarmContext, fieldRepository, cropRepository, cropLifecycleRepository));
+  const resourceRepository=options.resourceRepository||(options.database?createPostgresResourceRepository(options.database):undefined);
+  if (farmHoldingRepository) app.use("/api/farm", createFarmRouter(farmHoldingRepository, options.farmContextResolver || resolveFarmContext, fieldRepository, cropRepository, cropLifecycleRepository,resourceRepository));
 
   app.use("/api", (_req, res) => res.status(404).json({ message: "API route not found", code: "NOT_FOUND" }));
 

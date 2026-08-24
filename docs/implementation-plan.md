@@ -5,7 +5,7 @@ Every completed module includes the database model and tenant isolation, server 
 1. [Complete] Authenticated workspace, navigation and shared application internationalisation.
 2. [Complete] Farms and fields: agricultural holdings, stable field codes, editable geometry, local KML/KMZ import, usable area, overlap validation and occupancy closure.
 3. [Complete] Agronomic catalogue, varieties, plantations, permanent campaigns, temporary cycles, uprooting, fallow and rotation.
-4. Workers, certificates, contractors, equipment and the shared performed-operation model.
+4. [In progress — workers, certificates, contractors and equipment complete] Workers, certificates, contractors, equipment and the shared performed-operation model.
 5. Soil preparation, crop installation and cultural work.
 6. Fertilisation records and plans.
 7. Spraying, product applications, safety intervals and FRAC.

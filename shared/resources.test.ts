@@ -1,0 +1,5 @@
+import assert from "node:assert/strict";import test from "node:test";import { createCertificateSchema,isValidApplicator,type CertificateDto,type WorkerDto } from "./resources";
+const worker={id:crypto.randomUUID(),name:"Ana Silva",role:"Aplicadora",status:"active",createdAt:"2026-01-01",email:undefined,phone:undefined} satisfies WorkerDto;
+const certificate={id:crypto.randomUUID(),workerId:worker.id,type:"phytopharmaceutical_applicator",number:"AP-123",validFrom:"2026-01-01",validUntil:"2026-12-31",createdAt:"2026-01-01"} satisfies CertificateDto;
+test("valid applicator requires an active worker and a certificate valid on operation date",()=>{assert.equal(isValidApplicator(worker.id,"2026-08-24",[worker],[certificate]),true);assert.equal(isValidApplicator(worker.id,"2027-01-01",[worker],[certificate]),false);assert.equal(isValidApplicator(worker.id,"2026-08-24",[{...worker,status:"inactive"}],[certificate]),false)});
+test("certificate validity dates cannot be inverted",()=>assert.equal(createCertificateSchema.safeParse({...certificate,id:undefined,createdAt:undefined,validFrom:"2027-01-01",validUntil:"2026-01-01"}).success,false));

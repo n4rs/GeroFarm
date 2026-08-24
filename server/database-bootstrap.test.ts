@@ -69,6 +69,13 @@ test("crop lifecycle migration isolates tenants and preserves dated rotation his
   assert.match(migration, /plantation_uprootings_plantation_unique/);
 });
 
+test("resource migration isolates people, certificates, contractors and equipment", () => {
+  const migration = readFileSync(resolve("migrations/0005_resources.sql"), "utf8");
+  for (const table of ["workers", "worker_certificates", "contractors", "equipment"]) assert.match(migration, new RegExp(`ALTER TABLE "farm"\\."${table}" FORCE ROW LEVEL SECURITY`));
+  assert.match(migration, /worker_certificates_dates_valid/);
+  assert.match(migration, /equipment_organization_code_unique/);
+});
+
 test("production bootstrap resets only the explicitly pinned empty farm database", () => {
   const bootstrap = readFileSync(resolve("script/bootstrap-production-database.ts"), "utf8");
   assert.match(bootstrap, /Type RESET \$\{bootstrapTarget\.database\}/);

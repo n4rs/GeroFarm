@@ -4,6 +4,7 @@ import { farmHoldingCopies } from "../client/src/app/farm/farm-holding-locales";
 import { fieldCopies } from "../client/src/app/farm/field-locales";
 import { cropCopies } from "../client/src/app/crops/crop-locales.generated";
 import { lifecycleCopies } from "../client/src/app/crops/lifecycle-locales.generated";
+import { resourceCopies } from "../client/src/app/resources/resource-locales.generated";
 
 function placeholders(value: string) { return [...value.matchAll(/\{(\w+)\}/g)].map((match) => match[1]).sort(); }
 
@@ -24,7 +25,7 @@ for (const locale of supportedLocales) {
   }
 }
 
-const moduleCatalogues = { farmHoldings: farmHoldingCopies, fields: fieldCopies, crops: cropCopies, lifecycle: lifecycleCopies };
+const moduleCatalogues = { farmHoldings: farmHoldingCopies, fields: fieldCopies, crops: cropCopies, lifecycle: lifecycleCopies, resources: resourceCopies };
 for (const [catalogueName, catalogue] of Object.entries(moduleCatalogues)) {
   const keys = Object.keys(catalogue.en).sort();
   for (const locale of supportedLocales) {
