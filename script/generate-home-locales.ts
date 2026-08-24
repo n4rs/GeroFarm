@@ -1,5 +1,6 @@
 import { writeFile } from "node:fs/promises";
 import { en, ptPT, supportedLocales, type HomepageCopy, type SupportedLocale } from "../client/src/home-copy";
+import { applyHomepageCommercialReview } from "./home-commercial-copy";
 
 const languageTargets: Record<Exclude<SupportedLocale, "en" | "pt-PT">, string> = {
   "pt-BR": "pt", fr: "fr", es: "es", nl: "nl", de: "de", ja: "ja", he: "iw", tr: "tr", ar: "ar", pl: "pl", hr: "hr", el: "el", sv: "sv", no: "no", da: "da", it: "it", uk: "uk", ro: "ro", fi: "fi", bg: "bg", hu: "hu", is: "is", sk: "sk", lt: "lt", sl: "sl", lv: "lv",
@@ -20,7 +21,7 @@ function setAt(target: Record<string, unknown>, path: Array<string | number>, va
   (cursor as Record<string | number, unknown>)[path.at(-1)!] = value;
 }
 
-const protectedTerms = ["GeroFarm", "GeroGrid", "Gero", "KML", "KMZ", "ET₀", "DLI", "Cookies", "Custom", "Start", "Grow", "Professional"];
+const protectedTerms = ["GeroFarm", "GeroGrid", "Gero", "KML", "KMZ", "ET₀", "DLI", "Cookies", "Custom", "Start", "Grow", "Professional", "GLOBALG.A.P.", "IFA", "GRASP", "SPRING", "IPM"];
 function disambiguateSource(text: string) {
   return text
     .replaceAll("Field agriculture", "Open-field agriculture")
@@ -105,11 +106,12 @@ for (const locale of supportedLocales) {
 const ptBR = generated["pt-BR"]!;
 ptBR.metaTitle = "Software de gestão agrícola de campo | GeroFarm";
 ptBR.metaDescription = "Mapeie talhões, conecte plantios, operações, colheitas e meteorologia agronômica e mantenha um caderno de campo claro com o GeroFarm.";
-Object.assign(ptBR.hero, { eyebrow: "Gestão completa no campo", title: "Gerencie cada plantio,", accent: "do mapa à colheita.", description: "Mapeie talhões, acompanhe plantios e registre operações, irrigação, fertilização, colheitas, lotes, equipes e equipamentos em uma única aplicação.", imageAlt: "Campos agrícolas com limites de talhões mapeados e pontos de observação agronômica", mapLabel: "Talhões mapeados", cropLabel: "Plantios ativos", operationLabel: "Operações registradas" });
+Object.assign(ptBR.hero, { eyebrow: "Gestão agrícola sem complicações", title: "Toda a fazenda,", accent: "sob controle.", description: "Planeje, registre e acompanhe todo o trabalho agrícola em uma aplicação simples de usar, com visão completa da fazenda e planos acessíveis que crescem com você.", imageAlt: "Campos agrícolas com limites de talhões mapeados e pontos de observação agronômica", mapLabel: "Talhões mapeados", cropLabel: "Plantios ativos", operationLabel: "Operações registradas" });
 ptBR.proof = ["Mapa e KML/KMZ", "Operações agrícolas completas", "Meteorologia por plantio", "Caderno de campo e rastreabilidade"];
 ptBR.flow.stages = ["Talhão", "Plantio", "Operação", "Colheita", "Caderno de campo"];
 ptBR.platform.description = "Estruture a fazenda, registre o que aconteceu e recupere o contexto de que sua equipe precisa.";
-ptBR.modules.costsDesc = "Mão de obra, equipamentos, insumos e outros recursos projetados nos custos do plantio e da colheita sem dupla contabilização.";
+ptBR.platform.cards[7].description = "Estruture registros e evidências rastreáveis para apoiar a Produção Integrada e o Manejo Integrado de Pragas (MIP), a produção orgânica, GLOBALG.A.P. IFA, GRASP, SPRING e outros referenciais aplicáveis. A certificação permanece dependente do organismo competente.";
+Object.assign(ptBR.modules, { kicker: "Estoque e custos sob controle", title: "Saiba o que tem, o que utiliza e quanto custa", description: "Acompanhe estoques e lotes, conecte cada consumo ao trabalho realizado e transforme mão de obra, equipamentos e insumos em custos claros por plantio e colheita.", inventory: "Estoque", inventoryDesc: "Consulte estoques, rastreabilidade de lotes, compras, movimentos e consumos, com cada recurso conectado à operação em que foi utilizado.", costs: "Custos", costsDesc: "Conheça o custo real de cada plantio e colheita, reunindo mão de obra, equipamentos, insumos e outros recursos sem dupla contabilização." });
 ptBR.pricing.description = "Escolha a escala e a profundidade da meteorologia agronômica de que a fazenda precisa. Nenhum plano limita operações, colheitas ou cadernos de campo.";
 ptBR.pricing.plans[0].features[3] = "5 talhões ativos";
 ptBR.pricing.plans[1].features[2] = "50 talhões";
@@ -118,11 +120,9 @@ ptBR.pricing.plans[3].features[1] = "Talhões e estações sob medida";
 ptBR.footer.tagline = "Gestão agrícola clara, do mapa ao caderno de campo.";
 ptBR.footer.cookies = "Cookies";
 
-generated.el!.modules.description = "Το Απόθεμα και το Κόστος είναι προαιρετικές ενότητες στα Grow και Custom και περιλαμβάνονται στο Professional.";
 generated.sv!.flow.stages[2] = "Åtgärd";
-generated.fi!.modules.description = "Varasto ja Kustannukset ovat valinnaisia moduuleja Grow- ja Custom-paketeissa ja sisältyvät Professional-pakettiin.";
-generated.hu!.modules.description = "A Készlet és a Költségek opcionális modulok a Grow és Custom csomagban, a Professional csomag pedig tartalmazza őket.";
 generated.is!.flow.stages[0] = "Spilda";
+applyHomepageCommercialReview(generated as Record<SupportedLocale, HomepageCopy>);
 
 const output = `// Generated by script/generate-home-locales.ts from the reviewed English and Portuguese source.\n// Do not edit by hand; regenerate and review the audit tests.\nimport type { HomepageCopy, SupportedLocale } from "./home-copy";\n\nexport const homepageCopies = ${JSON.stringify(generated, null, 2)} as const satisfies Record<SupportedLocale, HomepageCopy>;\n`;
 await writeFile(new URL("../client/src/home-locales.generated.ts", import.meta.url), output, "utf8");

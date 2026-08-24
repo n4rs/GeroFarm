@@ -18,10 +18,10 @@ export const homepageCopies = {
       "menu": "Abrir menu"
     },
     "hero": {
-      "eyebrow": "Gestão completa no campo",
-      "title": "Gira cada plantação,",
-      "accent": "do mapa à colheita.",
-      "description": "Mapeie talhões, acompanhe plantações e registe operações, rega, fertilização, colheitas, lotes, equipas e equipamentos numa única aplicação.",
+      "eyebrow": "Gestão agrícola sem complicações",
+      "title": "Toda a exploração,",
+      "accent": "sob controlo.",
+      "description": "Planeie, registe e acompanhe todo o trabalho agrícola numa aplicação simples de usar, com visão completa da exploração e planos acessíveis que crescem consigo.",
       "primary": "Começar com o GeroFarm",
       "secondary": "Ver planos",
       "note": "30 dias gratuitos · Sem cartão de crédito",
@@ -90,7 +90,7 @@ export const homepageCopies = {
         },
         {
           "title": "Caderno de campo",
-          "description": "Produza cadernos coerentes a partir das operações, recursos, aplicações e colheitas registadas, prontos a consultar e exportar.",
+          "description": "Estruture registos e evidências rastreáveis para apoiar a PRODI, o MPB, GLOBALG.A.P. IFA, GRASP, SPRING e outros referenciais aplicáveis. A certificação continua sempre dependente do organismo competente.",
           "status": "Disponível"
         }
       ]
@@ -107,18 +107,16 @@ export const homepageCopies = {
         "Necessidades de frio",
         "Molhamento foliar estimado",
         "Indicadores por plantação"
-      ],
-      "status": "Incluída em todos os planos, dentro do limite de estações virtuais"
+      ]
     },
     "modules": {
-      "kicker": "Profundidade adaptável",
-      "title": "Acrescente controlo operacional quando precisar",
-      "description": "Inventário e Custos são módulos opcionais no Grow e Custom e estão incluídos no Professional.",
+      "kicker": "Inventário e custos sob controlo",
+      "title": "Saiba o que tem, o que utiliza e quanto custa",
+      "description": "Acompanhe existências e lotes, ligue cada consumo ao trabalho realizado e transforme mão de obra, equipamentos e fatores em custos claros por plantação e colheita.",
       "inventory": "Inventário",
-      "inventoryDesc": "Compras, lotes, movimentos e consumos ligados à operação que utilizou cada recurso.",
+      "inventoryDesc": "Consulte existências, rastreabilidade de lotes, compras, movimentos e consumos, com cada recurso ligado à operação em que foi utilizado.",
       "costs": "Custos",
-      "costsDesc": "Mão de obra, equipamentos, fatores e outros recursos projetados nos custos da plantação e colheita sem dupla contabilização.",
-      "optional": "Módulo opcional"
+      "costsDesc": "Conheça o custo real de cada plantação e colheita, reunindo mão de obra, equipamentos, fatores e outros recursos sem dupla contabilização."
     },
     "privacy": {
       "badge": "Incluído em todos os planos pagos",
@@ -286,10 +284,10 @@ export const homepageCopies = {
       "privacy": "Privacy by Design"
     },
     "hero": {
-      "eyebrow": "Gestão completa no campo",
-      "title": "Gerencie cada plantio,",
-      "accent": "do mapa à colheita.",
-      "description": "Mapeie talhões, acompanhe plantios e registre operações, irrigação, fertilização, colheitas, lotes, equipes e equipamentos em uma única aplicação.",
+      "eyebrow": "Gestão agrícola sem complicações",
+      "title": "Toda a fazenda,",
+      "accent": "sob controle.",
+      "description": "Planeje, registre e acompanhe todo o trabalho agrícola em uma aplicação simples de usar, com visão completa da fazenda e planos acessíveis que crescem com você.",
       "primary": "Comece com GeroFarm",
       "secondary": "Ver planos",
       "note": "30 dias grátis · Não é necessário cartão de crédito",
@@ -358,7 +356,7 @@ export const homepageCopies = {
         },
         {
           "title": "Caderno de campo",
-          "description": "Gestão agrícola clara, do mapa ao caderno de campo.",
+          "description": "Estruture registros e evidências rastreáveis para apoiar a Produção Integrada e o Manejo Integrado de Pragas (MIP), a produção orgânica, GLOBALG.A.P. IFA, GRASP, SPRING e outros referenciais aplicáveis. A certificação permanece dependente do organismo competente.",
           "status": "Disponível"
         }
       ]
@@ -375,18 +373,16 @@ export const homepageCopies = {
         "Requisitos de frio",
         "Umidade foliar estimada",
         "Indicadores por safra"
-      ],
-      "status": "Disponível"
+      ]
     },
     "modules": {
-      "kicker": "Profundidade adaptável",
-      "title": "Adicione controle operacional quando precisar",
-      "description": "Inventário e Custos são módulos opcionais no Grow e Custom e incluídos no Professional.",
-      "inventory": "Inventário",
-      "inventoryDesc": "Compras, lotes, movimentações e consumos vinculados à operação que utilizou cada recurso.",
+      "kicker": "Estoque e custos sob controle",
+      "title": "Saiba o que tem, o que utiliza e quanto custa",
+      "description": "Acompanhe estoques e lotes, conecte cada consumo ao trabalho realizado e transforme mão de obra, equipamentos e insumos em custos claros por plantio e colheita.",
+      "inventory": "Estoque",
+      "inventoryDesc": "Consulte estoques, rastreabilidade de lotes, compras, movimentos e consumos, com cada recurso conectado à operação em que foi utilizado.",
       "costs": "Custos",
-      "costsDesc": "Mão de obra, equipamentos, insumos e outros recursos projetados nos custos do plantio e da colheita sem dupla contabilização.",
-      "optional": "Módulo opcional"
+      "costsDesc": "Conheça o custo real de cada plantio e colheita, reunindo mão de obra, equipamentos, insumos e outros recursos sem dupla contabilização."
     },
     "pricing": {
       "kicker": "Planos claros",
@@ -554,10 +550,10 @@ export const homepageCopies = {
       "menu": "Open menu"
     },
     "hero": {
-      "eyebrow": "Complete field management",
-      "title": "Run every crop,",
-      "accent": "from the map to the harvest.",
-      "description": "Map parcels, manage crops and record operations, irrigation, fertilisation, harvests, lots, teams and equipment in one application.",
+      "eyebrow": "Farm management made simple",
+      "title": "Complete control,",
+      "accent": "without the complexity.",
+      "description": "Plan, record and follow every farm activity in one easy-to-use application, with full visibility across the holding and plans designed to stay accessible as you grow.",
       "primary": "Start with GeroFarm",
       "secondary": "View plans",
       "note": "30-day free trial · No credit card required",
@@ -626,7 +622,7 @@ export const homepageCopies = {
         },
         {
           "title": "Field record",
-          "description": "Produce coherent field records from recorded operations, resources, applications and harvests, ready to consult and export.",
+          "description": "Build traceable records and evidence to support Integrated Production and Integrated Pest Management (IPM), organic production, GLOBALG.A.P. IFA, GRASP, SPRING and other applicable assurance schemes. Certification remains subject to the competent certification body.",
           "status": "Available"
         }
       ]
@@ -643,18 +639,16 @@ export const homepageCopies = {
         "Chill requirements",
         "Estimated leaf wetness",
         "Indicators by crop"
-      ],
-      "status": "Included in every plan, within its virtual-station limit"
+      ]
     },
     "modules": {
-      "kicker": "Adaptable depth",
-      "title": "Add operational control when you need it",
-      "description": "Inventory and Costs are optional modules on Grow and Custom, and included with Professional.",
+      "kicker": "Inventory and costs under control",
+      "title": "Know what you have, what you use and what it costs",
+      "description": "Follow stock and batches, connect every consumption to the work performed and turn labour, equipment and inputs into clear costs by crop and harvest.",
       "inventory": "Inventory",
-      "inventoryDesc": "Purchases, batches, movements and consumption connected to the operation that used each resource.",
+      "inventoryDesc": "See available stock, batch traceability, purchases, movements and consumption, with each resource linked to the operation where it was used.",
       "costs": "Costs",
-      "costsDesc": "Labour, equipment, inputs and other resources projected into crop and harvest costs without double counting.",
-      "optional": "Optional module"
+      "costsDesc": "Understand the real cost of each crop and harvest by bringing together labour, equipment, inputs and other resources without double counting."
     },
     "privacy": {
       "badge": "Included with every paid plan",
@@ -823,9 +817,9 @@ export const homepageCopies = {
     },
     "hero": {
       "eyebrow": "Gestion quotidienne de la ferme",
-      "title": "Le travail de la ferme, au même endroit",
-      "accent": "De la terre au registre du terrain",
-      "description": "Cartographiez les champs, connectez les cultures, les opérations, les récoltes et la météo agronomique, et conservez un enregistrement clair des champs avec GeroFarm.",
+      "title": "Toute l’exploitation,",
+      "accent": "sous contrôle.",
+      "description": "Planifiez, enregistrez et suivez tous les travaux agricoles dans une application simple à utiliser, avec une vue complète de l’exploitation et des offres accessibles qui évoluent avec vous.",
       "primary": "Commencez par GeroFarm",
       "secondary": "Voir les forfaits",
       "note": "Start jusqu'à 30 jours · Aucune carte de crédit requise",
@@ -894,7 +888,7 @@ export const homepageCopies = {
         },
         {
           "title": "Cahier de culture",
-          "description": "Gestion claire du terrain, de la carte à l'enregistrement du terrain.",
+          "description": "Structurez des registres et des preuves traçables pour soutenir la production intégrée et la protection intégrée (IPM), l’agriculture biologique, GLOBALG.A.P. IFA, GRASP, SPRING et d’autres référentiels applicables. La certification reste soumise à l’organisme compétent.",
           "status": "Disponible"
         }
       ]
@@ -911,18 +905,16 @@ export const homepageCopies = {
         "Exigences de refroidissement",
         "Humidité estimée des feuilles",
         "Indicateurs par culture"
-      ],
-      "status": "Disponible"
+      ]
     },
     "modules": {
-      "kicker": "Profondeur adaptable",
-      "title": "Ajoutez un contrôle opérationnel lorsque vous en avez besoin",
-      "description": "L'inventaire et les coûts sont des modules facultatifs sur Grow et Custom, et inclus avec Professional.",
+      "kicker": "Stocks et coûts sous contrôle",
+      "title": "Sachez ce que vous avez, ce que vous utilisez et ce que cela coûte",
+      "description": "Suivez les stocks et les lots, reliez chaque consommation au travail réalisé et transformez la main-d’œuvre, les équipements et les intrants en coûts clairs par culture et récolte.",
       "inventory": "Inventaire",
       "inventoryDesc": "Achats, lots, mouvements et consommations liés à l'opération qui a utilisé chaque ressource.",
       "costs": "Coûts",
-      "costsDesc": "Travail, équipement, intrants et autres ressources projetés dans les coûts des cultures et des récoltes sans double comptage.",
-      "optional": "Module optionnel"
+      "costsDesc": "Travail, équipement, intrants et autres ressources projetés dans les coûts des cultures et des récoltes sans double comptage."
     },
     "pricing": {
       "kicker": "Des plans clairs",
@@ -1091,9 +1083,9 @@ export const homepageCopies = {
     },
     "hero": {
       "eyebrow": "Gestión diaria de la granja",
-      "title": "El trabajo de la finca, en el mismo lugar",
-      "accent": "De la tierra al registro del campo",
-      "description": "Mapee campos, conecte cultivos, operaciones, cosechas y clima agronómico, y mantenga un registro de campo claro con GeroFarm.",
+      "title": "Toda la explotación,",
+      "accent": "bajo control.",
+      "description": "Planifique, registre y siga todo el trabajo agrícola en una aplicación fácil de usar, con una visión completa de la explotación y planes accesibles que crecen con usted.",
       "primary": "Comience con GeroFarm",
       "secondary": "Ver planos",
       "note": "Start por hasta 30 días · No se requiere tarjeta de crédito",
@@ -1162,7 +1154,7 @@ export const homepageCopies = {
         },
         {
           "title": "Cuaderno de campo",
-          "description": "Gestión clara del campo, desde el mapa hasta el registro de campo.",
+          "description": "Estructure registros y evidencias trazables para apoyar la producción integrada y la gestión integrada de plagas (GIP), la producción ecológica, GLOBALG.A.P. IFA, GRASP, SPRING y otros referenciales aplicables. La certificación sigue dependiendo del organismo competente.",
           "status": "Disponible"
         }
       ]
@@ -1179,18 +1171,16 @@ export const homepageCopies = {
         "Requisitos de enfriamiento",
         "Humedad foliar estimada",
         "Indicadores por cultivo"
-      ],
-      "status": "Disponible"
+      ]
     },
     "modules": {
-      "kicker": "Profundidad adaptable",
-      "title": "Agregue control operativo cuando lo necesite",
-      "description": "Inventario y Costos son módulos opcionales en Grow y Custom, y se incluyen con Professional.",
+      "kicker": "Inventario y costes bajo control",
+      "title": "Sepa qué tiene, qué utiliza y cuánto cuesta",
+      "description": "Controle existencias y lotes, vincule cada consumo al trabajo realizado y convierta mano de obra, equipos e insumos en costes claros por cultivo y cosecha.",
       "inventory": "inventario",
       "inventoryDesc": "Compras, lotes, movimientos y consumos relacionados con la operación que utilizó cada recurso.",
       "costs": "Costos",
-      "costsDesc": "Mano de obra, equipo, insumos y otros recursos proyectados en los costos de cultivos y cosechas sin doble contabilización.",
-      "optional": "Módulo opcional"
+      "costsDesc": "Mano de obra, equipo, insumos y otros recursos proyectados en los costos de cultivos y cosechas sin doble contabilización."
     },
     "pricing": {
       "kicker": "Planes claros",
@@ -1359,9 +1349,9 @@ export const homepageCopies = {
     },
     "hero": {
       "eyebrow": "Dagelijks boerderijbeheer",
-      "title": "Het werk van de boerderij, op dezelfde plek",
-      "accent": "Van het land tot het veldrecord",
-      "description": "Breng velden in kaart, verbind gewassen, bewerkingen, oogsten en agronomisch weer en houd een duidelijk veldrecord bij met GeroFarm.",
+      "title": "Het hele landbouwbedrijf,",
+      "accent": "onder controle.",
+      "description": "Plan, registreer en volg al het werk in één gebruiksvriendelijke toepassing, met volledig zicht op het bedrijf en betaalbare plannen die met u meegroeien.",
       "primary": "Begin met GeroFarm",
       "secondary": "Bekijk plannen",
       "note": "Start voor maximaal 30 dagen · Geen creditcard vereist",
@@ -1430,7 +1420,7 @@ export const homepageCopies = {
         },
         {
           "title": "Teeltregistratie",
-          "description": "Overzichtelijk veldbeheer, van kaart tot veldrecord.",
+          "description": "Structureer traceerbare registraties en bewijs voor geïntegreerde productie en geïntegreerde gewasbescherming (IPM), biologische productie, GLOBALG.A.P. IFA, GRASP, SPRING en andere toepasselijke schema’s. Certificering blijft afhankelijk van de bevoegde certificeringsinstantie.",
           "status": "Beschikbaar"
         }
       ]
@@ -1447,18 +1437,16 @@ export const homepageCopies = {
         "Chill-vereisten",
         "Geschatte bladnatheid",
         "Indicatoren per gewas"
-      ],
-      "status": "Beschikbaar"
+      ]
     },
     "modules": {
-      "kicker": "Aanpasbare diepte",
-      "title": "Voeg operationele controle toe wanneer u die nodig heeft",
-      "description": "Voorraad en kosten zijn optionele modules op de Grow en Custom, en inbegrepen bij de Professional.",
+      "kicker": "Voorraad en kosten onder controle",
+      "title": "Weet wat u heeft, wat u gebruikt en wat het kost",
+      "description": "Volg voorraad en partijen, koppel elk verbruik aan het uitgevoerde werk en vertaal arbeid, machines en productiemiddelen naar duidelijke kosten per teelt en oogst.",
       "inventory": "Inventaris",
       "inventoryDesc": "Aankopen, batches, bewegingen en verbruik die verband houden met de bewerking waarbij elke hulpbron is gebruikt.",
       "costs": "Kosten",
-      "costsDesc": "Arbeid, uitrusting, inputs en andere hulpbronnen worden zonder dubbeltelling in de gewas- en oogstkosten geprojecteerd.",
-      "optional": "Optionele module"
+      "costsDesc": "Arbeid, uitrusting, inputs en andere hulpbronnen worden zonder dubbeltelling in de gewas- en oogstkosten geprojecteerd."
     },
     "pricing": {
       "kicker": "Duidelijke plannen",
@@ -1627,9 +1615,9 @@ export const homepageCopies = {
     },
     "hero": {
       "eyebrow": "Tägliches Farmmanagement",
-      "title": "Die Arbeit auf dem Bauernhof, am selben Ort",
-      "accent": "Von der Land- zur Feldaufzeichnung",
-      "description": "Kartieren Sie Felder, verknüpfen Sie Pflanzen, Betriebe, Ernten und agronomisches Wetter und führen Sie mit GeroFarm eine klare Feldaufzeichnung.",
+      "title": "Der ganze Betrieb,",
+      "accent": "unter Kontrolle.",
+      "description": "Planen, dokumentieren und verfolgen Sie alle landwirtschaftlichen Arbeiten in einer einfach bedienbaren Anwendung – mit vollständigem Überblick und bezahlbaren Tarifen, die mit Ihrem Betrieb wachsen.",
       "primary": "Beginnen Sie mit GeroFarm",
       "secondary": "Pläne ansehen",
       "note": "Start für bis zu 30 Tage · Keine Kreditkarte erforderlich",
@@ -1698,7 +1686,7 @@ export const homepageCopies = {
         },
         {
           "title": "Schlagkartei",
-          "description": "Übersichtliche Schlagverwaltung, von der Karte bis zur Schlagaufzeichnung.",
+          "description": "Strukturieren Sie rückverfolgbare Aufzeichnungen und Nachweise zur Unterstützung der integrierten Produktion und des integrierten Pflanzenschutzes (IPM), des ökologischen Landbaus, von GLOBALG.A.P. IFA, GRASP, SPRING und weiteren anwendbaren Standards. Die Zertifizierung bleibt der zuständigen Zertifizierungsstelle vorbehalten.",
           "status": "Verfügbar"
         }
       ]
@@ -1715,18 +1703,16 @@ export const homepageCopies = {
         "Chill-Anforderungen",
         "Geschätzte Blattnässe",
         "Indikatoren nach Kultur"
-      ],
-      "status": "Verfügbar"
+      ]
     },
     "modules": {
-      "kicker": "Anpassbare Tiefe",
-      "title": "Fügen Sie bei Bedarf die Betriebskontrolle hinzu",
-      "description": "„Inventory“ und „Costs“ sind optionale Module für Grow und Custom und im Professional enthalten.",
+      "kicker": "Bestände und Kosten im Griff",
+      "title": "Wissen, was vorhanden ist, was eingesetzt wird und was es kostet",
+      "description": "Verfolgen Sie Bestände und Chargen, ordnen Sie jeden Verbrauch der ausgeführten Arbeit zu und erhalten Sie klare Kosten je Kultur und Ernte aus Arbeit, Maschinen und Betriebsmitteln.",
       "inventory": "Inventar",
       "inventoryDesc": "Käufe, Chargen, Bewegungen und Verbrauch im Zusammenhang mit dem Vorgang, der die einzelnen Ressourcen genutzt hat.",
       "costs": "Kosten",
-      "costsDesc": "Arbeitskräfte, Ausrüstung, Betriebsmittel und andere Ressourcen werden ohne Doppelzählung in die Ernte- und Erntekosten projiziert.",
-      "optional": "Optionales Modul"
+      "costsDesc": "Arbeitskräfte, Ausrüstung, Betriebsmittel und andere Ressourcen werden ohne Doppelzählung in die Ernte- und Erntekosten projiziert."
     },
     "pricing": {
       "kicker": "Klare Pläne",
@@ -1895,9 +1881,9 @@ export const homepageCopies = {
     },
     "hero": {
       "eyebrow": "日々の農場管理",
-      "title": "農場の仕事を同じ場所で",
-      "accent": "土地からフィールドレコードまで",
-      "description": "GeroFarm を使用して、圃場をマッピングし、作物、作業、収穫、農業気象を結び付け、明確な圃場記録を維持します。",
+      "title": "農場全体を、",
+      "accent": "シンプルに管理。",
+      "description": "使いやすい一つのアプリで農作業を計画・記録・確認。農場全体を把握でき、成長に合わせて選べる手頃なプランを用意しています。",
       "primary": "GeroFarm から始める",
       "secondary": "プランを見る",
       "note": "Start 最大 30 日間 · クレジット カードは必要ありません",
@@ -1966,7 +1952,7 @@ export const homepageCopies = {
         },
         {
           "title": "圃場記録",
-          "description": "地図から現場記録まで、明確な現場管理。",
+          "description": "統合生産・総合的病害虫管理（IPM）、有機生産、GLOBALG.A.P. IFA、GRASP、SPRING、その他の適用基準を支える、追跡可能な記録と証拠を整備します。認証は所管する認証機関の審査によります。",
           "status": "利用可能"
         }
       ]
@@ -1983,18 +1969,16 @@ export const homepageCopies = {
         "冷却要件",
         "推定葉湿り量",
         "作物別指標"
-      ],
-      "status": "利用可能"
+      ]
     },
     "modules": {
-      "kicker": "適応可能な深さ",
-      "title": "必要に応じて運用制御を追加する",
-      "description": "在庫とコストは、Grow および Custom のオプション モジュールであり、Professional に含まれています。",
+      "kicker": "在庫とコストを一元管理",
+      "title": "在庫、使用量、コストを正確に把握",
+      "description": "在庫とロットを追跡し、使用量を作業に結び付け、人件費・機械・資材を栽培と収穫ごとの明確なコストにまとめます。",
       "inventory": "在庫",
       "inventoryDesc": "各リソースを使用した操作に関連する購入、バッチ、移動、および消費。",
       "costs": "コスト",
-      "costsDesc": "労働力、設備、投入物、その他のリソースは、二重計算することなく作物と収穫のコストに投影されます。",
-      "optional": "オプションモジュール"
+      "costsDesc": "労働力、設備、投入物、その他のリソースは、二重計算することなく作物と収穫のコストに投影されます。"
     },
     "pricing": {
       "kicker": "明確な計画",
@@ -2163,9 +2147,9 @@ export const homepageCopies = {
     },
     "hero": {
       "eyebrow": "ניהול משק יומי",
-      "title": "עבודת החווה, באותו מקום",
-      "accent": "מהארץ לשיא השדה",
-      "description": "מפה שדות, חבר יבולים, פעולות, יבול ומזג אוויר אגרונומי, ושמור על רישום שדות ברור עם GeroFarm.",
+      "title": "כל המשק,",
+      "accent": "תחת שליטה.",
+      "description": "תכננו, תעדו ועקבו אחר כל העבודה החקלאית ביישום אחד וקל לשימוש, עם תמונה מלאה של המשק ומסלולים נגישים שצומחים איתכם.",
       "primary": "התחל עם GeroFarm",
       "secondary": "צפה בתוכניות",
       "note": "Start עד 30 ימים · אין צורך בכרטיס אשראי",
@@ -2234,7 +2218,7 @@ export const homepageCopies = {
         },
         {
           "title": "יומן שדה",
-          "description": "ניהול שדה ברור, ממפה לרשומת שדה.",
+          "description": "ארגנו רישומים וראיות ניתנים למעקב לתמיכה בייצור משולב ובהדברה משולבת (IPM), בייצור אורגני, ב-GLOBALG.A.P. IFA, ב-GRASP, ב-SPRING ובתקנים רלוונטיים נוספים. ההסמכה נשארת באחריות גוף ההסמכה המוסמך.",
           "status": "זמין"
         }
       ]
@@ -2251,18 +2235,16 @@ export const homepageCopies = {
         "דרישות צינה",
         "רטיבות עלים משוערת",
         "אינדיקטורים לפי יבול"
-      ],
-      "status": "זמין"
+      ]
     },
     "modules": {
-      "kicker": "עומק ניתן להתאמה",
-      "title": "הוסף שליטה תפעולית כאשר אתה צריך את זה",
-      "description": "מלאי ועלויות הם מודולים אופציונליים ב-Grow ו-Custom, וכלולים ב-Professional.",
+      "kicker": "מלאי ועלויות תחת שליטה",
+      "title": "דעו מה יש, במה משתמשים וכמה זה עולה",
+      "description": "עקבו אחר מלאי ואצוות, קשרו כל צריכה לעבודה שבוצעה והפכו עבודה, ציוד ותשומות לעלויות ברורות לכל גידול וקטיף.",
       "inventory": "מלאי",
       "inventoryDesc": "רכישות, אצוות, תנועות וצריכה קשורים לפעולה שהשתמשה בכל משאב.",
       "costs": "עלויות",
-      "costsDesc": "עבודה, ציוד, תשומות ומשאבים אחרים מוערכים לעלויות היבול והקציר ללא ספירה כפולה.",
-      "optional": "מודול אופציונלי"
+      "costsDesc": "עבודה, ציוד, תשומות ומשאבים אחרים מוערכים לעלויות היבול והקציר ללא ספירה כפולה."
     },
     "pricing": {
       "kicker": "תוכניות ברורות",
@@ -2431,9 +2413,9 @@ export const homepageCopies = {
     },
     "hero": {
       "eyebrow": "Günlük çiftlik yönetimi",
-      "title": "Çiftliğin işi aynı yerde",
-      "accent": "Araziden tarla kaydına",
-      "description": "GeroFarm ile tarlaları haritalandırın, mahsulleri, operasyonları, hasatları ve tarımsal hava durumunu bağlayın ve net bir saha kaydı tutun.",
+      "title": "Tüm işletme,",
+      "accent": "kontrol altında.",
+      "description": "Tüm tarımsal işleri kullanımı kolay tek bir uygulamada planlayın, kaydedin ve izleyin; işletmenin tamamını görün ve sizinle büyüyen erişilebilir planlardan yararlanın.",
       "primary": "GeroFarm ile başlayın",
       "secondary": "Planları görüntüle",
       "note": "30 güne kadar Start · Kredi kartı gerekmez",
@@ -2502,7 +2484,7 @@ export const homepageCopies = {
         },
         {
           "title": "Tarla kayıt defteri",
-          "description": "Haritadan saha kaydına kadar saha yönetimini temizleyin.",
+          "description": "Entegre üretim ve entegre zararlı yönetimi (IPM), organik üretim, GLOBALG.A.P. IFA, GRASP, SPRING ve diğer geçerli standartları destekleyen izlenebilir kayıt ve kanıtları yapılandırın. Belgelendirme yetkili belgelendirme kuruluşunun değerlendirmesine tabidir.",
           "status": "Mevcut"
         }
       ]
@@ -2519,18 +2501,16 @@ export const homepageCopies = {
         "Soğutma gereksinimleri",
         "Tahmini yaprak ıslaklığı",
         "Mahsullere göre göstergeler"
-      ],
-      "status": "Mevcut"
+      ]
     },
     "modules": {
-      "kicker": "Uyarlanabilir derinlik",
-      "title": "İhtiyacınız olduğunda operasyonel kontrol ekleyin",
-      "description": "Envanter ve Maliyetler, Grow ve Custom'deki isteğe bağlı modüllerdir ve Professional'ye dahildir.",
+      "kicker": "Stok ve maliyetler kontrol altında",
+      "title": "Neye sahip olduğunuzu, ne kullandığınızı ve maliyetini bilin",
+      "description": "Stokları ve partileri izleyin, her tüketimi yapılan işle ilişkilendirin; işçilik, ekipman ve girdileri ürün ve hasat bazında net maliyetlere dönüştürün.",
       "inventory": "Envanter",
       "inventoryDesc": "Her bir kaynağı kullanan operasyona bağlı satın almalar, partiler, hareketler ve tüketim.",
       "costs": "Maliyetler",
-      "costsDesc": "İşgücü, ekipman, girdiler ve diğer kaynaklar, çifte sayılmadan ürün ve hasat maliyetlerine yansıtılır.",
-      "optional": "İsteğe bağlı modül"
+      "costsDesc": "İşgücü, ekipman, girdiler ve diğer kaynaklar, çifte sayılmadan ürün ve hasat maliyetlerine yansıtılır."
     },
     "pricing": {
       "kicker": "Planları temizle",
@@ -2699,9 +2679,9 @@ export const homepageCopies = {
     },
     "hero": {
       "eyebrow": "إدارة المزرعة اليومية",
-      "title": "عمل المزرعة في نفس المكان",
-      "accent": "من الأرض إلى السجل الميداني",
-      "description": "قم بتخطيط الحقول وربط المحاصيل والعمليات والمحاصيل والطقس الزراعي، واحتفظ بسجل ميداني واضح باستخدام GeroFarm.",
+      "title": "المزرعة بأكملها،",
+      "accent": "تحت السيطرة.",
+      "description": "خطط لكل الأعمال الزراعية وسجّلها وتابعها في تطبيق واحد سهل الاستخدام، مع رؤية كاملة للمزرعة وخطط ميسّرة تنمو معك.",
       "primary": "ابدأ بـ GeroFarm",
       "secondary": "عرض الخطط",
       "note": "Start لمدة تصل إلى 30 يومًا · لا يلزم وجود بطاقة ائتمان",
@@ -2770,7 +2750,7 @@ export const homepageCopies = {
         },
         {
           "title": "سجل الحقل",
-          "description": "إدارة ميدانية واضحة، من الخريطة إلى السجل الميداني.",
+          "description": "نظّم سجلات وأدلة قابلة للتتبع لدعم الإنتاج المتكامل والإدارة المتكاملة للآفات (IPM)، والإنتاج العضوي، وGLOBALG.A.P. IFA، وGRASP، وSPRING، وغيرها من المعايير المعمول بها. ويظل الاعتماد خاضعًا لجهة التصديق المختصة.",
           "status": "متاح"
         }
       ]
@@ -2787,18 +2767,16 @@ export const homepageCopies = {
         "متطلبات البرد",
         "يقدر رطوبة الأوراق",
         "المؤشرات حسب المحاصيل"
-      ],
-      "status": "متاح"
+      ]
     },
     "modules": {
-      "kicker": "عمق قابل للتكيف",
-      "title": "أضف التحكم التشغيلي عندما تحتاج إليه",
-      "description": "يعد المخزون والتكاليف وحدات اختيارية في Grow وCustom، ويتم تضمينهما في Professional.",
+      "kicker": "المخزون والتكاليف تحت السيطرة",
+      "title": "اعرف ما لديك وما تستخدمه وتكلفته",
+      "description": "تابع المخزون والدفعات، واربط كل استهلاك بالعمل المنفذ، وحوّل العمالة والمعدات والمدخلات إلى تكاليف واضحة لكل زراعة وحصاد.",
       "inventory": "المخزون",
       "inventoryDesc": "المشتريات والدفعات والحركات والاستهلاك المرتبطة بالعملية التي استخدمت كل مورد.",
       "costs": "التكاليف",
-      "costsDesc": "العمالة والمعدات والمدخلات والموارد الأخرى المتوقعة في تكاليف المحاصيل والحصاد دون حساب مزدوج.",
-      "optional": "وحدة اختيارية"
+      "costsDesc": "العمالة والمعدات والمدخلات والموارد الأخرى المتوقعة في تكاليف المحاصيل والحصاد دون حساب مزدوج."
     },
     "pricing": {
       "kicker": "خطط واضحة",
@@ -2967,9 +2945,9 @@ export const homepageCopies = {
     },
     "hero": {
       "eyebrow": "Codzienne zarządzanie gospodarstwem",
-      "title": "Praca na farmie, w tym samym miejscu",
-      "accent": "Z ziemi do zapisu terenowego",
-      "description": "Mapuj pola, łącz uprawy, operacje, zbiory i pogodę agronomiczną oraz prowadź przejrzysty zapis pól za pomocą GeroFarm.",
+      "title": "Całe gospodarstwo,",
+      "accent": "pod kontrolą.",
+      "description": "Planuj, zapisuj i monitoruj wszystkie prace rolnicze w jednej prostej aplikacji, z pełnym obrazem gospodarstwa i przystępnymi planami, które rosną razem z nim.",
       "primary": "Zacznij od GeroFarm",
       "secondary": "Zobacz plany",
       "note": "Start do 30 dni · Karta kredytowa nie jest wymagana",
@@ -3038,7 +3016,7 @@ export const homepageCopies = {
         },
         {
           "title": "Ewidencja polowa",
-          "description": "Przejrzyste zarządzanie polem, od mapy po zapis pola.",
+          "description": "Twórz identyfikowalne rejestry i dowody wspierające produkcję integrowaną i integrowaną ochronę roślin (IPM), produkcję ekologiczną, GLOBALG.A.P. IFA, GRASP, SPRING oraz inne właściwe standardy. Certyfikacja pozostaje w gestii właściwej jednostki certyfikującej.",
           "status": "Dostępne"
         }
       ]
@@ -3055,18 +3033,16 @@ export const homepageCopies = {
         "Wymagania dotyczące relaksu",
         "Szacowana wilgotność liści",
         "Wskaźniki według upraw"
-      ],
-      "status": "Dostępne"
+      ]
     },
     "modules": {
-      "kicker": "Możliwość dostosowania głębokości",
-      "title": "Dodaj kontrolę operacyjną, kiedy jej potrzebujesz",
-      "description": "Zapasy i koszty to opcjonalne moduły w Grow i Custom i dołączone do Professional.",
+      "kicker": "Zapasy i koszty pod kontrolą",
+      "title": "Wiedz, co masz, czego używasz i ile to kosztuje",
+      "description": "Śledź zapasy i partie, łącz każde zużycie z wykonaną pracą i przeliczaj robociznę, sprzęt oraz środki produkcji na czytelne koszty uprawy i zbioru.",
       "inventory": "Zapasy",
       "inventoryDesc": "Zakupy, partie, ruchy i zużycie związane z operacją, w której wykorzystano każdy zasób.",
       "costs": "Koszty",
-      "costsDesc": "Praca, sprzęt, nakłady i inne zasoby uwzględnione w kosztach upraw i zbiorów bez podwójnego liczenia.",
-      "optional": "Moduł opcjonalny"
+      "costsDesc": "Praca, sprzęt, nakłady i inne zasoby uwzględnione w kosztach upraw i zbiorów bez podwójnego liczenia."
     },
     "pricing": {
       "kicker": "Jasne plany",
@@ -3235,9 +3211,9 @@ export const homepageCopies = {
     },
     "hero": {
       "eyebrow": "Dnevno upravljanje farmom",
-      "title": "Rad farme, na istom mjestu",
-      "accent": "Od zemlje do polja",
-      "description": "Mapirajte polja, povežite usjeve, radnje, žetvu i agronomsko vrijeme i vodite čistu evidenciju polja uz GeroFarm.",
+      "title": "Cijelo gospodarstvo,",
+      "accent": "pod kontrolom.",
+      "description": "Planirajte, bilježite i pratite sve poljoprivredne radove u jednoj jednostavnoj aplikaciji, uz potpuni pregled gospodarstva i pristupačne pakete koji rastu s vama.",
       "primary": "Počnite sa GeroFarm",
       "secondary": "Pogledajte planove",
       "note": "Start do 30 dana · Kreditna kartica nije potrebna",
@@ -3306,7 +3282,7 @@ export const homepageCopies = {
         },
         {
           "title": "Evidencija polja",
-          "description": "Jasno upravljanje poljem, od karte do zapisa polja.",
+          "description": "Uredite sljedive zapise i dokaze za potporu integriranoj proizvodnji i integriranoj zaštiti bilja (IPM), ekološkoj proizvodnji, GLOBALG.A.P. IFA, GRASP, SPRING i drugim primjenjivim standardima. Certifikacija ostaje u nadležnosti ovlaštenog certifikacijskog tijela.",
           "status": "na raspolaganju"
         }
       ]
@@ -3323,18 +3299,16 @@ export const homepageCopies = {
         "Zahtjevi za hlađenje",
         "Procijenjena vlažnost lišća",
         "Pokazatelji po usjevima"
-      ],
-      "status": "na raspolaganju"
+      ]
     },
     "modules": {
-      "kicker": "Prilagodljiva dubina",
-      "title": "Dodajte operativnu kontrolu kada je trebate",
-      "description": "Inventar i troškovi su izborni moduli na Grow i Custom, a uključeni su u Professional.",
+      "kicker": "Zalihe i troškovi pod kontrolom",
+      "title": "Znajte što imate, što koristite i koliko to košta",
+      "description": "Pratite zalihe i serije, povežite svaku potrošnju s obavljenim radom te pretvorite rad, opremu i inpute u jasne troškove po uzgoju i berbi.",
       "inventory": "Inventar",
       "inventoryDesc": "Kupnje, serije, kretanja i potrošnja povezani s operacijom koja je koristila svaki resurs.",
       "costs": "Troškovi",
-      "costsDesc": "Rad, oprema, inputi i drugi resursi projicirani u troškove usjeva i žetve bez dvostrukog računanja.",
-      "optional": "Izborni modul"
+      "costsDesc": "Rad, oprema, inputi i drugi resursi projicirani u troškove usjeva i žetve bez dvostrukog računanja."
     },
     "pricing": {
       "kicker": "Jasni planovi",
@@ -3503,9 +3477,9 @@ export const homepageCopies = {
     },
     "hero": {
       "eyebrow": "Καθημερινή διαχείριση αγροκτήματος",
-      "title": "Η δουλειά της φάρμας, στον ίδιο χώρο",
-      "accent": "Από τη γη στο αρχείο πεδίου",
-      "description": "Χαρτογραφήστε τα χωράφια, συνδέστε τις καλλιέργειες, τις λειτουργίες, τη συγκομιδή και τον αγρονομικό καιρό και διατηρήστε ένα καθαρό αρχείο αγρών με το GeroFarm.",
+      "title": "Ολόκληρη η εκμετάλλευση,",
+      "accent": "υπό έλεγχο.",
+      "description": "Σχεδιάστε, καταγράψτε και παρακολουθήστε όλες τις γεωργικές εργασίες σε μία εύχρηστη εφαρμογή, με πλήρη εικόνα της εκμετάλλευσης και προσιτά προγράμματα που εξελίσσονται μαζί σας.",
       "primary": "Ξεκινήστε με GeroFarm",
       "secondary": "Προβολή σχεδίων",
       "note": "Start για έως και 30 ημέρες · Δεν απαιτείται πιστωτική κάρτα",
@@ -3574,7 +3548,7 @@ export const homepageCopies = {
         },
         {
           "title": "Ημερολόγιο αγρού",
-          "description": "Εκκαθάριση διαχείρισης πεδίου, από χάρτη σε αρχείο πεδίου.",
+          "description": "Οργανώστε ιχνηλάσιμα αρχεία και τεκμήρια για την υποστήριξη της ολοκληρωμένης παραγωγής και της ολοκληρωμένης φυτοπροστασίας (IPM), της βιολογικής παραγωγής, των GLOBALG.A.P. IFA, GRASP, SPRING και άλλων εφαρμοστέων προτύπων. Η πιστοποίηση παραμένει αρμοδιότητα του εξουσιοδοτημένου φορέα.",
           "status": "Διαθέσιμο"
         }
       ]
@@ -3591,18 +3565,16 @@ export const homepageCopies = {
         "Απαιτήσεις ψύχους",
         "Εκτιμώμενη υγρασία των φύλλων",
         "Δείκτες ανά καλλιέργεια"
-      ],
-      "status": "Διαθέσιμο"
+      ]
     },
     "modules": {
-      "kicker": "Προσαρμόσιμο βάθος",
-      "title": "Προσθέστε λειτουργικό έλεγχο όταν το χρειάζεστε",
-      "description": "Το Απόθεμα και το Κόστος είναι προαιρετικές ενότητες στα Grow και Custom και περιλαμβάνονται στο Professional.",
+      "kicker": "Απόθεμα και κόστος υπό έλεγχο",
+      "title": "Γνωρίζετε τι έχετε, τι χρησιμοποιείτε και πόσο κοστίζει",
+      "description": "Παρακολουθήστε αποθέματα και παρτίδες, συνδέστε κάθε κατανάλωση με την εργασία και μετατρέψτε εργασία, εξοπλισμό και εισροές σε σαφές κόστος ανά καλλιέργεια και συγκομιδή.",
       "inventory": "Απογραφή",
       "inventoryDesc": "Αγορές, παρτίδες, κινήσεις και κατανάλωση που συνδέονται με τη λειτουργία που χρησιμοποίησε κάθε πόρο.",
       "costs": "Κόστος",
-      "costsDesc": "Εργασία, εξοπλισμός, εισροές και άλλοι πόροι που προβάλλονται στο κόστος των καλλιεργειών και της συγκομιδής χωρίς διπλή καταμέτρηση.",
-      "optional": "Προαιρετική ενότητα"
+      "costsDesc": "Εργασία, εξοπλισμός, εισροές και άλλοι πόροι που προβάλλονται στο κόστος των καλλιεργειών και της συγκομιδής χωρίς διπλή καταμέτρηση."
     },
     "pricing": {
       "kicker": "Ξεκάθαρα σχέδια",
@@ -3771,9 +3743,9 @@ export const homepageCopies = {
     },
     "hero": {
       "eyebrow": "Daglig gårdsdrift",
-      "title": "Gårdens arbete, på samma plats",
-      "accent": "Från land till fältrekord",
-      "description": "Kartlägg fält, koppla ihop grödor, operationer, skördar och agronomiskt väder och håll ett tydligt fältregister med GeroFarm.",
+      "title": "Hela gården,",
+      "accent": "under kontroll.",
+      "description": "Planera, registrera och följ allt arbete i en lättanvänd applikation, med full överblick över gården och prisvärda planer som växer med dig.",
       "primary": "Börja med GeroFarm",
       "secondary": "Se planer",
       "note": "Start i upp till 30 dagar · Inget kreditkort krävs",
@@ -3842,7 +3814,7 @@ export const homepageCopies = {
         },
         {
           "title": "Fältjournal",
-          "description": "Tydlig fälthantering, från karta till fältpost.",
+          "description": "Strukturera spårbara journaler och underlag som stöd för integrerad produktion och integrerat växtskydd (IPM), ekologisk produktion, GLOBALG.A.P. IFA, GRASP, SPRING och andra tillämpliga standarder. Certifiering avgörs alltid av behörigt certifieringsorgan.",
           "status": "Tillgänglig"
         }
       ]
@@ -3859,18 +3831,16 @@ export const homepageCopies = {
         "Chillkrav",
         "Uppskattad bladväta",
         "Indikatorer efter gröda"
-      ],
-      "status": "Tillgänglig"
+      ]
     },
     "modules": {
-      "kicker": "Anpassningsbart djup",
-      "title": "Lägg till driftskontroll när du behöver det",
-      "description": "Lager och kostnader är valfria moduler på Grow och Custom, och ingår i Professional.",
+      "kicker": "Lager och kostnader under kontroll",
+      "title": "Se vad du har, vad du använder och vad det kostar",
+      "description": "Följ lager och partier, koppla varje förbrukning till utfört arbete och omvandla arbete, utrustning och insatsvaror till tydliga kostnader per odling och skörd.",
       "inventory": "Inventering",
       "inventoryDesc": "Inköp, partier, förflyttningar och förbrukning kopplade till den verksamhet som använde respektive resurs.",
       "costs": "Kostnader",
-      "costsDesc": "Arbetskraft, utrustning, insatsvaror och andra resurser räknas in i kostnader för skörd och skörd utan dubbelräkning.",
-      "optional": "Valfri modul"
+      "costsDesc": "Arbetskraft, utrustning, insatsvaror och andra resurser räknas in i kostnader för skörd och skörd utan dubbelräkning."
     },
     "pricing": {
       "kicker": "Tydliga planer",
@@ -4039,9 +4009,9 @@ export const homepageCopies = {
     },
     "hero": {
       "eyebrow": "Daglig gårdsdrift",
-      "title": "Gårdens arbeid, på samme sted",
-      "accent": "Fra land til feltrekord",
-      "description": "Kartlegg åker, koble sammen avlinger, operasjoner, høstinger og agronomisk vær, og hold en klar feltrekord med GeroFarm.",
+      "title": "Hele gården,",
+      "accent": "under kontroll.",
+      "description": "Planlegg, registrer og følg alt arbeid i én brukervennlig applikasjon, med full oversikt over gården og rimelige planer som vokser med deg.",
       "primary": "Start med GeroFarm",
       "secondary": "Se planer",
       "note": "Start i opptil 30 dager · Ingen kredittkort kreves",
@@ -4110,7 +4080,7 @@ export const homepageCopies = {
         },
         {
           "title": "Skifteloggbok",
-          "description": "Tydelig feltstyring, fra kart til feltpost.",
+          "description": "Strukturer sporbare journaler og dokumentasjon som støtter integrert produksjon og integrert plantevern (IPM), økologisk produksjon, GLOBALG.A.P. IFA, GRASP, SPRING og andre relevante standarder. Sertifisering avgjøres alltid av et kompetent sertifiseringsorgan.",
           "status": "Tilgjengelig"
         }
       ]
@@ -4127,18 +4097,16 @@ export const homepageCopies = {
         "Chill krav",
         "Estimert bladfuktighet",
         "Indikatorer etter avling"
-      ],
-      "status": "Tilgjengelig"
+      ]
     },
     "modules": {
-      "kicker": "Tilpassbar dybde",
-      "title": "Legg til driftskontroll når du trenger det",
-      "description": "Inventar og kostnader er valgfrie moduler på Grow og Custom, og inkludert med Professional.",
+      "kicker": "Lager og kostnader under kontroll",
+      "title": "Vit hva du har, hva du bruker og hva det koster",
+      "description": "Følg lager og partier, knytt hvert forbruk til utført arbeid og gjør arbeid, utstyr og innsatsmidler om til tydelige kostnader per dyrking og innhøsting.",
       "inventory": "Inventar",
       "inventoryDesc": "Innkjøp, partier, bevegelser og forbruk knyttet til operasjonen som brukte hver ressurs.",
       "costs": "Kostnader",
-      "costsDesc": "Arbeid, utstyr, innsatsvarer og andre ressurser projisert inn i avlings- og høstingskostnader uten dobbelttelling.",
-      "optional": "Valgfri modul"
+      "costsDesc": "Arbeid, utstyr, innsatsvarer og andre ressurser projisert inn i avlings- og høstingskostnader uten dobbelttelling."
     },
     "pricing": {
       "kicker": "Klare planer",
@@ -4307,9 +4275,9 @@ export const homepageCopies = {
     },
     "hero": {
       "eyebrow": "Daglig gårddrift",
-      "title": "Gårdens arbejde, samme sted",
-      "accent": "Fra land til markrekord",
-      "description": "Kortlæg marker, forbind afgrøder, operationer, høst og agronomisk vejr, og hold en klar markregistrering med GeroFarm.",
+      "title": "Hele bedriften,",
+      "accent": "under kontrol.",
+      "description": "Planlæg, registrér og følg alt landbrugsarbejde i én brugervenlig applikation med fuldt overblik og prisvenlige planer, der vokser med dig.",
       "primary": "Start med GeroFarm",
       "secondary": "Se planer",
       "note": "Start i op til 30 dage · Intet kreditkort påkrævet",
@@ -4378,7 +4346,7 @@ export const homepageCopies = {
         },
         {
           "title": "Markjournal",
-          "description": "Tydelig markstyring, fra kort til markregistrering.",
+          "description": "Strukturér sporbare journaler og dokumentation til støtte for integreret produktion og integreret plantebeskyttelse (IPM), økologisk produktion, GLOBALG.A.P. IFA, GRASP, SPRING og andre relevante standarder. Certificering afgøres fortsat af det kompetente certificeringsorgan.",
           "status": "Tilgængelig"
         }
       ]
@@ -4395,18 +4363,16 @@ export const homepageCopies = {
         "Chill krav",
         "Estimeret bladvæde",
         "Indikatorer efter afgrøde"
-      ],
-      "status": "Tilgængelig"
+      ]
     },
     "modules": {
-      "kicker": "Tilpasningsbar dybde",
-      "title": "Tilføj driftskontrol, når du har brug for det",
-      "description": "Inventar og omkostninger er valgfrie moduler på Grow og Custom og inkluderet med Professional.",
+      "kicker": "Lager og omkostninger under kontrol",
+      "title": "Vid, hvad du har, hvad du bruger, og hvad det koster",
+      "description": "Følg lager og partier, knyt hvert forbrug til det udførte arbejde, og omsæt arbejdskraft, udstyr og input til klare omkostninger pr. dyrkning og høst.",
       "inventory": "Inventar",
       "inventoryDesc": "Indkøb, partier, bevægelser og forbrug forbundet med den operation, der brugte hver ressource.",
       "costs": "Omkostninger",
-      "costsDesc": "Arbejdskraft, udstyr, input og andre ressourcer beregnet til afgrøde- og høstomkostninger uden dobbelttælling.",
-      "optional": "Valgfrit modul"
+      "costsDesc": "Arbejdskraft, udstyr, input og andre ressourcer beregnet til afgrøde- og høstomkostninger uden dobbelttælling."
     },
     "pricing": {
       "kicker": "Klare planer",
@@ -4575,9 +4541,9 @@ export const homepageCopies = {
     },
     "hero": {
       "eyebrow": "Gestione quotidiana dell'azienda agricola",
-      "title": "Il lavoro della fattoria, nello stesso luogo",
-      "accent": "Dalla terra al record sul campo",
-      "description": "Mappa i campi, collega colture, operazioni, raccolti e condizioni meteorologiche agronomiche e mantieni un chiaro registro del campo con GeroFarm.",
+      "title": "Tutta l’azienda,",
+      "accent": "sotto controllo.",
+      "description": "Pianifica, registra e segui ogni attività agricola in un’applicazione facile da usare, con una visione completa dell’azienda e piani accessibili che crescono con te.",
       "primary": "Inizia con GeroFarm",
       "secondary": "Visualizza i piani",
       "note": "Start fino a 30 giorni · Non è richiesta la carta di credito",
@@ -4646,7 +4612,7 @@ export const homepageCopies = {
         },
         {
           "title": "Quaderno di campagna",
-          "description": "Gestione chiara del campo, dalla mappa alla registrazione del campo.",
+          "description": "Organizza registri e prove tracciabili a supporto della produzione integrata e della difesa integrata (IPM), della produzione biologica, di GLOBALG.A.P. IFA, GRASP, SPRING e di altri standard applicabili. La certificazione resta soggetta all’organismo competente.",
           "status": "Disponibile"
         }
       ]
@@ -4663,18 +4629,16 @@ export const homepageCopies = {
         "Requisiti di raffreddamento",
         "Bagnatura fogliare stimata",
         "Indicatori per coltura"
-      ],
-      "status": "Disponibile"
+      ]
     },
     "modules": {
-      "kicker": "Profondità adattabile",
-      "title": "Aggiungi il controllo operativo quando ne hai bisogno",
-      "description": "Inventario e costi sono moduli opzionali su Grow e Custom e inclusi con Professional.",
+      "kicker": "Scorte e costi sotto controllo",
+      "title": "Sapere cosa hai, cosa utilizzi e quanto costa",
+      "description": "Monitora scorte e lotti, collega ogni consumo al lavoro svolto e trasforma manodopera, attrezzature e mezzi tecnici in costi chiari per coltura e raccolto.",
       "inventory": "Inventario",
       "inventoryDesc": "Acquisti, lotti, movimenti e consumi connessi all'operazione che ha utilizzato ciascuna risorsa.",
       "costs": "Costi",
-      "costsDesc": "Manodopera, attrezzature, input e altre risorse proiettate nei costi delle colture e del raccolto senza doppio conteggio.",
-      "optional": "Modulo opzionale"
+      "costsDesc": "Manodopera, attrezzature, input e altre risorse proiettate nei costi delle colture e del raccolto senza doppio conteggio."
     },
     "pricing": {
       "kicker": "Piani chiari",
@@ -4843,9 +4807,9 @@ export const homepageCopies = {
     },
     "hero": {
       "eyebrow": "Щоденне управління фермою",
-      "title": "Робота колгоспу, там же",
-      "accent": "Від землі до поля",
-      "description": "Створюйте карти полів, зв’язуйте посіви, операції, врожаї та агрономічну погоду, а також зберігайте чіткі записи поля за допомогою GeroFarm.",
+      "title": "Усе господарство,",
+      "accent": "під контролем.",
+      "description": "Плануйте, записуйте й відстежуйте всі сільськогосподарські роботи в одному простому застосунку, з повним оглядом господарства та доступними планами, що зростають разом із вами.",
       "primary": "Почніть із GeroFarm",
       "secondary": "Переглянути плани",
       "note": "Start до 30 днів · Кредитна картка не потрібна",
@@ -4914,7 +4878,7 @@ export const homepageCopies = {
         },
         {
           "title": "Польовий журнал",
-          "description": "Чітке керування полями, від карти до запису поля.",
+          "description": "Створюйте простежувані записи й докази на підтримку інтегрованого виробництва та інтегрованого захисту рослин (IPM), органічного виробництва, GLOBALG.A.P. IFA, GRASP, SPRING та інших застосовних стандартів. Сертифікація залишається компетенцією уповноваженого органу.",
           "status": "в наявності"
         }
       ]
@@ -4931,18 +4895,16 @@ export const homepageCopies = {
         "Вимоги до охолодження",
         "Розрахункова вологість листя",
         "Показники по культурах"
-      ],
-      "status": "в наявності"
+      ]
     },
     "modules": {
-      "kicker": "Регульована глибина",
-      "title": "Додайте оперативний контроль, коли вам це потрібно",
-      "description": "Інвентаризація та витрати є додатковими модулями для Grow і Custom і включені до Professional.",
+      "kicker": "Запаси й витрати під контролем",
+      "title": "Знайте, що маєте, що використовуєте і скільки це коштує",
+      "description": "Відстежуйте запаси й партії, пов’язуйте кожне використання з виконаною роботою та отримуйте чіткі витрати за культурою і врожаєм з праці, техніки й ресурсів.",
       "inventory": "Інвентар",
       "inventoryDesc": "Закупівлі, партії, рух і споживання, пов’язані з операцією, яка використовувала кожен ресурс.",
       "costs": "Витрати",
-      "costsDesc": "Праця, обладнання, вхідні ресурси та інші ресурси, прогнозовані у витратах на врожай і врожай без подвійного підрахунку.",
-      "optional": "Додатковий модуль"
+      "costsDesc": "Праця, обладнання, вхідні ресурси та інші ресурси, прогнозовані у витратах на врожай і врожай без подвійного підрахунку."
     },
     "pricing": {
       "kicker": "Чіткі плани",
@@ -5111,9 +5073,9 @@ export const homepageCopies = {
     },
     "hero": {
       "eyebrow": "Managementul zilnic al fermei",
-      "title": "Munca fermei, în același loc",
-      "accent": "De la pământ până la câmp",
-      "description": "Hartați câmpurile, conectați culturile, operațiunile, recoltele și vremea agronomică și păstrați o înregistrare clară a câmpului cu GeroFarm.",
+      "title": "Întreaga exploatație,",
+      "accent": "sub control.",
+      "description": "Planificați, înregistrați și urmăriți toate lucrările agricole într-o aplicație ușor de folosit, cu o imagine completă a exploatației și planuri accesibile care cresc odată cu dumneavoastră.",
       "primary": "Începeți cu GeroFarm",
       "secondary": "Vezi planuri",
       "note": "Start timp de până la 30 de zile · Nu este necesar un card de credit",
@@ -5182,7 +5144,7 @@ export const homepageCopies = {
         },
         {
           "title": "Registru de câmp",
-          "description": "Gestionare clară a câmpului, de la hartă la înregistrarea câmpului.",
+          "description": "Structurați registre și dovezi trasabile pentru a sprijini producția integrată și gestionarea integrată a dăunătorilor (IPM), producția ecologică, GLOBALG.A.P. IFA, GRASP, SPRING și alte standarde aplicabile. Certificarea rămâne în responsabilitatea organismului competent.",
           "status": "Disponibil"
         }
       ]
@@ -5199,18 +5161,16 @@ export const homepageCopies = {
         "Cerințe de răcire",
         "Umiditatea estimată a frunzelor",
         "Indicatori după cultură"
-      ],
-      "status": "Disponibil"
+      ]
     },
     "modules": {
-      "kicker": "Adâncime adaptabilă",
-      "title": "Adăugați control operațional atunci când aveți nevoie",
-      "description": "Inventarul și Costurile sunt module opționale pe Grow și Custom și sunt incluse cu Professional.",
+      "kicker": "Stocuri și costuri sub control",
+      "title": "Știți ce aveți, ce utilizați și cât costă",
+      "description": "Urmăriți stocurile și loturile, legați fiecare consum de lucrarea realizată și transformați munca, echipamentele și inputurile în costuri clare pe cultură și recoltă.",
       "inventory": "Inventar",
       "inventoryDesc": "Achiziții, loturi, mișcări și consumuri legate de operațiunea care a folosit fiecare resursă.",
       "costs": "Costuri",
-      "costsDesc": "Forța de muncă, echipamentele, inputurile și alte resurse proiectate în costurile culturilor și recoltei fără dublă numărare.",
-      "optional": "Modul optional"
+      "costsDesc": "Forța de muncă, echipamentele, inputurile și alte resurse proiectate în costurile culturilor și recoltei fără dublă numărare."
     },
     "pricing": {
       "kicker": "Planuri clare",
@@ -5379,9 +5339,9 @@ export const homepageCopies = {
     },
     "hero": {
       "eyebrow": "Päivittäinen maatilan hallinta",
-      "title": "Maatilan työ, samassa paikassa",
-      "accent": "Maasta kenttäennätykseen",
-      "description": "Kartoita peltoja, yhdistä sadot, toiminnot, sadonkorjuut ja agronominen sää ja pidä selkeää peltorekisteriä GeroFarm:n avulla.",
+      "title": "Koko maatila,",
+      "accent": "hallinnassa.",
+      "description": "Suunnittele, kirjaa ja seuraa kaikki maataloustyöt yhdessä helppokäyttöisessä sovelluksessa, josta saat kokonaiskuvan tilasta ja edulliset, mukanasi kasvavat paketit.",
       "primary": "Aloita GeroFarm:llä",
       "secondary": "Katso suunnitelmat",
       "note": "Start jopa 30 päivää · Luottokorttia ei tarvita",
@@ -5450,7 +5410,7 @@ export const homepageCopies = {
         },
         {
           "title": "Lohkokirjanpito",
-          "description": "Selkeä peltojen hallinta kartasta peltotietueeseen.",
+          "description": "Rakenna jäljitettävät kirjaukset ja todisteet integroidun tuotannon ja integroidun kasvinsuojelun (IPM), luonnonmukaisen tuotannon, GLOBALG.A.P. IFA:n, GRASP:n, SPRINGin ja muiden sovellettavien standardien tueksi. Sertifioinnista päättää aina toimivaltainen sertifiointielin.",
           "status": "Saatavilla"
         }
       ]
@@ -5467,18 +5427,16 @@ export const homepageCopies = {
         "Jäähdytysvaatimukset",
         "Arvioitu lehtien kosteus",
         "Indikaattorit sadon mukaan"
-      ],
-      "status": "Saatavilla"
+      ]
     },
     "modules": {
-      "kicker": "Säädettävä syvyys",
-      "title": "Lisää toiminnanohjausta tarvittaessa",
-      "description": "Varasto ja Kustannukset ovat valinnaisia moduuleja Grow- ja Custom-paketeissa ja sisältyvät Professional-pakettiin.",
+      "kicker": "Varasto ja kustannukset hallinnassa",
+      "title": "Tiedä, mitä sinulla on, mitä käytät ja mitä se maksaa",
+      "description": "Seuraa varastoja ja eriä, yhdistä kulutus tehtyyn työhön ja muodosta työstä, kalustosta ja tuotantopanoksista selkeät kustannukset viljelylle ja sadolle.",
       "inventory": "Varasto",
       "inventoryDesc": "Kutakin resurssia käyttäneeseen toimintaan liittyvät ostot, erät, siirrot ja kulutus.",
       "costs": "Kustannukset",
-      "costsDesc": "Työvoima, laitteet, tuotantopanokset ja muut resurssit ennustetaan sato- ja satokustannuksiin ilman kaksinkertaista laskentaa.",
-      "optional": "Valinnainen moduuli"
+      "costsDesc": "Työvoima, laitteet, tuotantopanokset ja muut resurssit ennustetaan sato- ja satokustannuksiin ilman kaksinkertaista laskentaa."
     },
     "pricing": {
       "kicker": "Selkeitä suunnitelmia",
@@ -5647,9 +5605,9 @@ export const homepageCopies = {
     },
     "hero": {
       "eyebrow": "Ежедневно управление на фермата",
-      "title": "Работата на фермата, на същото място",
-      "accent": "От земята до полето",
-      "description": "Картирайте полета, свържете култури, операции, реколти и агрономично време и поддържайте ясен полеви запис с GeroFarm.",
+      "title": "Цялото стопанство,",
+      "accent": "под контрол.",
+      "description": "Планирайте, записвайте и проследявайте всички земеделски дейности в едно лесно за използване приложение, с пълен поглед върху стопанството и достъпни планове, които растат с вас.",
       "primary": "Започнете с GeroFarm",
       "secondary": "Вижте планове",
       "note": "Start за до 30 дни · Не се изисква кредитна карта",
@@ -5718,7 +5676,7 @@ export const homepageCopies = {
         },
         {
           "title": "Дневник на полето",
-          "description": "Ясно управление на полето, от карта до запис на поле.",
+          "description": "Структурирайте проследими записи и доказателства в подкрепа на интегрираното производство и интегрираното управление на вредителите (IPM), биологичното производство, GLOBALG.A.P. IFA, GRASP, SPRING и други приложими стандарти. Сертифицирането остава в компетентността на упълномощения орган.",
           "status": "Наличен"
         }
       ]
@@ -5735,18 +5693,16 @@ export const homepageCopies = {
         "Изисквания за охлаждане",
         "Прогнозна влажност на листата",
         "Показатели по култури"
-      ],
-      "status": "Наличен"
+      ]
     },
     "modules": {
-      "kicker": "Адаптивна дълбочина",
-      "title": "Добавете оперативен контрол, когато имате нужда от него",
-      "description": "Инвентаризацията и разходите са незадължителни модули на Grow и Custom и са включени в Professional.",
+      "kicker": "Наличности и разходи под контрол",
+      "title": "Знайте какво имате, какво използвате и колко струва",
+      "description": "Следете наличности и партиди, свързвайте всяко потребление с извършената работа и превръщайте труда, техниката и вложенията в ясни разходи по култура и реколта.",
       "inventory": "Инвентаризация",
       "inventoryDesc": "Покупки, партиди, движения и потребление, свързани с операцията, която използва всеки ресурс.",
       "costs": "Разходи",
-      "costsDesc": "Труд, оборудване, суровини и други ресурси, предвидени в разходите за реколта и реколта без двойно отчитане.",
-      "optional": "Допълнителен модул"
+      "costsDesc": "Труд, оборудване, суровини и други ресурси, предвидени в разходите за реколта и реколта без двойно отчитане."
     },
     "pricing": {
       "kicker": "Ясни планове",
@@ -5915,9 +5871,9 @@ export const homepageCopies = {
     },
     "hero": {
       "eyebrow": "Napi gazdálkodás",
-      "title": "A farm munkája, ugyanott",
-      "accent": "A földtől a tereprekordig",
-      "description": "A GeroFarm segítségével térképezze fel a táblákat, kapcsolja össze a növényeket, a műveleteket, a betakarítást és az agronómiai időjárást, és vezessen egyértelmű táblát.",
+      "title": "Az egész gazdaság,",
+      "accent": "kézben tartva.",
+      "description": "Tervezze, rögzítse és kövesse az összes mezőgazdasági munkát egy könnyen használható alkalmazásban, teljes rálátással a gazdaságra és megfizethető, együtt növekvő csomagokkal.",
       "primary": "Kezdje a GeroFarm-vel",
       "secondary": "Tervek megtekintése",
       "note": "Start akár 30 napig · Nem szükséges hitelkártya",
@@ -5986,7 +5942,7 @@ export const homepageCopies = {
         },
         {
           "title": "Táblatörzskönyv",
-          "description": "Tiszta terepkezelés, a térképtől a táblarekordig.",
+          "description": "Hozzon létre nyomon követhető nyilvántartásokat és bizonyítékokat az integrált termelés és integrált növényvédelem (IPM), az ökológiai termelés, a GLOBALG.A.P. IFA, a GRASP, a SPRING és más alkalmazandó szabványok támogatására. A tanúsítás az illetékes tanúsító szervezet hatáskörébe tartozik.",
           "status": "Elérhető"
         }
       ]
@@ -6003,18 +5959,16 @@ export const homepageCopies = {
         "Chill követelmények",
         "A levél becsült nedvessége",
         "Mutatók termés szerint"
-      ],
-      "status": "Elérhető"
+      ]
     },
     "modules": {
-      "kicker": "Alkalmazható mélység",
-      "title": "Adja hozzá a működési vezérlést, amikor szüksége van rá",
-      "description": "A Készlet és a Költségek opcionális modulok a Grow és Custom csomagban, a Professional csomag pedig tartalmazza őket.",
+      "kicker": "Készletek és költségek kézben tartva",
+      "title": "Tudja, mije van, mit használ és mennyibe kerül",
+      "description": "Kövesse a készleteket és tételeket, kapcsoljon minden felhasználást az elvégzett munkához, és alakítsa a munkaerőt, gépeket és inputokat egyértelmű költségekké kultúránként és betakarításonként.",
       "inventory": "Leltár",
       "inventoryDesc": "Az egyes erőforrásokat használó műveletekhez kapcsolódó beszerzések, kötegek, mozgások és fogyasztás.",
       "costs": "Költségek",
-      "costsDesc": "Munkaerő, felszerelés, ráfordítások és egyéb erőforrások a termés és a betakarítás költségeibe vetítve, kétszeres számítás nélkül.",
-      "optional": "Opcionális modul"
+      "costsDesc": "Munkaerő, felszerelés, ráfordítások és egyéb erőforrások a termés és a betakarítás költségeibe vetítve, kétszeres számítás nélkül."
     },
     "pricing": {
       "kicker": "Világos tervek",
@@ -6183,9 +6137,9 @@ export const homepageCopies = {
     },
     "hero": {
       "eyebrow": "Dagleg bústjórn",
-      "title": "Starf bæjarins, á sama stað",
-      "accent": "Frá landi til vallarmets",
-      "description": "Kortleggðu akra, tengdu ræktun, rekstur, uppskeru og landbúnaðarveður og haltu skýrri akurskrá með GeroFarm.",
+      "title": "Allur búreksturinn,",
+      "accent": "undir stjórn.",
+      "description": "Skipuleggðu, skráðu og fylgstu með öllum landbúnaðarstörfum í einu einföldu kerfi, með heildarsýn yfir reksturinn og hagkvæmum áskriftum sem vaxa með þér.",
       "primary": "Byrjaðu með GeroFarm",
       "secondary": "Skoða áætlanir",
       "note": "Start í allt að 30 daga · Ekkert kreditkort krafist",
@@ -6254,7 +6208,7 @@ export const homepageCopies = {
         },
         {
           "title": "Akraskrá",
-          "description": "Skýr sviðsstjórnun, frá korti til sviðsskrár.",
+          "description": "Byggðu upp rekjanlegar skrár og gögn til stuðnings samþættri framleiðslu og samþættum plöntuverndaraðferðum (IPM), lífrænni framleiðslu, GLOBALG.A.P. IFA, GRASP, SPRING og öðrum viðeigandi stöðlum. Vottun er ávallt háð mati viðurkennds vottunaraðila.",
           "status": "Í boði"
         }
       ]
@@ -6271,18 +6225,16 @@ export const homepageCopies = {
         "Chill kröfur",
         "Áætluð laufbleyta",
         "Vísar eftir uppskeru"
-      ],
-      "status": "Í boði"
+      ]
     },
     "modules": {
-      "kicker": "Aðlögunarhæf dýpt",
-      "title": "Bættu við rekstrarstjórnun þegar þú þarft á því að halda",
-      "description": "Birgðir og kostnaður eru valfrjálsar einingar á Grow og Custom og fylgja með Professional.",
+      "kicker": "Birgðir og kostnaður undir stjórn",
+      "title": "Veistu hvað er til, hvað er notað og hvað það kostar",
+      "description": "Fylgstu með birgðum og lotum, tengdu hverja notkun við unnið verk og breyttu vinnu, búnaði og aðföngum í skýran kostnað eftir ræktun og uppskeru.",
       "inventory": "Birgðir",
       "inventoryDesc": "Innkaup, lotur, hreyfingar og neysla tengd starfseminni sem notaði hverja auðlind.",
       "costs": "Kostnaður",
-      "costsDesc": "Vinnuafli, búnaður, aðföng og önnur tilföng reiknuð inn í uppskeru- og uppskerukostnað án tvítalningar.",
-      "optional": "Valfrjáls eining"
+      "costsDesc": "Vinnuafli, búnaður, aðföng og önnur tilföng reiknuð inn í uppskeru- og uppskerukostnað án tvítalningar."
     },
     "pricing": {
       "kicker": "Skýr áætlanir",
@@ -6451,9 +6403,9 @@ export const homepageCopies = {
     },
     "hero": {
       "eyebrow": "Denný manažment farmy",
-      "title": "Práca na farme, na rovnakom mieste",
-      "accent": "Z pozemku do terénneho záznamu",
-      "description": "Mapujte polia, spojte plodiny, operácie, úrodu a agronomické počasie a udržujte si prehľadné záznamy o poli so GeroFarm.",
+      "title": "Celé hospodárstvo,",
+      "accent": "pod kontrolou.",
+      "description": "Plánujte, zaznamenávajte a sledujte všetky poľnohospodárske práce v jednej jednoduchej aplikácii s úplným prehľadom a dostupnými plánmi, ktoré rastú spolu s vami.",
       "primary": "Začnite s GeroFarm",
       "secondary": "Zobraziť plány",
       "note": "Start až na 30 dní · Nevyžaduje sa žiadna kreditná karta",
@@ -6522,7 +6474,7 @@ export const homepageCopies = {
         },
         {
           "title": "Poľný denník",
-          "description": "Prehľadná správa poľa, od mapy po záznam poľa.",
+          "description": "Vytvárajte vysledovateľné záznamy a dôkazy na podporu integrovanej produkcie a integrovanej ochrany rastlín (IPM), ekologickej produkcie, GLOBALG.A.P. IFA, GRASP, SPRING a ďalších platných štandardov. Certifikácia zostáva v právomoci príslušného certifikačného orgánu.",
           "status": "Dostupné"
         }
       ]
@@ -6539,18 +6491,16 @@ export const homepageCopies = {
         "Požiadavky na chladenie",
         "Odhadovaná vlhkosť listov",
         "Ukazovatele podľa plodiny"
-      ],
-      "status": "Dostupné"
+      ]
     },
     "modules": {
-      "kicker": "Prispôsobiteľná hĺbka",
-      "title": "Pridajte prevádzkovú kontrolu, keď ju potrebujete",
-      "description": "Zásoby a náklady sú voliteľné moduly na Grow a Custom a sú súčasťou Professional.",
+      "kicker": "Zásoby a náklady pod kontrolou",
+      "title": "Vedzte, čo máte, čo používate a koľko to stojí",
+      "description": "Sledujte zásoby a šarže, prepájajte každú spotrebu s vykonanou prácou a premeňte prácu, stroje a vstupy na jasné náklady podľa pestovania a zberu.",
       "inventory": "Inventár",
       "inventoryDesc": "Nákupy, dávky, pohyby a spotreba spojené s operáciou, ktorá využívala každý zdroj.",
       "costs": "náklady",
-      "costsDesc": "Práca, vybavenie, vstupy a iné zdroje premietnuté do nákladov na úrodu a zber bez dvojitého započítania.",
-      "optional": "Voliteľný modul"
+      "costsDesc": "Práca, vybavenie, vstupy a iné zdroje premietnuté do nákladov na úrodu a zber bez dvojitého započítania."
     },
     "pricing": {
       "kicker": "Jasné plány",
@@ -6719,9 +6669,9 @@ export const homepageCopies = {
     },
     "hero": {
       "eyebrow": "Kasdienis ūkio valdymas",
-      "title": "Ūkio darbas, toje pačioje vietoje",
-      "accent": "Nuo žemės iki lauko rekordo",
-      "description": "Su GeroFarm susirašykite laukus, sujunkite pasėlius, operacijas, derlių ir agronominius orus bei veskite aiškų lauko įrašą.",
+      "title": "Visas ūkis,",
+      "accent": "jūsų kontrolėje.",
+      "description": "Planuokite, registruokite ir stebėkite visus žemės ūkio darbus vienoje lengvai naudojamoje programoje, matydami visą ūkį ir rinkdamiesi prieinamus, kartu augančius planus.",
       "primary": "Pradėkite nuo GeroFarm",
       "secondary": "Žiūrėti planus",
       "note": "Start iki 30 dienų · Nereikia kredito kortelės",
@@ -6790,7 +6740,7 @@ export const homepageCopies = {
         },
         {
           "title": "Lauko žurnalas",
-          "description": "Aiškus lauko valdymas nuo žemėlapio iki lauko įrašo.",
+          "description": "Kurkite atsekamus įrašus ir įrodymus, padedančius laikytis integruotos gamybos ir integruotos kenkėjų kontrolės (IPM), ekologinės gamybos, GLOBALG.A.P. IFA, GRASP, SPRING ir kitų taikomų standartų. Sertifikavimą visada atlieka kompetentinga sertifikavimo įstaiga.",
           "status": "Galima"
         }
       ]
@@ -6807,18 +6757,16 @@ export const homepageCopies = {
         "Chill reikalavimai",
         "Numatomas lapų drėgnumas",
         "Rodikliai pagal pasėlius"
-      ],
-      "status": "Galima"
+      ]
     },
     "modules": {
-      "kicker": "Pritaikomas gylis",
-      "title": "Pridėkite veikimo valdymą, kai to reikia",
-      "description": "Inventorius ir sąnaudos yra pasirenkami Grow ir Custom moduliai, įtraukti į Professional.",
+      "kicker": "Atsargos ir sąnaudos kontroliuojamos",
+      "title": "Žinokite, ką turite, ką naudojate ir kiek tai kainuoja",
+      "description": "Stebėkite atsargas ir partijas, susiekite kiekvieną sunaudojimą su atliktu darbu ir paverskite darbą, techniką bei išteklius aiškiomis auginimo ir derliaus sąnaudomis.",
       "inventory": "Inventorius",
       "inventoryDesc": "Pirkimai, partijos, judėjimai ir vartojimas, susiję su operacija, kuri naudojo kiekvieną išteklį.",
       "costs": "Išlaidos",
-      "costsDesc": "Darbo jėga, įranga, sąnaudos ir kiti ištekliai numatyti pasėlių ir derliaus sąnaudoms be dvigubo skaičiavimo.",
-      "optional": "Pasirenkamas modulis"
+      "costsDesc": "Darbo jėga, įranga, sąnaudos ir kiti ištekliai numatyti pasėlių ir derliaus sąnaudoms be dvigubo skaičiavimo."
     },
     "pricing": {
       "kicker": "Aiškūs planai",
@@ -6987,9 +6935,9 @@ export const homepageCopies = {
     },
     "hero": {
       "eyebrow": "Dnevno vodenje kmetije",
-      "title": "Delo kmetije, na istem mestu",
-      "accent": "Od zemlje do terenskega zapisa",
-      "description": "Preslikajte polja, povežite pridelke, operacije, žetve in agronomsko vreme ter vodite jasen zapis polja z GeroFarm.",
+      "title": "Celotno gospodarstvo,",
+      "accent": "pod nadzorom.",
+      "description": "Načrtujte, beležite in spremljajte vsa kmetijska dela v eni preprosti aplikaciji, s popolnim pregledom gospodarstva in dostopnimi paketi, ki rastejo z vami.",
       "primary": "Začnite z GeroFarm",
       "secondary": "Ogled načrtov",
       "note": "Start do 30 dni · Kreditna kartica ni potrebna",
@@ -7058,7 +7006,7 @@ export const homepageCopies = {
         },
         {
           "title": "Poljski dnevnik",
-          "description": "Jasno upravljanje polja, od zemljevida do zapisa polja.",
+          "description": "Uredite sledljive evidence in dokazila v podporo integrirani pridelavi in integriranemu varstvu rastlin (IPM), ekološki pridelavi, GLOBALG.A.P. IFA, GRASP, SPRING ter drugim veljavnim standardom. Certificiranje ostaja v pristojnosti pooblaščenega certifikacijskega organa.",
           "status": "Na voljo"
         }
       ]
@@ -7075,18 +7023,16 @@ export const homepageCopies = {
         "Zahteve za hlajenje",
         "Ocenjena vlažnost listov",
         "Indikatorji po posevku"
-      ],
-      "status": "Na voljo"
+      ]
     },
     "modules": {
-      "kicker": "Prilagodljiva globina",
-      "title": "Dodajte operativni nadzor, ko ga potrebujete",
-      "description": "Zaloge in stroški so izbirni moduli na Grow in Custom ter vključeni v Professional.",
+      "kicker": "Zaloge in stroški pod nadzorom",
+      "title": "Vedite, kaj imate, kaj uporabljate in koliko stane",
+      "description": "Spremljajte zaloge in serije, povežite vsako porabo z opravljenim delom ter pretvorite delo, opremo in vložke v jasne stroške po gojenju in spravilu.",
       "inventory": "Inventar",
       "inventoryDesc": "Nakupi, serije, premiki in poraba, povezani z operacijo, ki je uporabila vsak vir.",
       "costs": "Stroški",
-      "costsDesc": "Delo, oprema, vložki in drugi viri, predvideni v stroških pridelka in žetve brez dvojnega štetja.",
-      "optional": "Izbirni modul"
+      "costsDesc": "Delo, oprema, vložki in drugi viri, predvideni v stroških pridelka in žetve brez dvojnega štetja."
     },
     "pricing": {
       "kicker": "Jasni načrti",
@@ -7255,9 +7201,9 @@ export const homepageCopies = {
     },
     "hero": {
       "eyebrow": "Ikdienas saimniecības vadība",
-      "title": "Saimniecības darbs, tajā pašā vietā",
-      "accent": "No zemes līdz lauka rekordam",
-      "description": "Kartējiet laukus, savienojiet kultūras, darbības, ražas un agronomiskos laikapstākļus un saglabājiet skaidru lauka uzskaiti, izmantojot GeroFarm.",
+      "title": "Visa saimniecība,",
+      "accent": "jūsu kontrolē.",
+      "description": "Plānojiet, reģistrējiet un pārraugiet visus lauksaimniecības darbus vienā viegli lietojamā programmā, ar pilnu saimniecības pārskatu un pieejamiem plāniem, kas aug kopā ar jums.",
       "primary": "Sāciet ar GeroFarm",
       "secondary": "Skatīt plānus",
       "note": "Start līdz 30 dienām · Kredītkarte nav nepieciešama",
@@ -7326,7 +7272,7 @@ export const homepageCopies = {
         },
         {
           "title": "Lauka žurnāls",
-          "description": "Skaidra lauka pārvaldība no kartes uz lauka ierakstu.",
+          "description": "Veidojiet izsekojamus ierakstus un pierādījumus integrētās ražošanas un integrētās augu aizsardzības (IPM), bioloģiskās ražošanas, GLOBALG.A.P. IFA, GRASP, SPRING un citu piemērojamo standartu atbalstam. Sertifikāciju vienmēr veic kompetentā sertifikācijas iestāde.",
           "status": "Pieejams"
         }
       ]
@@ -7343,18 +7289,16 @@ export const homepageCopies = {
         "Chill prasības",
         "Paredzamais lapu mitrums",
         "Rādītāji pēc ražas"
-      ],
-      "status": "Pieejams"
+      ]
     },
     "modules": {
-      "kicker": "Pielāgojams dziļums",
-      "title": "Pievienojiet darbības vadību, kad tā ir nepieciešama",
-      "description": "Inventāri un izmaksas ir izvēles moduļi Grow un Custom, un tie ir iekļauti komplektā Professional.",
+      "kicker": "Krājumi un izmaksas kontrolē",
+      "title": "Ziniet, kas jums ir, ko izmantojat un cik tas maksā",
+      "description": "Sekojiet krājumiem un partijām, sasaistiet katru patēriņu ar paveikto darbu un pārvērtiet darbu, tehniku un resursus skaidrās izmaksās pa audzējumiem un ražām.",
       "inventory": "Inventārs",
       "inventoryDesc": "Pirkumi, partijas, pārvietošana un patēriņš, kas saistīti ar darbību, kurā tika izmantots katrs resurss.",
       "costs": "Izmaksas",
-      "costsDesc": "Darbaspēks, aprīkojums, izejmateriāli un citi resursi, kas tiek prognozēti ražas un ražas izmaksās bez dubultas uzskaites.",
-      "optional": "Izvēles modulis"
+      "costsDesc": "Darbaspēks, aprīkojums, izejmateriāli un citi resursi, kas tiek prognozēti ražas un ražas izmaksās bez dubultas uzskaites."
     },
     "pricing": {
       "kicker": "Skaidri plāni",
