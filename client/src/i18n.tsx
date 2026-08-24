@@ -18,7 +18,8 @@ export function normalizeLocale(value?: string | null): SupportedLocale | null {
   if (candidate.startsWith("pt")) return "pt-PT";
   if (candidate.startsWith("nb") || candidate.startsWith("nn")) return "no";
   if (candidate.startsWith("iw")) return "he";
-  return supportedLocales.find((locale) => candidate.startsWith(locale.toLowerCase())) ?? null;
+  const language = candidate.split(/[-_]/, 1)[0];
+  return supportedLocales.find((locale) => locale.toLowerCase() === language) ?? null;
 }
 
 export function detectLocale(search = window.location.search, languages = navigator.languages): SupportedLocale {
@@ -48,9 +49,15 @@ export function I18nProvider({ children, preferredLocale }: { children: ReactNod
     setLocaleState(next);
   };
   useEffect(() => {
-    const manual = normalizeLocale(new URLSearchParams(window.location.search).get("lang")) || normalizeLocale(localStorage.getItem(storageKey));
     const account = normalizeLocale(preferredLocale);
-    if (!manual && account) setLocaleState(account);
+    if (!account) return;
+    localStorage.setItem(storageKey, account);
+    if (!isPublicSeoHomepage(window.location.pathname)) {
+      const url = new URL(window.location.href);
+      url.searchParams.set("lang", account);
+      window.history.replaceState(window.history.state, "", url);
+    }
+    setLocaleState(account);
   }, [preferredLocale]);
   useEffect(() => { document.documentElement.lang = locale; document.documentElement.dir = rtl.has(locale) ? "rtl" : "ltr"; }, [locale]);
   const value = useMemo<I18nValue>(() => ({ locale, copy: homepageCopies[locale], setLocale, options: supportedLocales.map((code) => ({ code, label: nativeNames[code] })) }), [locale]);

@@ -27,9 +27,10 @@ Não declarar estes pontos validados até existirem evidências separadas de mig
 
 ## Dependências GeroCore que encerram a sequência autónoma
 
-- Primeiro acesso/onboarding, organização única, memberships, roles, acessos temporários, permissões económicas, planos, subscrições e limites são fontes de verdade GeroCore.
-- A rota de Meteorologia depende da estação virtual e do contrato meteorológico Core, incluindo proveniência por período e indicadores derivados. O GeroFarm não contactará Pirate Weather diretamente.
-- Configurações de conta/organização/idioma que alterem fontes de verdade centrais devem usar APIs GeroCore; não criar projeções locais concorrentes.
+- Primeiro acesso/onboarding, organização única, memberships, roles, acessos temporários, permissões económicas, planos, subscrições e limites continuam fontes de verdade GeroCore. A rota `/app/settings` apenas projeta os contratos publicados de conta, organização selecionada, acesso e entitlements.
+- A rota de Meteorologia consome a estação virtual e o contrato meteorológico Core, incluindo proveniência por período e indicadores derivados. Desde `364c94c`, o GeroFarm usa as acumulações canónicas do Core e não contacta nem recalcula dados do fornecedor.
+- O idioma é persistido centralmente, nas mesmas 28 línguas da homepage, através de `PATCH /api/v1/me/profile`; `localStorage`, URL, `lang` e RTL são apenas estado de apresentação sincronizado, não uma segunda preferência de conta.
+- **Contrato ainda inexistente para unidades e regras organizacionais:** os contratos Core publicados não expõem uma preferência de sistema de unidades nem regras regionais/agronómicas da organização. Para as tornar configuráveis será necessário um contrato Core explícito, com `GET`/`PATCH` autenticados por organização, esquema e enumerações versionadas, permissões de leitura/escrita e valores efetivos com proveniência. Até esse contrato existir, Configurações não mostra controlos fictícios nem grava estas escolhas localmente.
 - GeroGrid, pagamentos, credenciais, jobs externos e qualquer migração/deploy/QA publicado permanecem fora do trabalho autónomo concluído.
 
 ## Meteorologia agronómica central

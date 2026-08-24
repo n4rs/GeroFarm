@@ -1,5 +1,4 @@
-export const supportedLocales = ["pt-PT", "pt-BR", "en", "fr", "es", "nl", "de", "ja", "he", "tr", "ar", "pl", "hr", "el", "sv", "no", "da", "it", "uk", "ro", "fi", "bg", "hu", "is", "sk", "lt", "sl", "lv"] as const;
-export type SupportedLocale = typeof supportedLocales[number];
+export { supportedLocales, type SupportedLocale } from "@shared/locales";
 
 export type HomepageCopy = {
   metaTitle: string; metaDescription: string;

@@ -6,6 +6,8 @@ import { formatWorkspaceMessage, workspaceCopies, workspaceStateCopies } from ".
 import { irrigationCopies } from "./operations/irrigation-locales";
 import { agronomyCopies } from "./agronomy/agronomy-locales";
 import EntitlementCenter from "./entitlements/EntitlementCenter";
+import { settingsCopies } from "./settings/settings-locales";
+import type { SupportedLocale } from "../home-copy";
 import "../mockup/mockup.css";
 import "./workspace.css";
 
@@ -19,6 +21,7 @@ const PrivacyModule = lazy(() => import("./privacy/PrivacyModule"));
 const AgronomyModule = lazy(() => import("./agronomy/AgronomyModule"));
 const EconomicsModule = lazy(() => import("./economics/EconomicsModule"));
 const WeatherModule = lazy(() => import("./weather/WeatherModule"));
+const SettingsModule = lazy(() => import("./settings/SettingsModule"));
 
 type ModuleId = "overview" | "farm" | "crops" | "operations" | "monitoring" | "irrigation" | "plans" | "weather" | "harvests" | "notebook" | "resources" | "inventory" | "costs" | "privacy" | "settings";
 type NavigationItem = { id: ModuleId; label: string; short: string; group?: string };
@@ -55,13 +58,14 @@ function commonCopy() {
 }
 
 export default function AppWorkspace() {
-  const { session, config, loading, error, selectOrganization, logout } = useAuth();
+  const { session, config, loading, error, selectOrganization, updateLocale, logout } = useAuth();
   const { locale, copy, setLocale, options } = useI18n();
   const common = workspaceCopies[locale];
   const stateCopy = workspaceStateCopies[locale];
   const navigation = useMemo(() => moduleNavigation(copy, common, copy.privacy.title, irrigationCopies[locale].irrigations,agronomyCopies[locale].monitoring,agronomyCopies[locale].harvests,agronomyCopies[locale].currentNotebook), [copy, common, locale]);
   const [module, setModule] = useState<ModuleId>(() => routeModule());
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [localeUpdate, setLocaleUpdate] = useState<"idle" | "saving" | "error">("idle");
 
   useEffect(() => {
     const onPopState = () => setModule(routeModule());
@@ -86,6 +90,15 @@ export default function AppWorkspace() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
+  async function changeCentralLocale(next: SupportedLocale) {
+    setLocaleUpdate("saving");
+    try {
+      await updateLocale(next);
+      setLocale(next);
+      setLocaleUpdate("idle");
+    } catch { setLocaleUpdate("error"); }
+  }
+
   return <div className="farm-app live-workspace">
     <aside className={`farm-sidebar ${sidebarOpen ? "is-open" : ""}`}>
       <div className="farm-brand-row"><a href="/" aria-label="GeroFarm"><img src="/brand/gerofarm-mark.svg" alt="GeroFarm" /></a><button className="sidebar-close" onClick={() => setSidebarOpen(false)} aria-label={common.closeNavigation}>×</button></div>
@@ -98,12 +111,13 @@ export default function AppWorkspace() {
       <header className="farm-topbar">
         <button className="mobile-menu" onClick={() => setSidebarOpen(true)} aria-label={common.openNavigation}>☰</button>
         <div className="crumb"><span>GeroFarm</span><b>/</b><strong>{active.label}</strong></div>
-        <div className="top-actions workspace-actions"><label><span>{common.language}</span><select aria-label={common.language} value={locale} onChange={(event) => setLocale(event.target.value as typeof locale)}>{options.map((option) => <option key={option.code} value={option.code}>{option.label}</option>)}</select></label><button className="icon-button" aria-label={common.search}>⌕</button><button className="icon-button" aria-label={common.notifications}>◎</button><button className="primary-action" disabled={!session.access.access.writeAllowed||(!permitted("operations.manage")&&!permitted("operations.create"))} onClick={() => navigate("operations")}><span>＋</span> {common.registerOperation}</button></div>
+        <div className="top-actions workspace-actions"><label><span>{common.language}</span><select aria-label={common.language} value={locale} disabled={localeUpdate === "saving"} onChange={(event) => void changeCentralLocale(event.target.value as SupportedLocale)}>{options.map((option) => <option key={option.code} value={option.code}>{option.label}</option>)}</select></label><button className="icon-button" aria-label={common.search}>⌕</button><button className="icon-button" aria-label={common.notifications}>◎</button><button className="primary-action" disabled={!session.access.access.writeAllowed||(!permitted("operations.manage")&&!permitted("operations.create"))} onClick={() => navigate("operations")}><span>＋</span> {common.registerOperation}</button></div>
       </header>
 
       <main className="farm-content">
         <EntitlementCenter config={config}/>
-        {module === "overview" ? <Overview name={session.user.name} organization={session.access.organization.name} common={common} /> : module === "farm" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><FarmHoldingsModule /></Suspense> : module === "crops" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><CropsModule /></Suspense> : module === "resources" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><ResourcesModule /></Suspense> : module === "operations" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><OperationsModule /></Suspense> : module === "monitoring" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><AgronomyModule view="monitoring" /></Suspense> : module === "harvests" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><AgronomyModule view="harvests" /></Suspense> : module === "notebook" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><AgronomyModule view="notebook" /></Suspense> : module === "irrigation" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><IrrigationModule /></Suspense> : module === "plans" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><PlansModule /></Suspense> : module === "weather" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><WeatherModule /></Suspense> : module === "privacy" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><PrivacyModule /></Suspense> : module === "inventory" || module === "costs" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><EconomicsModule view={module} /></Suspense> : <PendingModule title={active.label} common={common} />}
+        {localeUpdate === "error" && <div className="workspace-locale-error" role="alert">{settingsCopies[locale].saveError}</div>}
+        {module === "overview" ? <Overview name={session.user.name} organization={session.access.organization.name} common={common} /> : module === "farm" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><FarmHoldingsModule /></Suspense> : module === "crops" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><CropsModule /></Suspense> : module === "resources" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><ResourcesModule /></Suspense> : module === "operations" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><OperationsModule /></Suspense> : module === "monitoring" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><AgronomyModule view="monitoring" /></Suspense> : module === "harvests" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><AgronomyModule view="harvests" /></Suspense> : module === "notebook" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><AgronomyModule view="notebook" /></Suspense> : module === "irrigation" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><IrrigationModule /></Suspense> : module === "plans" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><PlansModule /></Suspense> : module === "weather" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><WeatherModule /></Suspense> : module === "privacy" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><PrivacyModule /></Suspense> : module === "inventory" || module === "costs" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><EconomicsModule view={module} /></Suspense> : <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><SettingsModule /></Suspense>}
       </main>
     </div>
   </div>;
@@ -114,10 +128,6 @@ function Overview({ name, organization, common }: { name: string; organization: 
     <section className="page-heading"><div><p>{common.workspace}</p><h1>{formatWorkspaceMessage(common.greeting, { name })}</h1><span>{formatWorkspaceMessage(common.ready, { organization })}</span></div><div className="foundation-links"><a href="/mockup">{common.mockup}</a><a href="/">{common.homepage}</a></div></section>
     <section className="status-grid workspace-status"><div><span>{common.account}</span><b>{common.authenticated}</b></div><div><span>{common.organization}</span><b>{common.selected}</b></div><div><span>{common.access}</span><b>{common.authorized}</b></div></section>
   </>;
-}
-
-function PendingModule({ title, common }: { title: string; common: ReturnType<typeof commonCopy> }) {
-  return <><section className="page-heading"><div><p>{common.implementation}</p><h1>{title}</h1><span>{common.pendingDescription}</span></div></section><section className="panel empty-detail pending-module"><div className="detail-graphic"><i/><i/><i/></div><div><span>{common.implementation}</span><h3>{common.pending}</h3><p>{common.pendingDescription}</p></div></section></>;
 }
 
 export { moduleNavigation, routeModule };

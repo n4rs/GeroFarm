@@ -7,6 +7,7 @@ import { lifecycleCopies } from "../client/src/app/crops/lifecycle-locales.gener
 import { resourceCopies } from "../client/src/app/resources/resource-locales.generated";
 import { operationCopies } from "../client/src/app/operations/operation-locales.generated";
 import { economicCopies } from "../client/src/app/economics/economic-locales";
+import { settingsCopies } from "../client/src/app/settings/settings-locales";
 
 function placeholders(value: string) { return [...value.matchAll(/\{(\w+)\}/g)].map((match) => match[1]).sort(); }
 
@@ -27,15 +28,16 @@ for (const locale of supportedLocales) {
   }
 }
 
-const moduleCatalogues = { farmHoldings: farmHoldingCopies, fields: fieldCopies, crops: cropCopies, lifecycle: lifecycleCopies, resources: resourceCopies, operations: operationCopies, economics: economicCopies };
+const moduleCatalogues = { farmHoldings: farmHoldingCopies, fields: fieldCopies, crops: cropCopies, lifecycle: lifecycleCopies, resources: resourceCopies, operations: operationCopies, economics: economicCopies, settings: settingsCopies };
 for (const [catalogueName, catalogue] of Object.entries(moduleCatalogues)) {
-  const keys = Object.keys(catalogue.en).sort();
+  const messages = catalogue as unknown as Record<string, Record<string, string>>;
+  const keys = Object.keys(messages.en).sort();
   for (const locale of supportedLocales) {
-    if (JSON.stringify(Object.keys(catalogue[locale]).sort()) !== JSON.stringify(keys)) findings.push(`${catalogueName}.${locale}: key mismatch`);
+    if (JSON.stringify(Object.keys(messages[locale]).sort()) !== JSON.stringify(keys)) findings.push(`${catalogueName}.${locale}: key mismatch`);
     for (const key of keys) {
-      const value = catalogue[locale][key as keyof typeof catalogue.en];
+      const value = messages[locale][key];
       if (!value.trim()) findings.push(`${catalogueName}.${locale}.${key}: blank value`);
-      if (locale !== "en" && value === catalogue.en[key as keyof typeof catalogue.en] && value.length >= 18) findings.push(`${catalogueName}.${locale}.${key}: untranslated English sentence`);
+      if (locale !== "en" && value === messages.en[key] && value.length >= 18) findings.push(`${catalogueName}.${locale}.${key}: untranslated English sentence`);
     }
   }
 }

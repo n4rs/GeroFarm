@@ -27,6 +27,7 @@ import { createPostgresEconomicsRepository, type EconomicsRepository } from "./e
 import { EntitlementError, entitlementSummary } from "./entitlements";
 import type { EntitlementSummary } from "@shared/entitlements";
 import { createWeatherRouter } from "./weather-routes";
+import { supportedLocales } from "@shared/locales";
 
 export type AppOptions = { database?: FarmDatabase; farmHoldingRepository?: FarmHoldingRepository; fieldRepository?: FieldRepository; cropRepository?: CropRepository; cropLifecycleRepository?: CropLifecycleRepository; resourceRepository?:ResourceRepository; operationRepository?:OperationRepository; privacyRepository?:PrivacyRepository; fertilizationPlanRepository?:FertilizationPlanRepository; irrigationRepository?:IrrigationRepository; agronomyRepository?:AgronomyRepository; economicsRepository?:EconomicsRepository; farmContextResolver?: FarmContextResolver; entitlementResolver?: (context: Awaited<ReturnType<FarmContextResolver>>) => Promise<EntitlementSummary> };
 
@@ -131,7 +132,7 @@ export function createApp(options: AppOptions = {}) {
   app.patch("/api/auth/locale", async (req, res, next) => {
     try {
       assertSameOrigin(req);
-      const preferredLocale = z.enum(["pt-PT", "es"]).parse(req.body?.preferredLocale);
+      const preferredLocale = z.enum(supportedLocales).parse(req.body?.preferredLocale);
       const profile = await geroCore.updatePreferredLocale(req, preferredLocale);
       res.set("cache-control", "no-store");
       res.json({ preferredLocale: profile?.preferredLocale ?? preferredLocale });

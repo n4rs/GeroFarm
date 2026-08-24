@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { CoreApiError, geroCore } from "./gero-core-client";
+import { supportedLocales } from "@shared/locales";
 
 test("read requests forward only the shared session cookie", async () => {
   const originalFetch = globalThis.fetch;
@@ -26,6 +27,26 @@ test("mutations forward only shared session and CSRF cookies", async () => {
     await geroCore.updatePreferredLocale({ headers: { cookie: "unrelated=value; gero_session=session; gero_csrf=csrf-token" } } as never, "es");
     assert.equal(headers.get("cookie"), "gero_session=session; gero_csrf=csrf-token");
     assert.equal(headers.get("x-csrf-token"), "csrf-token");
+  } finally { globalThis.fetch = originalFetch; }
+});
+
+test("preferred locale consumer forwards every published locale to the central profile contract", async () => {
+  const originalFetch = globalThis.fetch;
+  const calls: Array<{ url: string; method: string; locale: string }> = [];
+  globalThis.fetch = async (input, init) => {
+    const body = JSON.parse(String(init?.body)) as { preferredLocale: string };
+    calls.push({ url: String(input), method: init?.method || "GET", locale: body.preferredLocale });
+    return new Response(JSON.stringify({ data: body }), { status: 200, headers: { "content-type": "application/json" } });
+  };
+  try {
+    const request = { headers: { cookie: "gero_session=session; gero_csrf=csrf" } } as never;
+    for (const locale of supportedLocales) assert.equal((await geroCore.updatePreferredLocale(request, locale))?.preferredLocale, locale);
+    assert.equal(calls.length, 28);
+    assert.deepEqual(calls.map((call) => call.locale), [...supportedLocales]);
+    for (const call of calls) {
+      assert.match(call.url, /\/api\/v1\/me\/profile$/);
+      assert.equal(call.method, "PATCH");
+    }
   } finally { globalThis.fetch = originalFetch; }
 });
 

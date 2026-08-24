@@ -1,4 +1,5 @@
 import type { Request } from "express";
+import type { SupportedLocale } from "@shared/locales";
 
 const APPLICATION_CODE = "farm";
 const SESSION_COOKIE = "gero_session";
@@ -144,7 +145,7 @@ export const geroCore = {
   async checkout(req: Request, organizationId: string, input: { kind: "plan" | "addon"; code: string; billingPeriod: "monthly" | "yearly"; quantity: number; successUrl: string; cancelUrl: string }) {
     return (await coreMutation<{ url: string }>(req, `/api/v1/billing/organizations/${encodeURIComponent(organizationId)}/applications/${APPLICATION_CODE}/checkout`, "POST", input)).data;
   },
-  async updatePreferredLocale(req: Request, preferredLocale: "pt-PT" | "es") {
+  async updatePreferredLocale(req: Request, preferredLocale: SupportedLocale) {
     return (await coreMutation<{ preferredLocale: string }>(req, "/api/v1/me/profile", "PATCH", { preferredLocale })).data;
   },
   async logout(req: Request) {

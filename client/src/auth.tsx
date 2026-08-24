@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
 import { applicationReturnTo, centralDestination, organizationHandoff } from "./core-navigation";
+import type { SupportedLocale } from "@shared/locales";
 
 type OrganizationMembership = {
   organization: { id: string; name: string; slug: string; status: string };
@@ -35,7 +36,7 @@ type AuthState = {
   loading: boolean;
   error: string | null;
   selectOrganization: (organizationId: string) => Promise<void>;
-  updateLocale: (preferredLocale: "pt-PT" | "es") => Promise<void>;
+  updateLocale: (preferredLocale: SupportedLocale) => Promise<void>;
   logout: () => Promise<void>;
 };
 
@@ -130,14 +131,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     } finally { setLoading(false); }
   }, [refresh]);
 
-  const updateLocale = useCallback(async (preferredLocale: "pt-PT" | "es") => {
+  const updateLocale = useCallback(async (preferredLocale: SupportedLocale) => {
     const response = await fetch("/api/auth/locale", {
       method: "PATCH",
       credentials: "include",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ preferredLocale }),
     });
-    if (!response.ok) throw new Error("Não foi possível atualizar o idioma");
+    const body = await response.json().catch(() => null) as { preferredLocale?: string } | null;
+    if (!response.ok || body?.preferredLocale !== preferredLocale) throw new Error("LOCALE_UPDATE_FAILED");
     setSession((current) => current ? { ...current, user: { ...current.user, preferredLocale } } : current);
   }, []);
 
