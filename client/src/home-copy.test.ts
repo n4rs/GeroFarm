@@ -19,6 +19,14 @@ test("approved commercial limits and prices are present", () => {
   assert.doesNotMatch(JSON.stringify(en), /Gero account|GeroCore/i);
 });
 
+test("homepage leads with capabilities and paid privacy controls", () => {
+  const text = JSON.stringify(ptPT);
+  assert.match(text, /Operações agrícolas completas/);
+  assert.match(text, /Privacy by Design incluído/);
+  assert.equal(ptPT.privacy.items.length, 7);
+  assert.doesNotMatch(text, /Agricultura de campo, ligada|respetivas tags|Exemplos por tag|PDF.*Free|Free.*PDF/i);
+});
+
 test("future integrations are not presented as active", () => {
   assert.match(ptPT.pricing.description, /futuras/);
   assert.match(ptPT.faq.items.at(-1)!.a, /Não é apresentada como integração ativa/);

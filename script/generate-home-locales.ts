@@ -105,11 +105,10 @@ for (const locale of supportedLocales) {
 const ptBR = generated["pt-BR"]!;
 ptBR.metaTitle = "Software de gestão agrícola de campo | GeroFarm";
 ptBR.metaDescription = "Mapeie talhões, conecte plantios, operações, colheitas e meteorologia agronômica e mantenha um caderno de campo claro com o GeroFarm.";
-Object.assign(ptBR.hero, { title: "Cada decisão no talhão,", accent: "do mapa ao caderno de campo.", description: "O GeroFarm conecta talhões, plantios, operações, colheitas e indicadores agronômicos em um histórico prático para sua fazenda.", imageAlt: "Campos agrícolas com limites de talhões mapeados e pontos de observação agronômica", mapLabel: "Talhões mapeados", cropLabel: "Plantios ativos" });
-ptBR.proof = ["Mapas de talhões por KML e KMZ", "Culturas temporárias e permanentes", "Operações e colheitas sem limite", "Caderno construído a partir do trabalho real"];
+Object.assign(ptBR.hero, { eyebrow: "Gestão completa no campo", title: "Gerencie cada plantio,", accent: "do mapa à colheita.", description: "Mapeie talhões, acompanhe plantios e registre operações, irrigação, fertilização, colheitas, lotes, equipes e equipamentos em uma única aplicação.", imageAlt: "Campos agrícolas com limites de talhões mapeados e pontos de observação agronômica", mapLabel: "Talhões mapeados", cropLabel: "Plantios ativos", operationLabel: "Operações registradas" });
+ptBR.proof = ["Mapa e KML/KMZ", "Operações agrícolas completas", "Meteorologia por plantio", "Caderno de campo e rastreabilidade"];
 ptBR.flow.stages = ["Talhão", "Plantio", "Operação", "Colheita", "Caderno de campo"];
 ptBR.platform.description = "Estruture a fazenda, registre o que aconteceu e recupere o contexto de que sua equipe precisa.";
-ptBR.weather.tagsTitle = "Exemplos por tag do plantio";
 ptBR.modules.costsDesc = "Mão de obra, equipamentos, insumos e outros recursos projetados nos custos do plantio e da colheita sem dupla contabilização.";
 ptBR.pricing.description = "Nenhum plano limita operações, colheitas ou cadernos de campo. Todos os planos pagos permitem integrações futuras, incluindo o GeroGrid quando estiver disponível.";
 ptBR.pricing.plans[0].features[2] = "5 talhões ativos";

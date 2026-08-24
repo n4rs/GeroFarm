@@ -3,266 +3,13 @@
 import type { HomepageCopy, SupportedLocale } from "./home-copy";
 
 export const homepageCopies = {
-  "en": {
-    "metaTitle": "Field management software for modern farming | GeroFarm",
-    "metaDescription": "Map fields, connect crops, operations, harvests and agronomic weather, and keep a clear field record with GeroFarm.",
-    "nav": {
-      "platform": "Platform",
-      "weather": "Agronomic weather",
-      "plans": "Plans",
-      "faq": "FAQ",
-      "login": "Sign in",
-      "start": "Get started",
-      "language": "Language",
-      "menu": "Open menu"
-    },
-    "hero": {
-      "eyebrow": "Field agriculture, connected",
-      "title": "Every field decision,",
-      "accent": "from map to field record.",
-      "description": "GeroFarm connects parcels, crops, operations, harvests and agronomic indicators in one practical history for your farm.",
-      "primary": "Start with GeroFarm",
-      "secondary": "View plans",
-      "note": "Free for up to 30 days · No credit card required",
-      "imageAlt": "Agricultural fields with mapped parcel boundaries and agronomic observation points",
-      "mapLabel": "Mapped parcels",
-      "cropLabel": "Active crops",
-      "operationLabel": "Operations linked"
-    },
-    "proof": [
-      "KML and KMZ field maps",
-      "Temporary and permanent crops",
-      "Unlimited operations and harvests",
-      "A field record built from real work"
-    ],
-    "flow": {
-      "kicker": "One connected history",
-      "title": "From the land to the field record",
-      "description": "Each record enriches the next without duplicating the same physical work, resources or costs.",
-      "stages": [
-        "Field",
-        "Crop",
-        "Operation",
-        "Harvest",
-        "Field record"
-      ]
-    },
-    "platform": {
-      "kicker": "Daily farm management",
-      "title": "The work of the farm, in the same place",
-      "description": "Structure the farm, record what happened and retrieve the context your team needs.",
-      "cards": [
-        {
-          "title": "Maps and parcels",
-          "description": "Draw fields or import KML/KMZ boundaries and keep areas, crops and observations connected to the map.",
-          "status": "Available"
-        },
-        {
-          "title": "Crops and campaigns",
-          "description": "Manage permanent crops and compatible temporary crops by area, cycle and campaign.",
-          "status": "Available"
-        },
-        {
-          "title": "Operations and spraying",
-          "description": "Record cultural work, plant protection products, people, equipment and execution evidence.",
-          "status": "Available"
-        },
-        {
-          "title": "Irrigation and fertigation",
-          "description": "Connect irrigation sectors, water, nutrients and executed fertigation without duplicating the operation.",
-          "status": "Available"
-        },
-        {
-          "title": "Fertilisation",
-          "description": "Record plans and completed applications with products, nutrients, doses and responsible applicators.",
-          "status": "Available"
-        },
-        {
-          "title": "Harvests and lots",
-          "description": "Keep quantities, quality, destination and lots connected to the crop that produced them.",
-          "status": "Available"
-        },
-        {
-          "title": "Teams and equipment",
-          "description": "Associate people, valid applicators, machinery and resources with each operation.",
-          "status": "Available"
-        },
-        {
-          "title": "Field record",
-          "description": "Generate a coherent PDF from the current operational history. Free includes a clearly marked fictional demonstration only.",
-          "status": "Available"
-        }
-      ]
-    },
-    "weather": {
-      "kicker": "Agronomic weather",
-      "title": "Weather that speaks the language of each crop",
-      "description": "Virtual stations turn weather data into agronomic indicators linked to each crop and its tags. Values are estimates for decision support, not sensor measurements.",
-      "metrics": [
-        "Reference evapotranspiration (ET₀)",
-        "Solar radiation",
-        "Estimated daily light integral (DLI)",
-        "Growing degree days",
-        "Chill requirements",
-        "Estimated leaf wetness",
-        "Indicators by crop"
-      ],
-      "tagsTitle": "Examples by crop tag",
-      "tags": [
-        "Phenological stage",
-        "Variety",
-        "Irrigation sector",
-        "Risk monitoring"
-      ],
-      "status": "Available in the planned GeroFarm offer"
-    },
-    "modules": {
-      "kicker": "Adaptable depth",
-      "title": "Add operational control when you need it",
-      "description": "Inventory and Costs are optional modules on Grow and Custom, and included with Professional.",
-      "inventory": "Inventory",
-      "inventoryDesc": "Purchases, batches, movements and consumption connected to the operation that used each resource.",
-      "costs": "Costs",
-      "costsDesc": "Labour, equipment, inputs and other resources projected into crop and harvest costs without double counting.",
-      "optional": "Optional module"
-    },
-    "pricing": {
-      "kicker": "Clear plans",
-      "title": "Start small. Keep the whole operational history.",
-      "description": "No plan limits operations, harvests or field records. All paid plans allow future integrations, including GeroGrid when available.",
-      "monthly": "Monthly",
-      "annual": "Annual",
-      "annualNote": "Annual billing equals ten monthly payments",
-      "vat": "Prices exclude VAT.",
-      "recommended": "Most popular",
-      "consult": "On request",
-      "month": "/month",
-      "year": "/year",
-      "choose": "Choose plan",
-      "contact": "Request a proposal",
-      "plans": [
-        {
-          "name": "Free",
-          "description": "A real 30-day start for one organisation.",
-          "monthly": "€0",
-          "annual": "€0",
-          "features": [
-            "1 user",
-            "10 ha",
-            "5 active fields",
-            "1 virtual station",
-            "30 days maximum",
-            "Consultation and export after the period",
-            "Fictional, non-valid field-record PDF demo"
-          ]
-        },
-        {
-          "name": "Grow",
-          "description": "For farms building a consistent digital routine.",
-          "monthly": "€24.90",
-          "annual": "€249",
-          "features": [
-            "3 users",
-            "100 ha",
-            "50 fields",
-            "2 virtual stations",
-            "Inventory and Costs available as add-ons",
-            "Future integrations allowed"
-          ]
-        },
-        {
-          "name": "Professional",
-          "description": "For larger teams and more complex operations.",
-          "monthly": "€69.90",
-          "annual": "€699",
-          "features": [
-            "10 users",
-            "500 ha",
-            "250 fields",
-            "5 virtual stations",
-            "Inventory included",
-            "Costs included",
-            "Future integrations allowed"
-          ]
-        },
-        {
-          "name": "Custom",
-          "description": "Limits, integrations and modules tailored to the organisation.",
-          "monthly": "On request",
-          "annual": "On request",
-          "features": [
-            "Custom users and area",
-            "Custom fields and stations",
-            "Inventory and Costs by proposal",
-            "Tailored modules",
-            "Future and tailored integrations"
-          ]
-        }
-      ],
-      "addonsTitle": "Add-ons for Grow and Custom",
-      "addons": [
-        "Inventory · €9.90/month or €99/year",
-        "Costs · €19.90/month or €199/year",
-        "Inventory + Costs · €24.90/month or €249/year",
-        "Additional virtual station on paid plans · €4.90/month or €49/year"
-      ],
-      "paidNote": "All paid plans keep the full operational history and may use future integrations when they become available.",
-      "grace": "When a subscription ends, the organisation has a 7-day grace period with a notice at every sign-in."
-    },
-    "faq": {
-      "kicker": "Before you start",
-      "title": "Straight answers",
-      "items": [
-        {
-          "q": "What happens after the 30 Free days?",
-          "a": "The organisation switches to consultation and export. Data stays preserved; creating or changing operational records requires a paid plan."
-        },
-        {
-          "q": "Is the Free field-record PDF valid?",
-          "a": "No. Free only includes a fictional demonstration PDF, clearly identified as having no validity."
-        },
-        {
-          "q": "Are Inventory and Costs included?",
-          "a": "Both are included with Professional. On Grow and Custom they can be added separately or as a pack, subject to the Custom proposal."
-        },
-        {
-          "q": "Can I add more virtual stations?",
-          "a": "Yes. Paid plans can add stations for €4.90/month or €49/year each."
-        },
-        {
-          "q": "Why is annual billing lower?",
-          "a": "The annual price equals ten monthly payments. All displayed prices exclude VAT."
-        },
-        {
-          "q": "Does GeroFarm already integrate with GeroGrid?",
-          "a": "The boundary is prepared for future integrations, including GeroGrid. This is not presented as an active integration until it is implemented and released."
-        }
-      ]
-    },
-    "closing": {
-      "title": "Give every field operation a useful history",
-      "description": "Start free, map the farm and build a field record from the work your team already does.",
-      "primary": "Create account",
-      "secondary": "Sign in"
-    },
-    "footer": {
-      "tagline": "Clear field management, from map to field record.",
-      "product": "Product",
-      "account": "Access",
-      "legal": "Legal",
-      "privacy": "Privacy",
-      "terms": "Terms",
-      "cookies": "Cookies",
-      "future": "Future integrations are identified as such and are not sold as active features.",
-      "rights": "All rights reserved."
-    }
-  },
   "pt-PT": {
     "metaTitle": "Software de gestão agrícola de campo | GeroFarm",
     "metaDescription": "Mapeie talhões, ligue plantações, operações, colheitas e meteorologia agronómica e mantenha um caderno de campo claro com o GeroFarm.",
     "nav": {
       "platform": "Plataforma",
       "weather": "Meteorologia agronómica",
+      "privacy": "Privacy by Design",
       "plans": "Planos",
       "faq": "Perguntas",
       "login": "Entrar",
@@ -271,23 +18,23 @@ export const homepageCopies = {
       "menu": "Abrir menu"
     },
     "hero": {
-      "eyebrow": "Agricultura de campo, ligada",
-      "title": "Cada decisão no talhão,",
-      "accent": "do mapa ao caderno de campo.",
-      "description": "O GeroFarm liga talhões, plantações, operações, colheitas e indicadores agronómicos num histórico prático para a sua exploração.",
+      "eyebrow": "Gestão completa no campo",
+      "title": "Gira cada plantação,",
+      "accent": "do mapa à colheita.",
+      "description": "Mapeie talhões, acompanhe plantações e registe operações, rega, fertilização, colheitas, lotes, equipas e equipamentos numa única aplicação.",
       "primary": "Começar com o GeroFarm",
       "secondary": "Ver planos",
       "note": "Grátis até 30 dias · Sem cartão de crédito",
       "imageAlt": "Campos agrícolas com limites de talhões mapeados e pontos de observação agronómica",
       "mapLabel": "Talhões mapeados",
       "cropLabel": "Plantações ativas",
-      "operationLabel": "Operações ligadas"
+      "operationLabel": "Operações registadas"
     },
     "proof": [
-      "Mapas de talhões por KML e KMZ",
-      "Culturas temporárias e permanentes",
-      "Operações e colheitas sem limite",
-      "Caderno construído a partir do trabalho real"
+      "Mapa e KML/KMZ",
+      "Operações agrícolas completas",
+      "Meteorologia por plantação",
+      "Caderno e rastreabilidade"
     ],
     "flow": {
       "kicker": "Um histórico ligado",
@@ -303,8 +50,8 @@ export const homepageCopies = {
     },
     "platform": {
       "kicker": "Gestão agrícola diária",
-      "title": "O trabalho da exploração, no mesmo lugar",
-      "description": "Estruture a exploração, registe o que aconteceu e recupere o contexto de que a equipa precisa.",
+      "title": "Uma aplicação para todo o ciclo no campo",
+      "description": "Planeie, execute e reveja o trabalho com talhões, plantações, recursos e resultados no mesmo histórico operacional.",
       "cards": [
         {
           "title": "Mapa e talhões",
@@ -343,15 +90,15 @@ export const homepageCopies = {
         },
         {
           "title": "Caderno de campo",
-          "description": "Gere um PDF coerente a partir do histórico operacional atual. No Free existe apenas uma demonstração fictícia claramente assinalada.",
+          "description": "Produza cadernos coerentes a partir das operações, recursos, aplicações e colheitas registadas, prontos a consultar e exportar.",
           "status": "Disponível"
         }
       ]
     },
     "weather": {
       "kicker": "Meteorologia agronómica",
-      "title": "Meteorologia que fala a linguagem de cada plantação",
-      "description": "As estações virtuais transformam dados meteorológicos em indicadores agronómicos ligados a cada plantação e respetivas tags. Os valores são estimativas de apoio à decisão, não medições de sensores.",
+      "title": "Indicadores agronómicos para cada plantação",
+      "description": "As estações virtuais calculam evapotranspiração de referência, radiação solar, DLI estimada, graus-dia, necessidades de frio e molhamento foliar estimado para apoiar o planeamento e a monitorização. Os valores são estimativas, não medições de sensores.",
       "metrics": [
         "Evapotranspiração de referência (ET₀)",
         "Radiação solar",
@@ -361,14 +108,7 @@ export const homepageCopies = {
         "Molhamento foliar estimado",
         "Indicadores por plantação"
       ],
-      "tagsTitle": "Exemplos por tag da plantação",
-      "tags": [
-        "Estado fenológico",
-        "Variedade",
-        "Setor de rega",
-        "Monitorização de risco"
-      ],
-      "status": "Disponível na oferta prevista do GeroFarm"
+      "status": "Incluída em todos os planos, dentro do limite de estações virtuais"
     },
     "modules": {
       "kicker": "Profundidade adaptável",
@@ -379,6 +119,21 @@ export const homepageCopies = {
       "costs": "Custos",
       "costsDesc": "Mão de obra, equipamentos, fatores e outros recursos projetados nos custos da plantação e colheita sem dupla contabilização.",
       "optional": "Módulo opcional"
+    },
+    "privacy": {
+      "badge": "Incluído em todos os planos pagos",
+      "kicker": "Privacy by Design",
+      "title": "Proteção de dados preparada para o RGPD/GDPR e integrada no trabalho diário",
+      "description": "Dê às organizações controlos práticos que apoiam a conformidade com o RGPD/GDPR, preservando a rastreabilidade legal e operacional exigida pela produção profissional.",
+      "items": [
+        "Acesso a dados pessoais por função",
+        "Gestor de proteção de dados da organização",
+        "Relatórios pseudonimizados quando o nome é desnecessário",
+        "Área pessoal de privacidade e pedidos RGPD",
+        "Políticas de retenção configuráveis",
+        "Auditoria de acessos e alterações",
+        "Identificação legal obrigatória preservada"
+      ]
     },
     "pricing": {
       "kicker": "Planos claros",
@@ -407,7 +162,7 @@ export const homepageCopies = {
             "1 estação virtual",
             "Máximo de 30 dias",
             "Consulta e exportação após o período",
-            "Demonstração fictícia de PDF sem validade"
+            "Operações, colheitas e cadernos sem limite"
           ]
         },
         {
@@ -420,6 +175,7 @@ export const homepageCopies = {
             "100 ha",
             "50 talhões",
             "2 estações virtuais",
+            "Privacy by Design incluído",
             "Inventário e Custos disponíveis como addons",
             "Integrações futuras permitidas"
           ]
@@ -434,6 +190,7 @@ export const homepageCopies = {
             "500 ha",
             "250 talhões",
             "5 estações virtuais",
+            "Privacy by Design incluído",
             "Inventário incluído",
             "Custos incluídos",
             "Integrações futuras permitidas"
@@ -447,6 +204,7 @@ export const homepageCopies = {
           "features": [
             "Utilizadores e área à medida",
             "Talhões e estações à medida",
+            "Privacy by Design incluído",
             "Inventário e Custos sob proposta",
             "Módulos à medida",
             "Integrações futuras e à medida"
@@ -460,7 +218,7 @@ export const homepageCopies = {
         "Inventário + Custos · 24,90 €/mês ou 249 €/ano",
         "Estação virtual adicional nos planos pagos · 4,90 €/mês ou 49 €/ano"
       ],
-      "paidNote": "Todos os planos pagos preservam o histórico operacional completo e podem usar integrações futuras quando forem disponibilizadas.",
+      "paidNote": "Todos os planos pagos incluem Privacy by Design, preservam o histórico operacional completo e podem usar integrações futuras quando forem disponibilizadas.",
       "grace": "Quando a subscrição termina, a organização tem 7 dias de tolerância com um aviso em cada entrada."
     },
     "faq": {
@@ -472,8 +230,8 @@ export const homepageCopies = {
           "a": "A organização passa a consulta e exportação. Os dados ficam preservados; criar ou alterar registos operacionais requer um plano pago."
         },
         {
-          "q": "O PDF do caderno no Free tem validade?",
-          "a": "Não. O Free inclui apenas um PDF de demonstração com dados fictícios, claramente identificado como sem validade."
+          "q": "O Privacy by Design está incluído?",
+          "a": "Sim. O módulo Privacy by Design e de apoio ao RGPD/GDPR está incluído em todos os planos pagos."
         },
         {
           "q": "Inventário e Custos estão incluídos?",
@@ -522,26 +280,27 @@ export const homepageCopies = {
       "login": "Faça login",
       "start": "Comece",
       "language": "Idioma",
-      "menu": "Abrir menu"
+      "menu": "Abrir menu",
+      "privacy": "Privacy by Design"
     },
     "hero": {
-      "eyebrow": "Agricultura de campo, conectada",
-      "title": "Cada decisão no talhão,",
-      "accent": "do mapa ao caderno de campo.",
-      "description": "O GeroFarm conecta talhões, plantios, operações, colheitas e indicadores agronômicos em um histórico prático para sua fazenda.",
+      "eyebrow": "Gestão completa no campo",
+      "title": "Gerencie cada plantio,",
+      "accent": "do mapa à colheita.",
+      "description": "Mapeie talhões, acompanhe plantios e registre operações, irrigação, fertilização, colheitas, lotes, equipes e equipamentos em uma única aplicação.",
       "primary": "Comece com GeroFarm",
       "secondary": "Ver planos",
       "note": "Free por até 30 dias · Não é necessário cartão de crédito",
       "imageAlt": "Campos agrícolas com limites de talhões mapeados e pontos de observação agronômica",
       "mapLabel": "Talhões mapeados",
       "cropLabel": "Plantios ativos",
-      "operationLabel": "Operações vinculadas"
+      "operationLabel": "Operações registradas"
     },
     "proof": [
-      "Mapas de talhões por KML e KMZ",
-      "Culturas temporárias e permanentes",
-      "Operações e colheitas sem limite",
-      "Caderno construído a partir do trabalho real"
+      "Mapa e KML/KMZ",
+      "Operações agrícolas completas",
+      "Meteorologia por plantio",
+      "Caderno de campo e rastreabilidade"
     ],
     "flow": {
       "kicker": "Uma história conectada",
@@ -597,7 +356,7 @@ export const homepageCopies = {
         },
         {
           "title": "Caderno de campo",
-          "description": "Gere um PDF coerente a partir do histórico operacional atual. Free inclui apenas uma demonstração fictícia claramente marcada.",
+          "description": "Gestão agrícola clara, do mapa ao caderno de campo.",
           "status": "Disponível"
         }
       ]
@@ -605,7 +364,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Clima agronômico",
       "title": "Clima que fala a língua de cada cultura",
-      "description": "Estações virtuais transformam dados meteorológicos em indicadores agronômicos vinculados a cada cultura e suas tags. Os valores são estimativas para apoio à decisão, não medições de sensores.",
+      "description": "Mapeie talhões, conecte plantios, operações, colheitas e meteorologia agronômica e mantenha um caderno de campo claro com o GeroFarm.",
       "metrics": [
         "Evapotranspiração de referência (ET₀)",
         "Radiação solar",
@@ -615,14 +374,7 @@ export const homepageCopies = {
         "Umidade foliar estimada",
         "Indicadores por safra"
       ],
-      "tagsTitle": "Exemplos por tag do plantio",
-      "tags": [
-        "Estágio fenológico",
-        "Variedade",
-        "Setor de irrigação",
-        "Monitoramento de risco"
-      ],
-      "status": "Disponível na oferta planejada GeroFarm"
+      "status": "Disponível"
     },
     "modules": {
       "kicker": "Profundidade adaptável",
@@ -660,8 +412,7 @@ export const homepageCopies = {
             "5 talhões ativos",
             "1 estação virtual",
             "30 dias no máximo",
-            "Consulta e exportação após o período",
-            "Demonstração em PDF de registro de campo fictício e inválido"
+            "Caderno de campo"
           ]
         },
         {
@@ -675,6 +426,8 @@ export const homepageCopies = {
             "50 talhões",
             "2 estações virtuais",
             "Estoque e custos disponíveis como complementos",
+            "Privacy by Design",
+            "Privacy by Design",
             "Integrações futuras permitidas"
           ]
         },
@@ -690,6 +443,8 @@ export const homepageCopies = {
             "5 estações virtuais",
             "Inventário incluído",
             "Custos incluídos",
+            "Privacy by Design",
+            "Privacy by Design",
             "Integrações futuras permitidas"
           ]
         },
@@ -703,6 +458,8 @@ export const homepageCopies = {
             "Talhões e estações sob medida",
             "Estoque e custos por proposta",
             "Módulos personalizados",
+            "Privacy by Design",
+            "Privacy by Design",
             "Integrações futuras e personalizadas"
           ]
         }
@@ -726,12 +483,8 @@ export const homepageCopies = {
           "a": "A organização muda para consulta e exportação. Os dados permanecem preservados; criar ou alterar registros operacionais requer um plano pago."
         },
         {
-          "q": "O PDF de registro de campo Free é válido?",
-          "a": "Não. Free inclui apenas um PDF de demonstração fictício, claramente identificado como não tendo validade."
-        },
-        {
-          "q": "O estoque e os custos estão incluídos?",
-          "a": "Ambos estão incluídos no Professional. No Grow e Custom podem ser adicionados separadamente ou em pacote, sujeito à proposta do Custom."
+          "q": "Privacy by Design",
+          "a": "Todos os planos pagos incluem as ferramentas operacionais completas e o módulo Privacy by Design."
         },
         {
           "q": "Posso adicionar mais estações virtuais?",
@@ -763,6 +516,287 @@ export const homepageCopies = {
       "cookies": "Cookies",
       "future": "As integrações futuras são identificadas como tal e não são vendidas como recursos ativos.",
       "rights": "Todos os direitos reservados."
+    },
+    "privacy": {
+      "badge": "Todos os planos pagos incluem as ferramentas operacionais completas e o módulo Privacy by Design.",
+      "kicker": "Privacy by Design",
+      "title": "Proteção de dados preparada para o RGPD/GDPR e integrada ao trabalho diário",
+      "description": "Ofereça às organizações controles práticos que apoiam a conformidade com o RGPD/GDPR, preservando a rastreabilidade legal e operacional exigida pela produção profissional.",
+      "items": [
+        "Acesso a dados pessoais por função",
+        "Gestor de proteção de dados da organização",
+        "Relatórios pseudonimizados quando o nome não é necessário",
+        "Área pessoal de privacidade e solicitações RGPD/GDPR",
+        "Políticas de retenção configuráveis",
+        "Auditoria de acessos e alterações",
+        "Identificação legal obrigatória preservada"
+      ]
+    }
+  },
+  "en": {
+    "metaTitle": "Field management software for modern farming | GeroFarm",
+    "metaDescription": "Map fields, connect crops, operations, harvests and agronomic weather, and keep a clear field record with GeroFarm.",
+    "nav": {
+      "platform": "Platform",
+      "weather": "Agronomic weather",
+      "privacy": "Privacy by Design",
+      "plans": "Plans",
+      "faq": "FAQ",
+      "login": "Sign in",
+      "start": "Get started",
+      "language": "Language",
+      "menu": "Open menu"
+    },
+    "hero": {
+      "eyebrow": "Complete field management",
+      "title": "Run every crop,",
+      "accent": "from the map to the harvest.",
+      "description": "Map parcels, manage crops and record operations, irrigation, fertilisation, harvests, lots, teams and equipment in one application.",
+      "primary": "Start with GeroFarm",
+      "secondary": "View plans",
+      "note": "Free for up to 30 days · No credit card required",
+      "imageAlt": "Agricultural fields with mapped parcel boundaries and agronomic observation points",
+      "mapLabel": "Mapped parcels",
+      "cropLabel": "Active crops",
+      "operationLabel": "Recorded operations"
+    },
+    "proof": [
+      "Map and KML/KMZ",
+      "Complete agricultural operations",
+      "Weather indicators by crop",
+      "Field record and traceability"
+    ],
+    "flow": {
+      "kicker": "One connected history",
+      "title": "From the land to the field record",
+      "description": "Each record enriches the next without duplicating the same physical work, resources or costs.",
+      "stages": [
+        "Field",
+        "Crop",
+        "Operation",
+        "Harvest",
+        "Field record"
+      ]
+    },
+    "platform": {
+      "kicker": "Daily farm management",
+      "title": "One application for the complete field cycle",
+      "description": "Plan, carry out and review the work with parcels, crops, resources and results in the same operational history.",
+      "cards": [
+        {
+          "title": "Maps and parcels",
+          "description": "Draw fields or import KML/KMZ boundaries and keep areas, crops and observations connected to the map.",
+          "status": "Available"
+        },
+        {
+          "title": "Crops and campaigns",
+          "description": "Manage permanent crops and compatible temporary crops by area, cycle and campaign.",
+          "status": "Available"
+        },
+        {
+          "title": "Operations and spraying",
+          "description": "Record cultural work, plant protection products, people, equipment and execution evidence.",
+          "status": "Available"
+        },
+        {
+          "title": "Irrigation and fertigation",
+          "description": "Connect irrigation sectors, water, nutrients and executed fertigation without duplicating the operation.",
+          "status": "Available"
+        },
+        {
+          "title": "Fertilisation",
+          "description": "Record plans and completed applications with products, nutrients, doses and responsible applicators.",
+          "status": "Available"
+        },
+        {
+          "title": "Harvests and lots",
+          "description": "Keep quantities, quality, destination and lots connected to the crop that produced them.",
+          "status": "Available"
+        },
+        {
+          "title": "Teams and equipment",
+          "description": "Associate people, valid applicators, machinery and resources with each operation.",
+          "status": "Available"
+        },
+        {
+          "title": "Field record",
+          "description": "Produce coherent field records from recorded operations, resources, applications and harvests, ready to consult and export.",
+          "status": "Available"
+        }
+      ]
+    },
+    "weather": {
+      "kicker": "Agronomic weather",
+      "title": "Agronomic indicators for every crop",
+      "description": "Virtual stations calculate reference evapotranspiration, solar radiation, estimated DLI, growing degree days, chill requirements and estimated leaf wetness to support planning and monitoring. Values are estimates, not sensor measurements.",
+      "metrics": [
+        "Reference evapotranspiration (ET₀)",
+        "Solar radiation",
+        "Estimated daily light integral (DLI)",
+        "Growing degree days",
+        "Chill requirements",
+        "Estimated leaf wetness",
+        "Indicators by crop"
+      ],
+      "status": "Included in every plan, within its virtual-station limit"
+    },
+    "modules": {
+      "kicker": "Adaptable depth",
+      "title": "Add operational control when you need it",
+      "description": "Inventory and Costs are optional modules on Grow and Custom, and included with Professional.",
+      "inventory": "Inventory",
+      "inventoryDesc": "Purchases, batches, movements and consumption connected to the operation that used each resource.",
+      "costs": "Costs",
+      "costsDesc": "Labour, equipment, inputs and other resources projected into crop and harvest costs without double counting.",
+      "optional": "Optional module"
+    },
+    "privacy": {
+      "badge": "Included with every paid plan",
+      "kicker": "Privacy by Design",
+      "title": "GDPR-ready data protection, built into daily work",
+      "description": "Give organizations practical controls that support GDPR compliance while preserving the legal and operational traceability that professional production requires.",
+      "items": [
+        "Personal-data access by role",
+        "Organization privacy manager",
+        "Pseudonymized reports where names are unnecessary",
+        "Personal privacy area and GDPR requests",
+        "Configurable retention policies",
+        "Audit trail for access and changes",
+        "Mandatory legal identification preserved"
+      ]
+    },
+    "pricing": {
+      "kicker": "Clear plans",
+      "title": "Start small. Keep the whole operational history.",
+      "description": "No plan limits operations, harvests or field records. All paid plans allow future integrations, including GeroGrid when available.",
+      "monthly": "Monthly",
+      "annual": "Annual",
+      "annualNote": "Annual billing equals ten monthly payments",
+      "vat": "Prices exclude VAT.",
+      "recommended": "Most popular",
+      "consult": "On request",
+      "month": "/month",
+      "year": "/year",
+      "choose": "Choose plan",
+      "contact": "Request a proposal",
+      "plans": [
+        {
+          "name": "Free",
+          "description": "A real 30-day start for one organisation.",
+          "monthly": "€0",
+          "annual": "€0",
+          "features": [
+            "1 user",
+            "10 ha",
+            "5 active fields",
+            "1 virtual station",
+            "30 days maximum",
+            "Consultation and export after the period",
+            "Unlimited operations, harvests and field records"
+          ]
+        },
+        {
+          "name": "Grow",
+          "description": "For farms building a consistent digital routine.",
+          "monthly": "€24.90",
+          "annual": "€249",
+          "features": [
+            "3 users",
+            "100 ha",
+            "50 fields",
+            "2 virtual stations",
+            "Privacy by Design included",
+            "Inventory and Costs available as add-ons",
+            "Future integrations allowed"
+          ]
+        },
+        {
+          "name": "Professional",
+          "description": "For larger teams and more complex operations.",
+          "monthly": "€69.90",
+          "annual": "€699",
+          "features": [
+            "10 users",
+            "500 ha",
+            "250 fields",
+            "5 virtual stations",
+            "Privacy by Design included",
+            "Inventory included",
+            "Costs included",
+            "Future integrations allowed"
+          ]
+        },
+        {
+          "name": "Custom",
+          "description": "Limits, integrations and modules tailored to the organisation.",
+          "monthly": "On request",
+          "annual": "On request",
+          "features": [
+            "Custom users and area",
+            "Custom fields and stations",
+            "Privacy by Design included",
+            "Inventory and Costs by proposal",
+            "Tailored modules",
+            "Future and tailored integrations"
+          ]
+        }
+      ],
+      "addonsTitle": "Add-ons for Grow and Custom",
+      "addons": [
+        "Inventory · €9.90/month or €99/year",
+        "Costs · €19.90/month or €199/year",
+        "Inventory + Costs · €24.90/month or €249/year",
+        "Additional virtual station on paid plans · €4.90/month or €49/year"
+      ],
+      "paidNote": "All paid plans include Privacy by Design, keep the full operational history and may use future integrations when they become available.",
+      "grace": "When a subscription ends, the organisation has a 7-day grace period with a notice at every sign-in."
+    },
+    "faq": {
+      "kicker": "Before you start",
+      "title": "Straight answers",
+      "items": [
+        {
+          "q": "What happens after the 30 Free days?",
+          "a": "The organisation switches to consultation and export. Data stays preserved; creating or changing operational records requires a paid plan."
+        },
+        {
+          "q": "Is Privacy by Design included?",
+          "a": "Yes. The Privacy by Design and GDPR-support module is included with every paid plan."
+        },
+        {
+          "q": "Are Inventory and Costs included?",
+          "a": "Both are included with Professional. On Grow and Custom they can be added separately or as a pack, subject to the Custom proposal."
+        },
+        {
+          "q": "Can I add more virtual stations?",
+          "a": "Yes. Paid plans can add stations for €4.90/month or €49/year each."
+        },
+        {
+          "q": "Why is annual billing lower?",
+          "a": "The annual price equals ten monthly payments. All displayed prices exclude VAT."
+        },
+        {
+          "q": "Does GeroFarm already integrate with GeroGrid?",
+          "a": "The boundary is prepared for future integrations, including GeroGrid. This is not presented as an active integration until it is implemented and released."
+        }
+      ]
+    },
+    "closing": {
+      "title": "Give every field operation a useful history",
+      "description": "Start free, map the farm and build a field record from the work your team already does.",
+      "primary": "Create account",
+      "secondary": "Sign in"
+    },
+    "footer": {
+      "tagline": "Clear field management, from map to field record.",
+      "product": "Product",
+      "account": "Access",
+      "legal": "Legal",
+      "privacy": "Privacy",
+      "terms": "Terms",
+      "cookies": "Cookies",
+      "future": "Future integrations are identified as such and are not sold as active features.",
+      "rights": "All rights reserved."
     }
   },
   "fr": {
@@ -776,26 +810,27 @@ export const homepageCopies = {
       "login": "Connectez-vous",
       "start": "Commencez",
       "language": "Langue",
-      "menu": "Ouvrir le menu"
+      "menu": "Ouvrir le menu",
+      "privacy": "Privacy by Design"
     },
     "hero": {
-      "eyebrow": "Agriculture de plein champ, connectée",
-      "title": "Chaque décision sur le terrain,",
-      "accent": "de la carte aux enregistrements de terrain.",
-      "description": "GeroFarm relie les parcelles, les cultures, les opérations, les récoltes et les indicateurs agronomiques en un seul historique pratique pour votre exploitation.",
+      "eyebrow": "Gestion quotidienne de la ferme",
+      "title": "Le travail de la ferme, au même endroit",
+      "accent": "De la terre au registre du terrain",
+      "description": "Cartographiez les champs, connectez les cultures, les opérations, les récoltes et la météo agronomique, et conservez un enregistrement clair des champs avec GeroFarm.",
       "primary": "Commencez par GeroFarm",
       "secondary": "Voir les forfaits",
       "note": "Free jusqu'à 30 jours · Aucune carte de crédit requise",
       "imageAlt": "Champs agricoles avec limites de parcelles cartographiées et points d'observation agronomiques",
       "mapLabel": "Parcelles cartographiées",
       "cropLabel": "Cultures actives",
-      "operationLabel": "Opérations liées"
+      "operationLabel": "Opérations et pulvérisation"
     },
     "proof": [
-      "Cartes de terrain KML et KMZ",
-      "Cultures temporaires et permanentes",
-      "Opérations et récoltes illimitées",
-      "Un dossier de terrain construit à partir de travaux réels"
+      "Cartes et parcelles",
+      "Opérations et pulvérisation",
+      "Météo agronomique",
+      "Cahier de culture"
     ],
     "flow": {
       "kicker": "Une histoire connectée",
@@ -851,7 +886,7 @@ export const homepageCopies = {
         },
         {
           "title": "Cahier de culture",
-          "description": "Générez un PDF cohérent à partir de l’historique opérationnel actuel. Free comprend uniquement une démonstration fictive clairement marquée.",
+          "description": "Gestion claire du terrain, de la carte à l'enregistrement du terrain.",
           "status": "Disponible"
         }
       ]
@@ -859,7 +894,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Météo agronomique",
       "title": "Une météo qui parle la langue de chaque culture",
-      "description": "Les stations virtuelles transforment les données météorologiques en indicateurs agronomiques liés à chaque culture et à ses tags. Les valeurs sont des estimations destinées à l'aide à la décision, et non des mesures de capteurs.",
+      "description": "Cartographiez les champs, connectez les cultures, les opérations, les récoltes et la météo agronomique, et conservez un enregistrement clair des champs avec GeroFarm.",
       "metrics": [
         "Évapotranspiration de référence (ET₀)",
         "Rayonnement solaire",
@@ -869,14 +904,7 @@ export const homepageCopies = {
         "Humidité estimée des feuilles",
         "Indicateurs par culture"
       ],
-      "tagsTitle": "Exemples par étiquette de culture",
-      "tags": [
-        "Stade phénologique",
-        "Variété",
-        "Secteur de l'irrigation",
-        "Surveillance des risques"
-      ],
-      "status": "Disponible dans l'offre prévue GeroFarm"
+      "status": "Disponible"
     },
     "modules": {
       "kicker": "Profondeur adaptable",
@@ -914,8 +942,7 @@ export const homepageCopies = {
             "5 champs actifs",
             "1 gare virtuelle",
             "30 jours maximum",
-            "Consultation et export après la période",
-            "Démo PDF d'enregistrement de terrain fictif et non valide"
+            "Cahier de culture"
           ]
         },
         {
@@ -929,6 +956,8 @@ export const homepageCopies = {
             "50 champs",
             "2 stations virtuelles",
             "Inventaire et coûts disponibles en tant que modules complémentaires",
+            "Privacy by Design",
+            "Privacy by Design",
             "Intégrations futures autorisées"
           ]
         },
@@ -944,6 +973,8 @@ export const homepageCopies = {
             "5 stations virtuelles",
             "Inventaire inclus",
             "Frais inclus",
+            "Privacy by Design",
+            "Privacy by Design",
             "Intégrations futures autorisées"
           ]
         },
@@ -957,6 +988,8 @@ export const homepageCopies = {
             "Champs et stations Custom",
             "Inventaire et coûts sur proposition",
             "Des modules sur mesure",
+            "Privacy by Design",
+            "Privacy by Design",
             "Intégrations futures et sur mesure"
           ]
         }
@@ -980,12 +1013,8 @@ export const homepageCopies = {
           "a": "L'organisation passe à la consultation et à l'export. Les données restent préservées ; la création ou la modification d'enregistrements opérationnels nécessite un forfait payant."
         },
         {
-          "q": "Le PDF de l'enregistrement de terrain Free est-il valide ?",
-          "a": "Non. Free ne comprend qu'un PDF de démonstration fictif, clairement identifié comme n'ayant aucune validité."
-        },
-        {
-          "q": "L'inventaire et les coûts sont-ils inclus ?",
-          "a": "Les deux sont inclus avec Professional. Sur Grow et Custom, ils peuvent être ajoutés séparément ou en pack, sous réserve de la proposition Custom."
+          "q": "Privacy by Design",
+          "a": "Tous les forfaits payants comprennent les outils opérationnels complets et le module Privacy by Design."
         },
         {
           "q": "Puis-je ajouter d'autres stations virtuelles ?",
@@ -1017,6 +1046,21 @@ export const homepageCopies = {
       "cookies": "Cookies",
       "future": "Les futures intégrations sont identifiées comme telles et ne sont pas vendues comme fonctionnalités actives.",
       "rights": "Tous droits réservés."
+    },
+    "privacy": {
+      "badge": "Tous les forfaits payants comprennent les outils opérationnels complets et le module Privacy by Design.",
+      "kicker": "Privacy by Design",
+      "title": "Une protection des données prête pour le RGPD/GDPR, intégrée au travail quotidien",
+      "description": "Donnez aux organisations des contrôles concrets qui soutiennent la conformité au RGPD/GDPR tout en préservant la traçabilité légale et opérationnelle exigée par une production professionnelle.",
+      "items": [
+        "Accès aux données personnelles selon le rôle",
+        "Responsable de la protection des données de l'organisation",
+        "Rapports pseudonymisés lorsque le nom est inutile",
+        "Espace personnel de confidentialité et demandes RGPD",
+        "Politiques de conservation configurables",
+        "Journal d'audit des accès et modifications",
+        "Identification légale obligatoire préservée"
+      ]
     }
   },
   "es": {
@@ -1030,26 +1074,27 @@ export const homepageCopies = {
       "login": "Iniciar sesión",
       "start": "empezar",
       "language": "Idioma",
-      "menu": "abrir menú"
+      "menu": "abrir menú",
+      "privacy": "Privacy by Design"
     },
     "hero": {
-      "eyebrow": "Agricultura de campo, conectada",
-      "title": "Cada decisión de campo,",
-      "accent": "del mapa al registro de campo.",
-      "description": "GeroFarm conecta parcelas, cultivos, operaciones, cosechas e indicadores agronómicos en un historial práctico para su finca.",
+      "eyebrow": "Gestión diaria de la granja",
+      "title": "El trabajo de la finca, en el mismo lugar",
+      "accent": "De la tierra al registro del campo",
+      "description": "Mapee campos, conecte cultivos, operaciones, cosechas y clima agronómico, y mantenga un registro de campo claro con GeroFarm.",
       "primary": "Comience con GeroFarm",
       "secondary": "Ver planos",
       "note": "Free por hasta 30 días · No se requiere tarjeta de crédito",
       "imageAlt": "Campos agrícolas con límites de parcelas mapeados y puntos de observación agronómica.",
       "mapLabel": "Parcelas mapeadas",
       "cropLabel": "Cultivos activos",
-      "operationLabel": "Operaciones vinculadas"
+      "operationLabel": "Operaciones y fumigación."
     },
     "proof": [
-      "Mapas de campo KML y KMZ",
-      "Cultivos temporales y permanentes",
-      "Operaciones y cosechas ilimitadas",
-      "Un registro de campo construido a partir de trabajo real"
+      "Mapas y paquetes",
+      "Operaciones y fumigación.",
+      "Clima agronómico",
+      "Cuaderno de campo"
     ],
     "flow": {
       "kicker": "Una historia conectada",
@@ -1105,7 +1150,7 @@ export const homepageCopies = {
         },
         {
           "title": "Cuaderno de campo",
-          "description": "Genere un PDF coherente a partir del historial operativo actual. Free incluye únicamente una demostración ficticia claramente marcada.",
+          "description": "Gestión clara del campo, desde el mapa hasta el registro de campo.",
           "status": "Disponible"
         }
       ]
@@ -1113,7 +1158,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Clima agronómico",
       "title": "Un clima que habla el idioma de cada cultivo",
-      "description": "Las estaciones virtuales convierten los datos meteorológicos en indicadores agronómicos vinculados a cada cultivo y sus etiquetas. Los valores son estimaciones para apoyar la toma de decisiones, no mediciones de sensores.",
+      "description": "Mapee campos, conecte cultivos, operaciones, cosechas y clima agronómico, y mantenga un registro de campo claro con GeroFarm.",
       "metrics": [
         "Evapotranspiración de referencia (ET₀)",
         "Radiación solar",
@@ -1123,14 +1168,7 @@ export const homepageCopies = {
         "Humedad foliar estimada",
         "Indicadores por cultivo"
       ],
-      "tagsTitle": "Ejemplos por etiqueta del cultivo",
-      "tags": [
-        "Etapa fenológica",
-        "Variedad",
-        "Sector riego",
-        "Monitoreo de riesgos"
-      ],
-      "status": "Disponible en la oferta prevista GeroFarm"
+      "status": "Disponible"
     },
     "modules": {
       "kicker": "Profundidad adaptable",
@@ -1168,8 +1206,7 @@ export const homepageCopies = {
             "5 campos activos",
             "1 estación virtual",
             "30 días máximo",
-            "Consulta y exportación fuera del plazo.",
-            "Demostración en PDF ficticia y de registro de campo no válido"
+            "Cuaderno de campo"
           ]
         },
         {
@@ -1183,6 +1220,8 @@ export const homepageCopies = {
             "50 campos",
             "2 estaciones virtuales",
             "Inventario y costos disponibles como complementos",
+            "Privacy by Design",
+            "Privacy by Design",
             "Integraciones futuras permitidas"
           ]
         },
@@ -1198,6 +1237,8 @@ export const homepageCopies = {
             "5 estaciones virtuales",
             "Inventario incluido",
             "Gastos incluidos",
+            "Privacy by Design",
+            "Privacy by Design",
             "Integraciones futuras permitidas"
           ]
         },
@@ -1211,6 +1252,8 @@ export const homepageCopies = {
             "Campos y estaciones Custom",
             "Inventario y Costos por propuesta",
             "Módulos a medida",
+            "Privacy by Design",
+            "Privacy by Design",
             "Integraciones futuras y personalizadas"
           ]
         }
@@ -1234,12 +1277,8 @@ export const homepageCopies = {
           "a": "La organización pasa a la consulta y la exportación. Los datos permanecen preservados; Crear o cambiar registros operativos requiere un plan pago."
         },
         {
-          "q": "¿Es válido el PDF de registro de campo Free?",
-          "a": "No. Free solo incluye un PDF de demostración ficticio, claramente identificado como sin validez."
-        },
-        {
-          "q": "¿Están incluidos el inventario y los costos?",
-          "a": "Ambos están incluidos con Professional. En Grow y Custom se pueden añadir por separado o en pack, sujeto a la propuesta de Custom."
+          "q": "Privacy by Design",
+          "a": "Todos los planes de pago incluyen las herramientas operativas completas y el módulo Privacy by Design."
         },
         {
           "q": "¿Puedo agregar más estaciones virtuales?",
@@ -1271,6 +1310,21 @@ export const homepageCopies = {
       "cookies": "Cookies",
       "future": "Las integraciones futuras se identifican como tales y no se venden como funciones activas.",
       "rights": "Todos los derechos reservados."
+    },
+    "privacy": {
+      "badge": "Todos los planes de pago incluyen las herramientas operativas completas y el módulo Privacy by Design.",
+      "kicker": "Privacy by Design",
+      "title": "Protección de datos preparada para el RGPD/GDPR e integrada en el trabajo diario",
+      "description": "Ofrece a las organizaciones controles prácticos que respaldan el cumplimiento del RGPD/GDPR y preservan la trazabilidad legal y operativa que exige la producción profesional.",
+      "items": [
+        "Acceso a datos personales según la función",
+        "Responsable de protección de datos de la organización",
+        "Informes seudonimizados cuando el nombre no es necesario",
+        "Área personal de privacidad y solicitudes RGPD",
+        "Políticas de conservación configurables",
+        "Auditoría de accesos y cambios",
+        "Identificación legal obligatoria preservada"
+      ]
     }
   },
   "nl": {
@@ -1284,26 +1338,27 @@ export const homepageCopies = {
       "login": "Log in",
       "start": "Ga aan de slag",
       "language": "Taal",
-      "menu": "Menu openen"
+      "menu": "Menu openen",
+      "privacy": "Privacy by Design"
     },
     "hero": {
-      "eyebrow": "Veldlandbouw, verbonden",
-      "title": "Elke veldbeslissing,",
-      "accent": "van kaart tot veldrecord.",
-      "description": "GeroFarm verbindt percelen, gewassen, activiteiten, oogsten en agronomische indicatoren in één praktijkgeschiedenis voor uw bedrijf.",
+      "eyebrow": "Dagelijks boerderijbeheer",
+      "title": "Het werk van de boerderij, op dezelfde plek",
+      "accent": "Van het land tot het veldrecord",
+      "description": "Breng velden in kaart, verbind gewassen, bewerkingen, oogsten en agronomisch weer en houd een duidelijk veldrecord bij met GeroFarm.",
       "primary": "Begin met GeroFarm",
       "secondary": "Bekijk plannen",
       "note": "Free voor maximaal 30 dagen · Geen creditcard vereist",
       "imageAlt": "Landbouwvelden met in kaart gebrachte perceelsgrenzen en agronomische observatiepunten",
       "mapLabel": "In kaart gebrachte percelen",
       "cropLabel": "Actieve gewassen",
-      "operationLabel": "Operaties gekoppeld"
+      "operationLabel": "Bediening en spuiten"
     },
     "proof": [
-      "KML- en KMZ-veldkaarten",
-      "Tijdelijke en permanente teelten",
-      "Onbeperkte bewerkingen en oogsten",
-      "Een veldrecord opgebouwd uit echt werk"
+      "Kaarten en pakketten",
+      "Bediening en spuiten",
+      "Agronomisch weer",
+      "Teeltregistratie"
     ],
     "flow": {
       "kicker": "Eén verbonden geschiedenis",
@@ -1359,7 +1414,7 @@ export const homepageCopies = {
         },
         {
           "title": "Teeltregistratie",
-          "description": "Genereer een samenhangende PDF van de huidige operationele geschiedenis. Free bevat alleen een duidelijk gemarkeerde fictieve demonstratie.",
+          "description": "Overzichtelijk veldbeheer, van kaart tot veldrecord.",
           "status": "Beschikbaar"
         }
       ]
@@ -1367,7 +1422,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Agronomisch weer",
       "title": "Weer dat de taal spreekt van elk gewas",
-      "description": "Virtuele stations zetten weergegevens om in agronomische indicatoren die aan elk gewas en zijn tags zijn gekoppeld. Waarden zijn schattingen voor beslissingsondersteuning, geen sensormetingen.",
+      "description": "Breng velden in kaart, verbind gewassen, bewerkingen, oogsten en agronomisch weer en houd een duidelijk veldrecord bij met GeroFarm.",
       "metrics": [
         "Referentie verdamping (ET₀)",
         "Zonnestraling",
@@ -1377,14 +1432,7 @@ export const homepageCopies = {
         "Geschatte bladnatheid",
         "Indicatoren per gewas"
       ],
-      "tagsTitle": "Voorbeelden per teeltlabel",
-      "tags": [
-        "Fenologisch stadium",
-        "Variatie",
-        "Irrigatiesector",
-        "Risicomonitoring"
-      ],
-      "status": "Beschikbaar in de geplande GeroFarm-aanbieding"
+      "status": "Beschikbaar"
     },
     "modules": {
       "kicker": "Aanpasbare diepte",
@@ -1422,8 +1470,7 @@ export const homepageCopies = {
             "5 actieve velden",
             "1 virtueel station",
             "Maximaal 30 dagen",
-            "Overleg en export na de periode",
-            "Fictieve, niet-geldige PDF-demo met veldrecord"
+            "Teeltregistratie"
           ]
         },
         {
@@ -1437,6 +1484,8 @@ export const homepageCopies = {
             "50 velden",
             "2 virtuele stations",
             "Voorraad en kosten beschikbaar als add-ons",
+            "Privacy by Design",
+            "Privacy by Design",
             "Toekomstige integraties toegestaan"
           ]
         },
@@ -1452,6 +1501,8 @@ export const homepageCopies = {
             "5 virtuele stations",
             "Inventaris inbegrepen",
             "Kosten inbegrepen",
+            "Privacy by Design",
+            "Privacy by Design",
             "Toekomstige integraties toegestaan"
           ]
         },
@@ -1465,6 +1516,8 @@ export const homepageCopies = {
             "Custom-velden en stations",
             "Inventaris en kosten op voorstel",
             "Op maat gemaakte modules",
+            "Privacy by Design",
+            "Privacy by Design",
             "Toekomstige en op maat gemaakte integraties"
           ]
         }
@@ -1488,12 +1541,8 @@ export const homepageCopies = {
           "a": "De organisatie schakelt over naar advies en export. Gegevens blijven behouden; voor het maken of wijzigen van operationele records is een betaald abonnement vereist."
         },
         {
-          "q": "Is de Free-veldrecord-PDF geldig?",
-          "a": "Nee. Free bevat alleen een fictieve demonstratie-PDF, waarvan duidelijk is aangegeven dat deze geen geldigheid heeft."
-        },
-        {
-          "q": "Zijn inventaris en kosten inbegrepen?",
-          "a": "Beide zijn inbegrepen bij de Professional. Op Grow en Custom kunnen ze afzonderlijk of als pakket worden toegevoegd, afhankelijk van het Custom-voorstel."
+          "q": "Privacy by Design",
+          "a": "Alle betaalde abonnementen bevatten de volledige operationele gereedschapsset en de module Privacy by Design."
         },
         {
           "q": "Kan ik meer virtuele stations toevoegen?",
@@ -1525,6 +1574,21 @@ export const homepageCopies = {
       "cookies": "Cookies",
       "future": "Toekomstige integraties worden als zodanig geïdentificeerd en worden niet als actieve functies verkocht.",
       "rights": "Alle rechten voorbehouden."
+    },
+    "privacy": {
+      "badge": "Alle betaalde abonnementen bevatten de volledige operationele gereedschapsset en de module Privacy by Design.",
+      "kicker": "Privacy by Design",
+      "title": "AVG-conforme gegevensbescherming, ingebouwd in het dagelijkse werk",
+      "description": "Geef organisaties praktische beheersmaatregelen die AVG-naleving ondersteunen en tegelijk de juridische en operationele traceerbaarheid behouden die professionele productie vereist.",
+      "items": [
+        "Toegang tot persoonsgegevens per rol",
+        "Privacybeheerder van de organisatie",
+        "Gepseudonimiseerde rapporten wanneer namen niet nodig zijn",
+        "Persoonlijke privacyomgeving en AVG-verzoeken",
+        "Configureerbaar bewaarbeleid",
+        "Audittrail van toegang en wijzigingen",
+        "Verplichte wettelijke identificatie behouden"
+      ]
     }
   },
   "de": {
@@ -1538,26 +1602,27 @@ export const homepageCopies = {
       "login": "Melden Sie sich an",
       "start": "Fangen Sie an",
       "language": "Sprache",
-      "menu": "Menü öffnen"
+      "menu": "Menü öffnen",
+      "privacy": "Privacy by Design"
     },
     "hero": {
-      "eyebrow": "Feldwirtschaft, vernetzt",
-      "title": "Jede Feldentscheidung,",
-      "accent": "von der Karte bis zur Feldaufzeichnung.",
-      "description": "GeroFarm verbindet Parzellen, Ernten, Betriebe, Ernten und agronomische Indikatoren in einer praktischen Historie für Ihren Betrieb.",
+      "eyebrow": "Tägliches Farmmanagement",
+      "title": "Die Arbeit auf dem Bauernhof, am selben Ort",
+      "accent": "Von der Land- zur Feldaufzeichnung",
+      "description": "Kartieren Sie Felder, verknüpfen Sie Pflanzen, Betriebe, Ernten und agronomisches Wetter und führen Sie mit GeroFarm eine klare Feldaufzeichnung.",
       "primary": "Beginnen Sie mit GeroFarm",
       "secondary": "Pläne ansehen",
       "note": "Free für bis zu 30 Tage · Keine Kreditkarte erforderlich",
       "imageAlt": "Landwirtschaftliche Felder mit kartierten Parzellengrenzen und agronomischen Beobachtungspunkten",
       "mapLabel": "Kartierte Parzellen",
       "cropLabel": "Aktive Pflanzen",
-      "operationLabel": "Operationen verknüpft"
+      "operationLabel": "Operationen und Sprühen"
     },
     "proof": [
-      "Feldkarten KML und KMZ",
-      "Temporäre und dauerhafte Kulturen",
-      "Unbegrenzte Operationen und Ernten",
-      "Eine Feldaufzeichnung, die auf echter Arbeit basiert"
+      "Karten und Parzellen",
+      "Operationen und Sprühen",
+      "Agrarwetter",
+      "Schlagkartei"
     ],
     "flow": {
       "kicker": "Eine zusammenhängende Geschichte",
@@ -1613,7 +1678,7 @@ export const homepageCopies = {
         },
         {
           "title": "Schlagkartei",
-          "description": "Generieren Sie ein zusammenhängendes PDF aus der aktuellen Betriebshistorie. Free enthält nur eine deutlich gekennzeichnete fiktive Demonstration.",
+          "description": "Übersichtliche Schlagverwaltung, von der Karte bis zur Schlagaufzeichnung.",
           "status": "Verfügbar"
         }
       ]
@@ -1621,7 +1686,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Agrarwetter",
       "title": "Wetter, das die Sprache jeder Kultur spricht",
-      "description": "Virtuelle Stationen wandeln Wetterdaten in agronomische Indikatoren um, die mit jeder Kultur und ihren Tags verknüpft sind. Bei den Werten handelt es sich um Schätzungen zur Entscheidungsunterstützung, nicht um Sensormessungen.",
+      "description": "Kartieren Sie Felder, verknüpfen Sie Pflanzen, Betriebe, Ernten und agronomisches Wetter und führen Sie mit GeroFarm eine klare Feldaufzeichnung.",
       "metrics": [
         "Referenz-Evapotranspiration (ET₀)",
         "Sonnenstrahlung",
@@ -1631,14 +1696,7 @@ export const homepageCopies = {
         "Geschätzte Blattnässe",
         "Indikatoren nach Kultur"
       ],
-      "tagsTitle": "Beispiele nach Kultur-Tag",
-      "tags": [
-        "Phänologisches Stadium",
-        "Vielfalt",
-        "Bewässerungssektor",
-        "Risikoüberwachung"
-      ],
-      "status": "Verfügbar im geplanten GeroFarm-Angebot"
+      "status": "Verfügbar"
     },
     "modules": {
       "kicker": "Anpassbare Tiefe",
@@ -1676,8 +1734,7 @@ export const homepageCopies = {
             "5 aktive Felder",
             "1 virtuelle Station",
             "Maximal 30 Tage",
-            "Beratung und Export nach Ablauf der Frist",
-            "Fiktive, ungültige Feldaufzeichnungs-PDF-Demo"
+            "Schlagkartei"
           ]
         },
         {
@@ -1691,6 +1748,8 @@ export const homepageCopies = {
             "50 Felder",
             "2 virtuelle Stationen",
             "Inventar und Kosten als Add-ons verfügbar",
+            "Privacy by Design",
+            "Privacy by Design",
             "Zukünftige Integrationen erlaubt"
           ]
         },
@@ -1706,6 +1765,8 @@ export const homepageCopies = {
             "5 virtuelle Stationen",
             "Inklusive Inventar",
             "Kosten inklusive",
+            "Privacy by Design",
+            "Privacy by Design",
             "Zukünftige Integrationen erlaubt"
           ]
         },
@@ -1719,6 +1780,8 @@ export const homepageCopies = {
             "Custom Felder und Stationen",
             "Inventar und Kosten nach Vorschlag",
             "Maßgeschneiderte Module",
+            "Privacy by Design",
+            "Privacy by Design",
             "Zukünftige und maßgeschneiderte Integrationen"
           ]
         }
@@ -1742,12 +1805,8 @@ export const homepageCopies = {
           "a": "Die Organisation stellt auf Beratung und Export um. Daten bleiben erhalten; Für das Erstellen oder Ändern von Betriebsunterlagen ist ein kostenpflichtiger Plan erforderlich."
         },
         {
-          "q": "Ist das Felddatensatz-PDF Free gültig?",
-          "a": "Nein. Free enthält nur ein fiktives Demonstrations-PDF, das eindeutig als ungültig gekennzeichnet ist."
-        },
-        {
-          "q": "Sind Inventar und Kosten enthalten?",
-          "a": "Beide sind im Professional enthalten. Bei Grow und Custom können sie einzeln oder als Paket hinzugefügt werden, vorbehaltlich des Custom-Vorschlags."
+          "q": "Privacy by Design",
+          "a": "Alle kostenpflichtigen Pläne beinhalten das komplette Betriebs-Toolkit und das Privacy by Design-Modul."
         },
         {
           "q": "Kann ich weitere virtuelle Stationen hinzufügen?",
@@ -1779,6 +1838,21 @@ export const homepageCopies = {
       "cookies": "Cookies",
       "future": "Zukünftige Integrationen werden als solche gekennzeichnet und nicht als aktive Funktionen verkauft.",
       "rights": "Alle Rechte vorbehalten."
+    },
+    "privacy": {
+      "badge": "Alle kostenpflichtigen Pläne beinhalten das komplette Betriebs-Toolkit und das Privacy by Design-Modul.",
+      "kicker": "Privacy by Design",
+      "title": "DSGVO-konformer Datenschutz, integriert in die tägliche Arbeit",
+      "description": "Geben Sie Unternehmen praktische Kontrollen, die die Einhaltung der DSGVO unterstützen und gleichzeitig die rechtliche und betriebliche Rückverfolgbarkeit wahren, die eine professionelle Produktion erfordert.",
+      "items": [
+        "Zugriff auf personenbezogene Daten nach Rolle",
+        "Datenschutzmanager der Organisation",
+        "Pseudonymisierte Berichte, wenn Namen nicht erforderlich sind",
+        "Persönlicher Datenschutzbereich und DSGVO-Anfragen",
+        "Konfigurierbare Aufbewahrungsrichtlinien",
+        "Audit-Trail für Zugriffe und Änderungen",
+        "Gesetzlich vorgeschriebene Identifikationsdaten bewahren"
+      ]
     }
   },
   "ja": {
@@ -1792,26 +1866,27 @@ export const homepageCopies = {
       "login": "サインイン",
       "start": "始めましょう",
       "language": "言語",
-      "menu": "メニューを開く"
+      "menu": "メニューを開く",
+      "privacy": "プライバシーバイデザイン"
     },
     "hero": {
-      "eyebrow": "つながる畑農業",
-      "title": "あらゆる現場での意思決定、",
-      "accent": "地図からフィールドレコードへ。",
-      "description": "GeroFarm は、農場の区画、作物、作業、収穫、農業指標を 1 つの実践的な履歴に結び付けます。",
+      "eyebrow": "日々の農場管理",
+      "title": "農場の仕事を同じ場所で",
+      "accent": "土地からフィールドレコードまで",
+      "description": "GeroFarm を使用して、圃場をマッピングし、作物、作業、収穫、農業気象を結び付け、明確な圃場記録を維持します。",
       "primary": "GeroFarm から始める",
       "secondary": "プランを見る",
       "note": "Free 最大 30 日間 · クレジット カードは必要ありません",
       "imageAlt": "地図上の区画境界と農業観察ポイントを備えた農地",
       "mapLabel": "マップされたパーセル",
       "cropLabel": "活発な作物",
-      "operationLabel": "連携したオペレーション"
+      "operationLabel": "操作と噴霧"
     },
     "proof": [
-      "KML および KMZ フィールド マップ",
-      "一時的および永続的な作物",
-      "無制限の操作と収穫",
-      "実際の作業から構築されたフィールド記録"
+      "地図と荷物",
+      "操作と噴霧",
+      "農業天気",
+      "圃場記録"
     ],
     "flow": {
       "kicker": "つながったひとつの歴史",
@@ -1867,7 +1942,7 @@ export const homepageCopies = {
         },
         {
           "title": "圃場記録",
-          "description": "現在の操作履歴から一貫した PDF を生成します。 Free には、明確にマークされた架空のデモのみが含まれています。",
+          "description": "地図から現場記録まで、明確な現場管理。",
           "status": "利用可能"
         }
       ]
@@ -1875,7 +1950,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "農業天気",
       "title": "それぞれの作物の言葉を語る天気",
-      "description": "仮想ステーションは、気象データを各作物とそのタグにリンクされた農業指標に変換します。値は意思決定支援のための推定値であり、センサーの測定値ではありません。",
+      "description": "GeroFarm を使用して、圃場をマッピングし、作物、作業、収穫、農業気象を結び付け、明確な圃場記録を維持します。",
       "metrics": [
         "基準蒸発散量 (ET₀)",
         "日射量",
@@ -1885,14 +1960,7 @@ export const homepageCopies = {
         "推定葉湿り量",
         "作物別指標"
       ],
-      "tagsTitle": "作付けタグ別の例",
-      "tags": [
-        "生物季節段階",
-        "バラエティ",
-        "灌漑部門",
-        "リスクモニタリング"
-      ],
-      "status": "計画中の GeroFarm オファーで利用可能"
+      "status": "利用可能"
     },
     "modules": {
       "kicker": "適応可能な深さ",
@@ -1930,8 +1998,7 @@ export const homepageCopies = {
             "5つのアクティブフィールド",
             "1 仮想ステーション",
             "最長30日",
-            "期間後のご相談・輸出について",
-            "架空の有効ではないフィールドレコードの PDF デモ"
+            "圃場記録"
           ]
         },
         {
@@ -1945,6 +2012,8 @@ export const homepageCopies = {
             "50フィールド",
             "2つの仮想ステーション",
             "アドオンとして利用可能な在庫とコスト",
+            "プライバシーバイデザイン",
+            "プライバシーバイデザイン",
             "将来の統合が可能"
           ]
         },
@@ -1960,6 +2029,8 @@ export const homepageCopies = {
             "5つの仮想ステーション",
             "在庫を含む",
             "費用込み",
+            "プライバシーバイデザイン",
+            "プライバシーバイデザイン",
             "将来の統合が可能"
           ]
         },
@@ -1973,6 +2044,8 @@ export const homepageCopies = {
             "Custom フィールドとステーション",
             "提案ごとの在庫とコスト",
             "カスタマイズされたモジュール",
+            "プライバシーバイデザイン",
+            "プライバシーバイデザイン",
             "将来のカスタマイズされた統合"
           ]
         }
@@ -1996,12 +2069,8 @@ export const homepageCopies = {
           "a": "組織は相談と輸出に切り替えます。データは保存されたままになります。操作記録の作成または変更には有料プランが必要です。"
         },
         {
-          "q": "Free フィールドレコード PDF は有効ですか?",
-          "a": "いいえ、Free には架空のデモ PDF のみが含まれており、有効性がないことが明らかです。"
-        },
-        {
-          "q": "在庫やコストは含まれますか?",
-          "a": "どちらも Professional に含まれています。 Grow および Custom では、Custom プロポーザルに従って、個別にまたはパックとして追加できます。"
+          "q": "プライバシーバイデザイン",
+          "a": "すべての有料プランには、完全な運用ツールキットとプライバシー バイ デザイン モジュールが含まれています。"
         },
         {
           "q": "さらに仮想ステーションを追加できますか?",
@@ -2033,6 +2102,21 @@ export const homepageCopies = {
       "cookies": "Cookie",
       "future": "将来の統合はそのように識別され、アクティブな機能として販売されません。",
       "rights": "すべての著作権は留保されています。"
+    },
+    "privacy": {
+      "badge": "すべての有料プランには、完全な運用ツールキットとプライバシー バイ デザイン モジュールが含まれています。",
+      "kicker": "プライバシーバイデザイン",
+      "title": "日常業務に組み込まれた GDPR 対応のデータ保護",
+      "description": "プロフェッショナルな制作に必要な法的および運用上のトレーサビリティを維持しながら、GDPR 準拠をサポートする実践的な管理を組織に提供します。",
+      "items": [
+        "役割ごとの個人データへのアクセス",
+        "組織プライバシーマネージャー",
+        "名前が不要な仮名化レポート",
+        "個人のプライバシー領域と GDPR リクエスト",
+        "構成可能な保持ポリシー",
+        "アクセスと変更の監査証跡",
+        "必須の法的身分証明書の保存"
+      ]
     }
   },
   "he": {
@@ -2046,26 +2130,27 @@ export const homepageCopies = {
       "login": "היכנס",
       "start": "התחל",
       "language": "שפה",
-      "menu": "פתח את התפריט"
+      "menu": "פתח את התפריט",
+      "privacy": "פרטיות לפי עיצוב"
     },
     "hero": {
-      "eyebrow": "חקלאות שדה, מחוברת",
-      "title": "כל החלטה בשטח,",
-      "accent": "ממפה לרשומה בשטח.",
-      "description": "GeroFarm מחבר חבילות, יבולים, פעולות, יבול ומחוונים אגרונומיים בהיסטוריה מעשית אחת עבור החווה שלך.",
+      "eyebrow": "ניהול משק יומי",
+      "title": "עבודת החווה, באותו מקום",
+      "accent": "מהארץ לשיא השדה",
+      "description": "מפה שדות, חבר יבולים, פעולות, יבול ומזג אוויר אגרונומי, ושמור על רישום שדות ברור עם GeroFarm.",
       "primary": "התחל עם GeroFarm",
       "secondary": "צפה בתוכניות",
       "note": "Free עד 30 ימים · אין צורך בכרטיס אשראי",
       "imageAlt": "שדות חקלאיים עם גבולות חלקות ממופים ונקודות תצפית אגרונומיות",
       "mapLabel": "חבילות ממופות",
       "cropLabel": "גידולים פעילים",
-      "operationLabel": "פעולות מקושרות"
+      "operationLabel": "פעולות וריסוס"
     },
     "proof": [
-      "מפות שדות KML ו-KMZ",
-      "גידולים זמניים וקבועים",
-      "פעולות ויבול ללא הגבלה",
-      "שיא שטח שנבנה מעבודה אמיתית"
+      "מפות וחבילות",
+      "פעולות וריסוס",
+      "מזג אוויר אגרונומי",
+      "יומן שדה"
     ],
     "flow": {
       "kicker": "היסטוריה אחת מחוברת",
@@ -2121,7 +2206,7 @@ export const homepageCopies = {
         },
         {
           "title": "יומן שדה",
-          "description": "צור PDF קוהרנטי מההיסטוריה התפעולית הנוכחית. Free כולל הדגמה בדיונית מסומנת בבירור בלבד.",
+          "description": "ניהול שדה ברור, ממפה לרשומת שדה.",
           "status": "זמין"
         }
       ]
@@ -2129,7 +2214,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "מזג אוויר אגרונומי",
       "title": "מזג אוויר שמדבר בשפה של כל גידול",
-      "description": "תחנות וירטואליות הופכות נתוני מזג אוויר לאינדיקטורים אגרונומיים המקושרים לכל גידול ולתגים שלו. הערכים הם הערכות לתמיכה בהחלטה, לא מדידות חיישנים.",
+      "description": "מפה שדות, חבר יבולים, פעולות, יבול ומזג אוויר אגרונומי, ושמור על רישום שדות ברור עם GeroFarm.",
       "metrics": [
         "evapotranspiration התייחסות (ET₀)",
         "קרינת שמש",
@@ -2139,14 +2224,7 @@ export const homepageCopies = {
         "רטיבות עלים משוערת",
         "אינדיקטורים לפי יבול"
       ],
-      "tagsTitle": "דוגמאות לפי תגית גידול",
-      "tags": [
-        "שלב פנולוגי",
-        "מגוון",
-        "מגזר ההשקיה",
-        "ניטור סיכונים"
-      ],
-      "status": "זמין בהיצע GeroFarm המתוכנן"
+      "status": "זמין"
     },
     "modules": {
       "kicker": "עומק ניתן להתאמה",
@@ -2184,8 +2262,7 @@ export const homepageCopies = {
             "5 שדות פעילים",
             "תחנה וירטואלית אחת",
             "מקסימום 30 יום",
-            "ייעוץ וייצוא לאחר התקופה",
-            "הדגמת PDF בדיונית, לא חוקית של תיעוד שדה"
+            "יומן שדה"
           ]
         },
         {
@@ -2199,6 +2276,8 @@ export const homepageCopies = {
             "50 שדות",
             "2 תחנות וירטואליות",
             "מלאי ועלויות זמינים כתוספות",
+            "פרטיות לפי עיצוב",
+            "פרטיות לפי עיצוב",
             "שילובים עתידיים מותר"
           ]
         },
@@ -2214,6 +2293,8 @@ export const homepageCopies = {
             "5 תחנות וירטואליות",
             "מלאי כלול",
             "עלויות כלולות",
+            "פרטיות לפי עיצוב",
+            "פרטיות לפי עיצוב",
             "שילובים עתידיים מותר"
           ]
         },
@@ -2227,6 +2308,8 @@ export const homepageCopies = {
             "Custom שדות ותחנות",
             "מלאי ועלויות לפי הצעה",
             "מודולים מותאמים",
+            "פרטיות לפי עיצוב",
+            "פרטיות לפי עיצוב",
             "אינטגרציות עתידיות ומותאמות"
           ]
         }
@@ -2250,12 +2333,8 @@ export const homepageCopies = {
           "a": "הארגון עובר לייעוץ ויצוא. הנתונים נשארים נשמרים; יצירה או שינוי של רשומות תפעוליות דורשת תוכנית בתשלום."
         },
         {
-          "q": "האם ה-PDF של רשומת השדה Free חוקי?",
-          "a": "מס. Free כולל רק PDF הדגמה בדיונית, שזוהה בבירור כלא תוקף."
-        },
-        {
-          "q": "האם מלאי ועלויות כלולים?",
-          "a": "שניהם כלולים עם Professional. ב-Grow ו-Custom ניתן להוסיף אותם בנפרד או כחבילה, בכפוף להצעת Custom."
+          "q": "פרטיות לפי עיצוב",
+          "a": "כל התוכניות בתשלום כוללות את ערכת הכלים התפעולית המלאה ומודול פרטיות לפי עיצוב."
         },
         {
           "q": "האם אני יכול להוסיף עוד תחנות וירטואליות?",
@@ -2287,6 +2366,21 @@ export const homepageCopies = {
       "cookies": "קובצי Cookie",
       "future": "אינטגרציות עתידיות מזוהות ככאלה ואינן נמכרות כתכונות פעילות.",
       "rights": "כל הזכויות שמורות."
+    },
+    "privacy": {
+      "badge": "כל התוכניות בתשלום כוללות את ערכת הכלים התפעולית המלאה ומודול פרטיות לפי עיצוב.",
+      "kicker": "פרטיות לפי עיצוב",
+      "title": "הגנת מידע מוכנה ל-GDPR, מובנית בעבודה היומיומית",
+      "description": "תן לארגונים בקרות מעשיות התומכות בציות ל-GDPR תוך שמירה על העקיבות המשפטית והתפעולית שהייצור המקצועי דורש.",
+      "items": [
+        "גישה לנתונים אישיים לפי תפקיד",
+        "מנהל פרטיות הארגון",
+        "דוחות בדויים שבהם שמות מיותרים",
+        "אזור פרטיות אישית ובקשות GDPR",
+        "מדיניות שמירה הניתנת להגדרה",
+        "מסלול ביקורת לגישה ושינויים",
+        "זיהוי חוקי חובה נשמר"
+      ]
     }
   },
   "tr": {
@@ -2300,26 +2394,27 @@ export const homepageCopies = {
       "login": "Oturum aç",
       "start": "Başlayın",
       "language": "Dil",
-      "menu": "Menüyü aç"
+      "menu": "Menüyü aç",
+      "privacy": "Tasarıma Göre Gizlilik"
     },
     "hero": {
-      "eyebrow": "Tarla tarımı, bağlantılı",
-      "title": "Her saha kararı,",
-      "accent": "haritadan saha kaydına.",
-      "description": "GeroFarm çiftliğiniz için parselleri, mahsulleri, operasyonları, hasatları ve tarımsal göstergeleri tek bir pratik geçmişte birleştirir.",
+      "eyebrow": "Günlük çiftlik yönetimi",
+      "title": "Çiftliğin işi aynı yerde",
+      "accent": "Araziden tarla kaydına",
+      "description": "GeroFarm ile tarlaları haritalandırın, mahsulleri, operasyonları, hasatları ve tarımsal hava durumunu bağlayın ve net bir saha kaydı tutun.",
       "primary": "GeroFarm ile başlayın",
       "secondary": "Planları görüntüle",
       "note": "30 güne kadar Free · Kredi kartı gerekmez",
       "imageAlt": "Haritalanmış parsel sınırları ve tarımsal gözlem noktaları bulunan tarım alanları",
       "mapLabel": "Haritalanmış parseller",
       "cropLabel": "Aktif mahsuller",
-      "operationLabel": "Bağlantılı işlemler"
+      "operationLabel": "Operasyonlar ve püskürtme"
     },
     "proof": [
-      "KML ve KMZ alan haritaları",
-      "Geçici ve kalıcı ürünler",
-      "Sınırsız operasyon ve hasat",
-      "Gerçek çalışmadan oluşturulmuş bir saha kaydı"
+      "Haritalar ve parseller",
+      "Operasyonlar ve püskürtme",
+      "Tarımsal hava",
+      "Tarla kayıt defteri"
     ],
     "flow": {
       "kicker": "Bağlantılı bir geçmiş",
@@ -2375,7 +2470,7 @@ export const homepageCopies = {
         },
         {
           "title": "Tarla kayıt defteri",
-          "description": "Mevcut operasyonel geçmişinizden tutarlı bir PDF oluşturun. Free yalnızca açıkça işaretlenmiş kurgusal bir gösteri içerir.",
+          "description": "Haritadan saha kaydına kadar saha yönetimini temizleyin.",
           "status": "Mevcut"
         }
       ]
@@ -2383,7 +2478,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Tarımsal hava",
       "title": "Her mahsulün dilini konuşan hava durumu",
-      "description": "Sanal istasyonlar, hava durumu verilerini her bir ürüne ve etiketlerine bağlı tarımsal göstergelere dönüştürür. Değerler, sensör ölçümleri değil, karar desteğine yönelik tahminlerdir.",
+      "description": "GeroFarm ile tarlaları haritalandırın, mahsulleri, operasyonları, hasatları ve tarımsal hava durumunu bağlayın ve net bir saha kaydı tutun.",
       "metrics": [
         "Referans evapotranspirasyon (ET₀)",
         "Güneş radyasyonu",
@@ -2393,14 +2488,7 @@ export const homepageCopies = {
         "Tahmini yaprak ıslaklığı",
         "Mahsullere göre göstergeler"
       ],
-      "tagsTitle": "Yetiştiricilik etiketine göre örnekler",
-      "tags": [
-        "Fenolojik aşama",
-        "çeşitlilik",
-        "Sulama sektörü",
-        "Risk izleme"
-      ],
-      "status": "Planlanan GeroFarm teklifinde mevcut"
+      "status": "Mevcut"
     },
     "modules": {
       "kicker": "Uyarlanabilir derinlik",
@@ -2438,8 +2526,7 @@ export const homepageCopies = {
             "5 aktif alan",
             "1 sanal istasyon",
             "Maksimum 30 gün",
-            "Dönem sonrası danışmanlık ve ihracat",
-            "Kurgusal, geçerli olmayan saha kaydı PDF demosu"
+            "Tarla kayıt defteri"
           ]
         },
         {
@@ -2453,6 +2540,8 @@ export const homepageCopies = {
             "50 alan",
             "2 sanal istasyon",
             "Envanter ve Maliyetler eklenti olarak mevcuttur",
+            "Tasarıma Göre Gizlilik",
+            "Tasarıma Göre Gizlilik",
             "Gelecekteki entegrasyonlara izin veriliyor"
           ]
         },
@@ -2468,6 +2557,8 @@ export const homepageCopies = {
             "5 sanal istasyon",
             "Envanter dahil",
             "Maliyetler dahil",
+            "Tasarıma Göre Gizlilik",
+            "Tasarıma Göre Gizlilik",
             "Gelecekteki entegrasyonlara izin veriliyor"
           ]
         },
@@ -2481,6 +2572,8 @@ export const homepageCopies = {
             "Custom alanları ve istasyonları",
             "Teklife göre Envanter ve Maliyetler",
             "Özel modüller",
+            "Tasarıma Göre Gizlilik",
+            "Tasarıma Göre Gizlilik",
             "Gelecek ve özel entegrasyonlar"
           ]
         }
@@ -2504,12 +2597,8 @@ export const homepageCopies = {
           "a": "Organizasyon danışmanlık ve ihracata geçiyor. Veriler korunur; Operasyonel kayıtların oluşturulması veya değiştirilmesi ücretli bir plan gerektirir."
         },
         {
-          "q": "Free saha kaydı PDF'si geçerli mi?",
-          "a": "Hayır. Free yalnızca geçerliliği olmadığı açıkça tanımlanan kurgusal bir tanıtım PDF'si içerir."
-        },
-        {
-          "q": "Envanter ve Maliyetler dahil mi?",
-          "a": "Her ikisi de Professional'ye dahildir. Grow ve Custom'de, Custom teklifine bağlı olarak ayrı ayrı veya paket olarak eklenebilirler."
+          "q": "Tasarıma Göre Gizlilik",
+          "a": "Tüm ücretli planlar, eksiksiz operasyonel araç setini ve Tasarıma Göre Gizlilik modülünü içerir."
         },
         {
           "q": "Daha fazla sanal istasyon ekleyebilir miyim?",
@@ -2541,6 +2630,21 @@ export const homepageCopies = {
       "cookies": "Çerezler",
       "future": "Gelecekteki entegrasyonlar bu şekilde tanımlanır ve aktif özellikler olarak satılmaz.",
       "rights": "Tüm hakları saklıdır."
+    },
+    "privacy": {
+      "badge": "Tüm ücretli planlar, eksiksiz operasyonel araç setini ve Tasarıma Göre Gizlilik modülünü içerir.",
+      "kicker": "Tasarıma Göre Gizlilik",
+      "title": "Günlük işlerde yerleşik GDPR'ye hazır veri koruması",
+      "description": "Profesyonel üretimin gerektirdiği yasal ve operasyonel izlenebilirliği korurken kuruluşlara GDPR uyumluluğunu destekleyen pratik kontroller sağlayın.",
+      "items": [
+        "Role göre kişisel verilere erişim",
+        "Kuruluş gizlilik yöneticisi",
+        "İsimlerin gereksiz olduğu takma adlandırılmış raporlar",
+        "Kişisel gizlilik alanı ve GDPR talepleri",
+        "Yapılandırılabilir saklama politikaları",
+        "Erişim ve değişiklikler için denetim takibi",
+        "Zorunlu yasal kimlik korundu"
+      ]
     }
   },
   "ar": {
@@ -2554,26 +2658,27 @@ export const homepageCopies = {
       "login": "تسجيل الدخول",
       "start": "ابدأ",
       "language": "اللغة",
-      "menu": "فتح القائمة"
+      "menu": "فتح القائمة",
+      "privacy": "الخصوصية حسب التصميم"
     },
     "hero": {
-      "eyebrow": "الزراعة الحقلية، متصلة",
-      "title": "كل قرار ميداني",
-      "accent": "من الخريطة إلى السجل الميداني.",
-      "description": "يربط GeroFarm الطرود والمحاصيل والعمليات والمحاصيل والمؤشرات الزراعية في تاريخ عملي واحد لمزرعتك.",
+      "eyebrow": "إدارة المزرعة اليومية",
+      "title": "عمل المزرعة في نفس المكان",
+      "accent": "من الأرض إلى السجل الميداني",
+      "description": "قم بتخطيط الحقول وربط المحاصيل والعمليات والمحاصيل والطقس الزراعي، واحتفظ بسجل ميداني واضح باستخدام GeroFarm.",
       "primary": "ابدأ بـ GeroFarm",
       "secondary": "عرض الخطط",
       "note": "Free لمدة تصل إلى 30 يومًا · لا يلزم وجود بطاقة ائتمان",
       "imageAlt": "الحقول الزراعية مع تحديد حدود الأراضي ونقاط المراقبة الزراعية",
       "mapLabel": "الطرود المعينة",
       "cropLabel": "المحاصيل النشطة",
-      "operationLabel": "العمليات مرتبطة"
+      "operationLabel": "العمليات والرش"
     },
     "proof": [
-      "خرائط الحقول KML وKMZ",
-      "المحاصيل المؤقتة والدائمة",
-      "عمليات وحصاد غير محدود",
-      "سجل ميداني مبني على العمل الحقيقي"
+      "الخرائط والطرود",
+      "العمليات والرش",
+      "الطقس الزراعي",
+      "سجل الحقل"
     ],
     "flow": {
       "kicker": "تاريخ واحد متصل",
@@ -2629,7 +2734,7 @@ export const homepageCopies = {
         },
         {
           "title": "سجل الحقل",
-          "description": "قم بإنشاء ملف PDF متماسك من تاريخ التشغيل الحالي. يتضمن Free عرضًا توضيحيًا خياليًا واضح المعالم فقط.",
+          "description": "إدارة ميدانية واضحة، من الخريطة إلى السجل الميداني.",
           "status": "متاح"
         }
       ]
@@ -2637,7 +2742,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "الطقس الزراعي",
       "title": "الطقس الذي يتحدث لغة كل محصول",
-      "description": "وتحول المحطات الافتراضية بيانات الطقس إلى مؤشرات زراعية مرتبطة بكل محصول وعلاماته. القيم هي تقديرات لدعم القرار، وليست قياسات أجهزة الاستشعار.",
+      "description": "قم بتخطيط الحقول وربط المحاصيل والعمليات والمحاصيل والطقس الزراعي، واحتفظ بسجل ميداني واضح باستخدام GeroFarm.",
       "metrics": [
         "التبخر المرجعي (ET₀)",
         "الإشعاع الشمسي",
@@ -2647,14 +2752,7 @@ export const homepageCopies = {
         "يقدر رطوبة الأوراق",
         "المؤشرات حسب المحاصيل"
       ],
-      "tagsTitle": "أمثلة حسب وسم الزراعة",
-      "tags": [
-        "المرحلة الفينولوجية",
-        "متنوعة",
-        "قطاع الري",
-        "مراقبة المخاطر"
-      ],
-      "status": "متوفر في عرض GeroFarm المخطط له"
+      "status": "متاح"
     },
     "modules": {
       "kicker": "عمق قابل للتكيف",
@@ -2692,8 +2790,7 @@ export const homepageCopies = {
             "5 مجالات نشطة",
             "1 محطة افتراضية",
             "30 يومًا كحد أقصى",
-            "التشاور والتصدير بعد هذه الفترة",
-            "عرض PDF خيالي وغير صالح للسجل الميداني"
+            "سجل الحقل"
           ]
         },
         {
@@ -2707,6 +2804,8 @@ export const homepageCopies = {
             "50 حقلاً",
             "2 محطات افتراضية",
             "المخزون والتكاليف المتاحة كإضافات",
+            "الخصوصية حسب التصميم",
+            "الخصوصية حسب التصميم",
             "عمليات التكامل المستقبلية مسموحة"
           ]
         },
@@ -2722,6 +2821,8 @@ export const homepageCopies = {
             "5 محطات افتراضية",
             "وشملت المخزون",
             "التكاليف متضمنة",
+            "الخصوصية حسب التصميم",
+            "الخصوصية حسب التصميم",
             "عمليات التكامل المستقبلية مسموحة"
           ]
         },
@@ -2735,6 +2836,8 @@ export const homepageCopies = {
             "حقول ومحطات Custom",
             "المخزون والتكاليف حسب الاقتراح",
             "وحدات مصممة خصيصا",
+            "الخصوصية حسب التصميم",
+            "الخصوصية حسب التصميم",
             "التكامل المستقبلي والمصمم خصيصًا"
           ]
         }
@@ -2758,12 +2861,8 @@ export const homepageCopies = {
           "a": "تتحول المنظمة إلى الاستشارة والتصدير. تظل البيانات محفوظة؛ يتطلب إنشاء السجلات التشغيلية أو تغييرها خطة مدفوعة."
         },
         {
-          "q": "هل ملف PDF للتسجيل الميداني Free صالح؟",
-          "a": "لا يتضمن Free سوى ملف PDF توضيحي خيالي، والذي تم تحديده بوضوح على أنه ليس له أي صلاحية."
-        },
-        {
-          "q": "هل يتم تضمين المخزون والتكاليف؟",
-          "a": "كلاهما متضمن مع Professional. في Grow وCustom، يمكن إضافتهما بشكل منفصل أو كحزمة، وفقًا لاقتراح Custom."
+          "q": "الخصوصية حسب التصميم",
+          "a": "تشتمل جميع الخطط المدفوعة على مجموعة الأدوات التشغيلية الكاملة ووحدة الخصوصية حسب التصميم."
         },
         {
           "q": "هل يمكنني إضافة المزيد من المحطات الافتراضية؟",
@@ -2795,6 +2894,21 @@ export const homepageCopies = {
       "cookies": "ملفات تعريف الارتباط",
       "future": "يتم تحديد عمليات التكامل المستقبلية على هذا النحو ولا يتم بيعها كميزات نشطة.",
       "rights": "جميع الحقوق محفوظة."
+    },
+    "privacy": {
+      "badge": "تشتمل جميع الخطط المدفوعة على مجموعة الأدوات التشغيلية الكاملة ووحدة الخصوصية حسب التصميم.",
+      "kicker": "الخصوصية حسب التصميم",
+      "title": "حماية البيانات الجاهزة للائحة العامة لحماية البيانات (GDPR)، مدمجة في العمل اليومي",
+      "description": "امنح المؤسسات ضوابط عملية تدعم الامتثال للقانون العام لحماية البيانات (GDPR) مع الحفاظ على إمكانية التتبع القانوني والتشغيلي التي يتطلبها الإنتاج الاحترافي.",
+      "items": [
+        "الوصول إلى البيانات الشخصية حسب الدور",
+        "مدير خصوصية المنظمة",
+        "تقارير بأسماء مستعارة حيث تكون الأسماء غير ضرورية",
+        "منطقة الخصوصية الشخصية وطلبات اللائحة العامة لحماية البيانات",
+        "سياسات الاحتفاظ القابلة للتكوين",
+        "مسار التدقيق للوصول والتغييرات",
+        "تم الحفاظ على الهوية القانونية الإلزامية"
+      ]
     }
   },
   "pl": {
@@ -2808,26 +2922,27 @@ export const homepageCopies = {
       "login": "Zaloguj się",
       "start": "Zacznij",
       "language": "Język",
-      "menu": "Otwórz menu"
+      "menu": "Otwórz menu",
+      "privacy": "Prywatność już w fazie projektowania"
     },
     "hero": {
-      "eyebrow": "Rolnictwo polowe, połączone",
-      "title": "Każda decyzja terenowa,",
-      "accent": "z mapy do zapisu terenowego.",
-      "description": "GeroFarm łączy działki, uprawy, operacje, zbiory i wskaźniki agronomiczne w jedną praktyczną historię Twojego gospodarstwa.",
+      "eyebrow": "Codzienne zarządzanie gospodarstwem",
+      "title": "Praca na farmie, w tym samym miejscu",
+      "accent": "Z ziemi do zapisu terenowego",
+      "description": "Mapuj pola, łącz uprawy, operacje, zbiory i pogodę agronomiczną oraz prowadź przejrzysty zapis pól za pomocą GeroFarm.",
       "primary": "Zacznij od GeroFarm",
       "secondary": "Zobacz plany",
       "note": "Free do 30 dni · Karta kredytowa nie jest wymagana",
       "imageAlt": "Pola rolne z wytyczonymi granicami działek i punktami obserwacji agronomicznej",
       "mapLabel": "Mapowane działki",
       "cropLabel": "Aktywne uprawy",
-      "operationLabel": "Operacje połączone"
+      "operationLabel": "Operacje i opryski"
     },
     "proof": [
-      "Mapy pól KML i KMZ",
-      "Uprawy tymczasowe i trwałe",
-      "Nieograniczone operacje i zbiory",
-      "Rekord terenowy zbudowany na podstawie prawdziwej pracy"
+      "Mapy i paczki",
+      "Operacje i opryski",
+      "Pogoda agronomiczna",
+      "Ewidencja polowa"
     ],
     "flow": {
       "kicker": "Jedna połączona historia",
@@ -2883,7 +2998,7 @@ export const homepageCopies = {
         },
         {
           "title": "Ewidencja polowa",
-          "description": "Wygeneruj spójny plik PDF z aktualnej historii operacyjnej. Free zawiera wyłącznie wyraźnie oznaczoną fikcyjną demonstrację.",
+          "description": "Przejrzyste zarządzanie polem, od mapy po zapis pola.",
           "status": "Dostępne"
         }
       ]
@@ -2891,7 +3006,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Pogoda agronomiczna",
       "title": "Pogoda, która mówi językiem każdej uprawy",
-      "description": "Wirtualne stacje przekształcają dane pogodowe we wskaźniki agronomiczne powiązane z każdą uprawą i jej znacznikami. Wartości są szacunkami służącymi do wspomagania decyzji, a nie pomiarami czujników.",
+      "description": "Mapuj pola, łącz uprawy, operacje, zbiory i pogodę agronomiczną oraz prowadź przejrzysty zapis pól za pomocą GeroFarm.",
       "metrics": [
         "Referencyjna ewapotranspiracja (ET₀)",
         "Promieniowanie słoneczne",
@@ -2901,14 +3016,7 @@ export const homepageCopies = {
         "Szacowana wilgotność liści",
         "Wskaźniki według upraw"
       ],
-      "tagsTitle": "Przykłady według tagu uprawy",
-      "tags": [
-        "Etap fenologiczny",
-        "Różnorodność",
-        "Sektor nawadniania",
-        "Monitorowanie ryzyka"
-      ],
-      "status": "Dostępne w planowanej ofercie GeroFarm"
+      "status": "Dostępne"
     },
     "modules": {
       "kicker": "Możliwość dostosowania głębokości",
@@ -2946,8 +3054,7 @@ export const homepageCopies = {
             "5 aktywnych pól",
             "1 stacja wirtualna",
             "Maksymalnie 30 dni",
-            "Konsultacje i eksport po okresie",
-            "Fikcyjna, nieważna wersja demonstracyjna w formacie PDF z danymi terenowymi"
+            "Ewidencja polowa"
           ]
         },
         {
@@ -2961,6 +3068,8 @@ export const homepageCopies = {
             "50 pól",
             "2 wirtualne stanowiska",
             "Zapasy i koszty dostępne jako dodatki",
+            "Prywatność już w fazie projektowania",
+            "Prywatność już w fazie projektowania",
             "Dozwolone przyszłe integracje"
           ]
         },
@@ -2976,6 +3085,8 @@ export const homepageCopies = {
             "5 stanowisk wirtualnych",
             "Zapasy wliczone w cenę",
             "Koszty wliczone w cenę",
+            "Prywatność już w fazie projektowania",
+            "Prywatność już w fazie projektowania",
             "Dozwolone przyszłe integracje"
           ]
         },
@@ -2989,6 +3100,8 @@ export const homepageCopies = {
             "Pola i stacje Custom",
             "Zapasy i koszty według propozycji",
             "Moduły dostosowane",
+            "Prywatność już w fazie projektowania",
+            "Prywatność już w fazie projektowania",
             "Przyszłe i szyte na miarę integracje"
           ]
         }
@@ -3012,12 +3125,8 @@ export const homepageCopies = {
           "a": "Organizacja przechodzi na konsultacje i eksport. Dane pozostają zachowane; tworzenie lub zmiana dokumentacji operacyjnej wymaga płatnego planu."
         },
         {
-          "q": "Czy plik PDF z rekordem terenowym Free jest ważny?",
-          "a": "Nie. Free zawiera jedynie fikcyjny demonstracyjny plik PDF, wyraźnie oznaczony jako nieważny."
-        },
-        {
-          "q": "Czy zapasy i koszty są uwzględnione?",
-          "a": "Obydwa są dołączone do Professional. W Grow i Custom można je dodać osobno lub w pakiecie, zgodnie z propozycją Custom."
+          "q": "Prywatność już w fazie projektowania",
+          "a": "Wszystkie płatne plany obejmują kompletny zestaw narzędzi operacyjnych i moduł Privacy by Design."
         },
         {
           "q": "Czy mogę dodać więcej stacji wirtualnych?",
@@ -3049,6 +3158,21 @@ export const homepageCopies = {
       "cookies": "Pliki cookie",
       "future": "Przyszłe integracje są identyfikowane jako takie i nie są sprzedawane jako aktywne funkcje.",
       "rights": "Wszelkie prawa zastrzeżone."
+    },
+    "privacy": {
+      "badge": "Wszystkie płatne plany obejmują kompletny zestaw narzędzi operacyjnych i moduł Privacy by Design.",
+      "kicker": "Prywatność już w fazie projektowania",
+      "title": "Ochrona danych zgodna z RODO, wbudowana w codzienną pracę",
+      "description": "Zapewnij organizacjom praktyczne kontrole, które wspierają zgodność z RODO, zachowując jednocześnie identyfikowalność prawną i operacyjną, której wymaga profesjonalna produkcja.",
+      "items": [
+        "Dostęp do danych osobowych według roli",
+        "Menedżer prywatności organizacji",
+        "Raporty pseudonimizowane, w których nazwiska nie są potrzebne",
+        "Obszar prywatności osobistej i żądania RODO",
+        "Konfigurowalne zasady przechowywania",
+        "Ścieżka audytu dostępu i zmian",
+        "Zachowana obowiązkowa identyfikacja prawna"
+      ]
     }
   },
   "hr": {
@@ -3062,26 +3186,27 @@ export const homepageCopies = {
       "login": "Prijavite se",
       "start": "Započnite",
       "language": "Jezik",
-      "menu": "Otvori izbornik"
+      "menu": "Otvori izbornik",
+      "privacy": "Dizajnirana privatnost"
     },
     "hero": {
-      "eyebrow": "Ratarstvo, povezano",
-      "title": "Svaka terenska odluka,",
-      "accent": "od karte do terenskog zapisa.",
-      "description": "GeroFarm povezuje parcele, usjeve, radnje, žetve i agronomske pokazatelje u jednu praktičnu povijest za vašu farmu.",
+      "eyebrow": "Dnevno upravljanje farmom",
+      "title": "Rad farme, na istom mjestu",
+      "accent": "Od zemlje do polja",
+      "description": "Mapirajte polja, povežite usjeve, radnje, žetvu i agronomsko vrijeme i vodite čistu evidenciju polja uz GeroFarm.",
       "primary": "Počnite sa GeroFarm",
       "secondary": "Pogledajte planove",
       "note": "Free do 30 dana · Kreditna kartica nije potrebna",
       "imageAlt": "Poljoprivredna polja s ucrtanim granicama parcela i agronomskim osmatračnicama",
       "mapLabel": "Kartirane parcele",
       "cropLabel": "Aktivni usjevi",
-      "operationLabel": "Operacije povezane"
+      "operationLabel": "Operacije i prskanje"
     },
     "proof": [
-      "KML i KMZ karte polja",
-      "Privremeni i trajni nasadi",
-      "Neograničene operacije i berbe",
-      "Terenski zapis izgrađen od stvarnog rada"
+      "Karte i parcele",
+      "Operacije i prskanje",
+      "Agronomsko vrijeme",
+      "Evidencija polja"
     ],
     "flow": {
       "kicker": "Jedna povezana povijest",
@@ -3137,7 +3262,7 @@ export const homepageCopies = {
         },
         {
           "title": "Evidencija polja",
-          "description": "Generirajte koherentan PDF iz trenutne operativne povijesti. Free uključuje samo jasno označenu izmišljenu demonstraciju.",
+          "description": "Jasno upravljanje poljem, od karte do zapisa polja.",
           "status": "na raspolaganju"
         }
       ]
@@ -3145,7 +3270,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Agronomsko vrijeme",
       "title": "Vrijeme koje govori jezikom svake kulture",
-      "description": "Virtualne stanice pretvaraju vremenske podatke u agronomske pokazatelje povezane sa svakim usjevom i njegovim oznakama. Vrijednosti su procjene za podršku odlučivanju, a ne mjerenja senzora.",
+      "description": "Mapirajte polja, povežite usjeve, radnje, žetvu i agronomsko vrijeme i vodite čistu evidenciju polja uz GeroFarm.",
       "metrics": [
         "Referentna evapotranspiracija (ET₀)",
         "Sunčevo zračenje",
@@ -3155,14 +3280,7 @@ export const homepageCopies = {
         "Procijenjena vlažnost lišća",
         "Pokazatelji po usjevima"
       ],
-      "tagsTitle": "Primjeri po oznaci uzgoja",
-      "tags": [
-        "Fenološki stadij",
-        "Raznolikost",
-        "Sektor navodnjavanja",
-        "Praćenje rizika"
-      ],
-      "status": "Dostupno u planiranoj GeroFarm ponudi"
+      "status": "na raspolaganju"
     },
     "modules": {
       "kicker": "Prilagodljiva dubina",
@@ -3200,8 +3318,7 @@ export const homepageCopies = {
             "5 aktivnih polja",
             "1 virtualna stanica",
             "Maksimalno 30 dana",
-            "Konzultacije i izvoz nakon roka",
-            "Izmišljena, nevažeća PDF demo evidencija terena"
+            "Evidencija polja"
           ]
         },
         {
@@ -3215,6 +3332,8 @@ export const homepageCopies = {
             "50 polja",
             "2 virtualne stanice",
             "Inventar i troškovi dostupni kao dodaci",
+            "Dizajnirana privatnost",
+            "Dizajnirana privatnost",
             "Dopuštene buduće integracije"
           ]
         },
@@ -3230,6 +3349,8 @@ export const homepageCopies = {
             "5 virtualnih stanica",
             "Inventar uključen",
             "Troškovi uključeni",
+            "Dizajnirana privatnost",
+            "Dizajnirana privatnost",
             "Dopuštene buduće integracije"
           ]
         },
@@ -3243,6 +3364,8 @@ export const homepageCopies = {
             "Custom polja i stanice",
             "Inventar i troškovi prema prijedlogu",
             "Moduli po mjeri",
+            "Dizajnirana privatnost",
+            "Dizajnirana privatnost",
             "Buduće i prilagođene integracije"
           ]
         }
@@ -3266,12 +3389,8 @@ export const homepageCopies = {
           "a": "Organizacija prelazi na konzultacije i izvoz. Podaci ostaju sačuvani; stvaranje ili mijenjanje operativnih zapisa zahtijeva plaćeni plan."
         },
         {
-          "q": "Je li Free PDF zapisa o terenu valjan?",
-          "a": "Br. Free uključuje samo izmišljeni demonstracijski PDF, jasno identificiran kao nevažeći."
-        },
-        {
-          "q": "Jesu li zalihe i troškovi uključeni?",
-          "a": "Oba su uključena uz Professional. Na Grow i Custom mogu se dodati odvojeno ili kao paket, ovisno o prijedlogu Custom."
+          "q": "Dizajnirana privatnost",
+          "a": "Svi plaćeni planovi uključuju kompletan operativni alat i modul Privacy by Design."
         },
         {
           "q": "Mogu li dodati više virtualnih stanica?",
@@ -3303,6 +3422,21 @@ export const homepageCopies = {
       "cookies": "Kolačići",
       "future": "Buduće integracije identificirane su kao takve i ne prodaju se kao aktivne značajke.",
       "rights": "Sva prava pridržana."
+    },
+    "privacy": {
+      "badge": "Svi plaćeni planovi uključuju kompletan operativni alat i modul Privacy by Design.",
+      "kicker": "Dizajnirana privatnost",
+      "title": "Zaštita podataka spremna za GDPR, ugrađena u svakodnevni rad",
+      "description": "Omogućite organizacijama praktične kontrole koje podržavaju usklađenost s GDPR-om uz očuvanje pravne i operativne sljedivosti koju zahtijeva profesionalna proizvodnja.",
+      "items": [
+        "Pristup osobnim podacima prema ulozi",
+        "Upravitelj privatnosti organizacije",
+        "Pseudonimizirana izvješća gdje su imena nepotrebna",
+        "Područje osobne privatnosti i zahtjevi GDPR-a",
+        "Podesiva pravila zadržavanja",
+        "Revizijski trag za pristup i promjene",
+        "Obavezna pravna identifikacija sačuvana"
+      ]
     }
   },
   "el": {
@@ -3316,26 +3450,27 @@ export const homepageCopies = {
       "login": "Συνδεθείτε",
       "start": "Ξεκινήστε",
       "language": "Γλώσσα",
-      "menu": "Άνοιγμα μενού"
+      "menu": "Άνοιγμα μενού",
+      "privacy": "Privacy by Design"
     },
     "hero": {
-      "eyebrow": "Αγροτική γεωργία, συνδεδεμένη",
-      "title": "Κάθε απόφαση πεδίου,",
-      "accent": "από χάρτη σε αρχείο πεδίου.",
-      "description": "Το GeroFarm συνδέει δέματα, καλλιέργειες, λειτουργίες, συγκομιδές και γεωπονικούς δείκτες σε ένα πρακτικό ιστορικό για το αγρόκτημά σας.",
+      "eyebrow": "Καθημερινή διαχείριση αγροκτήματος",
+      "title": "Η δουλειά της φάρμας, στον ίδιο χώρο",
+      "accent": "Από τη γη στο αρχείο πεδίου",
+      "description": "Χαρτογραφήστε τα χωράφια, συνδέστε τις καλλιέργειες, τις λειτουργίες, τη συγκομιδή και τον αγρονομικό καιρό και διατηρήστε ένα καθαρό αρχείο αγρών με το GeroFarm.",
       "primary": "Ξεκινήστε με GeroFarm",
       "secondary": "Προβολή σχεδίων",
       "note": "Free για έως και 30 ημέρες · Δεν απαιτείται πιστωτική κάρτα",
       "imageAlt": "Γεωργικά χωράφια με χαρτογραφημένα όρια αγροτεμαχίων και γεωπονικά σημεία παρατήρησης",
       "mapLabel": "Χαρτογραφημένα δέματα",
       "cropLabel": "Ενεργές καλλιέργειες",
-      "operationLabel": "Συνδεδεμένες λειτουργίες"
+      "operationLabel": "Λειτουργίες και ψεκασμοί"
     },
     "proof": [
-      "Χάρτες πεδίου KML και KMZ",
-      "Προσωρινές και μόνιμες καλλιέργειες",
-      "Απεριόριστες εργασίες και συγκομιδές",
-      "Ένα αρχείο πεδίου που δημιουργήθηκε από πραγματική δουλειά"
+      "Χάρτες και δέματα",
+      "Λειτουργίες και ψεκασμοί",
+      "Αγρονομικός καιρός",
+      "Ημερολόγιο αγρού"
     ],
     "flow": {
       "kicker": "Ένα συνδεδεμένο ιστορικό",
@@ -3391,7 +3526,7 @@ export const homepageCopies = {
         },
         {
           "title": "Ημερολόγιο αγρού",
-          "description": "Δημιουργήστε ένα συνεκτικό PDF από το τρέχον ιστορικό λειτουργίας. Το Free περιλαμβάνει μόνο μια σαφώς επισημασμένη φανταστική επίδειξη.",
+          "description": "Εκκαθάριση διαχείρισης πεδίου, από χάρτη σε αρχείο πεδίου.",
           "status": "Διαθέσιμο"
         }
       ]
@@ -3399,7 +3534,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Αγρονομικός καιρός",
       "title": "Καιρός που μιλάει τη γλώσσα κάθε καλλιέργειας",
-      "description": "Οι εικονικοί σταθμοί μετατρέπουν τα δεδομένα καιρού σε γεωπονικούς δείκτες που συνδέονται με κάθε καλλιέργεια και τις ετικέτες της. Οι τιμές είναι εκτιμήσεις για υποστήριξη αποφάσεων, όχι μετρήσεις αισθητήρων.",
+      "description": "Χαρτογραφήστε τα χωράφια, συνδέστε τις καλλιέργειες, τις λειτουργίες, τη συγκομιδή και τον αγρονομικό καιρό και διατηρήστε ένα καθαρό αρχείο αγρών με το GeroFarm.",
       "metrics": [
         "Εξατμισοδιαπνοή αναφοράς (ET₀)",
         "Ηλιακή ακτινοβολία",
@@ -3409,14 +3544,7 @@ export const homepageCopies = {
         "Εκτιμώμενη υγρασία των φύλλων",
         "Δείκτες ανά καλλιέργεια"
       ],
-      "tagsTitle": "Παραδείγματα ανά ετικέτα καλλιέργειας",
-      "tags": [
-        "Φαινολογικό στάδιο",
-        "Ποικιλία",
-        "Τομέας άρδευσης",
-        "Παρακολούθηση κινδύνου"
-      ],
-      "status": "Διατίθεται στην προγραμματισμένη προσφορά GeroFarm"
+      "status": "Διαθέσιμο"
     },
     "modules": {
       "kicker": "Προσαρμόσιμο βάθος",
@@ -3454,8 +3582,7 @@ export const homepageCopies = {
             "5 ενεργά πεδία",
             "1 εικονικός σταθμός",
             "30 ημέρες το πολύ",
-            "Διαβούλευση και εξαγωγή μετά την περίοδο",
-            "Φανταστική, μη έγκυρη επίδειξη PDF με εγγραφή πεδίου"
+            "Ημερολόγιο αγρού"
           ]
         },
         {
@@ -3469,6 +3596,8 @@ export const homepageCopies = {
             "50 πεδία",
             "2 εικονικοί σταθμοί",
             "Απόθεμα και Κόστος διαθέσιμα ως πρόσθετα",
+            "Privacy by Design",
+            "Privacy by Design",
             "Επιτρέπονται μελλοντικές ενσωματώσεις"
           ]
         },
@@ -3484,6 +3613,8 @@ export const homepageCopies = {
             "5 εικονικοί σταθμοί",
             "Περιλαμβάνεται απόθεμα",
             "Συμπεριλαμβανομένου του κόστους",
+            "Privacy by Design",
+            "Privacy by Design",
             "Επιτρέπονται μελλοντικές ενσωματώσεις"
           ]
         },
@@ -3497,6 +3628,8 @@ export const homepageCopies = {
             "Πεδία και σταθμοί Custom",
             "Απογραφή και Κόστος κατά πρόταση",
             "Προσαρμοσμένες μονάδες",
+            "Privacy by Design",
+            "Privacy by Design",
             "Μελλοντικές και προσαρμοσμένες ενσωματώσεις"
           ]
         }
@@ -3520,12 +3653,8 @@ export const homepageCopies = {
           "a": "Ο οργανισμός μεταβαίνει σε διαβούλευση και εξαγωγή. Τα δεδομένα διατηρούνται. Η δημιουργία ή η αλλαγή επιχειρησιακών αρχείων απαιτεί ένα πρόγραμμα επί πληρωμή."
         },
         {
-          "q": "Είναι έγκυρο το PDF αρχείου πεδίου Free;",
-          "a": "Όχι. Το Free περιλαμβάνει μόνο ένα φανταστικό επίδειξη PDF, το οποίο προσδιορίζεται σαφώς ότι δεν έχει εγκυρότητα."
-        },
-        {
-          "q": "Περιλαμβάνονται το απόθεμα και το κόστος;",
-          "a": "Και τα δύο περιλαμβάνονται στο Professional. Στα Grow και Custom μπορούν να προστεθούν χωριστά ή ως πακέτο, σύμφωνα με την πρόταση Custom."
+          "q": "Privacy by Design",
+          "a": "Όλα τα προγράμματα επί πληρωμή περιλαμβάνουν την πλήρη λειτουργική εργαλειοθήκη και την ενότητα Privacy by Design."
         },
         {
           "q": "Μπορώ να προσθέσω περισσότερους εικονικούς σταθμούς;",
@@ -3557,6 +3686,21 @@ export const homepageCopies = {
       "cookies": "Cookies",
       "future": "Οι μελλοντικές ενσωματώσεις προσδιορίζονται ως τέτοιες και δεν πωλούνται ως ενεργές λειτουργίες.",
       "rights": "Με την επιφύλαξη παντός δικαιώματος."
+    },
+    "privacy": {
+      "badge": "Όλα τα προγράμματα επί πληρωμή περιλαμβάνουν την πλήρη λειτουργική εργαλειοθήκη και την ενότητα Privacy by Design.",
+      "kicker": "Privacy by Design",
+      "title": "Προστασία δεδομένων με δυνατότητα GDPR, ενσωματωμένη στην καθημερινή εργασία",
+      "description": "Δώστε στους οργανισμούς πρακτικούς ελέγχους που υποστηρίζουν τη συμμόρφωση με τον GDPR διατηρώντας παράλληλα τη νομική και λειτουργική ιχνηλασιμότητα που απαιτεί η επαγγελματική παραγωγή.",
+      "items": [
+        "Πρόσβαση σε προσωπικά δεδομένα ανά ρόλο",
+        "Υπεύθυνος απορρήτου οργανισμού",
+        "Αναφορές ψευδώνυμων όπου τα ονόματα δεν είναι απαραίτητα",
+        "Προσωπική περιοχή απορρήτου και αιτήματα GDPR",
+        "Πολιτικές διατήρησης με δυνατότητα διαμόρφωσης",
+        "Διαδρομή ελέγχου για πρόσβαση και αλλαγές",
+        "Διατηρείται υποχρεωτική η νομική ταυτότητα"
+      ]
     }
   },
   "sv": {
@@ -3570,26 +3714,27 @@ export const homepageCopies = {
       "login": "Logga in",
       "start": "Kom igång",
       "language": "Språk",
-      "menu": "Öppna menyn"
+      "menu": "Öppna menyn",
+      "privacy": "Privacy by Design"
     },
     "hero": {
-      "eyebrow": "Fältjordbruk, anslutet",
-      "title": "Varje fältbeslut,",
-      "accent": "från karta till fältpost.",
-      "description": "GeroFarm kopplar samman skiften, grödor, operationer, skördar och agronomiska indikatorer i en praktisk historia för din gård.",
+      "eyebrow": "Daglig gårdsdrift",
+      "title": "Gårdens arbete, på samma plats",
+      "accent": "Från land till fältrekord",
+      "description": "Kartlägg fält, koppla ihop grödor, operationer, skördar och agronomiskt väder och håll ett tydligt fältregister med GeroFarm.",
       "primary": "Börja med GeroFarm",
       "secondary": "Se planer",
       "note": "Free i upp till 30 dagar · Inget kreditkort krävs",
       "imageAlt": "Jordbruksfält med kartlagda skiftesgränser och agronomiska observationspunkter",
       "mapLabel": "Kartlagda paket",
       "cropLabel": "Aktiva grödor",
-      "operationLabel": "Verksamhet kopplad"
+      "operationLabel": "Operationer och sprutning"
     },
     "proof": [
-      "KML och KMZ fältkartor",
-      "Tillfälliga och permanenta grödor",
-      "Obegränsad verksamhet och skördar",
-      "Ett fältrekord byggt från verkligt arbete"
+      "Kartor och paket",
+      "Operationer och sprutning",
+      "Agronomiskt väder",
+      "Fältjournal"
     ],
     "flow": {
       "kicker": "En sammankopplad historia",
@@ -3645,7 +3790,7 @@ export const homepageCopies = {
         },
         {
           "title": "Fältjournal",
-          "description": "Generera en sammanhängande PDF från den aktuella drifthistoriken. Free innehåller endast en tydligt markerad fiktiv demonstration.",
+          "description": "Tydlig fälthantering, från karta till fältpost.",
           "status": "Tillgänglig"
         }
       ]
@@ -3653,7 +3798,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Agronomiskt väder",
       "title": "Väder som talar språket för varje gröda",
-      "description": "Virtuella stationer förvandlar väderdata till agronomiska indikatorer kopplade till varje gröda och dess taggar. Värden är uppskattningar för beslutsstöd, inte sensormätningar.",
+      "description": "Kartlägg fält, koppla ihop grödor, operationer, skördar och agronomiskt väder och håll ett tydligt fältregister med GeroFarm.",
       "metrics": [
         "Referens evapotranspiration (ET₀)",
         "Solstrålning",
@@ -3663,14 +3808,7 @@ export const homepageCopies = {
         "Uppskattad bladväta",
         "Indikatorer efter gröda"
       ],
-      "tagsTitle": "Exempel per odlingstagg",
-      "tags": [
-        "Fenologiskt stadium",
-        "Variation",
-        "Bevattningssektorn",
-        "Riskövervakning"
-      ],
-      "status": "Finns i det planerade GeroFarm-erbjudandet"
+      "status": "Tillgänglig"
     },
     "modules": {
       "kicker": "Anpassningsbart djup",
@@ -3708,8 +3846,7 @@ export const homepageCopies = {
             "5 aktiva fält",
             "1 virtuell station",
             "max 30 dagar",
-            "Konsultation och export efter perioden",
-            "Fiktiv, ogiltig PDF-demo"
+            "Fältjournal"
           ]
         },
         {
@@ -3723,6 +3860,8 @@ export const homepageCopies = {
             "50 fält",
             "2 virtuella stationer",
             "Lager och kostnader tillgängliga som tillägg",
+            "Privacy by Design",
+            "Privacy by Design",
             "Framtida integrationer tillåtna"
           ]
         },
@@ -3738,6 +3877,8 @@ export const homepageCopies = {
             "5 virtuella stationer",
             "Inventarie ingår",
             "Kostnader ingår",
+            "Privacy by Design",
+            "Privacy by Design",
             "Framtida integrationer tillåtna"
           ]
         },
@@ -3751,6 +3892,8 @@ export const homepageCopies = {
             "Custom fält och stationer",
             "Inventering och kostnader efter förslag",
             "Skräddarsydda moduler",
+            "Privacy by Design",
+            "Privacy by Design",
             "Framtida och skräddarsydda integrationer"
           ]
         }
@@ -3774,12 +3917,8 @@ export const homepageCopies = {
           "a": "Organisationen går över till konsultation och export. Data förblir bevarade; skapa eller ändra driftposter kräver en betald plan."
         },
         {
-          "q": "Är Free-fältposten PDF giltig?",
-          "a": "Nej. Free innehåller endast en fiktiv demonstrations-PDF, tydligt identifierad som saknar giltighet."
-        },
-        {
-          "q": "Ingår lager och kostnader?",
-          "a": "Båda ingår i Professional. På Grow och Custom kan de läggas till separat eller som ett paket, beroende på Custom-förslaget."
+          "q": "Privacy by Design",
+          "a": "Alla betalda planer inkluderar den kompletta operativa verktygslådan och Privacy by Design-modulen."
         },
         {
           "q": "Kan jag lägga till fler virtuella stationer?",
@@ -3811,6 +3950,21 @@ export const homepageCopies = {
       "cookies": "Cookies",
       "future": "Framtida integrationer identifieras som sådana och säljs inte som aktiva funktioner.",
       "rights": "Alla rättigheter reserverade."
+    },
+    "privacy": {
+      "badge": "Alla betalda planer inkluderar den kompletta operativa verktygslådan och Privacy by Design-modulen.",
+      "kicker": "Privacy by Design",
+      "title": "GDPR-färdigt dataskydd, inbyggt i det dagliga arbetet",
+      "description": "Ge organisationer praktiska kontroller som stödjer efterlevnad av GDPR samtidigt som den lagliga och operativa spårbarheten som professionell produktion kräver bevaras.",
+      "items": [
+        "Åtkomst till personuppgifter per roll",
+        "Organisationens integritetsansvarig",
+        "Pseudonymiserade rapporter där namn är onödiga",
+        "Området för personlig integritet och GDPR-förfrågningar",
+        "Konfigurerbara lagringspolicyer",
+        "Revisionsspår för åtkomst och ändringar",
+        "Obligatorisk legitimation bevarad"
+      ]
     }
   },
   "no": {
@@ -3824,26 +3978,27 @@ export const homepageCopies = {
       "login": "Logg på",
       "start": "Kom i gang",
       "language": "Språk",
-      "menu": "Åpne menyen"
+      "menu": "Åpne menyen",
+      "privacy": "Privacy by Design"
     },
     "hero": {
-      "eyebrow": "Feltjordbruk, tilknytta",
-      "title": "Hver feltbeslutning,",
-      "accent": "fra kart til feltpost.",
-      "description": "GeroFarm kobler sammen pakker, avlinger, operasjoner, avlinger og agronomiske indikatorer i en praktisk historie for gården din.",
+      "eyebrow": "Daglig gårdsdrift",
+      "title": "Gårdens arbeid, på samme sted",
+      "accent": "Fra land til feltrekord",
+      "description": "Kartlegg åker, koble sammen avlinger, operasjoner, høstinger og agronomisk vær, og hold en klar feltrekord med GeroFarm.",
       "primary": "Start med GeroFarm",
       "secondary": "Se planer",
       "note": "Free i opptil 30 dager · Ingen kredittkort kreves",
       "imageAlt": "Jordbruksfelt med kartlagte parsellgrenser og agronomiske observasjonspunkter",
       "mapLabel": "Kartlagte pakker",
       "cropLabel": "Aktive avlinger",
-      "operationLabel": "Operasjoner knyttet"
+      "operationLabel": "Drift og sprøyting"
     },
     "proof": [
-      "KML og KMZ feltkart",
-      "Midlertidige og permanente avlinger",
-      "Ubegrensede operasjoner og avlinger",
-      "En feltrekord bygget av ekte arbeid"
+      "Kart og pakker",
+      "Drift og sprøyting",
+      "Agronomisk vær",
+      "Skifteloggbok"
     ],
     "flow": {
       "kicker": "Én tilkoblet historie",
@@ -3899,7 +4054,7 @@ export const homepageCopies = {
         },
         {
           "title": "Skifteloggbok",
-          "description": "Generer en sammenhengende PDF fra gjeldende driftshistorikk. Free inkluderer kun en tydelig merket fiktiv demonstrasjon.",
+          "description": "Tydelig feltstyring, fra kart til feltpost.",
           "status": "Tilgjengelig"
         }
       ]
@@ -3907,7 +4062,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Agronomisk vær",
       "title": "Vær som snakker språket til hver avling",
-      "description": "Virtuelle stasjoner gjør værdata om til agronomiske indikatorer knyttet til hver avling og dens tagger. Verdier er estimater for beslutningsstøtte, ikke sensormålinger.",
+      "description": "Kartlegg åker, koble sammen avlinger, operasjoner, høstinger og agronomisk vær, og hold en klar feltrekord med GeroFarm.",
       "metrics": [
         "Referanseevapotranspirasjon (ET₀)",
         "Solinnstråling",
@@ -3917,14 +4072,7 @@ export const homepageCopies = {
         "Estimert bladfuktighet",
         "Indikatorer etter avling"
       ],
-      "tagsTitle": "Eksempler per dyrkingstagg",
-      "tags": [
-        "Fenologisk stadium",
-        "Variasjon",
-        "Vanningssektoren",
-        "Risikoovervåking"
-      ],
-      "status": "Tilgjengelig i det planlagte GeroFarm-tilbudet"
+      "status": "Tilgjengelig"
     },
     "modules": {
       "kicker": "Tilpassbar dybde",
@@ -3962,8 +4110,7 @@ export const homepageCopies = {
             "5 aktive felt",
             "1 virtuell stasjon",
             "maks 30 dager",
-            "Konsultasjon og eksport etter perioden",
-            "Fiktiv, ugyldig feltrekord-PDF-demo"
+            "Skifteloggbok"
           ]
         },
         {
@@ -3977,6 +4124,8 @@ export const homepageCopies = {
             "50 felt",
             "2 virtuelle stasjoner",
             "Inventar og kostnader tilgjengelig som tillegg",
+            "Privacy by Design",
+            "Privacy by Design",
             "Fremtidige integrasjoner tillatt"
           ]
         },
@@ -3992,6 +4141,8 @@ export const homepageCopies = {
             "5 virtuelle stasjoner",
             "Inventar inkludert",
             "Kostnader inkludert",
+            "Privacy by Design",
+            "Privacy by Design",
             "Fremtidige integrasjoner tillatt"
           ]
         },
@@ -4005,6 +4156,8 @@ export const homepageCopies = {
             "Custom felt og stasjoner",
             "Inventar og kostnader etter forslag",
             "Skreddersydde moduler",
+            "Privacy by Design",
+            "Privacy by Design",
             "Fremtidige og skreddersydde integrasjoner"
           ]
         }
@@ -4028,12 +4181,8 @@ export const homepageCopies = {
           "a": "Organisasjonen går over til konsultasjon og eksport. Data forblir bevart; opprette eller endre driftsoppføringer krever en betalt plan."
         },
         {
-          "q": "Er Free feltpost-PDF gyldig?",
-          "a": "Nei. Free inkluderer bare en fiktiv demonstrasjons-PDF, tydelig identifisert som ingen gyldighet."
-        },
-        {
-          "q": "Er inventar og kostnader inkludert?",
-          "a": "Begge er inkludert i Professional. På Grow og Custom kan de legges til separat eller som en pakke, underlagt Custom-forslaget."
+          "q": "Privacy by Design",
+          "a": "Alle betalte planer inkluderer det komplette operative verktøysettet og Privacy by Design-modulen."
         },
         {
           "q": "Kan jeg legge til flere virtuelle stasjoner?",
@@ -4065,6 +4214,21 @@ export const homepageCopies = {
       "cookies": "Informasjonskapsler",
       "future": "Fremtidige integrasjoner identifiseres som sådan og selges ikke som aktive funksjoner.",
       "rights": "Alle rettigheter forbeholdt."
+    },
+    "privacy": {
+      "badge": "Alle betalte planer inkluderer det komplette operative verktøysettet og Privacy by Design-modulen.",
+      "kicker": "Privacy by Design",
+      "title": "GDPR-klar databeskyttelse, innebygd i det daglige arbeidet",
+      "description": "Gi organisasjoner praktiske kontroller som støtter etterlevelse av GDPR, samtidig som den lovlige og operasjonelle sporbarheten som profesjonell produksjon krever.",
+      "items": [
+        "Tilgang til personopplysninger etter rolle",
+        "Personvernansvarlig for organisasjonen",
+        "Pseudonymiserte rapporter der navn er unødvendige",
+        "Personvernområde og GDPR-forespørsler",
+        "Konfigurerbare oppbevaringspolicyer",
+        "Revisjonsspor for tilgang og endringer",
+        "Obligatorisk legitimasjon bevart"
+      ]
     }
   },
   "da": {
@@ -4078,26 +4242,27 @@ export const homepageCopies = {
       "login": "Log ind",
       "start": "Kom godt i gang",
       "language": "Sprog",
-      "menu": "Åbn menuen"
+      "menu": "Åbn menuen",
+      "privacy": "Privacy by Design"
     },
     "hero": {
-      "eyebrow": "Marklandbrug, forbundet",
-      "title": "Hver feltbeslutning,",
-      "accent": "fra kort til markpost.",
-      "description": "GeroFarm forbinder parceller, afgrøder, operationer, høst og agronomiske indikatorer i en praktisk historie for din gård.",
+      "eyebrow": "Daglig gårddrift",
+      "title": "Gårdens arbejde, samme sted",
+      "accent": "Fra land til markrekord",
+      "description": "Kortlæg marker, forbind afgrøder, operationer, høst og agronomisk vejr, og hold en klar markregistrering med GeroFarm.",
       "primary": "Start med GeroFarm",
       "secondary": "Se planer",
       "note": "Free i op til 30 dage · Intet kreditkort påkrævet",
       "imageAlt": "Landbrugsmarker med kortlagte parcelgrænser og agronomiske observationspunkter",
       "mapLabel": "Kortlagte parceller",
       "cropLabel": "Aktive afgrøder",
-      "operationLabel": "Operationer forbundet"
+      "operationLabel": "Drift og sprøjtning"
     },
     "proof": [
-      "KML og KMZ markkort",
-      "Midlertidige og permanente afgrøder",
-      "Ubegrænsede operationer og høst",
-      "En feltrekord bygget af rigtigt arbejde"
+      "Kort og pakker",
+      "Drift og sprøjtning",
+      "Agronomisk vejr",
+      "Markjournal"
     ],
     "flow": {
       "kicker": "Én forbundet historie",
@@ -4153,7 +4318,7 @@ export const homepageCopies = {
         },
         {
           "title": "Markjournal",
-          "description": "Generer en sammenhængende PDF fra den aktuelle driftshistorie. Free inkluderer kun en klart markeret fiktiv demonstration.",
+          "description": "Tydelig markstyring, fra kort til markregistrering.",
           "status": "Tilgængelig"
         }
       ]
@@ -4161,7 +4326,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Agronomisk vejr",
       "title": "Vejr, der taler sproget for hver afgrøde",
-      "description": "Virtuelle stationer omdanner vejrdata til agronomiske indikatorer knyttet til hver afgrøde og dens tags. Værdier er estimater for beslutningsstøtte, ikke sensormålinger.",
+      "description": "Kortlæg marker, forbind afgrøder, operationer, høst og agronomisk vejr, og hold en klar markregistrering med GeroFarm.",
       "metrics": [
         "Reference evapotranspiration (ET₀)",
         "Solstråling",
@@ -4171,14 +4336,7 @@ export const homepageCopies = {
         "Estimeret bladvæde",
         "Indikatorer efter afgrøde"
       ],
-      "tagsTitle": "Eksempler pr. dyrkningstag",
-      "tags": [
-        "Fænologisk stadie",
-        "Variation",
-        "Kunstvandingssektoren",
-        "Risikoovervågning"
-      ],
-      "status": "Tilgængelig i det planlagte GeroFarm tilbud"
+      "status": "Tilgængelig"
     },
     "modules": {
       "kicker": "Tilpasningsbar dybde",
@@ -4216,8 +4374,7 @@ export const homepageCopies = {
             "5 aktive felter",
             "1 virtuel station",
             "max 30 dage",
-            "Konsultation og eksport efter perioden",
-            "Fiktiv, ugyldig PDF-demo"
+            "Markjournal"
           ]
         },
         {
@@ -4231,6 +4388,8 @@ export const homepageCopies = {
             "50 felter",
             "2 virtuelle stationer",
             "Lagerbeholdning og omkostninger tilgængelige som tilføjelser",
+            "Privacy by Design",
+            "Privacy by Design",
             "Fremtidige integrationer tilladt"
           ]
         },
@@ -4246,6 +4405,8 @@ export const homepageCopies = {
             "5 virtuelle stationer",
             "Inventar inkluderet",
             "Omkostninger inkluderet",
+            "Privacy by Design",
+            "Privacy by Design",
             "Fremtidige integrationer tilladt"
           ]
         },
@@ -4259,6 +4420,8 @@ export const homepageCopies = {
             "Custom felter og stationer",
             "Inventar og omkostninger efter forslag",
             "Skræddersyede moduler",
+            "Privacy by Design",
+            "Privacy by Design",
             "Fremtidige og skræddersyede integrationer"
           ]
         }
@@ -4282,12 +4445,8 @@ export const homepageCopies = {
           "a": "Organisationen går over til konsultation og eksport. Data forbliver bevaret; oprettelse eller ændring af operationelle poster kræver en betalt plan."
         },
         {
-          "q": "Er Free feltpost PDF gyldig?",
-          "a": "Nej. Free inkluderer kun en fiktiv demonstrations-PDF, tydeligt identificeret som ingen gyldighed."
-        },
-        {
-          "q": "Er inventar og omkostninger inkluderet?",
-          "a": "Begge er inkluderet med Professional. På Grow og Custom kan de tilføjes separat eller som en pakke, underlagt Custom-forslaget."
+          "q": "Privacy by Design",
+          "a": "Alle betalte planer inkluderer det komplette operationelle værktøjssæt og Privacy by Design-modulet."
         },
         {
           "q": "Kan jeg tilføje flere virtuelle stationer?",
@@ -4319,6 +4478,21 @@ export const homepageCopies = {
       "cookies": "Cookies",
       "future": "Fremtidige integrationer identificeres som sådan og sælges ikke som aktive funktioner.",
       "rights": "Alle rettigheder forbeholdes."
+    },
+    "privacy": {
+      "badge": "Alle betalte planer inkluderer det komplette operationelle værktøjssæt og Privacy by Design-modulet.",
+      "kicker": "Privacy by Design",
+      "title": "GDPR-klar databeskyttelse, indbygget i det daglige arbejde",
+      "description": "Giv organisationer praktiske kontroller, der understøtter GDPR-overholdelse og samtidig bevarer den juridiske og operationelle sporbarhed, som professionel produktion kræver.",
+      "items": [
+        "Adgang til personlige data efter rolle",
+        "Organisationens privatlivsadministrator",
+        "Pseudonymiserede rapporter, hvor navne er unødvendige",
+        "Personligt privatlivsområde og GDPR-anmodninger",
+        "Konfigurerbare opbevaringspolitikker",
+        "Revisionsspor for adgang og ændringer",
+        "Obligatorisk juridisk identifikation bevares"
+      ]
     }
   },
   "it": {
@@ -4332,26 +4506,27 @@ export const homepageCopies = {
       "login": "Accedi",
       "start": "Inizia",
       "language": "Lingua",
-      "menu": "Apri il menu"
+      "menu": "Apri il menu",
+      "privacy": "Privacy in base alla progettazione"
     },
     "hero": {
-      "eyebrow": "Agricoltura di campo, connessa",
-      "title": "Ogni decisione sul campo,",
-      "accent": "dalla mappa alla registrazione sul campo.",
-      "description": "GeroFarm collega parcelle, colture, operazioni, raccolti e indicatori agronomici in un'unica cronologia pratica per la tua azienda agricola.",
+      "eyebrow": "Gestione quotidiana dell'azienda agricola",
+      "title": "Il lavoro della fattoria, nello stesso luogo",
+      "accent": "Dalla terra al record sul campo",
+      "description": "Mappa i campi, collega colture, operazioni, raccolti e condizioni meteorologiche agronomiche e mantieni un chiaro registro del campo con GeroFarm.",
       "primary": "Inizia con GeroFarm",
       "secondary": "Visualizza i piani",
       "note": "Free fino a 30 giorni · Non è richiesta la carta di credito",
       "imageAlt": "Campi agricoli con confini parcellari mappati e punti di osservazione agronomici",
       "mapLabel": "Pacchi mappati",
       "cropLabel": "Colture attive",
-      "operationLabel": "Operazioni collegate"
+      "operationLabel": "Operazioni e irrorazione"
     },
     "proof": [
-      "Mappe dei campi KML e KMZ",
-      "Colture temporanee e permanenti",
-      "Operazioni e raccolti illimitati",
-      "Un record sul campo costruito dal lavoro reale"
+      "Mappe e pacchi",
+      "Operazioni e irrorazione",
+      "Il clima agronomico",
+      "Quaderno di campagna"
     ],
     "flow": {
       "kicker": "Una storia connessa",
@@ -4407,7 +4582,7 @@ export const homepageCopies = {
         },
         {
           "title": "Quaderno di campagna",
-          "description": "Genera un PDF coerente dalla storia operativa attuale. Free include solo una dimostrazione fittizia chiaramente contrassegnata.",
+          "description": "Gestione chiara del campo, dalla mappa alla registrazione del campo.",
           "status": "Disponibile"
         }
       ]
@@ -4415,7 +4590,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Il clima agronomico",
       "title": "Un clima che parla la lingua di ogni coltura",
-      "description": "Le stazioni virtuali trasformano i dati meteorologici in indicatori agronomici legati a ciascuna coltura e ai suoi tag. I valori sono stime per il supporto decisionale, non misurazioni dei sensori.",
+      "description": "Mappa i campi, collega colture, operazioni, raccolti e condizioni meteorologiche agronomiche e mantieni un chiaro registro del campo con GeroFarm.",
       "metrics": [
         "Evapotraspirazione di riferimento (ET₀)",
         "Radiazione solare",
@@ -4425,14 +4600,7 @@ export const homepageCopies = {
         "Bagnatura fogliare stimata",
         "Indicatori per coltura"
       ],
-      "tagsTitle": "Esempi per tag della coltivazione",
-      "tags": [
-        "Stadio fenologico",
-        "Varietà",
-        "Settore irriguo",
-        "Monitoraggio del rischio"
-      ],
-      "status": "Disponibile nell'offerta GeroFarm prevista"
+      "status": "Disponibile"
     },
     "modules": {
       "kicker": "Profondità adattabile",
@@ -4470,8 +4638,7 @@ export const homepageCopies = {
             "5 campi attivi",
             "1 stazione virtuale",
             "30 giorni massimo",
-            "Consultazione ed esportazione dopo il periodo",
-            "Demo PDF fittizia e non valida con registrazione sul campo"
+            "Quaderno di campagna"
           ]
         },
         {
@@ -4485,6 +4652,8 @@ export const homepageCopies = {
             "50 campi",
             "2 stazioni virtuali",
             "Inventario e costi disponibili come componenti aggiuntivi",
+            "Privacy in base alla progettazione",
+            "Privacy in base alla progettazione",
             "Sono consentite future integrazioni"
           ]
         },
@@ -4500,6 +4669,8 @@ export const homepageCopies = {
             "5 stazioni virtuali",
             "Inventario incluso",
             "Costi inclusi",
+            "Privacy in base alla progettazione",
+            "Privacy in base alla progettazione",
             "Sono consentite future integrazioni"
           ]
         },
@@ -4513,6 +4684,8 @@ export const homepageCopies = {
             "Campi e stazioni Custom",
             "Inventario e costi per proposta",
             "Moduli su misura",
+            "Privacy in base alla progettazione",
+            "Privacy in base alla progettazione",
             "Integrazioni future e su misura"
           ]
         }
@@ -4536,12 +4709,8 @@ export const homepageCopies = {
           "a": "L'organizzazione passa alla consultazione e all'esportazione. I dati rimangono conservati; la creazione o la modifica di record operativi richiede un piano a pagamento."
         },
         {
-          "q": "Il PDF del record di campo Free è valido?",
-          "a": "No. Free include solo un PDF dimostrativo fittizio, chiaramente identificato come privo di validità."
-        },
-        {
-          "q": "Inventario e costi sono inclusi?",
-          "a": "Entrambi sono inclusi con Professional. Su Grow e Custom possono essere aggiunti separatamente o in pacchetto, previa proposta Custom."
+          "q": "Privacy in base alla progettazione",
+          "a": "Tutti i piani a pagamento includono il toolkit operativo completo e il modulo Privacy by Design."
         },
         {
           "q": "Posso aggiungere più stazioni virtuali?",
@@ -4573,6 +4742,21 @@ export const homepageCopies = {
       "cookies": "Cookie",
       "future": "Le future integrazioni sono identificate come tali e non vengono vendute come funzionalità attive.",
       "rights": "Tutti i diritti riservati."
+    },
+    "privacy": {
+      "badge": "Tutti i piani a pagamento includono il toolkit operativo completo e il modulo Privacy by Design.",
+      "kicker": "Privacy in base alla progettazione",
+      "title": "Protezione dei dati pronta per GDPR, integrata nel lavoro quotidiano",
+      "description": "Fornisci alle organizzazioni controlli pratici che supportano la conformità GDPR preservando la tracciabilità legale e operativa richiesta dalla produzione professionale.",
+      "items": [
+        "Accesso ai dati personali per ruolo",
+        "Responsabile privacy dell'organizzazione",
+        "Rapporti pseudonimizzati in cui i nomi non sono necessari",
+        "Area privacy personale e richieste GDPR",
+        "Politiche di conservazione configurabili",
+        "Traccia di controllo per accessi e modifiche",
+        "Conservazione dell'identificazione legale obbligatoria"
+      ]
     }
   },
   "uk": {
@@ -4586,26 +4770,27 @@ export const homepageCopies = {
       "login": "Увійдіть",
       "start": "Почніть роботу",
       "language": "Мова",
-      "menu": "Відкрити меню"
+      "menu": "Відкрити меню",
+      "privacy": "Конфіденційність за проектом"
     },
     "hero": {
-      "eyebrow": "Польове землеробство, пов'язане",
-      "title": "Кожне польове рішення,",
-      "accent": "від карти до польового запису.",
-      "description": "GeroFarm об’єднує ділянки, посіви, операції, врожаї та агрономічні показники в одну практичну історію для вашої ферми.",
+      "eyebrow": "Щоденне управління фермою",
+      "title": "Робота колгоспу, там же",
+      "accent": "Від землі до поля",
+      "description": "Створюйте карти полів, зв’язуйте посіви, операції, врожаї та агрономічну погоду, а також зберігайте чіткі записи поля за допомогою GeroFarm.",
       "primary": "Почніть із GeroFarm",
       "secondary": "Переглянути плани",
       "note": "Free до 30 днів · Кредитна картка не потрібна",
       "imageAlt": "Сільськогосподарські поля з нанесеними на карту межами ділянок і пунктами агрономічного спостереження",
       "mapLabel": "Нанесені на карту ділянки",
       "cropLabel": "Активні посіви",
-      "operationLabel": "Операції пов’язані"
+      "operationLabel": "Операції та обприскування"
     },
     "proof": [
-      "Карти полів KML і KMZ",
-      "Тимчасові та беззмінні посіви",
-      "Необмежені операції та врожаї",
-      "Польовий запис, створений на основі реальної роботи"
+      "Карти та посилки",
+      "Операції та обприскування",
+      "Агрономічна погода",
+      "Польовий журнал"
     ],
     "flow": {
       "kicker": "Одна пов’язана історія",
@@ -4661,7 +4846,7 @@ export const homepageCopies = {
         },
         {
           "title": "Польовий журнал",
-          "description": "Створіть послідовний PDF-файл із поточної операційної історії. Free містить лише чітко позначену вигадану демонстрацію.",
+          "description": "Чітке керування полями, від карти до запису поля.",
           "status": "в наявності"
         }
       ]
@@ -4669,7 +4854,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Агрономічна погода",
       "title": "Погода, яка говорить мовою кожної культури",
-      "description": "Віртуальні станції перетворюють дані про погоду в агрономічні показники, пов’язані з кожною культурою та її тегами. Значення – це оцінки для підтримки прийняття рішень, а не вимірювання датчиків.",
+      "description": "Створюйте карти полів, зв’язуйте посіви, операції, врожаї та агрономічну погоду, а також зберігайте чіткі записи поля за допомогою GeroFarm.",
       "metrics": [
         "Еталонна евапотранспірація (ET₀)",
         "Сонячна радіація",
@@ -4679,14 +4864,7 @@ export const homepageCopies = {
         "Розрахункова вологість листя",
         "Показники по культурах"
       ],
-      "tagsTitle": "Приклади за тегом вирощування",
-      "tags": [
-        "Фенологічна стадія",
-        "Різноманітність",
-        "Сектор зрошення",
-        "Моніторинг ризиків"
-      ],
-      "status": "Доступно в запланованій пропозиції GeroFarm"
+      "status": "в наявності"
     },
     "modules": {
       "kicker": "Регульована глибина",
@@ -4724,8 +4902,7 @@ export const homepageCopies = {
             "5 активних полів",
             "1 віртуальна станція",
             "30 днів максимум",
-            "Консультація та вивіз після терміну",
-            "Вигадана, недійсна демо-версія PDF із польовими записами"
+            "Польовий журнал"
           ]
         },
         {
@@ -4739,6 +4916,8 @@ export const homepageCopies = {
             "50 полів",
             "2 віртуальні станції",
             "Інвентар і витрати доступні як доповнення",
+            "Конфіденційність за проектом",
+            "Конфіденційність за проектом",
             "Майбутні інтеграції дозволені"
           ]
         },
@@ -4754,6 +4933,8 @@ export const homepageCopies = {
             "5 віртуальних станцій",
             "Інвентар включений",
             "Витрати включені",
+            "Конфіденційність за проектом",
+            "Конфіденційність за проектом",
             "Майбутні інтеграції дозволені"
           ]
         },
@@ -4767,6 +4948,8 @@ export const homepageCopies = {
             "Custom поля та станції",
             "Інвентаризація та витрати за пропозицією",
             "Спеціальні модулі",
+            "Конфіденційність за проектом",
+            "Конфіденційність за проектом",
             "Майбутні та індивідуальні інтеграції"
           ]
         }
@@ -4790,12 +4973,8 @@ export const homepageCopies = {
           "a": "Організація переходить на консультації та експорт. Дані зберігаються; для створення або зміни оперативних записів потрібен платний план."
         },
         {
-          "q": "Чи дійсний PDF-файл запису поля Free?",
-          "a": "№ Free містить лише вигаданий демонстраційний PDF-файл, чітко визначений як недійсний."
-        },
-        {
-          "q": "Чи включені запаси та витрати?",
-          "a": "Обидва включені в Professional. На Grow і Custom їх можна додати окремо або як пакет відповідно до пропозиції Custom."
+          "q": "Конфіденційність за проектом",
+          "a": "Усі платні плани включають повний операційний інструментарій і модуль Privacy by Design."
         },
         {
           "q": "Чи можу я додати більше віртуальних станцій?",
@@ -4827,6 +5006,21 @@ export const homepageCopies = {
       "cookies": "Файли cookie",
       "future": "Майбутні інтеграції ідентифікуються як такі і не продаються як активні функції.",
       "rights": "Всі права захищені."
+    },
+    "privacy": {
+      "badge": "Усі платні плани включають повний операційний інструментарій і модуль Privacy by Design.",
+      "kicker": "Конфіденційність за проектом",
+      "title": "Захист даних, готовий до GDPR, вбудований у щоденну роботу",
+      "description": "Надайте організаціям практичні засоби контролю, які підтримують відповідність GDPR, зберігаючи при цьому юридичну та операційну відстежуваність, якої вимагає професійне виробництво.",
+      "items": [
+        "Доступ до персональних даних за роллю",
+        "Менеджер конфіденційності організації",
+        "Псевдонімізовані звіти, де імена непотрібні",
+        "Особиста конфіденційна зона та запити GDPR",
+        "Настроювані політики збереження",
+        "Журнал аудиту для доступу та змін",
+        "Обов'язкова юридична ідентифікація збережена"
+      ]
     }
   },
   "ro": {
@@ -4840,26 +5034,27 @@ export const homepageCopies = {
       "login": "Conectați-vă",
       "start": "Începeți",
       "language": "Limba",
-      "menu": "Deschide meniul"
+      "menu": "Deschide meniul",
+      "privacy": "Confidențialitate prin design"
     },
     "hero": {
-      "eyebrow": "Agricultura de câmp, conectată",
-      "title": "Fiecare decizie de teren,",
-      "accent": "de la hartă la înregistrarea câmpului.",
-      "description": "GeroFarm conectează parcele, culturi, operațiuni, recolte și indicatorii agronomici într-un singur istoric practic pentru ferma dumneavoastră.",
+      "eyebrow": "Managementul zilnic al fermei",
+      "title": "Munca fermei, în același loc",
+      "accent": "De la pământ până la câmp",
+      "description": "Hartați câmpurile, conectați culturile, operațiunile, recoltele și vremea agronomică și păstrați o înregistrare clară a câmpului cu GeroFarm.",
       "primary": "Începeți cu GeroFarm",
       "secondary": "Vezi planuri",
       "note": "Free timp de până la 30 de zile · Nu este necesar un card de credit",
       "imageAlt": "Terenuri agricole cu granițele parcelelor cartografiate și puncte de observare agronomică",
       "mapLabel": "Parcele cartografiate",
       "cropLabel": "Culturi active",
-      "operationLabel": "Operațiuni legate"
+      "operationLabel": "Operațiuni și pulverizare"
     },
     "proof": [
-      "Hărți de câmp KML și KMZ",
-      "Culturi temporare și permanente",
-      "Operațiuni și recolte nelimitate",
-      "O înregistrare de teren construită din muncă reală"
+      "Hărți și parcele",
+      "Operațiuni și pulverizare",
+      "Vremea agronomică",
+      "Registru de câmp"
     ],
     "flow": {
       "kicker": "O istorie conectată",
@@ -4915,7 +5110,7 @@ export const homepageCopies = {
         },
         {
           "title": "Registru de câmp",
-          "description": "Generați un PDF coerent din istoricul operațional curent. Free include doar o demonstrație fictivă marcată clar.",
+          "description": "Gestionare clară a câmpului, de la hartă la înregistrarea câmpului.",
           "status": "Disponibil"
         }
       ]
@@ -4923,7 +5118,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Vremea agronomică",
       "title": "Vreme care vorbește limba fiecărei culturi",
-      "description": "Stațiile virtuale transformă datele meteo în indicatori agronomici legați de fiecare cultură și etichetele acesteia. Valorile sunt estimări pentru sprijin decizional, nu măsurătorile senzorilor.",
+      "description": "Hartați câmpurile, conectați culturile, operațiunile, recoltele și vremea agronomică și păstrați o înregistrare clară a câmpului cu GeroFarm.",
       "metrics": [
         "Evapotranspirație de referință (ET₀)",
         "Radiația solară",
@@ -4933,14 +5128,7 @@ export const homepageCopies = {
         "Umiditatea estimată a frunzelor",
         "Indicatori după cultură"
       ],
-      "tagsTitle": "Exemple după eticheta culturii",
-      "tags": [
-        "Stadiul fenologic",
-        "Varietate",
-        "Sectorul de irigații",
-        "Monitorizarea riscului"
-      ],
-      "status": "Disponibil în oferta planificată GeroFarm"
+      "status": "Disponibil"
     },
     "modules": {
       "kicker": "Adâncime adaptabilă",
@@ -4978,8 +5166,7 @@ export const homepageCopies = {
             "5 câmpuri active",
             "1 statie virtuala",
             "30 de zile maxim",
-            "Consultare si export dupa perioada",
-            "Demo PDF fictiv, nevalid de înregistrare de câmp"
+            "Registru de câmp"
           ]
         },
         {
@@ -4993,6 +5180,8 @@ export const homepageCopies = {
             "50 de câmpuri",
             "2 posturi virtuale",
             "Inventar și costuri disponibile ca suplimente",
+            "Confidențialitate prin design",
+            "Confidențialitate prin design",
             "Integrari viitoare permise"
           ]
         },
@@ -5008,6 +5197,8 @@ export const homepageCopies = {
             "5 posturi virtuale",
             "Inventar inclus",
             "Costuri incluse",
+            "Confidențialitate prin design",
+            "Confidențialitate prin design",
             "Integrari viitoare permise"
           ]
         },
@@ -5021,6 +5212,8 @@ export const homepageCopies = {
             "Custom câmpuri și stații",
             "Inventar și costuri la propunere",
             "Module personalizate",
+            "Confidențialitate prin design",
+            "Confidențialitate prin design",
             "Integrari viitoare și personalizate"
           ]
         }
@@ -5044,12 +5237,8 @@ export const homepageCopies = {
           "a": "Organizația trece la consultare și export. Datele rămân păstrate; crearea sau modificarea înregistrărilor operaționale necesită un plan plătit."
         },
         {
-          "q": "Este valid PDF-ul de înregistrare de câmp Free?",
-          "a": "Nu. Free include doar un PDF demonstrativ fictiv, identificat în mod clar ca neavând valabilitate."
-        },
-        {
-          "q": "Sunt incluse inventarul și costurile?",
-          "a": "Ambele sunt incluse cu Professional. Pe Grow și Custom pot fi adăugate separat sau ca pachet, sub rezerva propunerii Custom."
+          "q": "Confidențialitate prin design",
+          "a": "Toate planurile plătite includ setul de instrumente operațional complet și modulul Privacy by Design."
         },
         {
           "q": "Pot adăuga mai multe posturi virtuale?",
@@ -5081,6 +5270,21 @@ export const homepageCopies = {
       "cookies": "Cookie-uri",
       "future": "Viitoarele integrări sunt identificate ca atare și nu sunt vândute ca caracteristici active.",
       "rights": "Toate drepturile rezervate."
+    },
+    "privacy": {
+      "badge": "Toate planurile plătite includ setul de instrumente operațional complet și modulul Privacy by Design.",
+      "kicker": "Confidențialitate prin design",
+      "title": "Protecție a datelor pregătită pentru GDPR, integrată în munca de zi cu zi",
+      "description": "Oferiți organizațiilor controale practice care sprijină conformitatea cu GDPR, păstrând în același timp trasabilitatea legală și operațională pe care o necesită producția profesională.",
+      "items": [
+        "Acces la date personale în funcție de rol",
+        "Managerul de confidențialitate al organizației",
+        "Rapoarte pseudonimizate în care numele nu sunt necesare",
+        "Zona de confidențialitate personală și solicitări GDPR",
+        "Politici de retenție configurabile",
+        "Pista de audit pentru acces și modificări",
+        "Identificarea legală obligatorie păstrată"
+      ]
     }
   },
   "fi": {
@@ -5094,26 +5298,27 @@ export const homepageCopies = {
       "login": "Kirjaudu sisään",
       "start": "Aloita",
       "language": "Kieli",
-      "menu": "Avaa valikko"
+      "menu": "Avaa valikko",
+      "privacy": "Yksityisyys suunnittelusta"
     },
     "hero": {
-      "eyebrow": "Peltomaatalous, yhdistetty",
-      "title": "Jokainen kenttäpäätös,",
-      "accent": "kartasta kenttätietueeseen.",
-      "description": "GeroFarm yhdistää lohkot, sadot, toiminnot, sadonkorjuut ja maatalouden indikaattorit yhdeksi käytännön historiaksi maatilallesi.",
+      "eyebrow": "Päivittäinen maatilan hallinta",
+      "title": "Maatilan työ, samassa paikassa",
+      "accent": "Maasta kenttäennätykseen",
+      "description": "Kartoita peltoja, yhdistä sadot, toiminnot, sadonkorjuut ja agronominen sää ja pidä selkeää peltorekisteriä GeroFarm:n avulla.",
       "primary": "Aloita GeroFarm:llä",
       "secondary": "Katso suunnitelmat",
       "note": "Free jopa 30 päivää · Luottokorttia ei tarvita",
       "imageAlt": "Maatalouspellot, joissa on kartoitetut lohkorajat ja agronomiset havaintopisteet",
       "mapLabel": "Kartoitetut paketit",
       "cropLabel": "Aktiiviset viljelykasvit",
-      "operationLabel": "Toiminnot linkitetty"
+      "operationLabel": "Toimenpiteet ja ruiskutus"
     },
     "proof": [
-      "KML ja KMZ kenttäkartat",
-      "Tilapäiset ja pysyvät viljelykasvit",
-      "Rajoittamaton toiminta ja sadonkorjuu",
-      "Kenttäennätys, joka on rakennettu todellisesta työstä"
+      "Kartat ja paketit",
+      "Toimenpiteet ja ruiskutus",
+      "Agronominen sää",
+      "Lohkokirjanpito"
     ],
     "flow": {
       "kicker": "Yksi yhdistetty historia",
@@ -5169,7 +5374,7 @@ export const homepageCopies = {
         },
         {
           "title": "Lohkokirjanpito",
-          "description": "Luo johdonmukainen PDF nykyisestä käyttöhistoriasta. Free sisältää vain selvästi merkityn kuvitteellisen esittelyn.",
+          "description": "Selkeä peltojen hallinta kartasta peltotietueeseen.",
           "status": "Saatavilla"
         }
       ]
@@ -5177,7 +5382,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Agronominen sää",
       "title": "Sää, joka puhuu kunkin sadon kieltä",
-      "description": "Virtuaaliset asemat muuttavat säätiedot agronomisiksi indikaattoreiksi, jotka on linkitetty kuhunkin satoon ja sen tunnisteisiin. Arvot ovat arvioita päätöksen tueksi, eivät anturimittauksia.",
+      "description": "Kartoita peltoja, yhdistä sadot, toiminnot, sadonkorjuut ja agronominen sää ja pidä selkeää peltorekisteriä GeroFarm:n avulla.",
       "metrics": [
         "Vertailuhaihdutustranspiraatio (ET₀)",
         "Auringon säteily",
@@ -5187,14 +5392,7 @@ export const homepageCopies = {
         "Arvioitu lehtien kosteus",
         "Indikaattorit sadon mukaan"
       ],
-      "tagsTitle": "Esimerkkejä viljelytunnisteen mukaan",
-      "tags": [
-        "Fenologinen vaihe",
-        "Lajike",
-        "Kasteluala",
-        "Riskien seuranta"
-      ],
-      "status": "Saatavilla suunnitellussa GeroFarm-tarjouksessa"
+      "status": "Saatavilla"
     },
     "modules": {
       "kicker": "Säädettävä syvyys",
@@ -5232,8 +5430,7 @@ export const homepageCopies = {
             "5 aktiivista kenttää",
             "1 virtuaalinen asema",
             "enintään 30 päivää",
-            "Konsultointi ja vienti jakson jälkeen",
-            "Kuvitteellinen, kelpaamaton kenttätietueen PDF-demo"
+            "Lohkokirjanpito"
           ]
         },
         {
@@ -5247,6 +5444,8 @@ export const homepageCopies = {
             "50 kenttää",
             "2 virtuaalista asemaa",
             "Varasto ja kulut saatavilla lisäosina",
+            "Yksityisyys suunnittelusta",
+            "Yksityisyys suunnittelusta",
             "Tulevat integraatiot sallittu"
           ]
         },
@@ -5262,6 +5461,8 @@ export const homepageCopies = {
             "5 virtuaaliasemaa",
             "Varasto mukana",
             "Mukana kulut",
+            "Yksityisyys suunnittelusta",
+            "Yksityisyys suunnittelusta",
             "Tulevat integraatiot sallittu"
           ]
         },
@@ -5275,6 +5476,8 @@ export const homepageCopies = {
             "Custom kentät ja asemat",
             "Varasto ja kustannukset ehdotuksen mukaan",
             "Räätälöidyt moduulit",
+            "Yksityisyys suunnittelusta",
+            "Yksityisyys suunnittelusta",
             "Tulevaisuuden ja räätälöityjä integraatioita"
           ]
         }
@@ -5298,12 +5501,8 @@ export const homepageCopies = {
           "a": "Organisaatio siirtyy konsultointiin ja vientiin. Tiedot säilyvät; operatiivisten tietueiden luominen tai muuttaminen vaatii maksetun suunnitelman."
         },
         {
-          "q": "Onko Free-kenttätietueen PDF kelvollinen?",
-          "a": "Ei. Free sisältää vain kuvitteellisen esittely-PDF:n, joka on selvästi tunnistettu kelpaamattomaksi."
-        },
-        {
-          "q": "Ovatko varastot ja kustannukset mukana?",
-          "a": "Molemmat toimitetaan Professional:n mukana. Malleihin Grow ja Custom ne voidaan lisätä erikseen tai pakettina Custom-ehdotuksen mukaisesti."
+          "q": "Yksityisyys suunnittelusta",
+          "a": "Kaikki maksetut suunnitelmat sisältävät täydellisen operatiivisen työkalupakin ja Privacy by Design -moduulin."
         },
         {
           "q": "Voinko lisätä virtuaalisia asemia?",
@@ -5335,6 +5534,21 @@ export const homepageCopies = {
       "cookies": "Evästeet",
       "future": "Tulevat integraatiot tunnistetaan sellaisiksi, eikä niitä myydä aktiivisina ominaisuuksina.",
       "rights": "Kaikki oikeudet pidätetään."
+    },
+    "privacy": {
+      "badge": "Kaikki maksetut suunnitelmat sisältävät täydellisen operatiivisen työkalupakin ja Privacy by Design -moduulin.",
+      "kicker": "Yksityisyys suunnittelusta",
+      "title": "GDPR-valmis tietosuoja, joka on sisäänrakennettu päivittäiseen työhön",
+      "description": "Anna organisaatioille käytännön ohjausta, joka tukee GDPR-yhteensopivuutta säilyttäen samalla ammattimaisen tuotannon edellyttämän laillisen ja toiminnallisen jäljitettävyyden.",
+      "items": [
+        "Pääsy henkilötietoihin roolin mukaan",
+        "Organisaation tietosuojavastaava",
+        "Pseudonyymisoidut raportit, joissa nimiä ei tarvita",
+        "Henkilökohtainen tietosuoja-alue ja GDPR-pyynnöt",
+        "Muokattavat säilytyskäytännöt",
+        "Käytön ja muutosten seurantaketju",
+        "Pakollinen laillinen henkilöllisyys on säilytetty"
+      ]
     }
   },
   "bg": {
@@ -5348,26 +5562,27 @@ export const homepageCopies = {
       "login": "влезте",
       "start": "Започнете",
       "language": "език",
-      "menu": "Отворете менюто"
+      "menu": "Отворете менюто",
+      "privacy": "Поверителност по дизайн"
     },
     "hero": {
-      "eyebrow": "Полско земеделие, свързано",
-      "title": "Всяко полево решение,",
-      "accent": "от карта към полеви запис.",
-      "description": "GeroFarm свързва парцели, култури, операции, реколти и агрономически показатели в една практическа история за вашата ферма.",
+      "eyebrow": "Ежедневно управление на фермата",
+      "title": "Работата на фермата, на същото място",
+      "accent": "От земята до полето",
+      "description": "Картирайте полета, свържете култури, операции, реколти и агрономично време и поддържайте ясен полеви запис с GeroFarm.",
       "primary": "Започнете с GeroFarm",
       "secondary": "Вижте планове",
       "note": "Free за до 30 дни · Не се изисква кредитна карта",
       "imageAlt": "Земеделски ниви с нанесени граници на парцели и точки за агрономическо наблюдение",
       "mapLabel": "Картирани парцели",
       "cropLabel": "Активни култури",
-      "operationLabel": "Свързани операции"
+      "operationLabel": "Операции и пръскане"
     },
     "proof": [
-      "KML и KMZ полеви карти",
-      "Временни и трайни насаждения",
-      "Неограничени операции и реколти",
-      "Рекорд на място, изграден от истинска работа"
+      "Карти и колети",
+      "Операции и пръскане",
+      "Агрономическо време",
+      "Дневник на полето"
     ],
     "flow": {
       "kicker": "Една свързана история",
@@ -5423,7 +5638,7 @@ export const homepageCopies = {
         },
         {
           "title": "Дневник на полето",
-          "description": "Генерирайте съгласуван PDF от текущата оперативна история. Free включва само ясно обозначена измислена демонстрация.",
+          "description": "Ясно управление на полето, от карта до запис на поле.",
           "status": "Наличен"
         }
       ]
@@ -5431,7 +5646,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Агрономическо време",
       "title": "Време, което говори езика на всяка култура",
-      "description": "Виртуалните станции превръщат данните за времето в агрономически индикатори, свързани с всяка култура и нейните етикети. Стойностите са оценки за подпомагане на вземането на решения, а не измервания на сензори.",
+      "description": "Картирайте полета, свържете култури, операции, реколти и агрономично време и поддържайте ясен полеви запис с GeroFarm.",
       "metrics": [
         "Референтна евапотранспирация (ET₀)",
         "Слънчева радиация",
@@ -5441,14 +5656,7 @@ export const homepageCopies = {
         "Прогнозна влажност на листата",
         "Показатели по култури"
       ],
-      "tagsTitle": "Примери по етикет на отглеждането",
-      "tags": [
-        "Фенологичен стадий",
-        "Разнообразие",
-        "Напоителен сектор",
-        "Мониторинг на риска"
-      ],
-      "status": "Предлага се в планираната оферта GeroFarm"
+      "status": "Наличен"
     },
     "modules": {
       "kicker": "Адаптивна дълбочина",
@@ -5486,8 +5694,7 @@ export const homepageCopies = {
             "5 активни полета",
             "1 виртуална станция",
             "30 дни максимум",
-            "Консултация и износ след периода",
-            "Измислена, невалидна PDF демонстрация на полеви записи"
+            "Дневник на полето"
           ]
         },
         {
@@ -5501,6 +5708,8 @@ export const homepageCopies = {
             "50 полета",
             "2 виртуални станции",
             "Инвентар и разходи, налични като добавки",
+            "Поверителност по дизайн",
+            "Поверителност по дизайн",
             "Позволени бъдещи интеграции"
           ]
         },
@@ -5516,6 +5725,8 @@ export const homepageCopies = {
             "5 виртуални станции",
             "Включен инвентар",
             "Включени разходи",
+            "Поверителност по дизайн",
+            "Поверителност по дизайн",
             "Позволени бъдещи интеграции"
           ]
         },
@@ -5529,6 +5740,8 @@ export const homepageCopies = {
             "Custom полета и станции",
             "Инвентаризация и разходи по предложение",
             "Персонализирани модули",
+            "Поверителност по дизайн",
+            "Поверителност по дизайн",
             "Бъдещи и персонализирани интеграции"
           ]
         }
@@ -5552,12 +5765,8 @@ export const homepageCopies = {
           "a": "Организацията преминава към консултации и експорт. Данните остават запазени; създаването или промяната на оперативни записи изисква платен план."
         },
         {
-          "q": "Валиден ли е PDF файлът Free полеви запис?",
-          "a": "№ Free включва само измислен демонстрационен PDF, ясно идентифициран като невалиден."
-        },
-        {
-          "q": "Включени ли са материалните запаси и разходите?",
-          "a": "И двете са включени в Professional. На Grow и Custom те могат да се добавят отделно или като пакет, предмет на предложението Custom."
+          "q": "Поверителност по дизайн",
+          "a": "Всички платени планове включват пълния оперативен инструментариум и модула за поверителност чрез проектиране."
         },
         {
           "q": "Мога ли да добавя още виртуални станции?",
@@ -5589,6 +5798,21 @@ export const homepageCopies = {
       "cookies": "Бисквитки",
       "future": "Бъдещите интеграции се идентифицират като такива и не се продават като активни функции.",
       "rights": "Всички права запазени."
+    },
+    "privacy": {
+      "badge": "Всички платени планове включват пълния оперативен инструментариум и модула за поверителност чрез проектиране.",
+      "kicker": "Поверителност по дизайн",
+      "title": "Защита на данните, готова за GDPR, вградена в ежедневната работа",
+      "description": "Дайте на организациите практически контроли, които поддържат съответствието с GDPR, като същевременно запазват правната и оперативна проследимост, която професионалното производство изисква.",
+      "items": [
+        "Достъп до лични данни по роля",
+        "Мениджър за поверителност на организацията",
+        "Псевдонимизирани доклади, където имената не са необходими",
+        "Лична зона за поверителност и GDPR заявки",
+        "Конфигурируеми политики за задържане",
+        "Одитна пътека за достъп и промени",
+        "Запазена е задължителната правна идентификация"
+      ]
     }
   },
   "hu": {
@@ -5602,26 +5826,27 @@ export const homepageCopies = {
       "login": "Jelentkezzen be",
       "start": "Kezdje el",
       "language": "Nyelv",
-      "menu": "Menü megnyitása"
+      "menu": "Menü megnyitása",
+      "privacy": "Adatvédelem tervezés által"
     },
     "hero": {
-      "eyebrow": "Szántóföldi mezőgazdaság, kapcsolt",
-      "title": "Minden helyszíni döntés,",
-      "accent": "térképről tereprekordra.",
-      "description": "A GeroFarm a parcellákat, a terményeket, a műveleteket, a betakarítást és a mezőgazdasági mutatókat egyetlen gyakorlati történetben kapcsolja össze gazdasága számára.",
+      "eyebrow": "Napi gazdálkodás",
+      "title": "A farm munkája, ugyanott",
+      "accent": "A földtől a tereprekordig",
+      "description": "A GeroFarm segítségével térképezze fel a táblákat, kapcsolja össze a növényeket, a műveleteket, a betakarítást és az agronómiai időjárást, és vezessen egyértelmű táblát.",
       "primary": "Kezdje a GeroFarm-vel",
       "secondary": "Tervek megtekintése",
       "note": "Free akár 30 napig · Nem szükséges hitelkártya",
       "imageAlt": "Mezőgazdasági táblák feltérképezett parcellahatárokkal és agronómiai megfigyelőpontokkal",
       "mapLabel": "Feltérképezett parcellák",
       "cropLabel": "Aktív növények",
-      "operationLabel": "Műveletek kapcsolva"
+      "operationLabel": "Műveletek és permetezés"
     },
     "proof": [
-      "KML és KMZ terepi térképek",
-      "Átmeneti és állandó növények",
-      "Korlátlan műveletek és betakarítás",
-      "Valódi munkából épített tereprekord"
+      "Térképek és csomagok",
+      "Műveletek és permetezés",
+      "Agronómiai időjárás",
+      "Táblatörzskönyv"
     ],
     "flow": {
       "kicker": "Egy összefüggő történelem",
@@ -5677,7 +5902,7 @@ export const homepageCopies = {
         },
         {
           "title": "Táblatörzskönyv",
-          "description": "Hozzon létre egy koherens PDF-fájlt az aktuális működési előzményekből. A Free csak egyértelműen megjelölt kitalált bemutatót tartalmaz.",
+          "description": "Tiszta terepkezelés, a térképtől a táblarekordig.",
           "status": "Elérhető"
         }
       ]
@@ -5685,7 +5910,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Agronómiai időjárás",
       "title": "Időjárás, amely az egyes termények nyelvét beszéli",
-      "description": "A virtuális állomások az időjárási adatokat agronómiai indikátorokká alakítják, amelyek az egyes terményekhez és címkéihez kapcsolódnak. Az értékek a döntéstámogató becslések, nem pedig az érzékelő mérései.",
+      "description": "A GeroFarm segítségével térképezze fel a táblákat, kapcsolja össze a növényeket, a műveleteket, a betakarítást és az agronómiai időjárást, és vezessen egyértelmű táblát.",
       "metrics": [
         "Referencia evapotranspiráció (ET₀)",
         "Napsugárzás",
@@ -5695,14 +5920,7 @@ export const homepageCopies = {
         "A levél becsült nedvessége",
         "Mutatók termés szerint"
       ],
-      "tagsTitle": "Példák termesztési címke szerint",
-      "tags": [
-        "Fenológiai szakasz",
-        "Változatosság",
-        "Öntözési ágazat",
-        "Kockázatfigyelés"
-      ],
-      "status": "Elérhető a tervezett GeroFarm ajánlatban"
+      "status": "Elérhető"
     },
     "modules": {
       "kicker": "Alkalmazható mélység",
@@ -5740,8 +5958,7 @@ export const homepageCopies = {
             "5 aktív mező",
             "1 virtuális állomás",
             "maximum 30 nap",
-            "Konzultáció és export az időszak után",
-            "Kitalált, nem érvényes helyszíni rekord PDF-demó"
+            "Táblatörzskönyv"
           ]
         },
         {
@@ -5755,6 +5972,8 @@ export const homepageCopies = {
             "50 mező",
             "2 virtuális állomás",
             "A készlet és a költségek kiegészítőként elérhetők",
+            "Adatvédelem tervezés által",
+            "Adatvédelem tervezés által",
             "A jövőbeni integrációk megengedettek"
           ]
         },
@@ -5770,6 +5989,8 @@ export const homepageCopies = {
             "5 virtuális állomás",
             "A készlet tartalmazza",
             "A költségek benne vannak",
+            "Adatvédelem tervezés által",
+            "Adatvédelem tervezés által",
             "A jövőbeni integrációk megengedettek"
           ]
         },
@@ -5783,6 +6004,8 @@ export const homepageCopies = {
             "Custom mezők és állomások",
             "Készlet és költségek ajánlat szerint",
             "Testre szabott modulok",
+            "Adatvédelem tervezés által",
+            "Adatvédelem tervezés által",
             "Jövőbeli és személyre szabott integrációk"
           ]
         }
@@ -5806,12 +6029,8 @@ export const homepageCopies = {
           "a": "A szervezet áttér a konzultációra és az exportra. Az adatok megmaradnak; működési rekordok létrehozásához vagy módosításához fizetős terv szükséges."
         },
         {
-          "q": "Érvényes a Free helyszíni rekord PDF?",
-          "a": "Nem. A Free csak egy kitalált demonstrációs PDF-et tartalmaz, amely egyértelműen nem érvényes."
-        },
-        {
-          "q": "A készlet és a költségek benne vannak?",
-          "a": "Mindkettőt a Professional tartalmazza. A Grow és Custom modellekhez külön-külön vagy csomagként is hozzáadhatók, a Custom javaslattól függően."
+          "q": "Adatvédelem tervezés által",
+          "a": "Minden fizetett terv tartalmazza a teljes működési eszközkészletet és a Tervezett adatvédelem modult."
         },
         {
           "q": "Hozzáadhatok több virtuális állomást?",
@@ -5843,6 +6062,21 @@ export const homepageCopies = {
       "cookies": "Cookie-k",
       "future": "A jövőbeni integrációkat ilyenként azonosítják, és nem értékesítik aktív funkcióként.",
       "rights": "Minden jog fenntartva."
+    },
+    "privacy": {
+      "badge": "Minden fizetett terv tartalmazza a teljes működési eszközkészletet és a Tervezett adatvédelem modult.",
+      "kicker": "Adatvédelem tervezés által",
+      "title": "GDPR-kompatibilis adatvédelem, beépítve a napi munkába",
+      "description": "Olyan gyakorlati ellenőrzéseket biztosítson a szervezeteknek, amelyek támogatják a GDPR megfelelést, miközben megőrzik a professzionális gyártás által megkövetelt jogi és működési nyomon követhetőséget.",
+      "items": [
+        "Személyes adatok hozzáférés szerepkör szerint",
+        "Szervezeti adatvédelmi menedzser",
+        "Álnevesített jelentések, ahol a nevek feleslegesek",
+        "Személyes adatvédelmi terület és GDPR kérések",
+        "Konfigurálható megőrzési szabályzatok",
+        "Ellenőrzési nyomvonal a hozzáféréshez és a módosításokhoz",
+        "A kötelező jogi személyazonosítás megőrizve"
+      ]
     }
   },
   "is": {
@@ -5856,26 +6090,27 @@ export const homepageCopies = {
       "login": "Skráðu þig inn",
       "start": "Byrjaðu",
       "language": "Tungumál",
-      "menu": "Opna valmynd"
+      "menu": "Opna valmynd",
+      "privacy": "Privacy by Design"
     },
     "hero": {
-      "eyebrow": "Hagalandbúnaður, tengdur",
-      "title": "Sérhver vettvangsákvörðun,",
-      "accent": "frá korti til vettvangsskrár.",
-      "description": "GeroFarm tengir saman böggla, uppskeru, rekstur, uppskeru og landbúnaðarvísa í eina hagnýta sögu fyrir bæinn þinn.",
+      "eyebrow": "Dagleg bústjórn",
+      "title": "Starf bæjarins, á sama stað",
+      "accent": "Frá landi til vallarmets",
+      "description": "Kortleggðu akra, tengdu ræktun, rekstur, uppskeru og landbúnaðarveður og haltu skýrri akurskrá með GeroFarm.",
       "primary": "Byrjaðu með GeroFarm",
       "secondary": "Skoða áætlanir",
       "note": "Free í allt að 30 daga · Ekkert kreditkort krafist",
       "imageAlt": "Landbúnaðarreitir með kortlögðum lóðamörkum og landbúnaðarathugunarstöðum",
       "mapLabel": "Kortlagðir bögglar",
       "cropLabel": "Virk ræktun",
-      "operationLabel": "Aðgerðir tengdar"
+      "operationLabel": "Aðgerðir og úðun"
     },
     "proof": [
-      "KML og KMZ svæðiskort",
-      "Tímabundin og varanleg ræktun",
-      "Ótakmarkaður rekstur og uppskera",
-      "Vettvangsmet byggt upp úr raunverulegri vinnu"
+      "Kort og bögglar",
+      "Aðgerðir og úðun",
+      "Búfræði veður",
+      "Akraskrá"
     ],
     "flow": {
       "kicker": "Ein tengd saga",
@@ -5931,7 +6166,7 @@ export const homepageCopies = {
         },
         {
           "title": "Akraskrá",
-          "description": "Búðu til samhangandi PDF úr núverandi rekstrarsögu. Free inniheldur aðeins skýrt merkta skáldskaparsýningu.",
+          "description": "Skýr sviðsstjórnun, frá korti til sviðsskrár.",
           "status": "Í boði"
         }
       ]
@@ -5939,7 +6174,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Búfræði veður",
       "title": "Veður sem talar tungumál hverrar ræktunar",
-      "description": "Sýndarstöðvar breyta veðurgögnum í landbúnaðarvísa sem tengjast hverri ræktun og merkjum hennar. Gildi eru áætlanir fyrir ákvörðunarstuðning, ekki skynjaramælingar.",
+      "description": "Kortleggðu akra, tengdu ræktun, rekstur, uppskeru og landbúnaðarveður og haltu skýrri akurskrá með GeroFarm.",
       "metrics": [
         "Viðmiðunaruppgufun (ET₀)",
         "Sólargeislun",
@@ -5949,14 +6184,7 @@ export const homepageCopies = {
         "Áætluð laufbleyta",
         "Vísar eftir uppskeru"
       ],
-      "tagsTitle": "Dæmi eftir ræktunarmerki",
-      "tags": [
-        "Phenological stig",
-        "Fjölbreytni",
-        "Áveitusvið",
-        "Áhættueftirlit"
-      ],
-      "status": "Fáanlegt í fyrirhuguðu GeroFarm tilboði"
+      "status": "Í boði"
     },
     "modules": {
       "kicker": "Aðlögunarhæf dýpt",
@@ -5994,8 +6222,7 @@ export const homepageCopies = {
             "5 virkir reitir",
             "1 sýndarstöð",
             "30 dagar að hámarki",
-            "Samráð og útflutningur eftir tímabilið",
-            "Skálduð, ógild vettvangsskrá PDF kynningu"
+            "Akraskrá"
           ]
         },
         {
@@ -6009,6 +6236,8 @@ export const homepageCopies = {
             "50 reitir",
             "2 sýndarstöðvar",
             "Birgðir og kostnaður í boði sem viðbætur",
+            "Privacy by Design",
+            "Privacy by Design",
             "Samþættingar í framtíðinni leyfðar"
           ]
         },
@@ -6024,6 +6253,8 @@ export const homepageCopies = {
             "5 sýndarstöðvar",
             "Birgðir innifalinn",
             "Kostnaður innifalinn",
+            "Privacy by Design",
+            "Privacy by Design",
             "Samþættingar í framtíðinni leyfðar"
           ]
         },
@@ -6037,6 +6268,8 @@ export const homepageCopies = {
             "Custom reitir og stöðvar",
             "Birgðir og kostnaður eftir tillögu",
             "Sérsniðnar einingar",
+            "Privacy by Design",
+            "Privacy by Design",
             "Framtíðar og sérsniðnar samþættingar"
           ]
         }
@@ -6060,12 +6293,8 @@ export const homepageCopies = {
           "a": "Samtökin skipta yfir í samráð og útflutning. Gögn haldast varðveitt; að búa til eða breyta rekstrarskrám krefst greiddra áætlunar."
         },
         {
-          "q": "Er Free vettvangsskrá PDF gild?",
-          "a": "Nei. Free inniheldur aðeins skáldaða sýnikennslu PDF, greinilega auðkenndur sem ekkert gildi."
-        },
-        {
-          "q": "Eru birgðir og kostnaður innifalinn?",
-          "a": "Bæði fylgja Professional. Á Grow og Custom er hægt að bæta þeim við sérstaklega eða sem pakka, með fyrirvara um Custom tillöguna."
+          "q": "Privacy by Design",
+          "a": "Allar greiddar áætlanir innihalda heildar verkfærakistuna og Privacy by Design einingu."
         },
         {
           "q": "Get ég bætt við fleiri sýndarstöðvum?",
@@ -6097,6 +6326,21 @@ export const homepageCopies = {
       "cookies": "Vefkökur",
       "future": "Samþættingar í framtíðinni eru auðkenndar sem slíkar og eru ekki seldar sem virkir eiginleikar.",
       "rights": "Allur réttur áskilinn."
+    },
+    "privacy": {
+      "badge": "Allar greiddar áætlanir innihalda heildar verkfærakistuna og Privacy by Design einingu.",
+      "kicker": "Privacy by Design",
+      "title": "GDPR-tilbúin gagnavernd, innbyggð í daglegt starf",
+      "description": "Gefðu fyrirtækjum hagnýt eftirlit sem styður GDPR samræmi á meðan viðhalda lagalegum og rekstrarlegum rekjanleika sem fagleg framleiðsla krefst.",
+      "items": [
+        "Aðgangur að persónuupplýsingum eftir hlutverki",
+        "Persónuverndarstjóri stofnunarinnar",
+        "Dulnefnilegar skýrslur þar sem nöfn eru óþörf",
+        "Persónuverndarsvæði og GDPR beiðnir",
+        "Stillanlegar varðveislustefnur",
+        "Endurskoðunarslóð fyrir aðgang og breytingar",
+        "Lögboðin lögleg auðkenni varðveitt"
+      ]
     }
   },
   "sk": {
@@ -6110,26 +6354,27 @@ export const homepageCopies = {
       "login": "Prihláste sa",
       "start": "Začnite",
       "language": "Jazyk",
-      "menu": "Otvoriť menu"
+      "menu": "Otvoriť menu",
+      "privacy": "Ochrana súkromia už od návrhu"
     },
     "hero": {
-      "eyebrow": "Poľné poľnohospodárstvo, spojené",
-      "title": "Každé rozhodnutie v teréne,",
-      "accent": "z mapy do terénneho záznamu.",
-      "description": "GeroFarm spája parcely, plodiny, operácie, úrodu a agronomické ukazovatele do jednej praktickej histórie pre vašu farmu.",
+      "eyebrow": "Denný manažment farmy",
+      "title": "Práca na farme, na rovnakom mieste",
+      "accent": "Z pozemku do terénneho záznamu",
+      "description": "Mapujte polia, spojte plodiny, operácie, úrodu a agronomické počasie a udržujte si prehľadné záznamy o poli so GeroFarm.",
       "primary": "Začnite s GeroFarm",
       "secondary": "Zobraziť plány",
       "note": "Free až na 30 dní · Nevyžaduje sa žiadna kreditná karta",
       "imageAlt": "Poľnohospodárske polia s mapovanými hranicami parciel a agronomickými pozorovacími bodmi",
       "mapLabel": "Zmapované parcely",
       "cropLabel": "Aktívne plodiny",
-      "operationLabel": "Operácie prepojené"
+      "operationLabel": "Operácie a nástreky"
     },
     "proof": [
-      "Poľné mapy KML a KMZ",
-      "Dočasné a trvalé plodiny",
-      "Neobmedzené operácie a zbery",
-      "Poľný záznam vytvorený zo skutočnej práce"
+      "Mapy a parcely",
+      "Operácie a nástreky",
+      "Agronomické počasie",
+      "Poľný denník"
     ],
     "flow": {
       "kicker": "Jedna spojená história",
@@ -6185,7 +6430,7 @@ export const homepageCopies = {
         },
         {
           "title": "Poľný denník",
-          "description": "Vygenerujte koherentné PDF z aktuálnej prevádzkovej histórie. Free obsahuje iba jasne označenú fiktívnu ukážku.",
+          "description": "Prehľadná správa poľa, od mapy po záznam poľa.",
           "status": "Dostupné"
         }
       ]
@@ -6193,7 +6438,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Agronomické počasie",
       "title": "Počasie, ktoré hovorí jazykom každej plodiny",
-      "description": "Virtuálne stanice premieňajú údaje o počasí na agronomické indikátory spojené s každou plodinou a jej značkami. Hodnoty sú odhady pre podporu rozhodovania, nie merania senzorov.",
+      "description": "Mapujte polia, spojte plodiny, operácie, úrodu a agronomické počasie a udržujte si prehľadné záznamy o poli so GeroFarm.",
       "metrics": [
         "Referenčná evapotranspirácia (ET₀)",
         "Slnečné žiarenie",
@@ -6203,14 +6448,7 @@ export const homepageCopies = {
         "Odhadovaná vlhkosť listov",
         "Ukazovatele podľa plodiny"
       ],
-      "tagsTitle": "Príklady podľa značky pestovania",
-      "tags": [
-        "Fenologické štádium",
-        "Rozmanitosť",
-        "Sektor zavlažovania",
-        "Monitorovanie rizík"
-      ],
-      "status": "Dostupné v plánovanej ponuke GeroFarm"
+      "status": "Dostupné"
     },
     "modules": {
       "kicker": "Prispôsobiteľná hĺbka",
@@ -6248,8 +6486,7 @@ export const homepageCopies = {
             "5 aktívnych polí",
             "1 virtuálna stanica",
             "maximálne 30 dní",
-            "Konzultácia a export po uplynutí obdobia",
-            "Fiktívne, neplatné demo PDF záznamu z terénu"
+            "Poľný denník"
           ]
         },
         {
@@ -6263,6 +6500,8 @@ export const homepageCopies = {
             "50 polí",
             "2 virtuálne stanice",
             "Zásoby a náklady sú k dispozícii ako doplnky",
+            "Ochrana súkromia už od návrhu",
+            "Ochrana súkromia už od návrhu",
             "Budúce integrácie povolené"
           ]
         },
@@ -6278,6 +6517,8 @@ export const homepageCopies = {
             "5 virtuálnych staníc",
             "Vrátane inventára",
             "Vrátane nákladov",
+            "Ochrana súkromia už od návrhu",
+            "Ochrana súkromia už od návrhu",
             "Budúce integrácie povolené"
           ]
         },
@@ -6291,6 +6532,8 @@ export const homepageCopies = {
             "Polia a stanice Custom",
             "Zásoby a náklady podľa návrhu",
             "Moduly na mieru",
+            "Ochrana súkromia už od návrhu",
+            "Ochrana súkromia už od návrhu",
             "Budúce a prispôsobené integrácie"
           ]
         }
@@ -6314,12 +6557,8 @@ export const homepageCopies = {
           "a": "Organizácia prechádza na konzultácie a export. Údaje zostanú zachované; vytváranie alebo zmena prevádzkových záznamov si vyžaduje platený plán."
         },
         {
-          "q": "Je súbor PDF so záznamom z poľa Free platný?",
-          "a": "Nie. Free obsahuje iba fiktívne demonštračné PDF, ktoré je jasne označené ako neplatné."
-        },
-        {
-          "q": "Sú zahrnuté zásoby a náklady?",
-          "a": "Oba sú súčasťou Professional. Na modeloch Grow a Custom môžu byť pridané samostatne alebo ako balík, v súlade s návrhom Custom."
+          "q": "Ochrana súkromia už od návrhu",
+          "a": "Všetky platené plány zahŕňajú kompletnú súpravu prevádzkových nástrojov a modul Privacy by Design."
         },
         {
           "q": "Môžem pridať ďalšie virtuálne stanice?",
@@ -6351,6 +6590,21 @@ export const homepageCopies = {
       "cookies": "Súbory cookie",
       "future": "Budúce integrácie sú označené ako také a nepredávajú sa ako aktívne funkcie.",
       "rights": "Všetky práva vyhradené."
+    },
+    "privacy": {
+      "badge": "Všetky platené plány zahŕňajú kompletnú súpravu prevádzkových nástrojov a modul Privacy by Design.",
+      "kicker": "Ochrana súkromia už od návrhu",
+      "title": "Ochrana údajov pripravená na GDPR, zabudovaná do každodennej práce",
+      "description": "Poskytnite organizáciám praktické ovládacie prvky, ktoré podporujú súlad so GDPR pri zachovaní právnej a prevádzkovej sledovateľnosti, ktorú vyžaduje profesionálna výroba.",
+      "items": [
+        "Prístup k osobným údajom podľa roly",
+        "Správca ochrany osobných údajov organizácie",
+        "Pseudonymizované správy, kde sú mená zbytočné",
+        "Oblasť osobného súkromia a požiadavky GDPR",
+        "Konfigurovateľné zásady uchovávania",
+        "Audit trail pre prístup a zmeny",
+        "Povinná zákonná identifikácia zachovaná"
+      ]
     }
   },
   "lt": {
@@ -6364,26 +6618,27 @@ export const homepageCopies = {
       "login": "Prisijunkite",
       "start": "Pradėkite",
       "language": "Kalba",
-      "menu": "Atidaryti meniu"
+      "menu": "Atidaryti meniu",
+      "privacy": "Privatumas pagal dizainą"
     },
     "hero": {
-      "eyebrow": "Lauko žemės ūkis, prijungtas",
-      "title": "Kiekvienas lauko sprendimas,",
-      "accent": "nuo žemėlapio iki lauko įrašo.",
-      "description": "GeroFarm sujungia sklypus, pasėlius, operacijas, derlių ir agronominius rodiklius į vieną praktinę jūsų ūkio istoriją.",
+      "eyebrow": "Kasdienis ūkio valdymas",
+      "title": "Ūkio darbas, toje pačioje vietoje",
+      "accent": "Nuo žemės iki lauko rekordo",
+      "description": "Su GeroFarm susirašykite laukus, sujunkite pasėlius, operacijas, derlių ir agronominius orus bei veskite aiškų lauko įrašą.",
       "primary": "Pradėkite nuo GeroFarm",
       "secondary": "Žiūrėti planus",
       "note": "Free iki 30 dienų · Nereikia kredito kortelės",
       "imageAlt": "Žemės ūkio laukai su pažymėtomis sklypų ribomis ir agronominiais stebėjimo punktais",
       "mapLabel": "Sužymėti siuntiniai",
       "cropLabel": "Aktyvūs pasėliai",
-      "operationLabel": "Susietos operacijos"
+      "operationLabel": "Operacijos ir purškimas"
     },
     "proof": [
-      "KML ir KMZ lauko žemėlapiai",
-      "Laikinosios ir daugiametės kultūros",
-      "Neribotos operacijos ir derlius",
-      "Lauko rekordas, sukurtas iš tikro darbo"
+      "Žemėlapiai ir siuntiniai",
+      "Operacijos ir purškimas",
+      "Agronominis oras",
+      "Lauko žurnalas"
     ],
     "flow": {
       "kicker": "Viena susieta istorija",
@@ -6439,7 +6694,7 @@ export const homepageCopies = {
         },
         {
           "title": "Lauko žurnalas",
-          "description": "Sukurkite nuoseklų PDF iš dabartinės veiklos istorijos. Free apima tik aiškiai pažymėtą išgalvotą demonstraciją.",
+          "description": "Aiškus lauko valdymas nuo žemėlapio iki lauko įrašo.",
           "status": "Galima"
         }
       ]
@@ -6447,7 +6702,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Agronominis oras",
       "title": "Oras, kuris kalba kiekvieno derliaus kalba",
-      "description": "Virtualios stotys paverčia orų duomenis į agronominius rodiklius, susietus su kiekvienu pasėliu ir jo žymomis. Vertės yra apytikslės, skirtos sprendimui palaikyti, o ne jutiklio matavimai.",
+      "description": "Su GeroFarm susirašykite laukus, sujunkite pasėlius, operacijas, derlių ir agronominius orus bei veskite aiškų lauko įrašą.",
       "metrics": [
         "Etaloninė evapotranspiracija (ET₀)",
         "Saulės spinduliuotė",
@@ -6457,14 +6712,7 @@ export const homepageCopies = {
         "Numatomas lapų drėgnumas",
         "Rodikliai pagal pasėlius"
       ],
-      "tagsTitle": "Pavyzdžiai pagal auginimo žymą",
-      "tags": [
-        "Fenologinė stadija",
-        "Įvairovė",
-        "Drėkinimo sektorius",
-        "Rizikos stebėjimas"
-      ],
-      "status": "Galimas planuojamame GeroFarm pasiūlyme"
+      "status": "Galima"
     },
     "modules": {
       "kicker": "Pritaikomas gylis",
@@ -6502,8 +6750,7 @@ export const homepageCopies = {
             "5 aktyvūs laukai",
             "1 virtuali stotis",
             "daugiausiai 30 dienų",
-            "Konsultacijos ir eksportas pasibaigus terminui",
-            "Išgalvota, negaliojanti lauko įrašo PDF demonstracinė versija"
+            "Lauko žurnalas"
           ]
         },
         {
@@ -6517,6 +6764,8 @@ export const homepageCopies = {
             "50 laukų",
             "2 virtualios stotys",
             "Atsargos ir išlaidos galimos kaip priedai",
+            "Privatumas pagal dizainą",
+            "Privatumas pagal dizainą",
             "Leidžiama ateities integracija"
           ]
         },
@@ -6532,6 +6781,8 @@ export const homepageCopies = {
             "5 virtualios stotys",
             "Įtrauktas inventorius",
             "Įskaičiuotos išlaidos",
+            "Privatumas pagal dizainą",
+            "Privatumas pagal dizainą",
             "Leidžiama ateities integracija"
           ]
         },
@@ -6545,6 +6796,8 @@ export const homepageCopies = {
             "Custom laukai ir stotys",
             "Inventorius ir išlaidos pagal pasiūlymą",
             "Pritaikomi moduliai",
+            "Privatumas pagal dizainą",
+            "Privatumas pagal dizainą",
             "Ateities ir pritaikytos integracijos"
           ]
         }
@@ -6568,12 +6821,8 @@ export const homepageCopies = {
           "a": "Organizacija pereina prie konsultavimo ir eksporto. Duomenys išsaugomi; operatyviniams įrašams kurti ar keisti reikalingas mokamas planas."
         },
         {
-          "q": "Ar Free lauko įrašo PDF galioja?",
-          "a": "Ne. Free apima tik išgalvotą demonstracinį PDF failą, aiškiai pažymėtą, kad jis negalioja."
-        },
-        {
-          "q": "Ar įskaičiuotos atsargos ir išlaidos?",
-          "a": "Abu yra komplekte su Professional. Grow ir Custom juos galima pridėti atskirai arba kaip pakuotę, atsižvelgiant į Custom pasiūlymą."
+          "q": "Privatumas pagal dizainą",
+          "a": "Į visus mokamus planus įtrauktas visas veiklos įrankių rinkinys ir „Privacy by Design“ modulis."
         },
         {
           "q": "Ar galiu pridėti daugiau virtualių stočių?",
@@ -6605,6 +6854,21 @@ export const homepageCopies = {
       "cookies": "Slapukai",
       "future": "Būsimos integracijos identifikuojamos kaip tokios ir nėra parduodamos kaip aktyvios funkcijos.",
       "rights": "Visos teisės saugomos."
+    },
+    "privacy": {
+      "badge": "Į visus mokamus planus įtrauktas visas veiklos įrankių rinkinys ir „Privacy by Design“ modulis.",
+      "kicker": "Privatumas pagal dizainą",
+      "title": "GDPR paruošta duomenų apsauga, integruota į kasdienį darbą",
+      "description": "Suteikite organizacijoms praktines kontrolės priemones, kurios palaiko GDPR atitiktį, kartu išsaugant teisinį ir veiklos atsekamumą, kurio reikalauja profesionali gamyba.",
+      "items": [
+        "Asmens duomenų prieiga pagal vaidmenį",
+        "Organizacijos privatumo valdytojas",
+        "Pseudonimizuoti pranešimai, kuriuose vardai nereikalingi",
+        "Asmens privatumo sritis ir GDPR užklausos",
+        "Konfigūruojama saugojimo politika",
+        "Prieigos ir pakeitimų audito seka",
+        "Išsaugotas privalomas teisinis identifikavimas"
+      ]
     }
   },
   "sl": {
@@ -6618,26 +6882,27 @@ export const homepageCopies = {
       "login": "Prijavite se",
       "start": "Začnite",
       "language": "Jezik",
-      "menu": "Odpri meni"
+      "menu": "Odpri meni",
+      "privacy": "Privacy by Design"
     },
     "hero": {
-      "eyebrow": "Poljedelstvo, povezano",
-      "title": "Vsaka terenska odločitev,",
-      "accent": "od zemljevida do terenskega zapisa.",
-      "description": "GeroFarm povezuje parcele, pridelke, operacije, žetve in agronomske kazalnike v eno praktično zgodovino za vašo kmetijo.",
+      "eyebrow": "Dnevno vodenje kmetije",
+      "title": "Delo kmetije, na istem mestu",
+      "accent": "Od zemlje do terenskega zapisa",
+      "description": "Preslikajte polja, povežite pridelke, operacije, žetve in agronomsko vreme ter vodite jasen zapis polja z GeroFarm.",
       "primary": "Začnite z GeroFarm",
       "secondary": "Ogled načrtov",
       "note": "Free do 30 dni · Kreditna kartica ni potrebna",
       "imageAlt": "Kmetijska polja s kartiranimi mejami parcel in agronomskimi opazovalnicami",
       "mapLabel": "Kartirane parcele",
       "cropLabel": "Aktivni pridelki",
-      "operationLabel": "Operacije povezane"
+      "operationLabel": "Operacije in škropljenje"
     },
     "proof": [
-      "Zemljevidi polj KML in KMZ",
-      "Začasni in trajni nasadi",
-      "Neomejeno število operacij in žetev",
-      "Terenski zapis, zgrajen iz resničnega dela"
+      "Zemljevidi in parcele",
+      "Operacije in škropljenje",
+      "Agronomsko vreme",
+      "Poljski dnevnik"
     ],
     "flow": {
       "kicker": "Ena povezana zgodovina",
@@ -6693,7 +6958,7 @@ export const homepageCopies = {
         },
         {
           "title": "Poljski dnevnik",
-          "description": "Ustvarite skladen PDF iz trenutne zgodovine delovanja. Free vključuje samo jasno označeno izmišljeno predstavitev.",
+          "description": "Jasno upravljanje polja, od zemljevida do zapisa polja.",
           "status": "Na voljo"
         }
       ]
@@ -6701,7 +6966,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Agronomsko vreme",
       "title": "Vreme, ki govori jezik vsakega pridelka",
-      "description": "Virtualne postaje spremenijo vremenske podatke v agronomske indikatorje, povezane z vsakim pridelkom in njegovimi oznakami. Vrednosti so ocene za podporo odločanju, ne meritve senzorjev.",
+      "description": "Preslikajte polja, povežite pridelke, operacije, žetve in agronomsko vreme ter vodite jasen zapis polja z GeroFarm.",
       "metrics": [
         "Referenčna evapotranspiracija (ET₀)",
         "Sončno sevanje",
@@ -6711,14 +6976,7 @@ export const homepageCopies = {
         "Ocenjena vlažnost listov",
         "Indikatorji po posevku"
       ],
-      "tagsTitle": "Primeri po oznaki gojenja",
-      "tags": [
-        "Fenološka faza",
-        "Raznolikost",
-        "Namakalni sektor",
-        "Spremljanje tveganja"
-      ],
-      "status": "Na voljo v načrtovani ponudbi GeroFarm"
+      "status": "Na voljo"
     },
     "modules": {
       "kicker": "Prilagodljiva globina",
@@ -6756,8 +7014,7 @@ export const homepageCopies = {
             "5 aktivnih polj",
             "1 virtualna postaja",
             "največ 30 dni",
-            "Posvetovanje in izvoz po roku",
-            "Izmišljena, neveljavna predstavitev PDF s terenskim zapisom"
+            "Poljski dnevnik"
           ]
         },
         {
@@ -6771,6 +7028,8 @@ export const homepageCopies = {
             "50 polj",
             "2 virtualni postaji",
             "Inventar in stroški so na voljo kot dodatki",
+            "Privacy by Design",
+            "Privacy by Design",
             "Dovoljene bodoče integracije"
           ]
         },
@@ -6786,6 +7045,8 @@ export const homepageCopies = {
             "5 virtualnih postaj",
             "Inventar vključen",
             "Stroški vključeni",
+            "Privacy by Design",
+            "Privacy by Design",
             "Dovoljene bodoče integracije"
           ]
         },
@@ -6799,6 +7060,8 @@ export const homepageCopies = {
             "Custom polja in postaje",
             "Zaloge in stroški po predlogu",
             "Moduli po meri",
+            "Privacy by Design",
+            "Privacy by Design",
             "Prihodnje in prilagojene integracije"
           ]
         }
@@ -6822,12 +7085,8 @@ export const homepageCopies = {
           "a": "Organizacija preide na svetovanje in izvoz. Podatki ostanejo ohranjeni; ustvarjanje ali spreminjanje operativnih zapisov zahteva plačan načrt."
         },
         {
-          "q": "Ali je zapis PDF Free veljaven?",
-          "a": "Št. Free vključuje samo izmišljeni predstavitveni PDF, ki je jasno opredeljen kot neveljaven."
-        },
-        {
-          "q": "Ali so zaloge in stroški vključeni?",
-          "a": "Oba sta priložena Professional. Na Grow in Custom jih je mogoče dodati ločeno ali kot paket, odvisno od predloga Custom."
+          "q": "Privacy by Design",
+          "a": "Vsi plačljivi načrti vključujejo celoten nabor operativnih orodij in modul Privacy by Design."
         },
         {
           "q": "Ali lahko dodam več virtualnih postaj?",
@@ -6859,6 +7118,21 @@ export const homepageCopies = {
       "cookies": "Piškotki",
       "future": "Prihodnje integracije so označene kot take in se ne prodajajo kot aktivne funkcije.",
       "rights": "Vse pravice pridržane."
+    },
+    "privacy": {
+      "badge": "Vsi plačljivi načrti vključujejo celoten nabor operativnih orodij in modul Privacy by Design.",
+      "kicker": "Privacy by Design",
+      "title": "Zaščita podatkov, pripravljena na GDPR, vgrajena v vsakodnevno delo",
+      "description": "Omogočite organizacijam praktične kontrole, ki podpirajo skladnost z GDPR, hkrati pa ohranjajo pravno in operativno sledljivost, ki jo zahteva profesionalna proizvodnja.",
+      "items": [
+        "Dostop do osebnih podatkov glede na vlogo",
+        "Upravitelj zasebnosti organizacije",
+        "Psevdonimizirana poročila, kjer so imena nepotrebna",
+        "Območje osebne zasebnosti in zahteve GDPR",
+        "Nastavljive politike hrambe",
+        "Revizijska sled za dostop in spremembe",
+        "Obvezna pravna identifikacija ohranjena"
+      ]
     }
   },
   "lv": {
@@ -6872,26 +7146,27 @@ export const homepageCopies = {
       "login": "Pierakstīties",
       "start": "Sāciet darbu",
       "language": "Valoda",
-      "menu": "Atvērt izvēlni"
+      "menu": "Atvērt izvēlni",
+      "privacy": "Dizaina konfidencialitāte"
     },
     "hero": {
-      "eyebrow": "Lauksaimniecība, savienots",
-      "title": "Katrs lauka lēmums,",
-      "accent": "no kartes uz lauka ierakstu.",
-      "description": "GeroFarm apvieno zemes gabalus, ražas, darbības, ražas un agronomiskos rādītājus vienā praktiskā vēsturē jūsu saimniecībai.",
+      "eyebrow": "Ikdienas saimniecības vadība",
+      "title": "Saimniecības darbs, tajā pašā vietā",
+      "accent": "No zemes līdz lauka rekordam",
+      "description": "Kartējiet laukus, savienojiet kultūras, darbības, ražas un agronomiskos laikapstākļus un saglabājiet skaidru lauka uzskaiti, izmantojot GeroFarm.",
       "primary": "Sāciet ar GeroFarm",
       "secondary": "Skatīt plānus",
       "note": "Free līdz 30 dienām · Kredītkarte nav nepieciešama",
       "imageAlt": "Lauksaimniecības lauki ar kartētām zemes gabalu robežām un agronomiskajiem novērojumu punktiem",
       "mapLabel": "Kartēti pakas",
       "cropLabel": "Aktīvās kultūras",
-      "operationLabel": "Operācijas ir saistītas"
+      "operationLabel": "Darbības un izsmidzināšana"
     },
     "proof": [
-      "KML un KMZ lauka kartes",
-      "Pagaidu un ilggadīgās kultūras",
-      "Neierobežotas darbības un ražas",
-      "Lauka ieraksts, kas izveidots no reāla darba"
+      "Kartes un pakas",
+      "Darbības un izsmidzināšana",
+      "Agronomiskie laikapstākļi",
+      "Lauka žurnāls"
     ],
     "flow": {
       "kicker": "Viena saistīta vēsture",
@@ -6947,7 +7222,7 @@ export const homepageCopies = {
         },
         {
           "title": "Lauka žurnāls",
-          "description": "Ģenerējiet saskaņotu PDF failu no pašreizējās darbības vēstures. Free ietver tikai skaidri iezīmētu izdomātu demonstrāciju.",
+          "description": "Skaidra lauka pārvaldība no kartes uz lauka ierakstu.",
           "status": "Pieejams"
         }
       ]
@@ -6955,7 +7230,7 @@ export const homepageCopies = {
     "weather": {
       "kicker": "Agronomiskie laikapstākļi",
       "title": "Laikapstākļi, kas runā katras kultūras valodā",
-      "description": "Virtuālās stacijas pārvērš laikapstākļu datus agronomiskos indikatoros, kas saistīti ar katru kultūru un tās atzīmēm. Vērtības ir aplēses lēmumu atbalstam, nevis sensoru mērījumi.",
+      "description": "Kartējiet laukus, savienojiet kultūras, darbības, ražas un agronomiskos laikapstākļus un saglabājiet skaidru lauka uzskaiti, izmantojot GeroFarm.",
       "metrics": [
         "Atsauces evapotranspirācija (ET₀)",
         "Saules starojums",
@@ -6965,14 +7240,7 @@ export const homepageCopies = {
         "Paredzamais lapu mitrums",
         "Rādītāji pēc ražas"
       ],
-      "tagsTitle": "Piemēri pēc audzēšanas taga",
-      "tags": [
-        "Fenoloģiskā stadija",
-        "Daudzveidība",
-        "Apūdeņošanas sektors",
-        "Riska uzraudzība"
-      ],
-      "status": "Pieejams plānotajā GeroFarm piedāvājumā"
+      "status": "Pieejams"
     },
     "modules": {
       "kicker": "Pielāgojams dziļums",
@@ -7010,8 +7278,7 @@ export const homepageCopies = {
             "5 aktīvi lauki",
             "1 virtuālā stacija",
             "Maksimāli 30 dienas",
-            "Konsultācijas un eksports pēc perioda",
-            "Izdomāta, nederīga lauka ieraksta PDF demonstrācija"
+            "Lauka žurnāls"
           ]
         },
         {
@@ -7025,6 +7292,8 @@ export const homepageCopies = {
             "50 lauki",
             "2 virtuālās stacijas",
             "Inventārs un izmaksas pieejami kā papildinājumi",
+            "Dizaina konfidencialitāte",
+            "Dizaina konfidencialitāte",
             "Atļauta turpmākā integrācija"
           ]
         },
@@ -7040,6 +7309,8 @@ export const homepageCopies = {
             "5 virtuālās stacijas",
             "Iekļauts inventārs",
             "Cenā iekļautas izmaksas",
+            "Dizaina konfidencialitāte",
+            "Dizaina konfidencialitāte",
             "Atļauta turpmākā integrācija"
           ]
         },
@@ -7053,6 +7324,8 @@ export const homepageCopies = {
             "Custom lauki un stacijas",
             "Inventārs un izmaksas pēc priekšlikuma",
             "Pielāgoti moduļi",
+            "Dizaina konfidencialitāte",
+            "Dizaina konfidencialitāte",
             "Nākotnes un pielāgotas integrācijas"
           ]
         }
@@ -7076,12 +7349,8 @@ export const homepageCopies = {
           "a": "Organizācija pāriet uz konsultācijām un eksportu. Dati tiek saglabāti; lai izveidotu vai mainītu darbības ierakstus, ir nepieciešams apmaksāts plāns."
         },
         {
-          "q": "Vai Free lauka ieraksta PDF fails ir derīgs?",
-          "a": "Nē. Free ietver tikai izdomātu demonstrācijas PDF failu, kas skaidri norādīts kā nederīgs."
-        },
-        {
-          "q": "Vai ir iekļauti krājumi un izmaksas?",
-          "a": "Abi ir iekļauti komplektācijā Professional. Grow un Custom tos var pievienot atsevišķi vai kā iepakojumu atbilstoši Custom priekšlikumam."
+          "q": "Dizaina konfidencialitāte",
+          "a": "Visos apmaksātajos plānos ir iekļauts pilns darbības rīku komplekts un modulis Privacy by Design."
         },
         {
           "q": "Vai varu pievienot vairāk virtuālo staciju?",
@@ -7113,6 +7382,21 @@ export const homepageCopies = {
       "cookies": "Sīkdatnes",
       "future": "Nākotnes integrācijas tiek identificētas kā tādas, un tās netiek pārdotas kā aktīvas funkcijas.",
       "rights": "Visas tiesības paturētas."
+    },
+    "privacy": {
+      "badge": "Visos apmaksātajos plānos ir iekļauts pilns darbības rīku komplekts un modulis Privacy by Design.",
+      "kicker": "Dizaina konfidencialitāte",
+      "title": "GDPR gatavu datu aizsardzība, iebūvēta ikdienas darbā",
+      "description": "Sniedziet organizācijām praktiskas kontroles, kas atbalsta GDPR atbilstību, vienlaikus saglabājot juridisko un darbības izsekojamību, kas nepieciešama profesionālai ražošanai.",
+      "items": [
+        "Piekļuve personas datiem pēc lomas",
+        "Organizācijas privātuma pārvaldnieks",
+        "Pseidonimizēti ziņojumi, kuros vārdi nav nepieciešami",
+        "Personiskā privātuma zona un GDPR pieprasījumi",
+        "Konfigurējamas saglabāšanas politikas",
+        "Piekļuves un izmaiņu audita pēdas",
+        "Saglabāta obligātā juridiskā identifikācija"
+      ]
     }
   }
 } as const satisfies Record<SupportedLocale, HomepageCopy>;
