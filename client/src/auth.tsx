@@ -42,7 +42,7 @@ const AuthContext = createContext<AuthState | null>(null);
 
 async function loadConfig() {
   const response = await fetch("/api/auth/config", { credentials: "include" });
-  if (!response.ok) throw new Error("A configuração da conta Gero não está disponível");
+  if (!response.ok) throw new Error("A configuração de acesso não está disponível");
   return response.json() as Promise<CoreConfig>;
 }
 

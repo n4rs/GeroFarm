@@ -15,7 +15,9 @@
     "db:check": "tsx script/check-migrations.ts",
     "db:migrate": "tsx script/migrate.ts",
     "db:migrate:prod": "node dist/migrate.js",
-    "db:bootstrap-production": "tsx script/bootstrap-production-database.ts"
+    "db:bootstrap-production": "tsx script/bootstrap-production-database.ts",
+    "i18n:generate-home": "tsx script/generate-home-locales.ts",
+    "i18n:review-home": "tsx script/review-home-locales.ts"
   },
   "dependencies": {
     "drizzle-orm": "^0.45.2",

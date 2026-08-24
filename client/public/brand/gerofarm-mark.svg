@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 224 48" role="img" aria-label="GeroFarm" direction="ltr">
+  <g transform="translate(1 1) scale(.72)">
+    <path d="M10 45c10-2 17-8 22-18 6 10 13 16 22 18" fill="none" stroke="#143f32" stroke-width="6" stroke-linecap="round"/>
+    <path d="M14 52c9-2 15-6 18-12 4 6 10 10 18 12" fill="none" stroke="#7d9f37" stroke-width="6" stroke-linecap="round"/>
+    <path d="M32 39V20" fill="none" stroke="#143f32" stroke-width="5" stroke-linecap="round"/>
+    <path d="M32 26c-9 0-13-5-13-13 8 0 13 4 13 13Z" fill="#b9d868" stroke="#143f32" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M32 22c2-8 7-11 15-10-1 8-6 12-15 12Z" fill="#5d8e47" stroke="#143f32" stroke-width="3" stroke-linejoin="round"/>
+  </g>
+  <text x="55" y="33" direction="ltr" unicode-bidi="bidi-override" font-family="Inter,Segoe UI,sans-serif" font-size="29" font-weight="800" letter-spacing="-1.2" fill="#143f32">Gero<tspan fill="#668c37">Farm</tspan></text>
+</svg>
