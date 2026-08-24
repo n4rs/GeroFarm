@@ -26,7 +26,7 @@
     "i18n:review-lifecycle": "tsx script/review-lifecycle-locales.ts",
     "i18n:generate-resources": "tsx script/generate-resource-locales.ts",
     "i18n:review-resources": "tsx script/review-resource-locales.ts",
-    "i18n:generate-operations": "tsx script/generate-operation-locales.ts",
+    "i18n:generate-operations": "tsx script/generate-operation-locales.ts && tsx script/generate-soil-operation-locales.ts && tsx script/review-soil-operation-terms.ts",
     "i18n:review-operations": "tsx script/review-operation-locales.ts"
   },
   "dependencies": {
