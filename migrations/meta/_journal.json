@@ -71,6 +71,13 @@
       "when": 1787553600000,
       "tag": "0009_soil_preparation",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1787557200000,
+      "tag": "0010_crop_installation",
+      "breakpoints": true
     }
   ]
 }
