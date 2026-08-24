@@ -10,6 +10,7 @@ const FarmHoldingsModule = lazy(() => import("./farm/FarmHoldingsModule"));
 const CropsModule = lazy(() => import("./crops/CropsModule"));
 const ResourcesModule = lazy(() => import("./resources/ResourcesModule"));
 const OperationsModule = lazy(() => import("./operations/OperationsModule"));
+const PlansModule = lazy(() => import("./plans/PlansModule"));
 const PrivacyModule = lazy(() => import("./privacy/PrivacyModule"));
 
 type ModuleId = "overview" | "farm" | "crops" | "operations" | "plans" | "weather" | "harvests" | "notebook" | "resources" | "inventory" | "costs" | "privacy" | "settings";
@@ -90,7 +91,7 @@ export default function AppWorkspace() {
       </header>
 
       <main className="farm-content">
-        {module === "overview" ? <Overview name={session.user.name} organization={session.access.organization.name} common={common} /> : module === "farm" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><FarmHoldingsModule /></Suspense> : module === "crops" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><CropsModule /></Suspense> : module === "resources" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><ResourcesModule /></Suspense> : module === "operations" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><OperationsModule /></Suspense> : module === "privacy" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><PrivacyModule /></Suspense> : <PendingModule title={active.label} common={common} />}
+        {module === "overview" ? <Overview name={session.user.name} organization={session.access.organization.name} common={common} /> : module === "farm" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><FarmHoldingsModule /></Suspense> : module === "crops" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><CropsModule /></Suspense> : module === "resources" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><ResourcesModule /></Suspense> : module === "operations" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><OperationsModule /></Suspense> : module === "plans" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><PlansModule /></Suspense> : module === "privacy" ? <Suspense fallback={<div className="module-state"><span className="spinner" /></div>}><PrivacyModule /></Suspense> : <PendingModule title={active.label} common={common} />}
       </main>
     </div>
   </div>;

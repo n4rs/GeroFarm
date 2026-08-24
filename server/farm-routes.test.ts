@@ -5,6 +5,8 @@ import type { FarmHoldingDto } from "@shared/farm-holdings";
 import { createApp } from "./app";
 import type { FarmRequestContext } from "./farm-context";
 import type { FarmHoldingRepository } from "./farm-holdings";
+import type { FertilizationPlanRepository } from "./fertilization-plans";
+import { emptyNutrients, type FertilizationPlanDto } from "@shared/fertilization-plans";
 
 const context: FarmRequestContext = {
   user: { id: "0c9bb34d-acdb-42f0-9918-edeb05a37c9a", email: "owner@example.test", name: "Owner", preferredLocale: "pt-PT", preferences: {}, status: "active", emailVerifiedAt: null, platformRoles: [] },
@@ -45,3 +47,24 @@ test("rejects invalid holdings and returns a stable missing-record code", async 
   assert.equal(missing.status, 404);
   assert.equal(((await missing.json()) as { code: string }).code, "FARM_HOLDING_NOT_FOUND");
 }));
+
+test("fertilization plan routes create a draft and explicitly put it into force", async () => {
+  const rows: FertilizationPlanDto[] = [];
+  const plans: FertilizationPlanRepository = {
+    async list() { return rows; },
+    async create(_received, input) { const row: FertilizationPlanDto = { id: "71ae85bb-6242-4dc2-83b6-086a6d46f3f0", ...input, version: 1, status: "draft", createdAt: new Date().toISOString(), fields: input.fields.map((field) => ({ id: crypto.randomUUID(), ...field, deliveredKg: emptyNutrients(), deliveredKgHa: emptyNutrients(), plannedKgHa: emptyNutrients(), plannedBalanceKgHa: emptyNutrients(), balanceKgHa: field.objectivesKgHa, unknownCompositionOperationCount: 0, operationCount: 0, warnings: [] })) }; rows.push(row); return row; },
+    async activate(_received, id) { const row = rows.find((item) => item.id === id); if (!row) return null; row.status = "in_force"; return row; },
+  };
+  const server = createServer(createApp({ farmHoldingRepository: repository(), farmContextResolver: async () => context, fertilizationPlanRepository: plans }));
+  await new Promise<void>((resolve) => server.listen(0, "127.0.0.1", resolve));
+  try {
+    const address = server.address(); assert(address && typeof address === "object"); const base = `http://127.0.0.1:${address.port}`;
+    const response = await fetch(`${base}/api/farm/fertilization-plans`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ name: "Plano 2026", cultureId: "pt-drap-001", startsOn: "2026-01-01", endsOn: "2026-12-31", fields: [{ fieldId: "f47ac10b-58cc-4372-a567-0e02b2c3d479", targetType: "next_planting", targetLabel: "Próxima plantação", areaHa: 2, objectivesKgHa: { nTotal: 80, p2o5: 40, k2o: 90, cao: 0, mgo: 0, so3: 0 } }] }) });
+    assert.equal(response.status, 201);
+    const created = (await response.json() as { data: FertilizationPlanDto }).data;
+    assert.equal(created.status, "draft");
+    const activated = await fetch(`${base}/api/farm/fertilization-plans/${created.id}/activate`, { method: "POST" });
+    assert.equal(activated.status, 200);
+    assert.equal((await activated.json() as { data: FertilizationPlanDto }).data.status, "in_force");
+  } finally { await new Promise<void>((resolve, reject) => server.close((error) => error ? reject(error) : resolve())); }
+});
