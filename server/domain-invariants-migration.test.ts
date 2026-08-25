@@ -6,6 +6,8 @@ const migration = await readFile(new URL("../migrations/0021_domain_invariants.s
 const operations = await readFile(new URL("./operations.ts", import.meta.url), "utf8");
 
 test("domain invariants make voiding, lifecycle dates and lot sequences durable", () => {
+  assert.match(migration, /audit\.occurred_at/);
+  assert.doesNotMatch(migration, /audit\.created_at/);
   assert.match(migration, /operations_void_state_valid/);
   assert.match(migration, /operation_void_guard/);
   assert.match(migration, /operation_consumptions_status_valid[\s\S]+reversed/u);

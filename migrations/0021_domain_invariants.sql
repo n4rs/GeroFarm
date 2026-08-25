@@ -4,8 +4,8 @@ ALTER TABLE "farm"."operations" ADD COLUMN "voided_by" uuid;
 --> statement-breakpoint
 UPDATE "farm"."operations" operation
 SET "void_reason"='Historical operation reversal',
-    "voided_at"=coalesce((SELECT max(audit.created_at) FROM "farm"."audit_events" audit WHERE audit.entity_type='operation' AND audit.entity_id=operation.id),operation.created_at),
-    "voided_by"=(SELECT audit.actor_user_id FROM "farm"."audit_events" audit WHERE audit.entity_type='operation' AND audit.entity_id=operation.id ORDER BY audit.created_at DESC LIMIT 1)
+    "voided_at"=coalesce((SELECT max(audit.occurred_at) FROM "farm"."audit_events" audit WHERE audit.entity_type='operation' AND audit.entity_id=operation.id),operation.created_at),
+    "voided_by"=(SELECT audit.actor_user_id FROM "farm"."audit_events" audit WHERE audit.entity_type='operation' AND audit.entity_id=operation.id ORDER BY audit.occurred_at DESC LIMIT 1)
 WHERE operation.status='voided';
 --> statement-breakpoint
 DO $$ BEGIN
