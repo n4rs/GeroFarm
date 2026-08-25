@@ -32,17 +32,17 @@ sl:c({monitoring:"Agronomsko spremljanje",newMonitoring:"Novo opazovanje",observ
 lv:c({monitoring:"Agronomiskā uzraudzība",newMonitoring:"Jauns novērojums",observedAt:"Novērojuma datums",finding:"Konstatējums",presence:"Klātbūtne",present:"Ir",absent:"Nav",disease:"Slimība",pest:"Kaitēklis",notes:"Piezīmes",save:"Saglabāt",laboratory:"Laboratoriskās analīzes",sample:"Paraugs",harvests:"Ražas un partijas",newHarvest:"Jauna raža",netWeight:"Neto svars",commercial:"Tirgojams",refuse:"Brāķis",destination:"Galamērķis",currentNotebook:"Pašreizējais lauka žurnāls",issue:"Izsniegt PDF versiju",period:"Periods",wholeHolding:"Visa saimniecība",closedVersions:"Slēgtās versijas",downloadPdf:"Lejupielādēt PDF",deleteVersion:"Dzēst versiju",confirmDelete:"Vai tiešām?",empty:"Ierakstu vēl nav.",success:"Ieraksts saglabāts.",error:"Neizdevās saglabāt."},["novērojums","novērojumi"],["raža","ražas"])
 };
 type CountKind = "monitoring" | "harvest";
-type CountOverrides = Partial<Record<Intl.LDMLPluralRule, string>>;
-const pluralOverrides: Partial<Record<SupportedLocale, Record<CountKind, CountOverrides>>> = {
-  ar: { monitoring: { zero:"ملاحظات", one:"ملاحظة", two:"ملاحظتان", few:"ملاحظات", many:"ملاحظة", other:"ملاحظة" }, harvest: { zero:"عمليات حصاد", one:"حصاد", two:"عمليتا حصاد", few:"عمليات حصاد", many:"عملية حصاد", other:"عملية حصاد" } },
-  he: { monitoring: { one:"תצפית", two:"שתי תצפיות", other:"תצפיות" }, harvest: { one:"קטיף", two:"שני קטיפים", other:"קטיפים" } },
-  pl: { monitoring: { one:"obserwacja", few:"obserwacje", many:"obserwacji", other:"obserwacji" }, harvest: { one:"zbiór", few:"zbiory", many:"zbiorów", other:"zbiorów" } },
-  uk: { monitoring: { one:"спостереження", few:"спостереження", many:"спостережень", other:"спостереження" }, harvest: { one:"збір", few:"збори", many:"зборів", other:"збору" } },
-  ro: { monitoring: { one:"observație", few:"observații", other:"de observații" }, harvest: { one:"recoltare", few:"recoltări", other:"de recoltări" } },
-  hr: { monitoring: { one:"opažanje", few:"opažanja", other:"opažanja" }, harvest: { one:"berba", few:"berbe", other:"berbi" } },
-  sl: { monitoring: { one:"opazovanje", two:"opazovanji", few:"opazovanja", other:"opazovanj" }, harvest: { one:"žetev", two:"žetvi", few:"žetve", other:"žetev" } },
-  sk: { monitoring: { one:"pozorovanie", few:"pozorovania", many:"pozorovania", other:"pozorovaní" }, harvest: { one:"zber", few:"zbery", many:"zbery", other:"zberov" } },
-  lt: { monitoring: { one:"stebėjimas", few:"stebėjimai", many:"stebėjimų", other:"stebėjimo" }, harvest: { one:"derlius", few:"derliai", many:"derlių", other:"derliaus" } },
-  lv: { monitoring: { zero:"novērojumu", one:"novērojums", other:"novērojumi" }, harvest: { zero:"ražu", one:"raža", other:"ražas" } },
+type CountPatterns = Partial<Record<Intl.LDMLPluralRule, string>>;
+const pluralPatterns: Partial<Record<SupportedLocale, Record<CountKind, CountPatterns>>> = {
+  ar: { monitoring: { zero:"لا ملاحظات", one:"ملاحظة واحدة", two:"ملاحظتان", few:"{count} ملاحظات", many:"{count} ملاحظة", other:"{count} ملاحظة" }, harvest: { zero:"لا توجد عمليات حصاد", one:"عملية حصاد واحدة", two:"عمليتا حصاد", few:"{count} عمليات حصاد", many:"{count} عملية حصاد", other:"{count} عملية حصاد" } },
+  he: { monitoring: { one:"{count} תצפית", two:"שתי תצפיות", other:"{count} תצפיות" }, harvest: { one:"{count} קטיף", two:"שני קטיפים", other:"{count} קטיפים" } },
+  pl: { monitoring: { one:"{count} obserwacja", few:"{count} obserwacje", many:"{count} obserwacji", other:"{count} obserwacji" }, harvest: { one:"{count} zbiór", few:"{count} zbiory", many:"{count} zbiorów", other:"{count} zbiorów" } },
+  uk: { monitoring: { one:"{count} спостереження", few:"{count} спостереження", many:"{count} спостережень", other:"{count} спостереження" }, harvest: { one:"{count} збір", few:"{count} збори", many:"{count} зборів", other:"{count} збору" } },
+  ro: { monitoring: { one:"{count} observație", few:"{count} observații", other:"{count} de observații" }, harvest: { one:"{count} recoltare", few:"{count} recoltări", other:"{count} de recoltări" } },
+  hr: { monitoring: { one:"{count} opažanje", few:"{count} opažanja", other:"{count} opažanja" }, harvest: { one:"{count} berba", few:"{count} berbe", other:"{count} berbi" } },
+  sl: { monitoring: { one:"{count} opazovanje", two:"{count} opazovanji", few:"{count} opazovanja", other:"{count} opazovanj" }, harvest: { one:"{count} žetev", two:"{count} žetvi", few:"{count} žetve", other:"{count} žetev" } },
+  sk: { monitoring: { one:"{count} pozorovanie", few:"{count} pozorovania", many:"{count} pozorovania", other:"{count} pozorovaní" }, harvest: { one:"{count} zber", few:"{count} zbery", many:"{count} zberu", other:"{count} zberov" } },
+  lt: { monitoring: { one:"{count} stebėjimas", few:"{count} stebėjimai", many:"{count} stebėjimo", other:"{count} stebėjimų" }, harvest: { one:"{count} derlius", few:"{count} derliai", many:"{count} derliaus", other:"{count} derlių" } },
+  lv: { monitoring: { zero:"{count} novērojumu", one:"{count} novērojums", other:"{count} novērojumi" }, harvest: { zero:"{count} ražu", one:"{count} raža", other:"{count} ražas" } },
 };
-export function agronomyCount(copy:AgronomyCopy,kind:CountKind,count:number,locale:SupportedLocale){const category=new Intl.PluralRules(locale).select(count);const forms=kind==="monitoring"?copy.monitoringCount:copy.harvestCount;const form=pluralOverrides[locale]?.[kind]?.[category] ?? forms[category==="one"?0:1];return `${new Intl.NumberFormat(locale).format(count)} ${form}`}
+export function agronomyCount(copy:AgronomyCopy,kind:CountKind,count:number,locale:SupportedLocale){const category=new Intl.PluralRules(locale).select(count);const forms=kind==="monitoring"?copy.monitoringCount:copy.harvestCount;const pattern=pluralPatterns[locale]?.[kind]?.[category] ?? `{count} ${forms[category==="one"?0:1]}`;return pattern.replaceAll("{count}",new Intl.NumberFormat(locale).format(count))}
