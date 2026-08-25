@@ -5,6 +5,7 @@ import type { CultureCatalogEntry } from "@shared/crops";
 import { emptyNutrients, planNutrientKeys, type FertilizationPlanDto, type NutrientAmounts } from "@shared/fertilization-plans";
 import { useAuth } from "../../auth";
 import { AccessibleDialog, DialogError } from "../../components/AccessibleDialog";
+import { Alert, Button, EmptyState, PageHeader, Skeleton } from "../../design-system";
 import { useI18n } from "../../i18n";
 import { operationCopies } from "../operations/operation-locales.generated";
 import { pluralWorkspaceMessage } from "../workspace-locales";
@@ -49,11 +50,11 @@ export default function PlansModule() {
   const fields = useMemo(() => new Map(data.fields.map((field) => [field.id, field.name])), [data.fields]);
   const fieldPlanCount = (count: number) => pluralWorkspaceMessage(locale, count, { one:t.fieldOne,two:t.fieldTwo,few:t.fieldFew,many:t.fieldMany,zero:t.fieldZero,other:t.fieldOther });
   return <>
-    <section className="page-heading"><div><p>{t.kicker}</p><h1>{t.title}</h1><span>{t.description}</span></div><button className="primary-action" disabled={!canWrite || !data.fields.length} onClick={() => setAdding(true)}>＋ {t.addPlan}</button></section>
-    <aside className="plan-integrity-notice">{t.operationNotice}</aside>
+    <PageHeader eyebrow={<p>{t.kicker}</p>} title={t.title} description={t.description} actions={<Button disabled={!canWrite || !data.fields.length} onClick={() => setAdding(true)}>＋ {t.addPlan}</Button>} />
+    <Alert className="plan-integrity-notice" tone="info">{t.operationNotice}</Alert>
     <section className="plan-metrics"><Metric label={t.activePlans} value={active} /><Metric label={t.drafts} value={drafts} /><Metric label={t.warnings} value={warningCount} warning={warningCount > 0} /></section>
     <section className="panel plan-panel">
-      {loading ? <div className="module-state"><span className="spinner" /></div> : failed ? <div className="module-state error-state"><p>{t.loadError}</p><button onClick={() => void load()}>{t.addPlan}</button></div> : data.plans.length ? <div className="plan-list">{[...data.plans].reverse().map((plan) => <article key={plan.id} className={plan.status}><div><span>{cultures.get(plan.cultureId)}</span><h2>{plan.name}</h2><p>{formatLocalDate(plan.startsOn, locale)} — {formatLocalDate(plan.endsOn, locale)} · {plan.fields.length.toLocaleString(locale)} {fieldPlanCount(plan.fields.length)}</p></div><div className="plan-status"><em>{statusLabel(t, plan.status)}</em><b>{t.version} {plan.version}</b></div><button className="subtle-button" onClick={() => setSelectedPlanId(plan.id)}>{t.details} →</button></article>)}</div> : <div className="module-state"><p>{t.empty}</p></div>}
+      {loading ? <div className="module-state"><Skeleton label={t.title} /></div> : failed ? <Alert className="module-state error-state" tone="danger"><p>{t.loadError}</p><Button variant="secondary" onClick={() => void load()}>{t.addPlan}</Button></Alert> : data.plans.length ? <div className="plan-list">{[...data.plans].reverse().map((plan) => <article key={plan.id} className={plan.status}><div><span>{cultures.get(plan.cultureId)}</span><h2>{plan.name}</h2><p>{formatLocalDate(plan.startsOn, locale)} — {formatLocalDate(plan.endsOn, locale)} · {plan.fields.length.toLocaleString(locale)} {fieldPlanCount(plan.fields.length)}</p></div><div className="plan-status"><em>{statusLabel(t, plan.status)}</em><b>{t.version} {plan.version}</b></div><Button variant="ghost" onClick={() => setSelectedPlanId(plan.id)}>{t.details} →</Button></article>)}</div> : <EmptyState title={t.empty} />}
     </section>
     {adding && canWrite && <PlanDialog data={data} t={t} operationCopy={operationCopy} onClose={() => setAdding(false)} onSaved={async () => { setAdding(false); await load(); }} />}
     {selected && <PlanDetail plan={selected} t={t} locale={locale} fields={fields} culture={cultures.get(selected.cultureId) || selected.cultureId} onClose={() => setSelectedPlanId(undefined)} onActivated={load} canWrite={canWrite} />}

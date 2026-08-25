@@ -5,20 +5,24 @@ import test from "node:test";
 const moduleSource = readFileSync(new URL("./OperationsModule.tsx", import.meta.url), "utf8");
 const spraySource = readFileSync(new URL("./SprayingFields.tsx", import.meta.url), "utf8");
 const workspaceSource = readFileSync(new URL("../AppWorkspace.tsx", import.meta.url), "utf8");
+const shellSource = readFileSync(new URL("../../shell/GeroAppShell.tsx", import.meta.url), "utf8");
+const routeSource = readFileSync(new URL("../../routing/route-manifest.ts", import.meta.url), "utf8");
 
 test("global operation action offers specialist forms only and preserves context", () => {
   assert.match(moduleSource, /specialistTypes\s*=\s*\["soil_preparation",\s*"crop_installation",\s*"cultural_work",\s*"fertilization",\s*"spraying",\s*"product_application"\]/);
   assert.match(moduleSource, /query\.get\("fieldId"\)/);
   assert.match(moduleSource, /query\.get\("plantationId"\)/);
-  assert.match(workspaceSource, /mobile-register-operation/);
+  assert.match(shellSource, /gero-shell-mobile-register/);
   assert.match(workspaceSource, /dispatchEvent\(new CustomEvent\("gerofarm:register-operation"\)\)/);
   assert.match(moduleSource, /addEventListener\("gerofarm:register-operation",\s*openFromWorkspace\)/);
   assert.match(moduleSource, /setInitialContext\(\{ open: true, fieldId:/);
 });
 
-test("workspace navigation uses one ordered number per module", () => {
-  const numbers = [...workspaceSource.matchAll(/short:\s*"(\d{2})"/g)].map((match) => match[1]);
-  assert.deepEqual(numbers, Array.from({ length: 15 }, (_, index) => String(index + 1).padStart(2, "0")));
+test("workspace navigation is sourced from the task-oriented route manifest", () => {
+  assert.match(workspaceSource, /routeManifest\.map/);
+  for (const group of ["overview", "operation", "analysis", "management", "settings"]) {
+    assert.match(routeSource, new RegExp(`group: "${group}"`));
+  }
 });
 
 test("operation UI integrates catalogue, soil analysis, allocation and audited void contracts", () => {

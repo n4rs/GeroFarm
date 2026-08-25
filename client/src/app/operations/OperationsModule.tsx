@@ -9,6 +9,7 @@ import type { CultureCatalogEntry, VarietyDto } from "@shared/crops";
 import { useI18n } from "../../i18n";
 import { useAuth } from "../../auth";
 import { AccessibleDialog, DialogError } from "../../components/AccessibleDialog";
+import { Alert, Button, EmptyState, PageHeader, Skeleton } from "../../design-system";
 import { operationCopies, type OperationCopy } from "./operation-locales.generated";
 import "./operations.css";
 import "./cultural-work.css";
@@ -195,25 +196,16 @@ export default function OperationsModule() {
     const fields = useMemo(() => new Map(data.fields.map(item => [item.id, item.name])), [data.fields]);
     const plantations = useMemo(() => new Map(data.plantations.map(item => [item.id, item.name])), [data.plantations]);
     return <>
-      <section className="page-heading">
-        <div>
-          <p>{t.kicker}</p>
-          <h1>{t.title}</h1>
-          <span>{t.description}</span>
-        </div>
-        <div className="operation-heading-actions"><button className="subtle-button" onClick={() => setCatalogOpen(true)}>{x.catalog}</button><button className="primary-action" disabled={!canWrite || !data.fields.length} onClick={() => setAdding(true)}>
-          ＋ {t.add}
-        </button></div>
-      </section>
-      <aside className="operation-notice">{t.sharedNotice}</aside>
+      <PageHeader eyebrow={<p>{t.kicker}</p>} title={t.title} description={t.description} actions={<div className="operation-heading-actions"><Button variant="secondary" onClick={() => setCatalogOpen(true)}>{x.catalog}</Button><Button disabled={!canWrite || !data.fields.length} onClick={() => setAdding(true)}>＋ {t.add}</Button></div>} />
+      <Alert className="operation-notice" tone="info">{t.sharedNotice}</Alert>
       <FertilizationSummary data={data} locale={locale} t={t}/>
       <section className="panel operation-panel">
         {loading ? <div className="module-state">
-            <span className="spinner"/>
-          </div> : failed ? <div className="module-state error-state">
+            <Skeleton label={t.title}/>
+          </div> : failed ? <Alert className="module-state error-state" tone="danger">
             <p>{t.loadError}</p>
-            <button onClick={() => void load()}>{t.add}</button>
-          </div> : data.operations.length ? <div className="operation-table">
+            <Button variant="secondary" onClick={() => void load()}>{t.add}</Button>
+          </Alert> : data.operations.length ? <div className="operation-table">
             {data.operations.map(operation => <article key={operation.id} className={operation.status === "voided" ? "voided" : ""}>
                 <code>{operation.code}</code>
                 <div>
@@ -230,10 +222,8 @@ export default function OperationsModule() {
                   ha
                 </em><details><summary aria-label={`${operation.code} · ${x.details}`}>•••</summary><div className="operation-audit"><b>{operation.status === "voided" ? x.voided : t.performed}</b>{operation.status === "voided" && <><span>{operation.voidedAt ? new Date(operation.voidedAt).toLocaleString(locale) : "—"}</span><span>{operation.voidedBy || "—"}</span><p>{operation.voidReason}</p></>}{operation.soilAnalysisWarnings?.map(warning => <p className="operation-warning" key={warning.fieldId}>{fields.get(warning.fieldId)} · {x.noValidAnalysis}</p>)}{operation.soilAnalysisSnapshots?.map(snapshot => <article className="soil-snapshot" key={`${snapshot.fieldId}:${snapshot.resultId}`}><b>{fields.get(snapshot.fieldId)}</b><span>{snapshot.laboratory} · {snapshot.bulletinNumber}</span><small>{formatDate(snapshot.sampledOn, locale)} → {formatDate(snapshot.resultedOn, locale)}{snapshot.validUntil ? ` · ${formatDate(snapshot.validUntil, locale)}` : ""}</small></article>)}{operation.resourceAllocations && <ResourceAudit operation={operation} data={data} locale={locale}/>} {operation.status === "performed" && operation.type !== "irrigation" && <button className="danger-link" disabled={!canWrite} onClick={() => setVoiding(operation)}>{operationExtensionMessage(x.voidOperation, { code: operation.code })}</button>}</div></details>
               </article>)}
-          </div> : <div className="module-state">
-            <p>{t.empty}</p>
-          </div>}
-      </section>
+          </div> : <EmptyState title={t.empty}/>}
+        </section>
       {adding && !loading && !failed && (
         <OperationDialog data={data} t={t} initialContext={initialContext} onClose={closeOperationDialog} onSaved={async () => { closeOperationDialog(); await load(); }}/>
       )}

@@ -1,0 +1,32 @@
+/* Transitional compatibility layer. Domain modules migrate away from these
+   selectors as they adopt the Gero Design System patterns. */
+.farm-content{width:min(100%,1440px);margin-inline:auto;padding:var(--gero-space-8,2rem) var(--gero-space-8,2rem) var(--gero-space-16,4rem)}
+.page-heading,.module-title{display:flex;align-items:flex-end;justify-content:space-between;gap:var(--gero-space-5,1.25rem);margin:0 0 var(--gero-space-6,1.5rem)}
+.page-heading p,.module-title p{margin:0 0 .45rem;color:var(--gero-color-text-accent,#557d34);font-size:var(--gero-text-xs,.75rem);font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.page-heading h1,.module-title h1{margin:0;color:var(--gero-color-text-strong,#16382d);font:700 var(--gero-text-3xl,2rem)/1.15 Inter,ui-sans-serif,system-ui,sans-serif;letter-spacing:-.025em}
+.page-heading div>span,.module-title div>span{display:block;margin-top:.55rem;color:var(--gero-color-text-muted,#66776f);font-size:var(--gero-text-sm,.875rem);line-height:1.55}
+.panel,.card{border:1px solid var(--gero-color-border,#dbe2d8);border-radius:var(--gero-radius-lg,.875rem);background:var(--gero-color-surface,#fff);box-shadow:var(--gero-shadow-xs,0 1px 2px #143f3208)}
+.primary-action,.subtle-button,.button{min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:0 1rem;border:1px solid transparent;border-radius:var(--gero-radius-md,.625rem);font:700 var(--gero-text-sm,.875rem)/1 Inter,ui-sans-serif,system-ui,sans-serif;text-decoration:none;cursor:pointer}
+.primary-action,.button:not(.secondary):not(.danger){border-color:var(--gero-color-action,#173f32);background:var(--gero-color-action,#173f32);color:var(--gero-color-on-action,#fff)}
+.subtle-button,.button.secondary{border-color:var(--gero-color-border-strong,#bdcabe);background:var(--gero-color-surface,#fff);color:var(--gero-color-text-strong,#16382d)}
+.button.danger{border-color:var(--gero-color-danger,#a43f35);background:var(--gero-color-danger,#a43f35);color:#fff}
+.primary-action:disabled,.subtle-button:disabled,.button:disabled{cursor:not-allowed;opacity:.52}
+.section-tabs{display:flex;gap:.25rem;overflow:auto;padding:.25rem;border-bottom:1px solid var(--gero-color-border,#dbe2d8)}
+.section-tabs button{min-height:44px;flex:0 0 auto;padding:0 .9rem;border:0;border-radius:var(--gero-radius-md,.625rem);background:transparent;color:var(--gero-color-text-muted,#66776f);font-weight:700;cursor:pointer}
+.section-tabs button.active{background:var(--gero-color-surface-accent,#edf5e9);color:var(--gero-color-text-strong,#16382d)}
+.module-state,.state{min-height:280px;display:grid;place-content:center;justify-items:center;gap:1rem;padding:2.5rem;text-align:center}
+.module-state p,.state p{max-width:36rem;margin:0;color:var(--gero-color-text-muted,#66776f);line-height:1.6}
+.error-state,.form-error{color:var(--gero-color-danger,#a43f35)}
+.spinner{width:30px;height:30px;display:inline-block;border:3px solid var(--gero-color-border,#dbe2d8);border-top-color:var(--gero-color-action,#173f32);border-radius:50%;animation:gero-spin .75s linear infinite}
+@keyframes gero-spin{to{transform:rotate(360deg)}}
+.modal-backdrop{position:fixed;z-index:var(--gero-z-modal,300);inset:0;display:grid;place-items:center;padding:1rem;background:#0b231bb8;backdrop-filter:blur(4px)}
+.holding-dialog{box-sizing:border-box;width:min(42rem,calc(100vw - 2rem));max-height:calc(100dvh - 2rem);display:grid;gap:1rem;padding:1.5rem;overflow:auto;border-radius:var(--gero-radius-xl,1rem);background:var(--gero-color-surface,#fff);color:var(--gero-color-text,#213b31);box-shadow:var(--gero-shadow-xl,0 24px 80px #0b231b42)}
+.holding-dialog>header{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;padding-bottom:1rem;border-bottom:1px solid var(--gero-color-border,#dbe2d8)}
+.holding-dialog>header h2{margin:.25rem 0 0;font:700 var(--gero-text-2xl,1.5rem)/1.2 Inter,ui-sans-serif,system-ui,sans-serif}
+.holding-dialog>header button{min-width:44px;min-height:44px;border:0;border-radius:var(--gero-radius-md,.625rem);background:transparent;font-size:1.25rem}
+.holding-form{display:grid;gap:1rem}
+.holding-form label{display:grid;gap:.4rem;font-size:var(--gero-text-sm,.875rem);font-weight:700}
+.holding-form input,.holding-form select,.holding-form textarea{min-height:44px;width:100%;padding:.7rem .8rem;border:1px solid var(--gero-color-border-strong,#bdcabe);border-radius:var(--gero-radius-md,.625rem);background:var(--gero-color-surface,#fff);color:inherit;font:inherit}
+.holding-form footer{display:flex;justify-content:flex-end;gap:.5rem;padding-top:.5rem}
+@media(max-width:760px){.farm-content{padding:1.25rem 1rem 6rem}.page-heading,.module-title{align-items:flex-start;flex-direction:column}.page-heading h1,.module-title h1{font-size:var(--gero-text-2xl,1.5rem)}.page-heading>.primary-action,.page-heading>.subtle-button{width:100%}.holding-dialog{width:100%;max-height:calc(100dvh - 1rem);padding:1rem}.modal-backdrop{place-items:start center;padding:.5rem}.holding-form footer{position:sticky;bottom:-1rem;margin:0 -1rem -1rem;padding:1rem;background:var(--gero-color-surface,#fff)}}
+@media(prefers-reduced-motion:reduce){.spinner{animation-duration:1.5s}}

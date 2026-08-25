@@ -18,6 +18,7 @@ import {
 } from "@shared/weather";
 import { useAuth } from "../../auth";
 import { AccessibleDialog, DialogError } from "../../components/AccessibleDialog";
+import { Alert, Button, EmptyState, PageHeader, Skeleton } from "../../design-system";
 import { useI18n } from "../../i18n";
 import { weatherCopies, type WeatherCopy } from "./weather-locales.generated";
 import WeatherStationMap from "./WeatherStationMap";
@@ -167,37 +168,32 @@ export default function WeatherModule() {
   if (loading)
     return (
       <div className="module-state">
-        <span className="spinner" />
+        <Skeleton label={t.title} />
       </div>
     );
   if (!featureAvailable)
     return (
       <section className="panel module-state">
-        <p>{t.noData}</p>
+        <EmptyState title={t.noData} />
       </section>
     );
   return (
     <>
-      <section className="page-heading weather-heading">
-        <div>
-          <p>{t.kicker}</p>
-          <h1>{t.title}</h1>
-          <span>{t.description}</span>
-        </div>
+      <PageHeader className="weather-heading" eyebrow={<p>{t.kicker}</p>} title={t.title} description={t.description} actions={
         <div>
           <b>{t.conditions}</b>
           <span>
             {t.activeStations}: {active} / {limit ?? "∞"}
           </span>
         </div>
-      </section>
+      } />
       {!writeAllowed && (
-        <aside className="weather-readonly">{t.readOnly}</aside>
+        <Alert className="weather-readonly" tone="warning">{t.readOnly}</Alert>
       )}
       {failed && (
-        <aside className="weather-error">
-          {t.loadError} <button onClick={() => void load()}>{t.refresh}</button>
-        </aside>
+        <Alert className="weather-error" tone="danger">
+          {t.loadError} <Button variant="secondary" onClick={() => void load()}>{t.refresh}</Button>
+        </Alert>
       )}
       <section className="section-tabs territory-tabs">
         <button

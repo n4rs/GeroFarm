@@ -1,0 +1,21 @@
+@import "./tokens.css";
+
+.gero-ds-root {
+  color: var(--gero-color-text);
+  font-family: var(--gero-font-sans);
+  font-size: var(--gero-font-size-md);
+  line-height: var(--gero-line-height-normal);
+}
+
+.gero-ds-root h1, .gero-ds-root h2, .gero-ds-root h3, .gero-ds-root h4 {
+  font-family: var(--gero-font-sans);
+}
+
+.gero-ds-root *, .gero-ds-root *::before, .gero-ds-root *::after { box-sizing: border-box; }
+.gero-ds-root button, .gero-ds-root input, .gero-ds-root select { font: inherit; }
+.gero-ds-root :focus-visible { outline: 3px solid var(--gero-color-focus); outline-offset: 2px; }
+.gero-visually-hidden { position: absolute!important; width: 1px!important; height: 1px!important; padding: 0!important; margin: -1px!important; overflow: hidden!important; clip: rect(0,0,0,0)!important; white-space: nowrap!important; border: 0!important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .gero-ds-root *, .gero-ds-root *::before, .gero-ds-root *::after { scroll-behavior: auto!important; transition-duration: .01ms!important; animation-duration: .01ms!important; animation-iteration-count: 1!important; }
+}

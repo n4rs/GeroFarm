@@ -3,6 +3,7 @@ import type { FieldDto } from "@shared/fields";
 import IrrigationPanel from "./IrrigationPanel";
 import { useI18n } from "../../i18n";
 import { irrigationCopies } from "./irrigation-locales";
+import { Alert, Skeleton } from "../../design-system";
 
 export default function IrrigationModule() {
   const { locale } = useI18n();
@@ -20,7 +21,7 @@ export default function IrrigationModule() {
       .finally(() => { if (!controller.signal.aborted) setLoading(false); });
     return () => controller.abort();
   }, []);
-  if (loading) return <div className="module-state" aria-busy="true"><span className="spinner" /></div>;
-  if (failed) return <div className="module-state error-state" role="alert"><p>{t.loadError}</p></div>;
+  if (loading) return <div className="module-state" aria-busy="true"><Skeleton label={t.title} /></div>;
+  if (failed) return <Alert className="module-state error-state" tone="danger"><p>{t.loadError}</p></Alert>;
   return <IrrigationPanel fields={fields} onPhysicalOperationChanged={async () => {}} />;
 }

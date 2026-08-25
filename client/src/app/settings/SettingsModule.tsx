@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useAuth } from "../../auth";
+import { Button, PageHeader } from "../../design-system";
 import { useI18n } from "../../i18n";
 import { normalizeLocale } from "../../i18n";
 import type { SupportedLocale } from "../../home-copy";
@@ -50,7 +51,7 @@ export default function SettingsModule() {
   }
 
   return <div className="settings-module">
-    <section className="page-heading settings-heading"><div><p>Gero Core</p><h1>{common.settings}</h1><span>{t.subtitle}</span></div></section>
+    <PageHeader className="page-heading settings-heading" eyebrow={<p>Gero Core</p>} title={common.settings} description={t.subtitle} />
     <div className="settings-source-note"><strong>Gero Core</strong><span>{t.centralNotice}</span></div>
 
     <section className="settings-grid">
@@ -84,7 +85,7 @@ export default function SettingsModule() {
 
     <section className="settings-language-card">
       <div><small>{common.language}</small><h2>{options.find((option) => option.code === centralLocale)?.label ?? options.find((option) => option.code === locale)?.label}</h2><p>{t.languageDescription}</p></div>
-      <div className="settings-language-control"><label><span>{common.language}</span><select value={selectedLocale} onChange={(event) => { setSelectedLocale(event.target.value as SupportedLocale); setSaveState("idle"); }}>{options.map((option) => <option key={option.code} value={option.code}>{option.label}</option>)}</select></label><button className="primary-action" disabled={saveState === "saving"} onClick={() => void saveLanguage()}>{saveState === "saving" ? t.saving : t.saveLanguage}</button>{saveState === "saved" && <p className="settings-success" role="status">{t.saved}</p>}{saveState === "error" && <p className="form-error" role="alert">{t.saveError}</p>}</div>
+      <div className="settings-language-control"><label><span>{common.language}</span><select value={selectedLocale} onChange={(event) => { setSelectedLocale(event.target.value as SupportedLocale); setSaveState("idle"); }}>{options.map((option) => <option key={option.code} value={option.code}>{option.label}</option>)}</select></label><Button className="primary-action" loading={saveState === "saving"} loadingLabel={t.saving} onClick={() => void saveLanguage()}>{t.saveLanguage}</Button>{saveState === "saved" && <p className="settings-success" role="status">{t.saved}</p>}{saveState === "error" && <p className="form-error" role="alert">{t.saveError}</p>}</div>
     </section>
   </div>;
 }
