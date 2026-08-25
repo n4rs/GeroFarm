@@ -51,13 +51,15 @@ test("rejects invalid holdings and returns a stable missing-record code", async 
 
 test("operation catalogue API lists and deactivates an organization item without deletion", async () => {
   const item = { id: "0c88e291-b910-43de-8a1e-753b77a88637", kind: "soil_action" as const, label: "Mobilização localizada", status: "active" as const, createdAt: new Date().toISOString() };
-  const operations:OperationRepository = { list: async () => [], catalog: async () => [item], createCatalogItem:async()=>item, setCatalogItemActive: async (_context: FarmRequestContext, id: string, active: boolean) => id === item.id ? { ...item, status: active ? "active" as const : "inactive" as const } : null, create:async()=>({} as never), void:async()=>null };
+  let createdLabel="",createdKey="";
+  const operations:OperationRepository = { list: async () => [], catalog: async () => [item], createCatalogItem:async(_context,input)=>{createdLabel=input.label;const key=`${input.kind}:${input.label.toLocaleLowerCase("en-US")}`;if(key===createdKey)throw Object.assign(new Error("Catalogue item already exists"),{status:409,code:"OPERATION_CATALOG_ITEM_EXISTS"});createdKey=key;return{...item,label:input.label}}, setCatalogItemActive: async (_context: FarmRequestContext, id: string, active: boolean) => id === item.id ? { ...item, status: active ? "active" as const : "inactive" as const } : null, create:async()=>({} as never), void:async()=>null };
   const server = createServer(createApp({ farmHoldingRepository: repository(), farmContextResolver: async () => context, operationRepository: operations }));
   await new Promise<void>(resolve => server.listen(0, "127.0.0.1", resolve));
   try {
     const address=server.address();assert(address&&typeof address==="object");const base=`http://127.0.0.1:${address.port}`;
     const listed=await fetch(`${base}/api/farm/operation-catalog`);assert.equal(listed.status,200);assert.equal((await listed.json() as {data:unknown[]}).data.length,1);
-    const created=await fetch(`${base}/api/farm/operation-catalog`,{method:"POST",headers:{"content-type":"application/json",origin:base},body:JSON.stringify({kind:"soil_action",label:"Mobilização localizada"})});assert.equal(created.status,201);
+    const created=await fetch(`${base}/api/farm/operation-catalog`,{method:"POST",headers:{"content-type":"application/json",origin:base},body:JSON.stringify({kind:"soil_action",label:"  Mobilização   localizada  "})});assert.equal(created.status,201);assert.equal(createdLabel,"Mobilização localizada");
+    const collision=await fetch(`${base}/api/farm/operation-catalog`,{method:"POST",headers:{"content-type":"application/json",origin:base},body:JSON.stringify({kind:"soil_action",label:"mobilização localizada"})});assert.equal(collision.status,409);assert.equal((await collision.json() as {code:string}).code,"OPERATION_CATALOG_ITEM_EXISTS");
     const changed=await fetch(`${base}/api/farm/operation-catalog/${item.id}`,{method:"PATCH",headers:{"content-type":"application/json",origin:base},body:JSON.stringify({active:false})});
     assert.equal(changed.status,200);assert.equal((await changed.json() as {data:{status:string}}).data.status,"inactive");
   } finally { await new Promise<void>((resolve,reject)=>server.close(error=>error?reject(error):resolve())); }

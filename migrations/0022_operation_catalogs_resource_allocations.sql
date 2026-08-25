@@ -3,18 +3,28 @@ CREATE TABLE "farm"."operation_catalog_items" (
   "organization_id" uuid NOT NULL REFERENCES "farm"."organizations"("organization_id"),
   "kind" varchar(40) NOT NULL,
   "label" varchar(120) NOT NULL,
+  "normalized_label" varchar(120) GENERATED ALWAYS AS (lower(regexp_replace(btrim("label"), '[[:space:]]+', ' ', 'g'))) STORED,
   "status" varchar(16) NOT NULL DEFAULT 'active',
   "created_at" timestamptz NOT NULL DEFAULT now(),
   "updated_at" timestamptz NOT NULL DEFAULT now(),
   CONSTRAINT "operation_catalog_items_kind_valid" CHECK ("kind" IN ('soil_action','crop_installation_method','cultural_work_action','cultural_work_method')),
   CONSTRAINT "operation_catalog_items_status_valid" CHECK ("status" IN ('active','inactive')),
-  CONSTRAINT "operation_catalog_items_org_kind_label_unique" UNIQUE ("organization_id","kind","label")
+  CONSTRAINT "operation_catalog_items_org_kind_label_unique" UNIQUE ("organization_id","kind","normalized_label")
 );
 ALTER TABLE "farm"."operation_catalog_items" ENABLE ROW LEVEL SECURITY;
 ALTER TABLE "farm"."operation_catalog_items" FORCE ROW LEVEL SECURITY;
 CREATE POLICY "operation_catalog_items_tenant_isolation" ON "farm"."operation_catalog_items" AS RESTRICTIVE FOR ALL TO public USING ("organization_id"=nullif(current_setting('app.organization_id',true),'')::uuid) WITH CHECK ("organization_id"=nullif(current_setting('app.organization_id',true),'')::uuid);
-GRANT SELECT, INSERT, UPDATE ON "farm"."operation_catalog_items" TO "gero_farm_app";
+GRANT SELECT, INSERT ON "farm"."operation_catalog_items" TO "gero_farm_app";
+GRANT UPDATE ("status","updated_at") ON "farm"."operation_catalog_items" TO "gero_farm_app";
 REVOKE DELETE ON "farm"."operation_catalog_items" FROM PUBLIC, "gero_farm_app";
+CREATE FUNCTION "farm"."protect_operation_catalog_identity"() RETURNS trigger LANGUAGE plpgsql AS $$
+BEGIN
+  IF NEW.id IS DISTINCT FROM OLD.id OR NEW.organization_id IS DISTINCT FROM OLD.organization_id OR NEW.kind IS DISTINCT FROM OLD.kind OR NEW.label IS DISTINCT FROM OLD.label OR NEW.created_at IS DISTINCT FROM OLD.created_at THEN
+    RAISE EXCEPTION 'operation catalogue identity is immutable';
+  END IF;
+  RETURN NEW;
+END $$;
+CREATE TRIGGER "operation_catalog_identity_guard" BEFORE UPDATE ON "farm"."operation_catalog_items" FOR EACH ROW EXECUTE FUNCTION "farm"."protect_operation_catalog_identity"();
 --> statement-breakpoint
 INSERT INTO "farm"."operation_catalog_items" (id,organization_id,kind,label)
 SELECT gen_random_uuid(),soil.organization_id,'soil_action',action
@@ -30,19 +40,35 @@ ON CONFLICT DO NOTHING;
 INSERT INTO "farm"."operation_catalog_items" (id,organization_id,kind,label)
 SELECT gen_random_uuid(),work.organization_id,'cultural_work_method',work.custom_method FROM "farm"."operation_cultural_works" work WHERE work.custom_method IS NOT NULL ON CONFLICT DO NOTHING;
 --> statement-breakpoint
-CREATE UNIQUE INDEX "laboratory_results_org_id_unique" ON "farm"."laboratory_results" ("organization_id","id");
-ALTER TABLE "farm"."operation_soil_preparations" ADD COLUMN "soil_analysis_result_id" uuid;
-ALTER TABLE "farm"."operation_soil_preparations" ADD COLUMN "soil_analysis_snapshot" jsonb;
+ALTER TABLE "farm"."operation_soil_preparations" ADD COLUMN "soil_analysis_snapshots" jsonb NOT NULL DEFAULT '[]'::jsonb;
 ALTER TABLE "farm"."operation_soil_preparations" ADD COLUMN "analysis_warnings" jsonb NOT NULL DEFAULT '[]'::jsonb;
-UPDATE "farm"."operation_soil_preparations" SET "analysis_warnings"='["missing_valid_analysis"]'::jsonb;
-ALTER TABLE "farm"."operation_soil_preparations" ADD CONSTRAINT "operation_soil_analysis_same_tenant_fk" FOREIGN KEY ("organization_id","soil_analysis_result_id") REFERENCES "farm"."laboratory_results"("organization_id","id");
-ALTER TABLE "farm"."operation_soil_preparations" ADD CONSTRAINT "operation_soil_analysis_snapshot_valid" CHECK (
-  (soil_analysis_result_id IS NULL AND soil_analysis_snapshot IS NULL AND analysis_warnings ? 'missing_valid_analysis')
-  OR (soil_analysis_result_id IS NOT NULL AND soil_analysis_snapshot IS NOT NULL AND jsonb_typeof(soil_analysis_snapshot)='object' AND NOT (analysis_warnings ? 'missing_valid_analysis'))
-);
+UPDATE "farm"."operation_soil_preparations" soil SET "analysis_warnings"=coalesce((SELECT jsonb_agg(jsonb_build_object('fieldId',fields.field_id,'code','missing_valid_analysis')) FROM (SELECT DISTINCT destination.field_id FROM "farm"."operation_destinations" destination WHERE destination.operation_id=soil.operation_id) fields),'[]'::jsonb);
+ALTER TABLE "farm"."operation_soil_preparations" ADD CONSTRAINT "operation_soil_analysis_arrays_valid" CHECK (jsonb_typeof(soil_analysis_snapshots)='array' AND jsonb_typeof(analysis_warnings)='array');
+CREATE FUNCTION "farm"."validate_soil_analysis_coverage"() RETURNS trigger LANGUAGE plpgsql AS $$
+DECLARE destination_count integer; coverage_count integer;
+BEGIN
+  SELECT count(DISTINCT field_id) INTO destination_count FROM "farm"."operation_destinations" WHERE operation_id=NEW.operation_id;
+  SELECT count(DISTINCT field_id) INTO coverage_count FROM (
+    SELECT (item->>'fieldId')::uuid field_id FROM jsonb_array_elements(NEW.soil_analysis_snapshots) item
+    UNION ALL
+    SELECT (item->>'fieldId')::uuid field_id FROM jsonb_array_elements(NEW.analysis_warnings) item
+  ) covered;
+  IF jsonb_array_length(NEW.soil_analysis_snapshots)+jsonb_array_length(NEW.analysis_warnings)<>destination_count OR coverage_count<>destination_count
+     OR EXISTS (
+       SELECT 1 FROM (
+         SELECT (item->>'fieldId')::uuid field_id FROM jsonb_array_elements(NEW.soil_analysis_snapshots) item
+         UNION ALL SELECT (item->>'fieldId')::uuid FROM jsonb_array_elements(NEW.analysis_warnings) item
+       ) covered WHERE NOT EXISTS (SELECT 1 FROM "farm"."operation_destinations" destination WHERE destination.operation_id=NEW.operation_id AND destination.field_id=covered.field_id)
+     )
+     OR EXISTS (SELECT 1 FROM jsonb_array_elements(NEW.analysis_warnings) warning WHERE warning->>'code'<>'missing_valid_analysis')
+     OR EXISTS (SELECT 1 FROM jsonb_array_elements(NEW.soil_analysis_snapshots) snapshot WHERE jsonb_typeof(snapshot->'sampleFieldIds') IS DISTINCT FROM 'array' OR NOT ((snapshot->'sampleFieldIds') ? (snapshot->>'fieldId')))
+  THEN RAISE EXCEPTION 'soil analysis snapshots and warnings must cover each destination field exactly once' USING ERRCODE='23514'; END IF;
+  RETURN NEW;
+END $$;
+CREATE TRIGGER "operation_soil_analysis_coverage_guard" BEFORE INSERT OR UPDATE OF soil_analysis_snapshots,analysis_warnings ON "farm"."operation_soil_preparations" FOR EACH ROW EXECUTE FUNCTION "farm"."validate_soil_analysis_coverage"();
 CREATE FUNCTION "farm"."protect_frozen_soil_analysis"() RETURNS trigger LANGUAGE plpgsql AS $$
 BEGIN
-  IF NEW.soil_analysis_result_id IS DISTINCT FROM OLD.soil_analysis_result_id OR NEW.soil_analysis_snapshot IS DISTINCT FROM OLD.soil_analysis_snapshot OR NEW.analysis_warnings IS DISTINCT FROM OLD.analysis_warnings THEN
+  IF NEW.soil_analysis_snapshots IS DISTINCT FROM OLD.soil_analysis_snapshots OR NEW.analysis_warnings IS DISTINCT FROM OLD.analysis_warnings THEN
     RAISE EXCEPTION 'soil analysis selection is historically frozen';
   END IF;
   RETURN NEW;
