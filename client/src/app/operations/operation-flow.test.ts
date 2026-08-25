@@ -16,6 +16,11 @@ test("global operation action offers specialist forms only and preserves context
   assert.match(moduleSource, /setInitialContext\(\{ open: true, fieldId:/);
 });
 
+test("workspace navigation uses one ordered number per module", () => {
+  const numbers = [...workspaceSource.matchAll(/short:\s*"(\d{2})"/g)].map((match) => match[1]);
+  assert.deepEqual(numbers, Array.from({ length: 15 }, (_, index) => String(index + 1).padStart(2, "0")));
+});
+
 test("operation UI integrates catalogue, soil analysis, allocation and audited void contracts", () => {
   assert.match(moduleSource, /\/api\/farm\/operation-catalog/);
   assert.match(moduleSource, /"PATCH",\s*\{ active:/);

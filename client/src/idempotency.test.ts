@@ -17,6 +17,8 @@ test("internal fetch compatibility covers critical mutations without touching au
   const origin = "https://farm.gero.pt", key = () => "abcdefgh-1234";
   assert.equal(idempotencyRequestHeaders("POST", "/api/farm/operations", { "content-type": "application/json" }, origin, key).get("idempotency-key"), "abcdefgh-1234");
   assert.equal(idempotencyRequestHeaders("POST", "/api/weather/campaigns/11111111-1111-4111-8111-111111111111/agronomic-profiles", undefined, origin, key).get("idempotency-key"), "abcdefgh-1234");
+  assert.equal(idempotencyRequestHeaders("POST", "/api/weather/subjects/plantation/11111111-1111-4111-8111-111111111111/conditions", undefined, origin, key).get("idempotency-key"), "abcdefgh-1234");
+  assert.equal(idempotencyRequestHeaders("POST", "/api/weather/subjects/plantation/11111111-1111-4111-8111-111111111111/agronomic-series", undefined, origin, key).get("idempotency-key"), "abcdefgh-1234");
   for (const path of ["/api/auth/logout", "/api/auth/select-organization", "/api/billing/checkout", "/api/farm/field-notebooks/current", "/api/farm/field-notebooks/xlsx"]) {
     assert.equal(idempotencyRequestHeaders("POST", path, undefined, origin, key).has("idempotency-key"), false, path);
   }

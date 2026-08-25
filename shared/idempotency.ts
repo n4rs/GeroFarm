@@ -12,6 +12,8 @@ export const idempotentMutationPolicies = [
   { method: "POST", pattern: /^\/api\/farm\/inventory\/consumptions\/[0-9a-f-]+\/regularize$/i, name: "regularize-inventory" },
   { method: "POST", pattern: /^\/api\/farm\/costs$/, name: "create-cost" },
   { method: "POST", pattern: /^\/api\/weather\/campaigns\/[0-9a-f-]+\/agronomic-profiles$/i, name: "save-agronomic-profile" },
+  { method: "POST", pattern: /^\/api\/weather\/subjects\/plantation\/[0-9a-f-]+\/conditions$/i, name: "synchronize-weather-conditions" },
+  { method: "POST", pattern: /^\/api\/weather\/subjects\/plantation\/[0-9a-f-]+\/agronomic-series$/i, name: "calculate-agronomic-series" },
 ] as const;
 
 export function idempotentMutationPolicy(method: string, pathname: string) {

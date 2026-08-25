@@ -397,7 +397,7 @@ function OperationDialog({ data, t, initialContext, onClose, onSaved }: {
                 </label>
               </div>
             </fieldset>}
-          {values.type === "crop_installation" && <CropInstallationFields data={data} t={t} value={values.installation} set={setInstallation} toggleAction={id => setInstallation("preparatoryOperationIds", values.installation.preparatoryOperationIds.includes(id) ? values.installation.preparatoryOperationIds.filter(item => item !== id) : [...values.installation.preparatoryOperationIds, id])}/>}
+          {values.type === "crop_installation" && <CropInstallationFields data={data} t={t} locale={locale} value={values.installation} set={setInstallation} toggleAction={id => setInstallation("preparatoryOperationIds", values.installation.preparatoryOperationIds.includes(id) ? values.installation.preparatoryOperationIds.filter(item => item !== id) : [...values.installation.preparatoryOperationIds, id])}/>}
           {values.type === "cultural_work" && <CulturalWorkFields data={data} t={t} value={values.cultural} set={setCultural}/>}
           {values.type === "soil_preparation" && <label>
               <input type="checkbox" checked={values.includeFertilization} onChange={event => set("includeFertilization", event.target.checked)}/>
@@ -610,9 +610,10 @@ function CulturalWorkFields({ data, t, value, set }: {
       </div>
     </fieldset>;
 }
-function CropInstallationFields({ data, t, value, set, toggleAction }: {
+function CropInstallationFields({ data, t, locale, value, set, toggleAction }: {
     data: Data;
     t: OperationCopy;
+    locale: string;
     value: InstallationForm;
     set: <K extends keyof InstallationForm>(key: K, value: InstallationForm[K]) => void;
     toggleAction: (id: string) => void;
@@ -689,7 +690,7 @@ function CropInstallationFields({ data, t, value, set, toggleAction }: {
               {value.varietyIds.includes(item.id) && <Input label={t.densityPlantsHa} type="number" required={false} value={value.varietyDensities[item.id] || ""} onChange={density => set("varietyDensities", { ...value.varietyDensities, [item.id]: density })}/>}
             </div>)}
         </fieldset>}
-      {preparationOperations.length > 0 && <ResourceChecks title={t.preparatoryOperations} rows={preparationOperations.map(item => ({ id: item.id, name: `${item.code} · ${new Date(item.performedAt).toLocaleDateString()}` }))} selected={value.preparatoryOperationIds} toggle={toggleAction}/>}
+      {preparationOperations.length > 0 && <ResourceChecks title={t.preparatoryOperations} rows={preparationOperations.map(item => ({ id: item.id, name: `${item.code} · ${formatDate(item.performedAt.slice(0, 10), locale)}` }))} selected={value.preparatoryOperationIds} toggle={toggleAction}/>}
       <div className="material-lots">
         <header>
           <b>{t.materialLots}</b>

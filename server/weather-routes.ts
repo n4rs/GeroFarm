@@ -48,6 +48,11 @@ const profileInput = z.object({
   parameters: agronomicParameters,
   validFrom: at,
 });
+const seriesInput = z.object({
+  from: z.string().date(),
+  to: z.string().date(),
+  campaignId: uuid.optional(),
+}).strict().refine(value => value.to >= value.from, { path: ["to"] });
 
 const queryString = (values: Record<string, string | number | undefined>) => {
   const params = new URLSearchParams();
@@ -219,23 +224,17 @@ export function createWeatherRouter(resolveContext: FarmContextResolver, store?:
       }
     },
   );
-  router.get("/subjects/plantation/:subjectId/conditions",async(req,res,next)=>{try{const selected=await context(req),id=uuid.parse(req.params.subjectId),input=z.object({from:z.string().date(),to:z.string().date(),campaignId:uuid.optional()}).refine(value=>value.to>=value.from,{path:["to"]}).parse(req.query);if(input.from!==input.to||input.to<new Date().toISOString().slice(0,10))requireWeatherDepth(selected,"history");if(!store)throw new CoreApiError(503,"GeroFarm weather persistence is unavailable","WEATHER_STORE_UNAVAILABLE");const series=await synchronizeWeatherSeries(req,store,selected.organization.id,id,input.campaignId||null,input.from,input.to),period=series.stationPeriods.at(-1),hourly=series.hourly.map(point=>({...point,summary:null,icon:null})),daily=series.daily.map(point=>({...point,at:`${point.date}T12:00:00Z`,summary:null,icon:null,sunriseAt:null,sunsetAt:null})),fetchedAt=series.meta.fetchedAt||new Date().toISOString();const data:WeatherReport={latitude:period?.station.latitude||0,longitude:period?.station.longitude||0,timezone:series.timezone,units:"metric",current:hourly.filter(point=>point.temporalStatus==="observed").at(-1)||hourly[0]||null,hourly:{summary:null,data:hourly},daily:{summary:null,data:daily},station:period?{station:period.station,assignment:period.assignment,requestedFor:input.to}:null,meta:{provider:"provider-independent-base-series",fetchedAt,cached:series.meta.cached,stale:series.meta.stale,cache:{status:series.meta.cache.status==="fresh"||series.meta.cache.status==="stale"?series.meta.cache.status:"miss",freshUntil:fetchedAt,staleUntil:fetchedAt},contractVersion:"2"}};res.set("cache-control","no-store").json({data})}catch(error){next(error)}});
-  router.get(
+  router.post("/subjects/plantation/:subjectId/conditions",async(req,res,next)=>{try{assertSameOrigin(req);const selected=await context(req),id=uuid.parse(req.params.subjectId),input=seriesInput.parse(req.body);if(input.from!==input.to||input.to<new Date().toISOString().slice(0,10))requireWeatherDepth(selected,"history");if(!store)throw new CoreApiError(503,"GeroFarm weather persistence is unavailable","WEATHER_STORE_UNAVAILABLE");const series=await synchronizeWeatherSeries(req,store,selected.organization.id,id,input.campaignId||null,input.from,input.to),period=series.stationPeriods.at(-1),hourly=series.hourly.map(point=>({...point,summary:null,icon:null})),daily=series.daily.map(point=>({...point,at:`${point.date}T12:00:00Z`,summary:null,icon:null,sunriseAt:null,sunsetAt:null})),fetchedAt=series.meta.fetchedAt||new Date().toISOString();const data:WeatherReport={latitude:period?.station.latitude||0,longitude:period?.station.longitude||0,timezone:series.timezone,units:"metric",current:hourly.filter(point=>point.temporalStatus==="observed").at(-1)||hourly[0]||null,hourly:{summary:null,data:hourly},daily:{summary:null,data:daily},station:period?{station:period.station,assignment:period.assignment,requestedFor:input.to}:null,meta:{provider:"provider-independent-base-series",fetchedAt,cached:series.meta.cached,stale:series.meta.stale,cache:{status:series.meta.cache.status==="fresh"||series.meta.cache.status==="stale"?series.meta.cache.status:"miss",freshUntil:fetchedAt,staleUntil:fetchedAt},contractVersion:"2"}};res.set("cache-control","no-store").json({data})}catch(error){next(error)}});
+  router.post(
     "/subjects/:subjectType/:subjectId/agronomic-series",
     async (req, res, next) => {
       try {
+        assertSameOrigin(req);
         const selected = await context(req);
         requireWeatherDepth(selected, "campaignProfiles");
         const type = subjectType.parse(req.params.subjectType),
           id = uuid.parse(req.params.subjectId),
-          input = z
-            .object({
-              from: z.string().date(),
-              to: z.string().date(),
-              campaignId: uuid.optional(),
-            })
-            .refine((value) => value.to >= value.from, { path: ["to"] })
-            .parse(req.query);
+          input = seriesInput.parse(req.body);
         if (type !== "plantation") throw new CoreApiError(400, "Agronomic series require a plantation", "PLANTATION_REQUIRED");
         if (!store) throw new CoreApiError(503, "GeroFarm weather persistence is unavailable", "WEATHER_STORE_UNAVAILABLE");
         const series = await synchronizeWeatherSeries(req, store, selected.organization.id, id, input.campaignId || null, input.from, input.to);

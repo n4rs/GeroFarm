@@ -139,7 +139,8 @@ export default function WeatherModule() {
       try {
         setReport(
           await api<WeatherReport>(
-            `subjects/plantation/${plantationId}/conditions?from=${at}&to=${at}`,
+            `subjects/plantation/${plantationId}/conditions`,
+            { method: "POST", body: JSON.stringify({ from: at, to: at }) },
           ),
         );
       } catch {
@@ -473,7 +474,7 @@ function Conditions({
               )}
             />
           </section>
-          <Provenance report={report} t={t} />
+          <Provenance report={report} t={t} locale={locale} />
           <Forecast report={report} t={t} locale={locale} />
         </>
       )}
@@ -537,7 +538,7 @@ function Forecast({
     </div>
   );
 }
-function Provenance({ report, t }: { report: WeatherReport; t: WeatherCopy }) {
+function Provenance({ report, t, locale }: { report: WeatherReport; t: WeatherCopy; locale: string }) {
   return (
     <aside className="weather-provenance">
       <strong>{t.provenance}</strong>
@@ -545,7 +546,7 @@ function Provenance({ report, t }: { report: WeatherReport; t: WeatherCopy }) {
       {report.station?.assignment && (
         <span>
           {t.effectiveFrom}:{" "}
-          {new Date(report.station.assignment.effectiveFrom).toLocaleString()}
+          {new Date(report.station.assignment.effectiveFrom).toLocaleString(locale)}
         </span>
       )}
       <small>{t.historicalProvenance}</small>
@@ -848,7 +849,8 @@ function PlantationWeather({
     try {
       setAccumulation(
         await api<AgronomicWeatherAccumulation>(
-          `subjects/plantation/${subject.id}/agronomic-series?from=${effectiveStart}&to=${today()}${campaign ? `&campaignId=${encodeURIComponent(campaign.id)}` : ""}`,
+          `subjects/plantation/${subject.id}/agronomic-series`,
+          { method: "POST", body: JSON.stringify({ from: effectiveStart, to: today(), ...(campaign ? { campaignId: campaign.id } : {}) }) },
         ),
       );
       if (start.basis === "missing_vegetative_start") setHideWarning(false);
