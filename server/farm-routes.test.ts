@@ -6,6 +6,7 @@ import { createApp } from "./app";
 import type { FarmRequestContext } from "./farm-context";
 import type { FarmHoldingRepository } from "./farm-holdings";
 import type { FertilizationPlanRepository } from "./fertilization-plans";
+import type { OperationRepository } from "./operations";
 import { emptyNutrients, type FertilizationPlanDto } from "@shared/fertilization-plans";
 
 const context: FarmRequestContext = {
@@ -47,6 +48,20 @@ test("rejects invalid holdings and returns a stable missing-record code", async 
   assert.equal(missing.status, 404);
   assert.equal(((await missing.json()) as { code: string }).code, "FARM_HOLDING_NOT_FOUND");
 }));
+
+test("operation catalogue API lists and deactivates an organization item without deletion", async () => {
+  const item = { id: "0c88e291-b910-43de-8a1e-753b77a88637", kind: "soil_action" as const, label: "Mobilização localizada", status: "active" as const, createdAt: new Date().toISOString() };
+  const operations:OperationRepository = { list: async () => [], catalog: async () => [item], createCatalogItem:async()=>item, setCatalogItemActive: async (_context: FarmRequestContext, id: string, active: boolean) => id === item.id ? { ...item, status: active ? "active" as const : "inactive" as const } : null, create:async()=>({} as never), void:async()=>null };
+  const server = createServer(createApp({ farmHoldingRepository: repository(), farmContextResolver: async () => context, operationRepository: operations }));
+  await new Promise<void>(resolve => server.listen(0, "127.0.0.1", resolve));
+  try {
+    const address=server.address();assert(address&&typeof address==="object");const base=`http://127.0.0.1:${address.port}`;
+    const listed=await fetch(`${base}/api/farm/operation-catalog`);assert.equal(listed.status,200);assert.equal((await listed.json() as {data:unknown[]}).data.length,1);
+    const created=await fetch(`${base}/api/farm/operation-catalog`,{method:"POST",headers:{"content-type":"application/json",origin:base},body:JSON.stringify({kind:"soil_action",label:"Mobilização localizada"})});assert.equal(created.status,201);
+    const changed=await fetch(`${base}/api/farm/operation-catalog/${item.id}`,{method:"PATCH",headers:{"content-type":"application/json",origin:base},body:JSON.stringify({active:false})});
+    assert.equal(changed.status,200);assert.equal((await changed.json() as {data:{status:string}}).data.status,"inactive");
+  } finally { await new Promise<void>((resolve,reject)=>server.close(error=>error?reject(error):resolve())); }
+});
 
 test("fertilization plan routes create a draft and explicitly put it into force", async () => {
   const rows: FertilizationPlanDto[] = [];

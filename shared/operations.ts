@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { cultureIds } from "./crops";
 import { sprayingSchema, type ApplicationWarning } from "./spraying";
+import { operationResourceAssignmentSchema, type OperationResourceAssignment, type ResourceAllocationSnapshot } from "./operation-extensions";
 export const operationTypes = ["soil_preparation", "crop_installation", "cultural_work", "fertilization", "spraying", "product_application", "irrigation", "fertigation", "monitoring", "harvest", "other"] as const;
 export const soilPreparationActionIds = ["subsoiling", "ploughing", "scarifying", "harrowing", "rotary_tilling", "levelling", "bed_forming", "furrow_opening", "stone_removal", "residue_shredding", "residue_incorporation", "solarisation"] as const;
 export const soilConditions = ["dry", "moist", "wet"] as const;
@@ -12,7 +13,7 @@ export const workIntensities = ["light", "medium", "severe"] as const;
 export const fertilizationModes = ["base", "top_dressing", "foliar", "amendment", "organic_matter", "cover_crop_incorporation", "other"] as const;
 export const nutrientKeys = ["nTotal", "nNitrate", "nAmmonium", "nUreic", "nOrganic", "p2o5", "k2o", "cao", "mgo", "so3", "organicMatter", "carbon"] as const;
 export const operationDestinationSchema = z.object({ fieldId: z.string().uuid(), plantationId: z.string().uuid().optional(), areaHa: z.number().positive().max(1000000), percentage: z.number().positive().max(100) });
-export const soilPreparationSchema = z.object({ actions: z.array(z.string().trim().min(2).max(120)).min(1).max(20), depthCm: z.number().positive().max(300).optional(), passes: z.number().int().positive().max(100).optional(), soilCondition: z.enum(soilConditions).optional(), residueDestination: z.enum(residueDestinations).optional() });
+export const soilPreparationSchema = z.object({ actions: z.array(z.string().trim().min(2).max(120)).min(1).max(20), soilAnalysisResultId: z.string().uuid().optional(), depthCm: z.number().positive().max(300).optional(), passes: z.number().int().positive().max(100).optional(), soilCondition: z.enum(soilConditions).optional(), residueDestination: z.enum(residueDestinations).optional() });
 export const installationMaterialLotSchema = z.object({ varietyId: z.string().uuid().optional(), lotNumber: z.string().trim().min(1).max(120), quantity: z.number().positive().max(1000000000), unit: z.string().trim().min(1).max(24), origin: z.string().trim().max(160).optional(), supplier: z.string().trim().max(160).optional() });
 export const cropInstallationSchema = z.object({ plantationName: z.string().trim().min(2).max(160), cultureId: z.string().refine(value => cultureIds.has(value), "Unknown culture"), varietyIds: z.array(z.string().uuid()).max(20).default([]), varietyDensities: z.array(z.object({ varietyId: z.string().uuid(), densityPlantsHa: z.number().positive().max(100000000) })).max(20).default([]), kind: z.enum(["permanent", "temporary"]), endedOn: z.string().date().optional(), method: z.enum(cropInstallationMethods), customMethod: z.string().trim().min(2).max(120).optional(), densityPlantsHa: z.number().positive().max(100000000), rowSpacingCm: z.number().positive().max(100000).optional(), plantSpacingCm: z.number().positive().max(100000).optional(), materialLots: z.array(installationMaterialLotSchema).max(50).default([]), predecessor: z.string().trim().max(160).optional(), preparatoryOperationIds: z.array(z.string().uuid()).max(50).default([]) }).superRefine((value, context) => { if (value.method === "other" && !value.customMethod)
     context.addIssue({ code: "custom", path: ["customMethod"], message: "A custom installation method is required" }); if (value.method !== "other" && value.customMethod)
@@ -35,7 +36,7 @@ export const fertilizationSchema = z.object({ mode: z.enum(fertilizationModes), 
     context.addIssue({ code: "custom", path: ["customMode"], message: "A custom fertilization mode is required" }); if (value.mode !== "other" && value.customMode)
     context.addIssue({ code: "custom", path: ["customMode"], message: "A custom mode requires Other" }); });
 export const createOperationSchema = z.object({ destinations: z.array(operationDestinationSchema).min(1).max(100).superRefine((rows, context) => { const total = rows.reduce((sum, row) => sum + row.percentage, 0); if (Math.abs(total - 100) > 0.01)
-        context.addIssue({ code: "custom", message: "Destination percentages must total 100" }); const keys=rows.map(row=>`${row.fieldId}:${row.plantationId||"field"}`); if(new Set(keys).size!==keys.length) context.addIssue({code:"custom",message:"A physical destination can only occur once per operation"}); }), type: z.enum(operationTypes), performedAt: z.string().datetime({ offset: true }), durationMinutes: z.number().int().positive().max(10080).optional(), notes: z.string().trim().max(2000).optional(), workerIds: z.array(z.string().uuid()).max(50).default([]), equipmentIds: z.array(z.string().uuid()).max(50).default([]), contractorIds: z.array(z.string().uuid()).max(20).default([]), soilPreparation: soilPreparationSchema.optional(), cropInstallation: cropInstallationSchema.optional(), culturalWork: culturalWorkSchema.optional(), fertilization: fertilizationSchema.optional(), spraying: sprayingSchema.optional() }).superRefine((value, context) => {
+        context.addIssue({ code: "custom", message: "Destination percentages must total 100" }); const keys=rows.map(row=>`${row.fieldId}:${row.plantationId||"field"}`); if(new Set(keys).size!==keys.length) context.addIssue({code:"custom",message:"A physical destination can only occur once per operation"}); }), type: z.enum(operationTypes), performedAt: z.string().datetime({ offset: true }), durationMinutes: z.number().int().positive().max(10080).optional(), notes: z.string().trim().max(2000).optional(), workerIds: z.array(z.string().uuid()).max(50).default([]), equipmentIds: z.array(z.string().uuid()).max(50).default([]), contractorIds: z.array(z.string().uuid()).max(20).default([]), workerAssignments: z.array(operationResourceAssignmentSchema).max(50).default([]), equipmentAssignments: z.array(operationResourceAssignmentSchema).max(50).default([]), contractorAssignments: z.array(operationResourceAssignmentSchema).max(20).default([]), soilPreparation: soilPreparationSchema.optional(), cropInstallation: cropInstallationSchema.optional(), culturalWork: culturalWorkSchema.optional(), fertilization: fertilizationSchema.optional(), spraying: sprayingSchema.optional() }).superRefine((value, context) => {
     if (["irrigation", "fertigation"].includes(value.type))
         context.addIssue({ code: "custom", path: ["type"], message: "Irrigation and fertigation require the dedicated irrigation endpoint" });
     if (value.type === "soil_preparation" && !value.soilPreparation)
@@ -60,7 +61,7 @@ export const createOperationSchema = z.object({ destinations: z.array(operationD
     context.addIssue({ code: "custom", path: ["cropInstallation", "endedOn"], message: "Installation end date precedes its start" }); });
 export const voidOperationSchema = z.object({ reason: z.string().trim().min(2).max(500) });
 export type CreateOperationInput = z.infer<typeof createOperationSchema>;
-export type OperationDto = Omit<CreateOperationInput, "workerIds" | "equipmentIds" | "contractorIds"> & {
+export type OperationDto = Omit<CreateOperationInput, "workerIds" | "equipmentIds" | "contractorIds" | "workerAssignments" | "equipmentAssignments" | "contractorAssignments"> & {
     id: string;
     code: string;
     status: "performed" | "voided";
@@ -70,6 +71,9 @@ export type OperationDto = Omit<CreateOperationInput, "workerIds" | "equipmentId
     workerIds: string[];
     equipmentIds: string[];
     contractorIds: string[];
+    resourceAllocations?: { workers: Array<OperationResourceAssignment & { allocations: ResourceAllocationSnapshot }>; equipment: Array<OperationResourceAssignment & { allocations: ResourceAllocationSnapshot }>; contractors: Array<OperationResourceAssignment & { allocations: ResourceAllocationSnapshot }> };
+    soilAnalysisSnapshot?: { resultId: string; sampleId: string; sampledOn: string; resultedOn: string; validUntil?: string; laboratory: string; bulletinNumber: string; results: Array<Record<string, unknown>> };
+    soilAnalysisWarnings?: Array<"missing_valid_analysis">;
     createdAt: string;
     createdPlantationId?: string;
     applicationWarnings?: ApplicationWarning[];

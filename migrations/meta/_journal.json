@@ -155,6 +155,13 @@
       "when": 1787713200000,
       "tag": "0021_domain_invariants",
       "breakpoints": true
+    },
+    {
+      "idx": 22,
+      "version": "7",
+      "when": 1787716800000,
+      "tag": "0022_operation_catalogs_resource_allocations",
+      "breakpoints": true
     }
   ]
 }
