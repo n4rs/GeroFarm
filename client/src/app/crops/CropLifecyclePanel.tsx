@@ -4,30 +4,152 @@ import type { CultureCatalogEntry, VarietyDto } from "@shared/crops";
 import type { CropPeriodDto, FallowDto, PlantationDto, RotationEntry } from "@shared/crop-lifecycle";
 import { useI18n } from "../../i18n";
 import { lifecycleCopies, type LifecycleCopy } from "./lifecycle-locales.generated";
-
-type Data={plantations:PlantationDto[];periods:CropPeriodDto[];fallows:FallowDto[];rotation:RotationEntry[]};
-type DialogState={kind:"plantation"}|{kind:"period";plantation:PlantationDto}|{kind:"uproot";plantation:PlantationDto}|{kind:"fallow"}|{kind:"closePeriod";item:CropPeriodDto}|{kind:"closeFallow";item:FallowDto};
-const today=()=>new Date().toISOString().slice(0,10);
-const replacePeriod=(template:string,period:string)=>template.replace("{period}",period.toLocaleLowerCase());
-
-export default function CropLifecyclePanel(){
-  const{locale}=useI18n();const t=lifecycleCopies[locale];const[data,setData]=useState<Data>({plantations:[],periods:[],fallows:[],rotation:[]});const[fields,setFields]=useState<FieldDto[]>([]);const[cultures,setCultures]=useState<readonly CultureCatalogEntry[]>([]);const[varieties,setVarieties]=useState<VarietyDto[]>([]);const[tab,setTab]=useState<"plantations"|"fallow"|"rotation">("plantations");const[dialog,setDialog]=useState<DialogState|null>(null);const[loading,setLoading]=useState(true);const[failed,setFailed]=useState(false);
-  const load=useCallback(async()=>{setLoading(true);setFailed(false);try{const responses=await Promise.all(["/api/farm/crop-lifecycle","/api/farm/fields","/api/farm/crop-catalog","/api/farm/varieties"].map((url)=>fetch(url,{credentials:"include"})));if(responses.some((response)=>!response.ok))throw new Error();const[lifecycle,fieldRows,catalogue,varietyRows]=await Promise.all(responses.map((response)=>response.json()));setData(lifecycle.data);setFields(fieldRows.data);setCultures(catalogue.data);setVarieties(varietyRows.data)}catch{setFailed(true)}finally{setLoading(false)}},[]);useEffect(()=>{void load()},[load]);
-  const cultureNames=useMemo(()=>new Map<string,string>(cultures.map((item)=>[item.id,item.sourceName])),[cultures]);const fieldNames=useMemo(()=>new Map(fields.map((item)=>[item.id,item.name])),[fields]);
-  if(loading)return <div className="module-state"><span className="spinner"/></div>;if(failed)return <div className="module-state error-state"><p>{t.loadError}</p><button onClick={()=>void load()}>{t.history}</button></div>;
-  return <><div className="lifecycle-tabs"><button className={tab==="plantations"?"active":""} onClick={()=>setTab("plantations")}>{t.plantations}</button><button className={tab==="fallow"?"active":""} onClick={()=>setTab("fallow")}>{t.fallow}</button><button className={tab==="rotation"?"active":""} onClick={()=>setTab("rotation")}>{t.rotation}</button></div>
-  {tab==="plantations"?<><div className="module-toolbar"><p>{t.compatibleAreas}</p><button className="primary-action" disabled={!fields.length} onClick={()=>setDialog({kind:"plantation"})}>＋ {t.addPlantation}</button></div>{data.plantations.length?<div className="lifecycle-list">{data.plantations.map((plantation)=><article key={plantation.id}><header><div><span>{plantation.kind==="permanent"?t.permanent:t.temporary}</span><h3>{plantation.name}</h3><p>{cultureNames.get(plantation.cultureId)} · {fieldNames.get(plantation.fieldId)} · {plantation.areaHa.toLocaleString(locale)} ha</p></div><em className={plantation.status}>{plantation.status==="active"?t.active:plantation.status==="uprooted"?t.uprooted:t.closed}</em></header><div className="period-list">{data.periods.filter((period)=>period.plantationId===plantation.id).map((period)=><div key={period.id}><b>{period.kind==="campaign"?t.campaign:t.cycle}: {period.name}</b><span>{period.startedOn} → {period.endedOn||t.active}</span>{period.status==="active"&&<button onClick={()=>setDialog({kind:"closePeriod",item:period})}>{replacePeriod(t.closePeriod,period.kind==="campaign"?t.campaign:t.cycle)}</button>}</div>)}</div>{plantation.status==="active"&&plantation.kind==="permanent"&&<footer><button onClick={()=>setDialog({kind:"period",plantation})}>＋ {replacePeriod(t.addPeriod,t.campaign)}</button><button className="danger-link" onClick={()=>setDialog({kind:"uproot",plantation})}>{t.uproot}</button></footer>}</article>)}</div>:<div className="module-state"><p>{t.emptyPlantations}</p></div>}</>:
-  tab==="fallow"?<><div className="module-toolbar"><p>{t.currentOccupation}</p><button className="primary-action" disabled={!fields.length} onClick={()=>setDialog({kind:"fallow"})}>＋ {t.addFallow}</button></div>{data.fallows.length?<div className="lifecycle-list">{data.fallows.map((item)=><article key={item.id}><header><div><span>{t.fallow}</span><h3>{item.name}</h3><p>{fieldNames.get(item.fieldId)} · {item.areaHa.toLocaleString(locale)} ha · {item.startedOn} → {item.endedOn||t.active}</p></div><em className={item.status}>{item.status==="active"?t.active:t.closed}</em></header>{item.status==="active"&&<footer><button onClick={()=>setDialog({kind:"closeFallow",item})}>{t.closeFallow}</button></footer>}</article>)}</div>:<div className="module-state"><p>{t.emptyRotation}</p></div>}</>:
-  data.rotation.length?<div className="rotation-list">{data.rotation.map((item)=><div key={`${item.type}-${item.id}`}><i className={item.type}/><span>{fieldNames.get(item.fieldId)}</span><b>{item.label}</b><em>{item.startedOn} → {item.endedOn||t.active}</em><strong>{item.areaHa.toLocaleString(locale)} ha</strong></div>)}</div>:<div className="module-state"><p>{t.emptyRotation}</p></div>}
-  {dialog&&<LifecycleDialog dialog={dialog} fields={fields} cultures={cultures} varieties={varieties} t={t} onClose={()=>setDialog(null)} onSaved={async()=>{setDialog(null);await load()}}/>}</>;
+type Data = {
+    plantations: PlantationDto[];
+    periods: CropPeriodDto[];
+    fallows: FallowDto[];
+    rotation: RotationEntry[];
+};
+type DialogState = {
+    kind: "plantation";
+} | {
+    kind: "period";
+    plantation: PlantationDto;
+} | {
+    kind: "uproot";
+    plantation: PlantationDto;
+} | {
+    kind: "fallow";
+} | {
+    kind: "closePeriod";
+    item: CropPeriodDto;
+} | {
+    kind: "closeFallow";
+    item: FallowDto;
+};
+const today = () => new Date().toISOString().slice(0, 10);
+const replacePeriod = (template: string, period: string) => template.replace("{period}", period.toLocaleLowerCase());
+export default function CropLifecyclePanel() {
+    const { locale } = useI18n();
+    const t = lifecycleCopies[locale];
+    const [data, setData] = useState<Data>({ plantations: [], periods: [], fallows: [], rotation: [] });
+    const [fields, setFields] = useState<FieldDto[]>([]);
+    const [cultures, setCultures] = useState<readonly CultureCatalogEntry[]>([]);
+    const [varieties, setVarieties] = useState<VarietyDto[]>([]);
+    const [tab, setTab] = useState<"plantations" | "fallow" | "rotation">("plantations");
+    const [dialog, setDialog] = useState<DialogState | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [failed, setFailed] = useState(false);
+    const load = useCallback(async () => { setLoading(true); setFailed(false); try {
+        const responses = await Promise.all(["/api/farm/crop-lifecycle", "/api/farm/fields", "/api/farm/crop-catalog", "/api/farm/varieties"].map((url) => fetch(url, { credentials: "include" })));
+        if (responses.some((response) => !response.ok))
+            throw new Error();
+        const [lifecycle, fieldRows, catalogue, varietyRows] = await Promise.all(responses.map((response) => response.json()));
+        setData(lifecycle.data);
+        setFields(fieldRows.data);
+        setCultures(catalogue.data);
+        setVarieties(varietyRows.data);
+    }
+    catch {
+        setFailed(true);
+    }
+    finally {
+        setLoading(false);
+    } }, []);
+    useEffect(() => { void load(); }, [load]);
+    const cultureNames = useMemo(() => new Map<string, string>(cultures.map((item) => [item.id, item.sourceName])), [cultures]);
+    const fieldNames = useMemo(() => new Map(fields.map((item) => [item.id, item.name])), [fields]);
+    if (loading)
+        return <div className="module-state"><span className="spinner"/></div>;
+    if (failed)
+        return <div className="module-state error-state"><p>{t.loadError}</p><button onClick={() => void load()}>{t.history}</button></div>;
+    return <><div className="lifecycle-tabs"><button className={tab === "plantations" ? "active" : ""} onClick={() => setTab("plantations")}>{t.plantations}</button><button className={tab === "fallow" ? "active" : ""} onClick={() => setTab("fallow")}>{t.fallow}</button><button className={tab === "rotation" ? "active" : ""} onClick={() => setTab("rotation")}>{t.rotation}</button></div>
+  {tab === "plantations" ? <><div className="module-toolbar"><p>{t.compatibleAreas}</p><button className="primary-action" disabled={!fields.length} onClick={() => setDialog({ kind: "plantation" })}>＋ {t.addPlantation}</button></div>{data.plantations.length ? <div className="lifecycle-list">{data.plantations.map((plantation) => <article key={plantation.id}><header><div><span>{plantation.kind === "permanent" ? t.permanent : t.temporary}</span><h3>{plantation.name}</h3><p>{cultureNames.get(plantation.cultureId)} · {fieldNames.get(plantation.fieldId)} · {plantation.areaHa.toLocaleString(locale)} ha</p></div><em className={plantation.status}>{plantation.status === "active" ? t.active : plantation.status === "uprooted" ? t.uprooted : t.closed}</em></header><div className="period-list">{data.periods.filter((period) => period.plantationId === plantation.id).map((period) => <div key={period.id}><b>{period.kind === "campaign" ? t.campaign : t.cycle}: {period.name}</b><span>{period.startedOn} → {period.endedOn || t.active}</span>{period.status === "active" && <button onClick={() => setDialog({ kind: "closePeriod", item: period })}>{replacePeriod(t.closePeriod, period.kind === "campaign" ? t.campaign : t.cycle)}</button>}</div>)}</div>{plantation.status === "active" && plantation.kind === "permanent" && <footer><button onClick={() => setDialog({ kind: "period", plantation })}>＋ {replacePeriod(t.addPeriod, t.campaign)}</button><button className="danger-link" onClick={() => setDialog({ kind: "uproot", plantation })}>{t.uproot}</button></footer>}</article>)}</div> : <div className="module-state"><p>{t.emptyPlantations}</p></div>}</> :
+            tab === "fallow" ? <><div className="module-toolbar"><p>{t.currentOccupation}</p><button className="primary-action" disabled={!fields.length} onClick={() => setDialog({ kind: "fallow" })}>＋ {t.addFallow}</button></div>{data.fallows.length ? <div className="lifecycle-list">{data.fallows.map((item) => <article key={item.id}><header><div><span>{t.fallow}</span><h3>{item.name}</h3><p>{fieldNames.get(item.fieldId)} · {item.areaHa.toLocaleString(locale)} ha · {item.startedOn} → {item.endedOn || t.active}</p></div><em className={item.status}>{item.status === "active" ? t.active : t.closed}</em></header>{item.status === "active" && <footer><button onClick={() => setDialog({ kind: "closeFallow", item })}>{t.closeFallow}</button></footer>}</article>)}</div> : <div className="module-state"><p>{t.emptyRotation}</p></div>}</> :
+                data.rotation.length ? <div className="rotation-list">{data.rotation.map((item) => <div key={`${item.type}-${item.id}`}><i className={item.type}/><span>{fieldNames.get(item.fieldId)}</span><b>{item.label}</b><em>{item.startedOn} → {item.endedOn || t.active}</em><strong>{item.areaHa.toLocaleString(locale)} ha</strong></div>)}</div> : <div className="module-state"><p>{t.emptyRotation}</p></div>}
+  {dialog && <LifecycleDialog dialog={dialog} fields={fields} cultures={cultures} varieties={varieties} t={t} onClose={() => setDialog(null)} onSaved={async () => { setDialog(null); await load(); }}/>}</>;
 }
-
-function LifecycleDialog({dialog,fields,cultures,varieties,t,onClose,onSaved}:{dialog:DialogState;fields:FieldDto[];cultures:readonly CultureCatalogEntry[];varieties:VarietyDto[];t:LifecycleCopy;onClose:()=>void;onSaved:()=>Promise<void>}){
-  const[values,setValues]=useState<Record<string,string>>({fieldId:fields[0]?.id||"",cultureId:cultures[0]?.id||"",varietyId:"",name:"",kind:"temporary",areaHa:"",startedOn:today(),endedOn:today(),reason:""});const[saving,setSaving]=useState(false);const[error,setError]=useState<"capacity"|"save"|"">("");const set=(key:string,value:string)=>setValues((current)=>({...current,[key]:value}));let title=t.save;let endpoint="";let payload:Record<string,unknown>={};
-  if(dialog.kind==="plantation"){title=t.addPlantation;endpoint="/api/farm/plantations";payload={fieldId:values.fieldId,cultureId:values.cultureId,...(values.varietyId?{varietyId:values.varietyId}:{}),name:values.name,kind:values.kind,areaHa:Number(values.areaHa),startedOn:values.startedOn}}else if(dialog.kind==="period"){title=replacePeriod(t.addPeriod,dialog.plantation.kind==="permanent"?t.campaign:t.cycle);endpoint="/api/farm/crop-periods";payload={plantationId:dialog.plantation.id,name:values.name,startedOn:values.startedOn}}else if(dialog.kind==="uproot"){title=t.uproot;endpoint=`/api/farm/plantations/${dialog.plantation.id}/uproot`;payload={uprootedOn:values.endedOn,reason:values.reason}}else if(dialog.kind==="fallow"){title=t.addFallow;endpoint="/api/farm/fallows";payload={fieldId:values.fieldId,name:values.name,areaHa:Number(values.areaHa),startedOn:values.startedOn}}else if(dialog.kind==="closePeriod"){title=replacePeriod(t.closePeriod,dialog.item.kind==="campaign"?t.campaign:t.cycle);endpoint=`/api/farm/crop-periods/${dialog.item.id}/close`;payload={endedOn:values.endedOn}}else{title=t.closeFallow;endpoint=`/api/farm/fallows/${dialog.item.id}/close`;payload={endedOn:values.endedOn}}
-  async function submit(event:FormEvent){event.preventDefault();setSaving(true);setError("");try{const response=await fetch(endpoint,{method:"POST",credentials:"include",headers:{"content-type":"application/json"},body:JSON.stringify(payload)});if(!response.ok){const body=await response.json().catch(()=>null) as {code?:string}|null;setError(body?.code==="FIELD_OCCUPANCY_EXCEEDED"?"capacity":"save");setSaving(false);return}await onSaved()}catch{setError("save");setSaving(false)}}
-  return <Dialog title={title} cancel={t.cancel} onClose={onClose}><form className="holding-form" onSubmit={(event)=>void submit(event)}>{dialog.kind==="plantation"&&<><Select label={t.field} value={values.fieldId} onChange={(value)=>set("fieldId",value)} options={fields.map((item)=>[item.id,item.name])}/><Select label={t.culture} value={values.cultureId} onChange={(value)=>{set("cultureId",value);set("varietyId","")}} options={cultures.map((item)=>[item.id,item.sourceName])}/><Select label={t.variety} value={values.varietyId} onChange={(value)=>set("varietyId",value)} options={[["",t.noVariety],...varieties.filter((item)=>item.cultureId===values.cultureId).map((item)=>[item.id,item.name])]}/><Input label={t.name} value={values.name} onChange={(value)=>set("name",value)}/><Select label={t.kind} value={values.kind} onChange={(value)=>set("kind",value)} options={[["permanent",t.permanent],["temporary",t.temporary]]}/><Input label={`${t.area} (ha)`} type="number" step="0.0001" value={values.areaHa} onChange={(value)=>set("areaHa",value)}/><Input label={t.startDate} type="date" value={values.startedOn} onChange={(value)=>set("startedOn",value)}/></>}{dialog.kind==="period"&&<><Input label={t.name} value={values.name} onChange={(value)=>set("name",value)}/><Input label={t.startDate} type="date" value={values.startedOn} onChange={(value)=>set("startedOn",value)}/></>}{dialog.kind==="fallow"&&<><Select label={t.field} value={values.fieldId} onChange={(value)=>set("fieldId",value)} options={fields.map((item)=>[item.id,item.name])}/><Input label={t.name} value={values.name} onChange={(value)=>set("name",value)}/><Input label={`${t.area} (ha)`} type="number" step="0.0001" value={values.areaHa} onChange={(value)=>set("areaHa",value)}/><Input label={t.startDate} type="date" value={values.startedOn} onChange={(value)=>set("startedOn",value)}/></>}{dialog.kind==="uproot"&&<><p className="dialog-warning">{t.uprootWarning}</p><Input label={t.endDate} type="date" value={values.endedOn} onChange={(value)=>set("endedOn",value)}/><Input label={t.uprootReason} value={values.reason} onChange={(value)=>set("reason",value)}/></>}{(dialog.kind==="closePeriod"||dialog.kind==="closeFallow")&&<Input label={t.endDate} type="date" value={values.endedOn} onChange={(value)=>set("endedOn",value)}/>} {error&&<p className="form-error">{error==="capacity"?t.capacityError:t.saveError}</p>}<footer><button type="button" className="subtle-button" onClick={onClose}>{t.cancel}</button><button className="primary-action" disabled={saving}>{t.save}</button></footer></form></Dialog>;
+function LifecycleDialog({ dialog, fields, cultures, varieties, t, onClose, onSaved }: {
+    dialog: DialogState;
+    fields: FieldDto[];
+    cultures: readonly CultureCatalogEntry[];
+    varieties: VarietyDto[];
+    t: LifecycleCopy;
+    onClose: () => void;
+    onSaved: () => Promise<void>;
+}) {
+    const [values, setValues] = useState<Record<string, string>>({ fieldId: fields[0]?.id || "", cultureId: cultures[0]?.id || "", varietyId: "", name: "", kind: "temporary", areaHa: "", startedOn: today(), endedOn: today(), reason: "" });
+    const [saving, setSaving] = useState(false);
+    const [error, setError] = useState<"capacity" | "save" | "">("");
+    const set = (key: string, value: string) => setValues((current) => ({ ...current, [key]: value }));
+    let title = t.save;
+    let endpoint = "";
+    let payload: Record<string, unknown> = {};
+    if (dialog.kind === "plantation") {
+        title = t.addPlantation;
+        endpoint = "/api/farm/plantations";
+        payload = { fieldId: values.fieldId, cultureId: values.cultureId, ...(values.varietyId ? { varietyId: values.varietyId } : {}), name: values.name, kind: values.kind, areaHa: Number(values.areaHa), startedOn: values.startedOn };
+    }
+    else if (dialog.kind === "period") {
+        title = replacePeriod(t.addPeriod, dialog.plantation.kind === "permanent" ? t.campaign : t.cycle);
+        endpoint = "/api/farm/crop-periods";
+        payload = { plantationId: dialog.plantation.id, name: values.name, startedOn: values.startedOn };
+    }
+    else if (dialog.kind === "uproot") {
+        title = t.uproot;
+        endpoint = `/api/farm/plantations/${dialog.plantation.id}/uproot`;
+        payload = { uprootedOn: values.endedOn, reason: values.reason };
+    }
+    else if (dialog.kind === "fallow") {
+        title = t.addFallow;
+        endpoint = "/api/farm/fallows";
+        payload = { fieldId: values.fieldId, name: values.name, areaHa: Number(values.areaHa), startedOn: values.startedOn };
+    }
+    else if (dialog.kind === "closePeriod") {
+        title = replacePeriod(t.closePeriod, dialog.item.kind === "campaign" ? t.campaign : t.cycle);
+        endpoint = `/api/farm/crop-periods/${dialog.item.id}/close`;
+        payload = { endedOn: values.endedOn };
+    }
+    else {
+        title = t.closeFallow;
+        endpoint = `/api/farm/fallows/${dialog.item.id}/close`;
+        payload = { endedOn: values.endedOn };
+    }
+    async function submit(event: FormEvent) { event.preventDefault(); setSaving(true); setError(""); try {
+        const response = await fetch(endpoint, { method: "POST", credentials: "include", headers: { "content-type": "application/json" }, body: JSON.stringify(payload) });
+        if (!response.ok) {
+            const body = await response.json().catch(() => null) as {
+                code?: string;
+            } | null;
+            setError(body?.code === "FIELD_OCCUPANCY_EXCEEDED" ? "capacity" : "save");
+            setSaving(false);
+            return;
+        }
+        await onSaved();
+    }
+    catch {
+        setError("save");
+        setSaving(false);
+    } }
+    return <Dialog title={title} cancel={t.cancel} onClose={onClose}><form className="holding-form" onSubmit={(event) => void submit(event)}>{dialog.kind === "plantation" && <><Select label={t.field} value={values.fieldId} onChange={(value) => set("fieldId", value)} options={fields.map((item) => [item.id, item.name])}/><Select label={t.culture} value={values.cultureId} onChange={(value) => { set("cultureId", value); set("varietyId", ""); }} options={cultures.map((item) => [item.id, item.sourceName])}/><Select label={t.variety} value={values.varietyId} onChange={(value) => set("varietyId", value)} options={[["", t.noVariety], ...varieties.filter((item) => item.cultureId === values.cultureId).map((item) => [item.id, item.name])]}/><Input label={t.name} value={values.name} onChange={(value) => set("name", value)}/><Select label={t.kind} value={values.kind} onChange={(value) => set("kind", value)} options={[["permanent", t.permanent], ["temporary", t.temporary]]}/><Input label={`${t.area} (ha)`} type="number" step="0.0001" value={values.areaHa} onChange={(value) => set("areaHa", value)}/><Input label={t.startDate} type="date" value={values.startedOn} onChange={(value) => set("startedOn", value)}/></>}{dialog.kind === "period" && <><Input label={t.name} value={values.name} onChange={(value) => set("name", value)}/><Input label={t.startDate} type="date" value={values.startedOn} onChange={(value) => set("startedOn", value)}/></>}{dialog.kind === "fallow" && <><Select label={t.field} value={values.fieldId} onChange={(value) => set("fieldId", value)} options={fields.map((item) => [item.id, item.name])}/><Input label={t.name} value={values.name} onChange={(value) => set("name", value)}/><Input label={`${t.area} (ha)`} type="number" step="0.0001" value={values.areaHa} onChange={(value) => set("areaHa", value)}/><Input label={t.startDate} type="date" value={values.startedOn} onChange={(value) => set("startedOn", value)}/></>}{dialog.kind === "uproot" && <><p className="dialog-warning">{t.uprootWarning}</p><Input label={t.endDate} type="date" value={values.endedOn} onChange={(value) => set("endedOn", value)}/><Input label={t.uprootReason} value={values.reason} onChange={(value) => set("reason", value)}/></>}{(dialog.kind === "closePeriod" || dialog.kind === "closeFallow") && <Input label={t.endDate} type="date" value={values.endedOn} onChange={(value) => set("endedOn", value)}/>} {error && <p className="form-error">{error === "capacity" ? t.capacityError : t.saveError}</p>}<footer><button type="button" className="subtle-button" onClick={onClose}>{t.cancel}</button><button className="primary-action" disabled={saving}>{t.save}</button></footer></form></Dialog>;
 }
-function Dialog({title,cancel,onClose,children}:{title:string;cancel:string;onClose:()=>void;children:ReactNode}){return <div className="modal-backdrop" onMouseDown={(event)=>{if(event.target===event.currentTarget)onClose()}}><section className="holding-dialog"><header><h2>{title}</h2><button onClick={onClose} aria-label={cancel}>×</button></header>{children}</section></div>}
-function Input({label,value,onChange,type="text",step}:{label:string;value:string;onChange:(value:string)=>void;type?:string;step?:string}){return <label><span>{label}</span><input required type={type} step={step} value={value} onChange={(event)=>onChange(event.target.value)}/></label>}
-function Select({label,value,onChange,options}:{label:string;value:string;onChange:(value:string)=>void;options:string[][]}){return <label><span>{label}</span><select value={value} onChange={(event)=>onChange(event.target.value)}>{options.map(([id,name])=><option key={id||"none"} value={id}>{name}</option>)}</select></label>}
+function Dialog({ title, cancel, onClose, children }: {
+    title: string;
+    cancel: string;
+    onClose: () => void;
+    children: ReactNode;
+}) { return <div className="modal-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget)
+    onClose(); }}><section className="holding-dialog"><header><h2>{title}</h2><button onClick={onClose} aria-label={cancel}>×</button></header>{children}</section></div>; }
+function Input({ label, value, onChange, type = "text", step }: {
+    label: string;
+    value: string;
+    onChange: (value: string) => void;
+    type?: string;
+    step?: string;
+}) { return <label><span>{label}</span><input required type={type} step={step} value={value} onChange={(event) => onChange(event.target.value)}/></label>; }
+function Select({ label, value, onChange, options }: {
+    label: string;
+    value: string;
+    onChange: (value: string) => void;
+    options: string[][];
+}) { return <label><span>{label}</span><select value={value} onChange={(event) => onChange(event.target.value)}>{options.map(([id, name]) => <option key={id || "none"} value={id}>{name}</option>)}</select></label>; }

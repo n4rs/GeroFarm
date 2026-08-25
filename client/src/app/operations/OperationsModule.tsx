@@ -1,10 +1,13 @@
-import { useCallback, useEffect, useMemo, useState, type FormEvent } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import type { FieldDto } from "@shared/fields";
 import type { PlantationDto } from "@shared/crop-lifecycle";
-import type { ContractorDto, EquipmentDto, WorkerDto } from "@shared/resources";
-import { culturalWorkActionIds, operationTypes, soilPreparationActionIds, type OperationDto } from "@shared/operations";
+import type { CertificateDto, ContractorDto, EquipmentDto, WorkerDto } from "@shared/resources";
+import { isValidApplicator } from "@shared/resources";
+import type { OperationCatalogItemDto, OperationResourceAssignment } from "@shared/operation-extensions";
+import { culturalWorkActionIds, soilPreparationActionIds, type OperationDto } from "@shared/operations";
 import type { CultureCatalogEntry, VarietyDto } from "@shared/crops";
 import { useI18n } from "../../i18n";
+import { useAuth } from "../../auth";
 import { operationCopies, type OperationCopy } from "./operation-locales.generated";
 import "./operations.css";
 import "./cultural-work.css";
@@ -18,8 +21,36 @@ type Data = {
     workers: WorkerDto[];
     equipment: EquipmentDto[];
     contractors: ContractorDto[];
+    certificates: CertificateDto[];
+    catalog: OperationCatalogItemDto[];
+    soilSamples: SoilSample[];
+    laboratoryResults: LaboratoryResult[];
     cultures: readonly CultureCatalogEntry[];
     varieties: VarietyDto[];
+};
+type SoilSample = {
+    id: string;
+    sampledOn: string;
+    type: string;
+    fieldIds: string[];
+};
+type LaboratoryResult = {
+    id: string;
+    sampleId: string;
+    resultedOn: string;
+    validUntil?: string | null;
+    laboratory: string;
+    bulletinNumber: string;
+    results: Array<{
+        parameter: string;
+        value: number;
+        unit: string;
+    }>;
+};
+type ResourceAssignmentForm = OperationResourceAssignment & {
+    totalHoursText: string;
+    override: boolean;
+    destinationHours: Record<string, string>;
 };
 type DestinationForm = {
     fieldId: string;
@@ -104,29 +135,43 @@ type FertilizationForm = {
     customMode: string;
     products: FertilizerProductForm[];
 };
-const empty: Data = { operations: [], fields: [], plantations: [], workers: [], equipment: [], contractors: [], cultures: [], varieties: [] };
+const empty: Data = { operations: [], fields: [], plantations: [], workers: [], equipment: [], contractors: [], certificates: [], catalog: [], soilSamples: [], laboratoryResults: [], cultures: [], varieties: [] };
 export default function OperationsModule() {
     const { locale } = useI18n();
     const t = operationCopies[locale];
+    const { session } = useAuth();
+    const permissions = session?.access.applicationMembership.permissions || [];
+    const canWrite = Boolean(session?.access.access.writeAllowed && (permissions.includes("*") || permissions.includes("operations.manage") || permissions.includes("operations.create")));
     const [data, setData] = useState(empty);
-    const launch=useMemo(()=>{const query=new URLSearchParams(window.location.search);return{open:query.get("action")==="register-operation",fieldId:query.get("fieldId")||"",plantationId:query.get("plantationId")||"",type:query.get("operationType")||""}},[]);
+    const launch = useMemo(() => { const query = new URLSearchParams(window.location.search); return { open: query.get("action") === "register-operation", fieldId: query.get("fieldId") || "", plantationId: query.get("plantationId") || "", type: query.get("operationType") || "" }; }, []);
     const [adding, setAdding] = useState(launch.open);
     const [loading, setLoading] = useState(true);
     const [failed, setFailed] = useState(false);
-    const load = useCallback(async () => { setLoading(true); setFailed(false); try {
-        const responses = await Promise.all(["/api/farm/operations", "/api/farm/fields", "/api/farm/crop-lifecycle", "/api/farm/resources", "/api/farm/crop-catalog", "/api/farm/varieties"].map(url => fetch(url, { credentials: "include" })));
-        if (responses.some(response => !response.ok))
-            throw new Error();
-        const [operations, fields, lifecycle, resources, cultures, varieties] = await Promise.all(responses.map(response => response.json()));
-        setData({ operations: operations.data, fields: fields.data, plantations: lifecycle.data.plantations, workers: resources.data.workers, equipment: resources.data.equipment, contractors: resources.data.contractors, cultures: cultures.data, varieties: varieties.data });
-    }
-    catch {
-        setFailed(true);
-    }
-    finally {
-        setLoading(false);
-    } }, []);
-    useEffect(() => { void load(); }, [load]);
+    const [catalogOpen, setCatalogOpen] = useState(false);
+    const [voiding, setVoiding] = useState<OperationDto | null>(null);
+    const loadSequence = useRef(0);
+    const load = useCallback(async () => {
+        const sequence = ++loadSequence.current;
+        setLoading(true);
+        setFailed(false);
+        try {
+            const responses = await Promise.all(["/api/farm/operations", "/api/farm/fields", "/api/farm/crop-lifecycle", "/api/farm/resources", "/api/farm/crop-catalog", "/api/farm/varieties", "/api/farm/operation-catalog", "/api/farm/agronomy"].map(url => fetch(url, { credentials: "include" })));
+            if (responses.some(response => !response.ok))
+                throw new Error();
+            const [operations, fields, lifecycle, resources, cultures, varieties, catalog, agronomy] = await Promise.all(responses.map(response => response.json()));
+            if (sequence === loadSequence.current)
+                setData({ operations: operations.data, fields: fields.data, plantations: lifecycle.data.plantations, workers: resources.data.workers, equipment: resources.data.equipment, contractors: resources.data.contractors, certificates: resources.data.certificates, catalog: catalog.data, soilSamples: agronomy.data.samples || [], laboratoryResults: agronomy.data.laboratoryResults || [], cultures: cultures.data, varieties: varieties.data });
+        }
+        catch {
+            if (sequence === loadSequence.current)
+                setFailed(true);
+        }
+        finally {
+            if (sequence === loadSequence.current)
+                setLoading(false);
+        }
+    }, []);
+    useEffect(() => { void load(); return () => { loadSequence.current += 1; }; }, [load]);
     const fields = useMemo(() => new Map(data.fields.map(item => [item.id, item.name])), [data.fields]);
     const plantations = useMemo(() => new Map(data.plantations.map(item => [item.id, item.name])), [data.plantations]);
     return <>
@@ -136,9 +181,9 @@ export default function OperationsModule() {
           <h1>{t.title}</h1>
           <span>{t.description}</span>
         </div>
-        <button className="primary-action" disabled={!data.fields.length} onClick={() => setAdding(true)}>
+        <div className="operation-heading-actions"><button className="subtle-button" onClick={() => setCatalogOpen(true)}>Catálogo</button><button className="primary-action" disabled={!canWrite || !data.fields.length} onClick={() => setAdding(true)}>
           ＋ {t.add}
-        </button>
+        </button></div>
       </section>
       <aside className="operation-notice">{t.sharedNotice}</aside>
       <FertilizationSummary data={data} locale={locale} t={t}/>
@@ -149,7 +194,7 @@ export default function OperationsModule() {
             <p>{t.loadError}</p>
             <button onClick={() => void load()}>{t.add}</button>
           </div> : data.operations.length ? <div className="operation-table">
-            {data.operations.map(operation => <article key={operation.id}>
+            {data.operations.map(operation => <article key={operation.id} className={operation.status === "voided" ? "voided" : ""}>
                 <code>{operation.code}</code>
                 <div>
                   <b>{typeLabel(t, operation.type, sprayingCopies[locale].productApplication)}</b>
@@ -163,63 +208,93 @@ export default function OperationsModule() {
                 <em>
                   {operation.destinations.reduce((total, destination) => total + destination.areaHa, 0).toLocaleString(locale)}{" "}
                   ha
-                </em>
+                </em><details><summary aria-label={`${operation.code} · detalhes`}>•••</summary><div className="operation-audit"><b>{operation.status === "voided" ? "Anulada" : "Realizada"}</b>{operation.status === "voided" && <><span>{operation.voidedAt ? new Date(operation.voidedAt).toLocaleString(locale) : "—"}</span><span>{operation.voidedBy || "—"}</span><p>{operation.voidReason}</p></>}{operation.soilAnalysisWarnings?.map(warning => <p className="operation-warning" key={warning.fieldId}>{fields.get(warning.fieldId)} · missing_valid_analysis</p>)}{operation.soilAnalysisSnapshots?.map(snapshot => <article className="soil-snapshot" key={`${snapshot.fieldId}:${snapshot.resultId}`}><b>{fields.get(snapshot.fieldId)}</b><span>{snapshot.laboratory} · {snapshot.bulletinNumber}</span><small>{snapshot.sampledOn} → {snapshot.resultedOn}{snapshot.validUntil ? ` · ${snapshot.validUntil}` : ""}</small></article>)}{operation.resourceAllocations && <ResourceAudit operation={operation} data={data} locale={locale}/>} {operation.status === "performed" && operation.type !== "irrigation" && <button className="danger-link" disabled={!canWrite} onClick={() => setVoiding(operation)}>Anular operação</button>}</div></details>
               </article>)}
           </div> : <div className="module-state">
             <p>{t.empty}</p>
           </div>}
       </section>
-      {adding && <OperationDialog data={data} t={t} initialContext={launch} onClose={() => setAdding(false)} onSaved={async () => { setAdding(false); await load(); }}/>}
+      {adding && !loading && !failed && (
+        <OperationDialog data={data} t={t} initialContext={launch} onClose={() => setAdding(false)} onSaved={async () => { setAdding(false); await load(); }}/>
+      )}
+      {catalogOpen && (
+        <OperationCatalogDialog items={data.catalog} canWrite={canWrite} onClose={() => setCatalogOpen(false)} onChanged={load}/>
+      )}
+      {voiding && <VoidOperationDialog operation={voiding} onClose={() => setVoiding(null)} onSaved={async () => { setVoiding(null); await load(); }}/>}
     </>;
 }
 const typeLabel = (t: OperationCopy, type: OperationDto["type"], productApplication = "Product application") => ({ soil_preparation: t.soilPreparation, crop_installation: t.cropInstallation, cultural_work: t.culturalWork, fertilization: t.fertilization, spraying: t.spraying, product_application: productApplication, irrigation: t.irrigation, fertigation: t.fertigation, monitoring: t.monitoring, harvest: t.harvest, other: t.other })[type];
-function serializeSpraying(form:SprayingForm,destinations:DestinationForm[],data:Data){const optionalNumber=(value:string)=>value?Number(value):undefined;return{method:form.method,...(form.customMethod?{customMethod:form.customMethod}:{}),...(form.method==="spray"?{sprayVolumeLHa:Number(form.sprayVolumeLHa)}:{}),...(form.legalApplicatorWorkerId?{legalApplicatorWorkerId:form.legalApplicatorWorkerId}:{}),auxiliaryWorkerIds:[],products:form.products.map(product=>({name:product.name,category:product.category,unit:product.unit,quantitySource:product.quantitySource,...(product.dosePerHa?{dosePerHa:Number(product.dosePerHa)}:{}),...(product.dosePerHl?{dosePerHl:Number(product.dosePerHl)}:{}),...(product.totalQuantity?{totalQuantity:Number(product.totalQuantity)}:{}),...(product.lotNumber?{lotNumber:product.lotNumber}:{}),activeSubstances:product.activeSubstances.split(/[;,]/).map(value=>value.trim()).filter(Boolean),...(product.registrationNumber?{registrationNumber:product.registrationNumber}:{}),...(product.fracGroup?{fracGroup:product.fracGroup}:{}),targets:product.targets.split(/[;,]/).map(value=>value.trim()).filter(Boolean),authorizations:destinations.map(destination=>{const key=`${destination.fieldId}:${destination.plantationId}`,plantation=data.plantations.find(item=>item.id===destination.plantationId),field=data.fields.find(item=>item.id===destination.fieldId);return{fieldId:destination.fieldId,...(destination.plantationId?{plantationId:destination.plantationId}:{}),...(plantation?{cultureId:plantation.cultureId}:{}),destinationLabel:plantation?.name||field?.name||destination.fieldId,authorized:product.authorized[key]??false,...(product.authorizationReference[key]?{authorizationReference:product.authorizationReference[key]}:{}),...(product.authorizedUse[key]?{authorizedUse:product.authorizedUse[key]}:{}),...(product.validFrom[key]?{validFrom:product.validFrom[key]}:{}),...(product.validUntil[key]?{validUntil:product.validUntil[key]}:{}),...(product.safetyIntervalDays[key]?{safetyIntervalDays:Number(product.safetyIntervalDays[key])}:{}),...(product.reentryHours[key]?{reentryHours:Number(product.reentryHours[key])}:{})};}),legalLimitExceeded:product.legalLimitExceeded,applicationLimitExceeded:product.applicationLimitExceeded,antiResistanceWarning:product.antiResistanceWarning,...(product.compositionKnown?{nutrientSnapshot:{compositionKnown:true,...(product.densityKgL?{densityKgL:Number(product.densityKgL)}:{}),composition:Object.fromEntries(product.composition.split(/[;,]/).map(item=>item.split("=").map(part=>part.trim())).filter(parts=>parts.length===2&&parts[0]&&Number(parts[1])>=0).map(([key,value])=>[key,Number(value)]))}}:{})})),weather:{source:form.weatherSource,...(optionalNumber(form.temperatureC)!==undefined?{temperatureC:optionalNumber(form.temperatureC)}:{}),...(optionalNumber(form.relativeHumidityPercent)!==undefined?{relativeHumidityPercent:optionalNumber(form.relativeHumidityPercent)}:{}),...(optionalNumber(form.windSpeedKmh)!==undefined?{windSpeedKmh:optionalNumber(form.windSpeedKmh)}:{}),...(optionalNumber(form.windDirectionDegrees)!==undefined?{windDirectionDegrees:optionalNumber(form.windDirectionDegrees)}:{}),...(optionalNumber(form.precipitationMm)!==undefined?{precipitationMm:optionalNumber(form.precipitationMm)}:{}),...(form.condition?{condition:form.condition}:{}),manuallyOverridden:form.manuallyOverridden},equipmentInspectionValid:form.equipmentInspectionValid,equipmentCalibrationValid:form.equipmentCalibrationValid,warningsAccepted:form.warningsAccepted};}
+function serializeSpraying(form: SprayingForm, destinations: DestinationForm[], data: Data) { const optionalNumber = (value: string) => value ? Number(value) : undefined; return { method: form.method, ...(form.customMethod ? { customMethod: form.customMethod } : {}), ...(form.method === "spray" ? { sprayVolumeLHa: Number(form.sprayVolumeLHa) } : {}), ...(form.legalApplicatorWorkerId ? { legalApplicatorWorkerId: form.legalApplicatorWorkerId } : {}), auxiliaryWorkerIds: [], products: form.products.map(product => ({ name: product.name, category: product.category, unit: product.unit, quantitySource: product.quantitySource, ...(product.dosePerHa ? { dosePerHa: Number(product.dosePerHa) } : {}), ...(product.dosePerHl ? { dosePerHl: Number(product.dosePerHl) } : {}), ...(product.totalQuantity ? { totalQuantity: Number(product.totalQuantity) } : {}), ...(product.lotNumber ? { lotNumber: product.lotNumber } : {}), activeSubstances: product.activeSubstances.split(/[;,]/).map(value => value.trim()).filter(Boolean), ...(product.registrationNumber ? { registrationNumber: product.registrationNumber } : {}), ...(product.fracGroup ? { fracGroup: product.fracGroup } : {}), targets: product.targets.split(/[;,]/).map(value => value.trim()).filter(Boolean), authorizations: destinations.map(destination => { const key = `${destination.fieldId}:${destination.plantationId}`, plantation = data.plantations.find(item => item.id === destination.plantationId), field = data.fields.find(item => item.id === destination.fieldId); return { fieldId: destination.fieldId, ...(destination.plantationId ? { plantationId: destination.plantationId } : {}), ...(plantation ? { cultureId: plantation.cultureId } : {}), destinationLabel: plantation?.name || field?.name || destination.fieldId, authorized: product.authorized[key] ?? false, ...(product.authorizationReference[key] ? { authorizationReference: product.authorizationReference[key] } : {}), ...(product.authorizedUse[key] ? { authorizedUse: product.authorizedUse[key] } : {}), ...(product.validFrom[key] ? { validFrom: product.validFrom[key] } : {}), ...(product.validUntil[key] ? { validUntil: product.validUntil[key] } : {}), ...(product.safetyIntervalDays[key] ? { safetyIntervalDays: Number(product.safetyIntervalDays[key]) } : {}), ...(product.reentryHours[key] ? { reentryHours: Number(product.reentryHours[key]) } : {}) }; }), legalLimitExceeded: product.legalLimitExceeded, applicationLimitExceeded: product.applicationLimitExceeded, antiResistanceWarning: product.antiResistanceWarning, ...(product.compositionKnown ? { nutrientSnapshot: { compositionKnown: true, ...(product.densityKgL ? { densityKgL: Number(product.densityKgL) } : {}), composition: Object.fromEntries(product.composition.split(/[;,]/).map(item => item.split("=").map(part => part.trim())).filter(parts => parts.length === 2 && parts[0] && Number(parts[1]) >= 0).map(([key, value]) => [key, Number(value)])) } } : {}) })), weather: { source: form.weatherSource, ...(optionalNumber(form.temperatureC) !== undefined ? { temperatureC: optionalNumber(form.temperatureC) } : {}), ...(optionalNumber(form.relativeHumidityPercent) !== undefined ? { relativeHumidityPercent: optionalNumber(form.relativeHumidityPercent) } : {}), ...(optionalNumber(form.windSpeedKmh) !== undefined ? { windSpeedKmh: optionalNumber(form.windSpeedKmh) } : {}), ...(optionalNumber(form.windDirectionDegrees) !== undefined ? { windDirectionDegrees: optionalNumber(form.windDirectionDegrees) } : {}), ...(optionalNumber(form.precipitationMm) !== undefined ? { precipitationMm: optionalNumber(form.precipitationMm) } : {}), ...(form.condition ? { condition: form.condition } : {}), manuallyOverridden: form.manuallyOverridden }, equipmentInspectionValid: form.equipmentInspectionValid, equipmentCalibrationValid: form.equipmentCalibrationValid, warningsAccepted: form.warningsAccepted }; }
 function OperationDialog({ data, t, initialContext, onClose, onSaved }: {
     data: Data;
     t: OperationCopy;
-    initialContext:{fieldId:string;plantationId:string;type:string};
+    initialContext: {
+        fieldId: string;
+        plantationId: string;
+        type: string;
+    };
     onClose: () => void;
     onSaved: () => Promise<void>;
 }) {
     const { locale } = useI18n();
     const st = sprayingCopies[locale];
-    const contextualField=data.fields.some(item=>item.id===initialContext.fieldId)?initialContext.fieldId:data.fields[0]?.id||"";
-    const contextualPlantation=data.plantations.some(item=>item.id===initialContext.plantationId&&item.fieldId===contextualField)?initialContext.plantationId:"";
+    const contextualField = data.fields.some(item => item.id === initialContext.fieldId) ? initialContext.fieldId : data.fields[0]?.id || "";
+    const contextualPlantation = data.plantations.some(item => item.id === initialContext.plantationId && item.fieldId === contextualField) ? initialContext.plantationId : "";
     const blank = (): DestinationForm => ({ fieldId: contextualField, plantationId: contextualPlantation, areaHa: "", percentage: "100" });
     const blankInstallation = (): InstallationForm => ({ plantationName: "", cultureId: data.cultures[0]?.id || "", varietyIds: [], varietyDensities: {}, kind: "temporary", endedOn: "", method: "sowing", customMethod: "", densityPlantsHa: "", rowSpacingCm: "", plantSpacingCm: "", materialLots: [], predecessor: "", preparatoryOperationIds: [] });
     const blankCultural = (): CulturalForm => ({ actions: [], customAction: "", method: "manual", customMethod: "", intensity: "", intensityPercentage: "", biomassDestination: "", plantPercentage: "", plantCount: "", materials: [], originalDensityPlantsHa: "", plantsReplaced: "", plantsPlaced: "", estimatedCurrentDensityPlantsHa: "" });
     const blankFertilizer = (): FertilizerProductForm => ({ name: "", category: "fertilizer", quantitySource: "dose_per_ha", dosePerHa: "", totalQuantity: "", unit: "kg", densityKgL: "", lotNumber: "", compositionKnown: true, dryMatterPercent: "", nTotal: "", nNitrate: "", nAmmonium: "", nUreic: "", nOrganic: "", p2o5: "", k2o: "", cao: "", mgo: "", so3: "", organicMatter: "", carbon: "", micronutrients: "", destinationDoses: {} });
     const blankFertilization = (): FertilizationForm => ({ mode: "base", customMode: "", products: [blankFertilizer()] });
-    const initialType=operationTypes.includes(initialContext.type as (typeof operationTypes)[number])?initialContext.type:"cultural_work";
-    const [values, setValues] = useState({ destinations: [blank()], type: initialType, performedAt: new Date().toISOString().slice(0, 16), durationMinutes: "", notes: "", workerIds: [] as string[], equipmentIds: [] as string[], contractorIds: [] as string[], soilActions: [] as string[], customSoilAction: "", depthCm: "", passes: "", soilCondition: "", residueDestination: "", installation: blankInstallation(), cultural: blankCultural(), fertilizationForm: blankFertilization(), includeFertilization: false, sprayingForm: blankSpraying() });
+    const specialistTypes = ["soil_preparation", "crop_installation", "cultural_work", "fertilization", "spraying", "product_application"] as const;
+    const initialType = specialistTypes.includes(initialContext.type as typeof specialistTypes[number]) ? initialContext.type : "";
+    const [values, setValues] = useState({ destinations: [blank()], type: initialType, performedAt: new Date().toISOString().slice(0, 16), durationMinutes: "", notes: "", workerAssignments: [] as ResourceAssignmentForm[], equipmentAssignments: [] as ResourceAssignmentForm[], contractorAssignments: [] as ResourceAssignmentForm[], soilActions: [] as string[], customSoilAction: "", soilAnalysisResultIdsByField: {} as Record<string, string>, depthCm: "", passes: "", soilCondition: "", residueDestination: "", installation: blankInstallation(), cultural: blankCultural(), fertilizationForm: blankFertilization(), includeFertilization: false, sprayingForm: blankSpraying() });
     const [saving, setSaving] = useState(false);
     const [failed, setFailed] = useState(false);
-    const customSoilActions = [...new Set(data.operations.flatMap(operation => operation.soilPreparation?.actions || []).filter(action => !soilPreparationActionIds.includes(action as (typeof soilPreparationActionIds)[number])))].sort((a, b) => a.localeCompare(b));
+    const customSoilActions = data.catalog.filter(item => item.kind === "soil_action" && item.status === "active").map(item => item.label);
     const set = (key: string, value: unknown) => setValues(current => ({ ...current, [key]: value }));
     const setInstallation = <K extends keyof InstallationForm,>(key: K, value: InstallationForm[K]) => setValues(current => ({ ...current, installation: { ...current.installation, [key]: value } }));
     const setCultural = <K extends keyof CulturalForm,>(key: K, value: CulturalForm[K]) => setValues(current => ({ ...current, cultural: { ...current.cultural, [key]: value } }));
     const setFertilization = <K extends keyof FertilizationForm,>(key: K, value: FertilizationForm[K]) => setValues(current => ({ ...current, fertilizationForm: { ...current.fertilizationForm, [key]: value } }));
     const setSpraying = <K extends keyof SprayingForm,>(key: K, value: SprayingForm[K]) => setValues(current => ({ ...current, sprayingForm: { ...current.sprayingForm, [key]: value } }));
     const setDestination = (index: number, key: keyof DestinationForm, value: string) => setValues(current => ({ ...current, destinations: current.destinations.map((row, rowIndex) => rowIndex === index ? { ...row, [key]: value, ...(key === "fieldId" ? { plantationId: "" } : {}) } : row) }));
-    const toggle = (key: "workerIds" | "equipmentIds" | "contractorIds", id: string) => set(key, values[key].includes(id) ? values[key].filter(item => item !== id) : [...values[key], id]);
+    const setAssignments = (key: "workerAssignments" | "equipmentAssignments" | "contractorAssignments", next: ResourceAssignmentForm[]) => set(key, next);
     const toggleSoilAction = (id: string) => set("soilActions", values.soilActions.includes(id) ? values.soilActions.filter(item => item !== id) : [...values.soilActions, id]);
-    async function submit(event: FormEvent) { event.preventDefault(); setSaving(true); setFailed(false); const { soilActions, customSoilAction, depthCm, passes, soilCondition, residueDestination, installation, cultural, fertilizationForm, includeFertilization, ...common } = values; const actions = [...soilActions, ...(customSoilAction.trim() ? [customSoilAction.trim()] : [])]; const culturalActions = [...cultural.actions, ...(cultural.customAction.trim() ? [cultural.customAction.trim()] : [])]; const payload = { ...common, destinations: values.destinations.map(destination => ({ fieldId: destination.fieldId, ...(destination.plantationId ? { plantationId: destination.plantationId } : {}), areaHa: Number(destination.areaHa), percentage: Number(destination.percentage) })), performedAt: new Date(values.performedAt).toISOString(), ...(values.durationMinutes ? { durationMinutes: Number(values.durationMinutes) } : { durationMinutes: undefined }), ...(values.type === "soil_preparation" ? { soilPreparation: { actions, ...(depthCm ? { depthCm: Number(depthCm) } : {}), ...(passes ? { passes: Number(passes) } : {}), ...(soilCondition ? { soilCondition } : {}), ...(residueDestination ? { residueDestination } : {}) } } : {}), ...(values.type === "crop_installation" ? { cropInstallation: { plantationName: installation.plantationName, cultureId: installation.cultureId, varietyIds: installation.varietyIds, varietyDensities: Object.entries(installation.varietyDensities).filter(([, density]) => density).map(([varietyId, density]) => ({ varietyId, densityPlantsHa: Number(density) })), kind: installation.kind, ...(installation.endedOn ? { endedOn: installation.endedOn } : {}), method: installation.method, ...(installation.customMethod ? { customMethod: installation.customMethod } : {}), densityPlantsHa: Number(installation.densityPlantsHa), ...(installation.rowSpacingCm ? { rowSpacingCm: Number(installation.rowSpacingCm) } : {}), ...(installation.plantSpacingCm ? { plantSpacingCm: Number(installation.plantSpacingCm) } : {}), materialLots: installation.materialLots.filter(lot => lot.lotNumber.trim()).map(lot => ({ ...(lot.varietyId ? { varietyId: lot.varietyId } : {}), lotNumber: lot.lotNumber, quantity: Number(lot.quantity), unit: lot.unit, ...(lot.origin ? { origin: lot.origin } : {}), ...(lot.supplier ? { supplier: lot.supplier } : {}) })), ...(installation.predecessor ? { predecessor: installation.predecessor } : {}), preparatoryOperationIds: installation.preparatoryOperationIds } } : {}), ...(values.type === "cultural_work" ? { culturalWork: { actions: culturalActions, method: cultural.method, ...(cultural.customMethod ? { customMethod: cultural.customMethod } : {}), ...(cultural.intensity ? { intensity: cultural.intensity } : {}), ...(cultural.intensityPercentage ? { intensityPercentage: Number(cultural.intensityPercentage) } : {}), ...(cultural.biomassDestination ? { biomassDestination: cultural.biomassDestination } : {}), ...(cultural.plantPercentage ? { plantPercentage: Number(cultural.plantPercentage) } : {}), ...(cultural.plantCount ? { plantCount: Number(cultural.plantCount) } : {}), materials: cultural.materials.filter(item => item.name.trim()).map(item => ({ name: item.name, quantity: Number(item.quantity), unit: item.unit, ...(item.lotNumber ? { lotNumber: item.lotNumber } : {}) })), ...(culturalActions.includes("replanting") ? { replanting: { originalDensityPlantsHa: Number(cultural.originalDensityPlantsHa), plantsReplaced: Number(cultural.plantsReplaced), plantsPlaced: Number(cultural.plantsPlaced), ...(cultural.estimatedCurrentDensityPlantsHa ? { estimatedCurrentDensityPlantsHa: Number(cultural.estimatedCurrentDensityPlantsHa) } : {}) } } : {}) } } : {}), ...(values.type === "fertilization" || values.type === "soil_preparation" && includeFertilization ? { fertilization: { mode: fertilizationForm.mode, ...(fertilizationForm.customMode ? { customMode: fertilizationForm.customMode } : {}), products: fertilizationForm.products.map(product => ({ name: product.name, category: product.category, quantitySource: product.quantitySource, dosePerHa: Number(product.dosePerHa), totalQuantity: Number(product.totalQuantity), unit: product.unit, ...(product.densityKgL ? { densityKgL: Number(product.densityKgL) } : {}), ...(product.lotNumber ? { lotNumber: product.lotNumber } : {}), compositionKnown: product.compositionKnown, ...(product.dryMatterPercent ? { dryMatterPercent: Number(product.dryMatterPercent) } : {}), composition: product.compositionKnown ? { ...Object.fromEntries((["nTotal", "nNitrate", "nAmmonium", "nUreic", "nOrganic", "p2o5", "k2o", "cao", "mgo", "so3", "organicMatter", "carbon"] as const).flatMap(key => product[key] ? [[key, Number(product[key])]] : [])), micronutrients: Object.fromEntries(product.micronutrients.split(/[;,]/).map(item => item.split("=").map(part => part.trim())).filter(item => item.length === 2 && item[0] && Number(item[1]) >= 0).map(([name, value]) => [name, Number(value)])) } : { micronutrients: {} }, destinationApplications: values.destinations.flatMap(destination => { const key = `${destination.fieldId}:${destination.plantationId}`; const dose = product.destinationDoses[key]; return dose ? [{ fieldId: destination.fieldId, ...(destination.plantationId ? { plantationId: destination.plantationId } : {}), dosePerHa: Number(dose), totalQuantity: Number(dose) * Number(destination.areaHa) }] : []; }), nutrientTotalsKg: {} })) } } : {}) }; try {
-        const serializedSpraying=["spraying","product_application"].includes(values.type)?serializeSpraying(values.sprayingForm,values.destinations,data):undefined;
-        if(serializedSpraying)serializedSpraying.products=serializedSpraying.products.map((product,index)=>({...product,...(values.sprayingForm.products[index].unitCost?{unitCost:Number(values.sprayingForm.products[index].unitCost),currency:"EUR"}:{})}));
-        const operationPayload={...payload,...(serializedSpraying?{spraying:serializedSpraying}:{})};
-        const response = await fetch("/api/farm/operations", { method: "POST", credentials: "include", headers: { "content-type": "application/json" }, body: JSON.stringify(operationPayload) });
-        if (!response.ok)
-            throw new Error();
-        await onSaved();
+    async function submit(event: FormEvent) {
+        event.preventDefault();
+        setSaving(true);
+        setFailed(false);
+        const { soilActions, customSoilAction, depthCm, passes, soilCondition, residueDestination, installation, cultural, fertilizationForm, includeFertilization, ...common } = values;
+        const actions = [...soilActions, ...(customSoilAction.trim() ? [customSoilAction.trim()] : [])];
+        const culturalActions = [...cultural.actions, ...(cultural.customAction.trim() ? [cultural.customAction.trim()] : [])];
+        const payload = { ...common, destinations: values.destinations.map(destination => ({ fieldId: destination.fieldId, ...(destination.plantationId ? { plantationId: destination.plantationId } : {}), areaHa: Number(destination.areaHa), percentage: Number(destination.percentage) })), performedAt: new Date(values.performedAt).toISOString(), ...(values.durationMinutes ? { durationMinutes: Number(values.durationMinutes) } : { durationMinutes: undefined }), ...(values.type === "soil_preparation" ? { soilPreparation: { actions, ...(depthCm ? { depthCm: Number(depthCm) } : {}), ...(passes ? { passes: Number(passes) } : {}), ...(soilCondition ? { soilCondition } : {}), ...(residueDestination ? { residueDestination } : {}) } } : {}), ...(values.type === "crop_installation" ? { cropInstallation: { plantationName: installation.plantationName, cultureId: installation.cultureId, varietyIds: installation.varietyIds, varietyDensities: Object.entries(installation.varietyDensities).filter(([, density]) => density).map(([varietyId, density]) => ({ varietyId, densityPlantsHa: Number(density) })), kind: installation.kind, ...(installation.endedOn ? { endedOn: installation.endedOn } : {}), method: installation.method, ...(installation.customMethod ? { customMethod: installation.customMethod } : {}), densityPlantsHa: Number(installation.densityPlantsHa), ...(installation.rowSpacingCm ? { rowSpacingCm: Number(installation.rowSpacingCm) } : {}), ...(installation.plantSpacingCm ? { plantSpacingCm: Number(installation.plantSpacingCm) } : {}), materialLots: installation.materialLots.filter(lot => lot.lotNumber.trim()).map(lot => ({ ...(lot.varietyId ? { varietyId: lot.varietyId } : {}), lotNumber: lot.lotNumber, quantity: Number(lot.quantity), unit: lot.unit, ...(lot.origin ? { origin: lot.origin } : {}), ...(lot.supplier ? { supplier: lot.supplier } : {}) })), ...(installation.predecessor ? { predecessor: installation.predecessor } : {}), preparatoryOperationIds: installation.preparatoryOperationIds } } : {}), ...(values.type === "cultural_work" ? { culturalWork: { actions: culturalActions, method: cultural.method, ...(cultural.customMethod ? { customMethod: cultural.customMethod } : {}), ...(cultural.intensity ? { intensity: cultural.intensity } : {}), ...(cultural.intensityPercentage ? { intensityPercentage: Number(cultural.intensityPercentage) } : {}), ...(cultural.biomassDestination ? { biomassDestination: cultural.biomassDestination } : {}), ...(cultural.plantPercentage ? { plantPercentage: Number(cultural.plantPercentage) } : {}), ...(cultural.plantCount ? { plantCount: Number(cultural.plantCount) } : {}), materials: cultural.materials.filter(item => item.name.trim()).map(item => ({ name: item.name, quantity: Number(item.quantity), unit: item.unit, ...(item.lotNumber ? { lotNumber: item.lotNumber } : {}) })), ...(culturalActions.includes("replanting") ? { replanting: { originalDensityPlantsHa: Number(cultural.originalDensityPlantsHa), plantsReplaced: Number(cultural.plantsReplaced), plantsPlaced: Number(cultural.plantsPlaced), ...(cultural.estimatedCurrentDensityPlantsHa ? { estimatedCurrentDensityPlantsHa: Number(cultural.estimatedCurrentDensityPlantsHa) } : {}) } } : {}) } } : {}), ...(values.type === "fertilization" || values.type === "soil_preparation" && includeFertilization ? { fertilization: { mode: fertilizationForm.mode, ...(fertilizationForm.customMode ? { customMode: fertilizationForm.customMode } : {}), products: fertilizationForm.products.map(product => ({ name: product.name, category: product.category, quantitySource: product.quantitySource, dosePerHa: Number(product.dosePerHa), totalQuantity: Number(product.totalQuantity), unit: product.unit, ...(product.densityKgL ? { densityKgL: Number(product.densityKgL) } : {}), ...(product.lotNumber ? { lotNumber: product.lotNumber } : {}), compositionKnown: product.compositionKnown, ...(product.dryMatterPercent ? { dryMatterPercent: Number(product.dryMatterPercent) } : {}), composition: product.compositionKnown ? { ...Object.fromEntries((["nTotal", "nNitrate", "nAmmonium", "nUreic", "nOrganic", "p2o5", "k2o", "cao", "mgo", "so3", "organicMatter", "carbon"] as const).flatMap(key => product[key] ? [[key, Number(product[key])]] : [])), micronutrients: Object.fromEntries(product.micronutrients.split(/[;,]/).map(item => item.split("=").map(part => part.trim())).filter(item => item.length === 2 && item[0] && Number(item[1]) >= 0).map(([name, value]) => [name, Number(value)])) } : { micronutrients: {} }, destinationApplications: values.destinations.flatMap(destination => { const key = `${destination.fieldId}:${destination.plantationId}`; const dose = product.destinationDoses[key]; return dose ? [{ fieldId: destination.fieldId, ...(destination.plantationId ? { plantationId: destination.plantationId } : {}), dosePerHa: Number(dose), totalQuantity: Number(dose) * Number(destination.areaHa) }] : []; }), nutrientTotalsKg: {} })) } } : {}) };
+        const serializeAssignments = (rows: ResourceAssignmentForm[]) => rows.map(row => ({ resourceId: row.resourceId, totalHours: Number(row.totalHoursText), destinationOverrides: row.override ? values.destinations.map(destination => ({ fieldId: destination.fieldId, ...(destination.plantationId ? { plantationId: destination.plantationId } : {}), hours: Number(row.destinationHours[`${destination.fieldId}:${destination.plantationId}`] || 0) })) : [] }));
+        try {
+            const serializedSpraying = ["spraying", "product_application"].includes(values.type) ? serializeSpraying(values.sprayingForm, values.destinations, data) : undefined;
+            if (serializedSpraying)
+                serializedSpraying.products = serializedSpraying.products.map((product, index) => ({ ...product, ...(values.sprayingForm.products[index].unitCost ? { unitCost: Number(values.sprayingForm.products[index].unitCost), currency: "EUR" } : {}) }));
+            const operationPayload = { ...payload, workerIds: [], equipmentIds: [], contractorIds: [], workerAssignments: serializeAssignments(values.workerAssignments), equipmentAssignments: serializeAssignments(values.equipmentAssignments), contractorAssignments: serializeAssignments(values.contractorAssignments), ...(payload.soilPreparation ? { soilPreparation: { ...payload.soilPreparation, soilAnalysisResultIdsByField: Object.entries(values.soilAnalysisResultIdsByField).filter(([, resultId]) => resultId).map(([fieldId, resultId]) => ({ fieldId, resultId })) } } : {}), ...(serializedSpraying ? { spraying: serializedSpraying } : {}) };
+            const response = await fetch("/api/farm/operations", { method: "POST", credentials: "include", headers: { "content-type": "application/json" }, body: JSON.stringify(operationPayload) });
+            if (!response.ok)
+                throw new Error();
+            await onSaved();
+        }
+        catch {
+            setFailed(true);
+            setSaving(false);
+        }
     }
-    catch {
-        setFailed(true);
-        setSaving(false);
-    } }
-    return <div className="modal-backdrop">
-      <section className="holding-dialog field-dialog">
+    const allAssignments = [...values.workerAssignments, ...values.equipmentAssignments, ...values.contractorAssignments];
+    const invalidResourceTotals = allAssignments.some(row => !Number(row.totalHoursText) || row.override && Math.abs(Object.values(row.destinationHours).reduce((sum, value) => sum + Number(value || 0), 0) - Number(row.totalHoursText)) > .0001);
+    const needsApplicator = ["spraying", "product_application"].includes(values.type) && values.sprayingForm.products.some(product => product.category === "phytopharmaceutical");
+    const validApplicatorIds = new Set(data.workers.filter(worker => isValidApplicator(worker.id, values.performedAt.slice(0, 10), data.workers, data.certificates)).map(worker => worker.id));
+    const dialogRef = useRef<HTMLElement>(null);
+    useEffect(() => { dialogRef.current?.focus(); const close = (event: KeyboardEvent) => { if (event.key === "Escape") onClose(); }; document.addEventListener("keydown", close); return () => document.removeEventListener("keydown", close); }, [onClose]);
+    if (!values.type)
+        return <div className="modal-backdrop" onMouseDown={event => { if (event.target === event.currentTarget) onClose(); }}><section ref={dialogRef} tabIndex={-1} role="dialog" aria-modal="true" aria-labelledby="specialist-title" className="holding-dialog specialist-picker"><header><h2 id="specialist-title">{t.add}</h2><button onClick={onClose} aria-label={t.cancel}>×</button></header><div className="specialist-grid">{specialistTypes.map(type => <button key={type} onClick={() => set("type", type)}>{typeLabel(t, type, st.productApplication)}</button>)}</div></section></div>;
+    return <div className="modal-backdrop" onMouseDown={event => { if (event.target === event.currentTarget) onClose(); }}>
+      <section ref={dialogRef} tabIndex={-1} role="dialog" aria-modal="true" aria-labelledby="operation-dialog-title" className="holding-dialog field-dialog">
         <header>
-          <h2>{values.type === "crop_installation" ? t.installCrop : t.add}</h2>
+          <h2 id="operation-dialog-title">{values.type === "crop_installation" ? t.installCrop : typeLabel(t, values.type as OperationDto["type"], st.productApplication)}</h2>
           <button onClick={onClose} aria-label={t.cancel}>
             ×
           </button>
@@ -259,8 +334,8 @@ function OperationDialog({ data, t, initialContext, onClose, onSaved }: {
           </div>
           <label>
             <span>{t.type}</span>
-            <select value={values.type} onChange={event => { const type = event.target.value; setValues(current => ({ ...current, type, ...(type === "crop_installation" ? { destinations: [{ ...current.destinations[0], plantationId: "", percentage: "100" }] } : {}),...(type==="spraying"?{sprayingForm:{...current.sprayingForm,method:"spray" as const}}:type==="product_application"&&current.sprayingForm.method==="spray"?{sprayingForm:{...current.sprayingForm,method:"granules" as const}}:{}) })); }}>
-              {(["soil_preparation", "crop_installation", "cultural_work", "fertilization", "spraying", "product_application", "irrigation", "fertigation", "monitoring", "harvest", "other"] as OperationDto["type"][]).map(type => <option key={type} value={type}>
+            <select value={values.type} onChange={event => { const type = event.target.value; setValues(current => ({ ...current, type, ...(type === "crop_installation" ? { destinations: [{ ...current.destinations[0], plantationId: "", percentage: "100" }] } : {}), ...(type === "spraying" ? { sprayingForm: { ...current.sprayingForm, method: "spray" as const } } : type === "product_application" && current.sprayingForm.method === "spray" ? { sprayingForm: { ...current.sprayingForm, method: "granules" as const } } : {}) })); }}>
+              {specialistTypes.map(type => <option key={type} value={type}>
                   {typeLabel(t, type, st.productApplication)}
                 </option>)}
             </select>
@@ -279,6 +354,7 @@ function OperationDialog({ data, t, initialContext, onClose, onSaved }: {
                   </label>)}
               </div>
               <Input label={t.customAction} required={false} value={values.customSoilAction} onChange={value => set("customSoilAction", value)}/>
+              <SoilAnalysisFields data={data} destinations={values.destinations} operationDate={values.performedAt.slice(0, 10)} selected={values.soilAnalysisResultIdsByField} setSelected={next => set("soilAnalysisResultIdsByField", next)}/>
               <div className="soil-detail-grid">
                 <Input label={t.depthCm} required={false} type="number" value={values.depthCm} onChange={value => set("depthCm", value)}/>
                 <Input label={t.passes} required={false} type="number" value={values.passes} onChange={value => set("passes", value)}/>
@@ -309,11 +385,11 @@ function OperationDialog({ data, t, initialContext, onClose, onSaved }: {
               <span>{t.fertilizationDetails}</span>
             </label>}
           {(values.type === "fertilization" || values.type === "soil_preparation" && values.includeFertilization) && <FertilizationFields data={data} t={t} value={values.fertilizationForm} set={setFertilization} destinations={values.destinations} totalArea={values.destinations.reduce((sum, item) => sum + Number(item.areaHa || 0), 0)}/>}
-          {(["spraying","product_application"] as string[]).includes(values.type) && <SprayingFields t={st} value={values.sprayingForm} set={setSpraying} workers={data.workers} isSpraying={values.type==="spraying"} destinations={values.destinations.map(destination=>({key:`${destination.fieldId}:${destination.plantationId}`,label:data.plantations.find(item=>item.id===destination.plantationId)?.name||data.fields.find(item=>item.id===destination.fieldId)?.name||destination.fieldId}))}/>}
+          {(["spraying", "product_application"] as string[]).includes(values.type) && <SprayingFields t={st} value={values.sprayingForm} set={setSpraying} workers={data.workers} validApplicatorIds={validApplicatorIds} isSpraying={values.type === "spraying"} destinations={values.destinations.map(destination => ({ key: `${destination.fieldId}:${destination.plantationId}`, label: data.plantations.find(item => item.id === destination.plantationId)?.name || data.fields.find(item => item.id === destination.fieldId)?.name || destination.fieldId }))}/>}
           <Input label={t.duration} required={false} type="number" value={values.durationMinutes} onChange={value => set("durationMinutes", value)}/>
-          <ResourceChecks title={t.workers} rows={data.workers.filter(item => item.status === "active")} selected={values.workerIds} toggle={id => toggle("workerIds", id)}/>
-          <ResourceChecks title={t.equipment} rows={data.equipment.filter(item => item.status === "active")} selected={values.equipmentIds} toggle={id => toggle("equipmentIds", id)}/>
-          <ResourceChecks title={t.contractors} rows={data.contractors.filter(item => item.status === "active")} selected={values.contractorIds} toggle={id => toggle("contractorIds", id)}/>
+          <ResourceAssignmentFields title={t.workers} rows={data.workers.filter(item => item.status === "active")} destinations={values.destinations} assignments={values.workerAssignments} setAssignments={next => setAssignments("workerAssignments", next)} data={data}/>
+          <ResourceAssignmentFields title={t.equipment} rows={data.equipment.filter(item => item.status === "active")} destinations={values.destinations} assignments={values.equipmentAssignments} setAssignments={next => setAssignments("equipmentAssignments", next)} data={data}/>
+          <ResourceAssignmentFields title={t.contractors} rows={data.contractors.filter(item => item.status === "active")} destinations={values.destinations} assignments={values.contractorAssignments} setAssignments={next => setAssignments("contractorAssignments", next)} data={data}/>
           <label>
             <span>{t.notes}</span>
             <textarea value={values.notes} onChange={event => set("notes", event.target.value)} maxLength={2000}/>
@@ -323,7 +399,7 @@ function OperationDialog({ data, t, initialContext, onClose, onSaved }: {
             <button type="button" className="subtle-button" onClick={onClose}>
               {t.cancel}
             </button>
-            <button className="primary-action" disabled={saving || values.type === "soil_preparation" && !values.soilActions.length && !values.customSoilAction.trim() || values.type === "crop_installation" && (!values.installation.plantationName.trim() || !values.installation.cultureId || !values.installation.densityPlantsHa) || values.type === "cultural_work" && !values.cultural.actions.length && !values.cultural.customAction.trim() || (values.type === "fertilization" || values.type === "soil_preparation" && values.includeFertilization) && values.fertilizationForm.products.some(product => !product.name.trim() || !product.dosePerHa || !product.totalQuantity)}>
+            <button className="primary-action" disabled={saving || invalidResourceTotals || needsApplicator && !validApplicatorIds.has(values.sprayingForm.legalApplicatorWorkerId) || values.type === "soil_preparation" && !values.soilActions.length && !values.customSoilAction.trim() || values.type === "crop_installation" && (!values.installation.plantationName.trim() || !values.installation.cultureId || !values.installation.densityPlantsHa) || values.type === "cultural_work" && !values.cultural.actions.length && !values.cultural.customAction.trim() || (values.type === "fertilization" || values.type === "soil_preparation" && values.includeFertilization) && values.fertilizationForm.products.some(product => !product.name.trim() || !product.dosePerHa || !product.totalQuantity)}>
               {t.save}
             </button>
           </footer>
@@ -339,22 +415,32 @@ function FertilizationFields({ data, t, value, set, destinations, totalArea }: {
     destinations: DestinationForm[];
     totalArea: number;
 }) {
-    const update = (index: number, key: keyof FertilizerProductForm, next: string | boolean) => set("products", value.products.map((product, itemIndex) => { if (itemIndex !== index)
-        return product; const changed = { ...product, [key]: next }; if (key === "dosePerHa" && typeof next === "string") {
-        changed.quantitySource = "dose_per_ha";
-        changed.totalQuantity = totalArea && next ? String(Number(next) * totalArea) : "";
-    } if (key === "totalQuantity" && typeof next === "string") {
-        changed.quantitySource = "total";
-        changed.dosePerHa = totalArea && next ? String(Number(next) / totalArea) : "";
-    } return changed; }));
+    const update = (index: number, key: keyof FertilizerProductForm, next: string | boolean) => set("products", value.products.map((product, itemIndex) => {
+        if (itemIndex !== index)
+            return product;
+        const changed = { ...product, [key]: next };
+        if (key === "dosePerHa" && typeof next === "string") {
+            changed.quantitySource = "dose_per_ha";
+            changed.totalQuantity = totalArea && next ? String(Number(next) * totalArea) : "";
+        }
+        if (key === "totalQuantity" && typeof next === "string") {
+            changed.quantitySource = "total";
+            changed.dosePerHa = totalArea && next ? String(Number(next) / totalArea) : "";
+        }
+        return changed;
+    }));
     const updateDestinationDose = (index: number, key: string, dose: string) => set("products", value.products.map((product, itemIndex) => itemIndex === index ? { ...product, destinationDoses: { ...product.destinationDoses, [key]: dose } } : product));
     return <fieldset className="fertilization-fields">
       <legend>{t.fertilizationDetails}</legend>
       <div className="fertilization-grid">
         <label>
           <span>{t.applicationMode}</span>
-          <select value={value.mode} onChange={event => { const mode = event.target.value as FertilizationForm["mode"]; set("mode", mode); if (mode !== "other")
-        set("customMode", ""); }}>
+          <select value={value.mode} onChange={event => {
+            const mode = event.target.value as FertilizationForm["mode"];
+            set("mode", mode);
+            if (mode !== "other")
+                set("customMode", "");
+        }}>
             {(["base", "top_dressing", "foliar", "amendment", "organic_matter", "cover_crop_incorporation", "other"] as const).map(mode => <option key={mode} value={mode}>
                 {t[`fertilizationMode_${mode}`]}
               </option>)}
@@ -418,8 +504,8 @@ function CulturalWorkFields({ data, t, value, set }: {
     value: CulturalForm;
     set: <K extends keyof CulturalForm>(key: K, value: CulturalForm[K]) => void;
 }) {
-    const customActions = [...new Set(data.operations.flatMap(item => item.culturalWork?.actions || []).filter(action => !culturalWorkActionIds.includes(action as (typeof culturalWorkActionIds)[number])))].sort((a, b) => a.localeCompare(b));
-    const customMethods = [...new Set(data.operations.map(item => item.culturalWork?.customMethod).filter((item): item is string => Boolean(item)))];
+    const customActions = data.catalog.filter(item => item.kind === "cultural_work_action" && item.status === "active").map(item => item.label);
+    const customMethods = data.catalog.filter(item => item.kind === "cultural_work_method" && item.status === "active").map(item => item.label);
     const toggleAction = (id: string) => set("actions", value.actions.includes(id) ? value.actions.filter(item => item !== id) : [...value.actions, id]);
     const updateMaterial = (index: number, key: keyof CulturalMaterialForm, next: string) => set("materials", value.materials.map((item, itemIndex) => itemIndex === index ? { ...item, [key]: next } : item));
     const replanting = value.actions.includes("replanting");
@@ -439,8 +525,12 @@ function CulturalWorkFields({ data, t, value, set }: {
       <div className="cultural-detail-grid">
         <label>
           <span>{t.executionMethod}</span>
-          <select value={value.method} onChange={event => { const method = event.target.value as CulturalForm["method"]; set("method", method); if (method !== "other")
-        set("customMethod", ""); }}>
+          <select value={value.method} onChange={event => {
+            const method = event.target.value as CulturalForm["method"];
+            set("method", method);
+            if (method !== "other")
+                set("customMethod", "");
+        }}>
             <option value="manual">{t.manual}</option>
             <option value="mechanical">{t.mechanical}</option>
             <option value="thermal">{t.thermal}</option>
@@ -511,15 +601,17 @@ function CropInstallationFields({ data, t, value, set, toggleAction }: {
 }) {
     const compatibleVarieties = data.varieties.filter(item => item.cultureId === value.cultureId);
     const preparationOperations = data.operations.filter(item => item.type === "soil_preparation" && item.status === "performed");
-    const customMethods = [...new Set(data.operations.map(item => item.cropInstallation?.customMethod).filter((item): item is string => Boolean(item)))];
-    const toggleVariety = (id: string) => { if (value.varietyIds.includes(id)) {
-        set("varietyIds", value.varietyIds.filter(item => item !== id));
-        const densities = { ...value.varietyDensities };
-        delete densities[id];
-        set("varietyDensities", densities);
-    }
-    else
-        set("varietyIds", [...value.varietyIds, id]); };
+    const customMethods = data.catalog.filter(item => item.kind === "crop_installation_method" && item.status === "active").map(item => item.label);
+    const toggleVariety = (id: string) => {
+        if (value.varietyIds.includes(id)) {
+            set("varietyIds", value.varietyIds.filter(item => item !== id));
+            const densities = { ...value.varietyDensities };
+            delete densities[id];
+            set("varietyDensities", densities);
+        }
+        else
+            set("varietyIds", [...value.varietyIds, id]);
+    };
     const updateLot = (index: number, key: keyof MaterialLotForm, next: string) => set("materialLots", value.materialLots.map((lot, lotIndex) => lotIndex === index ? { ...lot, [key]: next } : lot));
     const addLot = () => set("materialLots", [...value.materialLots, { varietyId: "", lotNumber: "", quantity: "", unit: "kg", origin: "", supplier: "" }]);
     return <fieldset className="crop-installation-fields">
@@ -544,8 +636,12 @@ function CropInstallationFields({ data, t, value, set, toggleAction }: {
         </label>
         <label>
           <span>{t.installationMethod}</span>
-          <select value={value.method} onChange={event => { const method = event.target.value as InstallationForm["method"]; set("method", method); if (method !== "other")
-        set("customMethod", ""); }}>
+          <select value={value.method} onChange={event => {
+            const method = event.target.value as InstallationForm["method"];
+            set("method", method);
+            if (method !== "other")
+                set("customMethod", "");
+        }}>
             <option value="sowing">{t.sowing}</option>
             <option value="transplanting">{t.transplanting}</option>
             <option value="planting">{t.planting}</option>
@@ -624,6 +720,33 @@ function ResourceChecks({ title, rows, selected, toggle }: {
         </label>)}
     </fieldset> : null;
 }
+function SoilAnalysisFields({ data, destinations, operationDate, selected, setSelected }: { data: Data; destinations: DestinationForm[]; operationDate: string; selected: Record<string, string>; setSelected: (next: Record<string, string>) => void }) {
+    const fieldIds = [...new Set(destinations.map(row => row.fieldId).filter(Boolean))];
+    const candidates = (fieldId: string) => data.laboratoryResults.filter(result => { const sample = data.soilSamples.find(row => row.id === result.sampleId); return sample?.type === "soil" && sample.fieldIds.includes(fieldId) && sample.sampledOn <= operationDate && result.resultedOn <= operationDate && (!result.validUntil || result.validUntil >= operationDate); }).sort((left, right) => right.resultedOn.localeCompare(left.resultedOn));
+    return <fieldset className="soil-analysis-fields"><legend>Análises do solo</legend>{fieldIds.map(fieldId => { const rows = candidates(fieldId), field = data.fields.find(row => row.id === fieldId); return <label key={fieldId}><span>{field?.name || fieldId}</span><select value={selected[fieldId] || ""} onChange={event => setSelected({ ...selected, [fieldId]: event.target.value })}><option value="">{rows[0] ? `Automática · ${rows[0].laboratory} · ${rows[0].bulletinNumber}` : "Sem análise válida"}</option>{rows.map(result => <option key={result.id} value={result.id}>{result.laboratory} · {result.bulletinNumber} · {result.resultedOn}{result.validUntil ? ` → ${result.validUntil}` : ""}</option>)}</select>{!rows.length && <small className="operation-warning" role="status">missing_valid_analysis</small>}</label>; })}</fieldset>;
+}
+function ResourceAssignmentFields({ title, rows, destinations, assignments, setAssignments, data }: { title: string; rows: Array<{ id: string; name: string }>; destinations: DestinationForm[]; assignments: ResourceAssignmentForm[]; setAssignments: (next: ResourceAssignmentForm[]) => void; data: Data }) {
+    const selected = new Map(assignments.map(row => [row.resourceId, row]));
+    const toggle = (resourceId: string) => { const existing = selected.get(resourceId); setAssignments(existing ? assignments.filter(row => row.resourceId !== resourceId) : [...assignments, { resourceId, totalHours: 1, destinationOverrides: [], totalHoursText: "1", override: false, destinationHours: {} }]); };
+    const update = (resourceId: string, patch: Partial<ResourceAssignmentForm>) => setAssignments(assignments.map(row => row.resourceId === resourceId ? { ...row, ...patch } : row));
+    return <fieldset className="resource-assignments"><legend>{title}</legend>{rows.map(item => { const assignment = selected.get(item.id); const sum = assignment ? Object.values(assignment.destinationHours).reduce((total, value) => total + Number(value || 0), 0) : 0; return <div key={item.id} className={assignment ? "selected" : ""}><label className="resource-select"><input type="checkbox" checked={Boolean(assignment)} onChange={() => toggle(item.id)}/><span>{item.name}</span></label>{assignment && <><label><span>Horas totais</span><input type="number" min="0.0001" step="0.0001" required value={assignment.totalHoursText} onChange={event => update(item.id, { totalHoursText: event.target.value, totalHours: Number(event.target.value) })}/></label>{destinations.length > 1 && <label className="resource-select"><input type="checkbox" checked={assignment.override} onChange={event => update(item.id, { override: event.target.checked, destinationHours: event.target.checked ? Object.fromEntries(destinations.map(destination => [`${destination.fieldId}:${destination.plantationId}`, ""])) : {} })}/><span>Distribuição manual integral</span></label>}{assignment.override && <fieldset className="resource-overrides"><legend>{sum.toLocaleString()} / {Number(assignment.totalHoursText || 0).toLocaleString()} h</legend>{destinations.map(destination => { const key = `${destination.fieldId}:${destination.plantationId}`, label = data.plantations.find(row => row.id === destination.plantationId)?.name || data.fields.find(row => row.id === destination.fieldId)?.name || key; return <label key={key}><span>{label}</span><input type="number" min="0" step="0.0001" required value={assignment.destinationHours[key] || ""} onChange={event => update(item.id, { destinationHours: { ...assignment.destinationHours, [key]: event.target.value } })}/></label>; })}</fieldset>}</>}</div>; })}</fieldset>;
+}
+function ResourceAudit({ operation, data, locale }: { operation: OperationDto; data: Data; locale: string }) {
+    const groups = [["Trabalhadores", operation.resourceAllocations?.workers || [], data.workers], ["Equipamento", operation.resourceAllocations?.equipment || [], data.equipment], ["Contratantes", operation.resourceAllocations?.contractors || [], data.contractors]] as const;
+    return <div className="resource-audit">{groups.flatMap(([label, rows, resources]) => rows.map(row => <p key={`${label}:${row.resourceId}`}><b>{label} · {resources.find(item => item.id === row.resourceId)?.name || row.resourceId}</b><span>{row.totalHours.toLocaleString(locale)} h</span><small>{row.allocations.map(allocation => `${data.fields.find(field => field.id === allocation.fieldId)?.name || allocation.fieldId}: ${allocation.hours.toLocaleString(locale)} h`).join(" · ")}</small></p>))}</div>;
+}
+function OperationCatalogDialog({ items, canWrite, onClose, onChanged }: { items: OperationCatalogItemDto[]; canWrite: boolean; onClose: () => void; onChanged: () => Promise<void> }) {
+    const [kind, setKind] = useState<OperationCatalogItemDto["kind"]>("soil_action"), [label, setLabel] = useState(""), [saving, setSaving] = useState(false), [error, setError] = useState("");
+    useEffect(() => { document.querySelector<HTMLElement>(".catalog-dialog select")?.focus(); const close = (event: KeyboardEvent) => { if (event.key === "Escape") onClose(); }; document.addEventListener("keydown", close); return () => document.removeEventListener("keydown", close); }, [onClose]);
+    async function mutate(url: string, method: "POST" | "PATCH", body: unknown) { setSaving(true); setError(""); try { const response = await fetch(url, { method, credentials: "include", headers: { "content-type": "application/json" }, body: JSON.stringify(body) }); if (!response.ok) throw new Error((await response.json().catch(() => null))?.code || "REQUEST_FAILED"); await onChanged(); setLabel(""); } catch (caught) { setError(caught instanceof Error ? caught.message : "REQUEST_FAILED"); } finally { setSaving(false); } }
+    return <div className="modal-backdrop" onMouseDown={event => { if (event.target === event.currentTarget) onClose(); }}><section role="dialog" aria-modal="true" aria-labelledby="catalog-title" className="holding-dialog catalog-dialog"><header><h2 id="catalog-title">Catálogo de operações</h2><button onClick={onClose} aria-label="Fechar">×</button></header>{canWrite && <form onSubmit={event => { event.preventDefault(); void mutate("/api/farm/operation-catalog", "POST", { kind, label }); }}><label><span>Tipo</span><select value={kind} onChange={event => setKind(event.target.value as OperationCatalogItemDto["kind"])}><option value="soil_action">Preparação do solo</option><option value="crop_installation_method">Instalação de cultura</option><option value="cultural_work_action">Trabalho cultural</option><option value="cultural_work_method">Método cultural</option></select></label><label><span>Designação</span><input required minLength={2} maxLength={120} value={label} onChange={event => setLabel(event.target.value)}/></label><button className="primary-action" disabled={saving}>Criar opção</button></form>}<div className="catalog-list">{items.map(item => <article key={item.id}><div><b>{item.label}</b><small>{item.kind}</small></div><em className={item.status}>{item.status}</em><button disabled={!canWrite || saving} onClick={() => void mutate(`/api/farm/operation-catalog/${item.id}`, "PATCH", { active: item.status !== "active" })}>{item.status === "active" ? "Desativar" : "Reativar"}</button></article>)}</div>{!items.length && <p>Nenhuma opção personalizada.</p>}{error && <p className="form-error" role="alert">{error}</p>}</section></div>;
+}
+function VoidOperationDialog({ operation, onClose, onSaved }: { operation: OperationDto; onClose: () => void; onSaved: () => Promise<void> }) {
+    const [reason, setReason] = useState(""), [saving, setSaving] = useState(false), [error, setError] = useState("");
+    useEffect(() => { const close = (event: KeyboardEvent) => { if (event.key === "Escape") onClose(); }; document.addEventListener("keydown", close); return () => document.removeEventListener("keydown", close); }, [onClose]);
+    async function submit(event: FormEvent) { event.preventDefault(); setSaving(true); setError(""); try { const response = await fetch(`/api/farm/operations/${operation.id}/void`, { method: "POST", credentials: "include", headers: { "content-type": "application/json" }, body: JSON.stringify({ reason }) }); if (!response.ok) throw new Error((await response.json().catch(() => null))?.code || "REQUEST_FAILED"); await onSaved(); } catch (caught) { setError(caught instanceof Error ? caught.message : "REQUEST_FAILED"); setSaving(false); } }
+    return <div className="modal-backdrop" onMouseDown={event => { if (event.target === event.currentTarget) onClose(); }}><section role="alertdialog" aria-modal="true" aria-labelledby="void-title" className="holding-dialog"><header><h2 id="void-title">Anular {operation.code}</h2><button onClick={onClose} aria-label="Fechar">×</button></header><form className="holding-form" onSubmit={submit}><p>Esta ação preserva a operação no histórico e reverte as projeções associadas.</p><label><span>Motivo</span><textarea autoFocus required minLength={2} maxLength={500} value={reason} onChange={event => setReason(event.target.value)}/></label>{error && <p className="form-error" role="alert">{error}</p>}<footer><button type="button" onClick={onClose}>Cancelar</button><button className="primary-action" disabled={saving || reason.trim().length < 2}>Confirmar anulação</button></footer></form></section></div>;
+}
 function Input({ label, value, onChange, type = "text", required = true }: {
     label: string;
     value: string;
@@ -645,7 +768,7 @@ function FertilizationSummary({ data, locale, t }: {
     const [plantationId, setPlantationId] = useState("");
     const [from, setFrom] = useState("");
     const [to, setTo] = useState("");
-    const fertilizations = useMemo(() => data.operations.filter(operation => operation.fertilization && (!from || operation.performedAt.slice(0, 10) >= from) && (!to || operation.performedAt.slice(0, 10) <= to) && (!fieldId || operation.destinations.some(destination => destination.fieldId === fieldId)) && (!plantationId || operation.destinations.some(destination => destination.plantationId === plantationId))), [data.operations, fieldId, plantationId, from, to]);
+    const fertilizations = useMemo(() => data.operations.filter(operation => operation.status === "performed" && operation.fertilization && (!from || operation.performedAt.slice(0, 10) >= from) && (!to || operation.performedAt.slice(0, 10) <= to) && (!fieldId || operation.destinations.some(destination => destination.fieldId === fieldId)) && (!plantationId || operation.destinations.some(destination => destination.plantationId === plantationId))), [data.operations, fieldId, plantationId, from, to]);
     const totals = useMemo(() => {
         const products = new Map<string, {
             name: string;

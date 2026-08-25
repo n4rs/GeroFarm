@@ -100,6 +100,7 @@ export function requestAccessOptions(method: string, path: string, query: Record
   if (path.startsWith("/inventory")) return { permission: "inventory.manage", feature: "inventory" as const, write };
   if (path.startsWith("/costs")) return { permission: write ? "costs.manage" : "finance.view", feature: "costs" as const, write };
   if (path === "/field-notebooks/demo") return { permission: "field_notebook.view" };
+  if (path.endsWith("/xlsx") || path.endsWith("/pdf")) return { permission: "field_notebook.export", export: true, write: false };
   if (path.startsWith("/field-notebooks")) return { permission: write ? "field_notebook.export" : "field_notebook.view", write: write && !path.endsWith("/current") && !releasesCapacity };
   if (path.startsWith("/harvests")) return { permission: write ? "harvests.manage" : "harvests.view", write };
   if (path.startsWith("/monitorings") || path.startsWith("/laboratory") || path === "/agronomy") return { permission: write ? "agronomy.manage" : "farm.view", write };
