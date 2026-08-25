@@ -19,10 +19,11 @@ Every completed module includes the database model and tenant isolation, server 
 15. [Complete] Local agronomic weather. GeroFarm consumes only the provider-independent Core Weather v2 plantation base-series endpoint, persists normalized hourly/daily samples idempotently, and owns versioned, auditable ET₀, energy, PAR/DLI, degree-day, chill and leaf-wetness calculations.
 
 16. [Complete] Historical station periods, sample coverage/gaps, measured/estimated and observed/forecast classifications, versioned profiles and reproducible result hashes are local. GeroCore remains only the credential-protected provider gateway, cache, technical provenance and base-weather normalizer.
-17. [External only] Production migration/release validation, QA access, periodic jobs, future organisation-level unit/rule contracts and third-party integrations. These are isolated in `docs/deployment/external-pending.md`.
+17. [Complete] One selected Core organization maps to one agricultural holding. The authenticated overview resumes the first holding setup from persisted API state, the application prevents a second holding, and migration `0019_single_holding.sql` enforces the invariant transactionally.
+18. [External only] Controlled production migration, authorized QA context and the periodic irrigation finalizer. These are isolated in `docs/deployment/external-pending.md`.
 
 ## Autonomous completion audit
 
-As of 2026-08-24, the monitoring correction is complete and the standalone domain modules contain no placeholder application routes. The global autonomous sequence is not complete: step 16 remains mandatory to align weather history and agronomic calculations with the approved Core/Farm boundary. Configurações contains no local projection of identity, organisation, permissions, subscription or entitlements.
+As of 2026-08-25, the autonomous sequence is complete. The obsolete `/mockup` demonstrator redirects to the authenticated `/app` workspace; no published mockup flow, placeholder module or inert search/notification action remains. Configurações projects the authoritative Core identity, selected organization, permissions, subscription, entitlements and preferred locale without copying those records locally. GeroFarm persists only provider-independent Core Weather v2 base series and calculates every agronomic indicator locally with versioned parameters, inputs, provenance, coverage, gaps and reproducible hashes.
 
 GeroFarm remains a separate product running alongside the unchanged legacy GeroCampo application.

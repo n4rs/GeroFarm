@@ -45,6 +45,7 @@ export const farmHoldings = farmSchema.table("farm_holdings", {
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
 }, (table) => [
+  uniqueIndex("farm_holdings_organization_unique").on(table.organizationId),
   uniqueIndex("farm_holdings_organization_code_unique").on(table.organizationId, table.code),
   index("farm_holdings_organization_status_idx").on(table.organizationId, table.status),
   check("farm_holdings_code_format", sql`${table.code} ~ '^[A-Z0-9]{2,12}$'`),

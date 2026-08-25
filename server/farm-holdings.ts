@@ -32,7 +32,8 @@ export function createPostgresFarmHoldingRepository(db: FarmDatabase): FarmHoldi
       return withOrganizationTransaction(db, context.organization.id, async (tx) => {
         await tx.insert(farmOrganizations).values(organizationProjection(context)).onConflictDoUpdate({ target: farmOrganizations.organizationId, set: organizationProjection(context) });
         const id = randomUUID();
-        const [created] = await tx.insert(farmHoldings).values({ id, organizationId: context.organization.id, ...input }).returning();
+        const [created] = await tx.insert(farmHoldings).values({ id, organizationId: context.organization.id, ...input }).onConflictDoNothing({ target: farmHoldings.organizationId }).returning();
+        if (!created) throw Object.assign(new Error("An organization can contain only one agricultural holding"), { status: 409, code: "FARM_HOLDING_ALREADY_EXISTS" });
         await tx.insert(farmAuditEvents).values({ id: randomUUID(), organizationId: context.organization.id, actorUserId: context.user.id, action: "farm_holding.created", entityType: "farm_holding", entityId: id, metadata: { code: created.code } });
         return dto(created);
       });

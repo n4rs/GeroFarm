@@ -7,7 +7,6 @@ import CookieConsentManager from "./CookieConsentManager";
 import { legalDocumentKind } from "./legal-routes";
 
 const LegalDocumentPage = lazy(() => import("./LegalDocumentPage"));
-const MockupWorkspace = lazy(() => import("./mockup/MockupWorkspace"));
 const AppWorkspace = lazy(() => import("./app/AppWorkspace"));
 const AgronomyModule = lazy(() => import("./app/agronomy/AgronomyModule"));
 
@@ -28,12 +27,17 @@ export default function App() {
   const path = window.location.pathname;
   const handoff = reservedApplicationHandoff(window.location.href);
   if (handoff) return <CoreHandoff destination={handoff} />;
-  if (path === "/mockup" || path.startsWith("/mockup/")) return <Suspense fallback={<Loading/>}><MockupWorkspace /></Suspense>;
+  if (path === "/mockup" || path.startsWith("/mockup/")) return <ApplicationRedirect />;
   if ((import.meta as ImportMeta & { env: { DEV: boolean } }).env.DEV && path.startsWith("/__visual-review/agronomy/")) { const view=path.endsWith("/harvests")?"harvests":path.endsWith("/notebook")?"notebook":"monitoring";return <I18nProvider><main className="farm-app"><div className="module-stage"><Suspense fallback={<Loading/>}><AgronomyModule view={view}/></Suspense></div></main></I18nProvider>; }
   if (path === "/login") return <AccountRedirect destination="loginUrl" />;
   if (path === "/register") return <AccountRedirect destination="registerUrl" />;
   if (path === "/app" || path.startsWith("/app/")) return <AuthProvider><Workspace /></AuthProvider>;
   return <PublicPage legalKind={legalDocumentKind(path)} />;
+}
+
+function ApplicationRedirect() {
+  useEffect(() => { window.location.replace("/app"); }, []);
+  return <Loading />;
 }
 
 function CoreHandoff({ destination }: { destination: string }) {
