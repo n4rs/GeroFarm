@@ -9,6 +9,13 @@ import { operationCopies } from "../client/src/app/operations/operation-locales.
 import { economicCopies } from "../client/src/app/economics/economic-locales";
 import { settingsCopies } from "../client/src/app/settings/settings-locales";
 import { monitoringWeatherCopies } from "../client/src/app/agronomy/monitoring-weather-locales";
+import { operationExtensionCopies } from "../client/src/app/operations/operation-extension-locales";
+import { entitlementCopies } from "../client/src/app/entitlements/entitlement-locales";
+import { agronomyCopies } from "../client/src/app/agronomy/agronomy-locales";
+import { irrigationCopies } from "../client/src/app/operations/irrigation-locales";
+import { planCopies } from "../client/src/app/plans/plan-locales.generated";
+import { sprayingCopies } from "../client/src/app/operations/spraying-locales.generated";
+import { weatherCopies } from "../client/src/app/weather/weather-locales.generated";
 
 function placeholders(value: string) { return [...value.matchAll(/\{(\w+)\}/g)].map((match) => match[1]).sort(); }
 
@@ -29,7 +36,7 @@ for (const locale of supportedLocales) {
   }
 }
 
-const moduleCatalogues = { farmHoldings: farmHoldingCopies, fields: fieldCopies, crops: cropCopies, lifecycle: lifecycleCopies, resources: resourceCopies, operations: operationCopies, economics: economicCopies, settings: settingsCopies, monitoringWeather: monitoringWeatherCopies };
+const moduleCatalogues = { farmHoldings: farmHoldingCopies, fields: fieldCopies, crops: cropCopies, lifecycle: lifecycleCopies, resources: resourceCopies, operations: operationCopies, operationExtensions: operationExtensionCopies, economics: economicCopies, settings: settingsCopies, monitoringWeather: monitoringWeatherCopies, entitlements: entitlementCopies, agronomy: agronomyCopies, irrigation: irrigationCopies, plans: planCopies, spraying: sprayingCopies, weather: weatherCopies };
 for (const [catalogueName, catalogue] of Object.entries(moduleCatalogues)) {
   const messages = catalogue as unknown as Record<string, Record<string, string>>;
   const keys = Object.keys(messages.en).sort();
@@ -37,8 +44,11 @@ for (const [catalogueName, catalogue] of Object.entries(moduleCatalogues)) {
     if (JSON.stringify(Object.keys(messages[locale]).sort()) !== JSON.stringify(keys)) findings.push(`${catalogueName}.${locale}: key mismatch`);
     for (const key of keys) {
       const value = messages[locale][key];
-      if (!value.trim()) findings.push(`${catalogueName}.${locale}.${key}: blank value`);
-      if (locale !== "en" && value === messages.en[key] && value.length >= 18) findings.push(`${catalogueName}.${locale}.${key}: untranslated English sentence`);
+      if (typeof value === "string") {
+        if (!value.trim()) findings.push(`${catalogueName}.${locale}.${key}: blank value`);
+        if (JSON.stringify(placeholders(value)) !== JSON.stringify(placeholders(messages.en[key]))) findings.push(`${catalogueName}.${locale}.${key}: placeholder mismatch`);
+        if (locale !== "en" && value === messages.en[key] && value.length >= 18) findings.push(`${catalogueName}.${locale}.${key}: untranslated English sentence`);
+      }
     }
   }
 }

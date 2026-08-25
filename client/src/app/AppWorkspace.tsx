@@ -35,7 +35,7 @@ function routeModule(pathname = window.location.pathname): ModuleId {
   return candidate && validModules.has(candidate) ? candidate : "overview";
 }
 
-function moduleNavigation(copy: HomepageCopy, common: ReturnType<typeof commonCopy>, privacyLabel = "Privacy by Design", irrigationLabel = "Irrigation", monitoringLabel="Monitoring", harvestLabel?:string, notebookLabel?:string): NavigationItem[] {
+function moduleNavigation(copy: HomepageCopy, common: ReturnType<typeof commonCopy>, privacyLabel: string, irrigationLabel: string, monitoringLabel:string, harvestLabel:string, notebookLabel:string): NavigationItem[] {
   return [
     { id: "overview", label: common.overview, short: "01" },
     { id: "farm", label: copy.platform.cards[0].title, short: "02" },
@@ -45,8 +45,8 @@ function moduleNavigation(copy: HomepageCopy, common: ReturnType<typeof commonCo
     { id: "irrigation", label: irrigationLabel, short: "06" },
     { id: "plans", label: copy.nav.plans, short: "06" },
     { id: "weather", label: copy.nav.weather, short: "06" },
-    { id: "harvests", label: harvestLabel||copy.platform.cards[5].title, short: "07" },
-    { id: "notebook", label: notebookLabel||copy.platform.cards[7].title, short: "08" },
+    { id: "harvests", label: harvestLabel, short: "07" },
+    { id: "notebook", label: notebookLabel, short: "08" },
     { id: "resources", label: copy.platform.cards[6].title, short: "09", group: copy.modules.kicker },
     { id: "inventory", label: copy.modules.inventory, short: "10" },
     { id: "costs", label: copy.modules.costs, short: "11" },

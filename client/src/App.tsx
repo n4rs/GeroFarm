@@ -2,7 +2,8 @@ import { lazy, Suspense, useEffect } from "react";
 import { AuthProvider, redirectToAccount, useAuth } from "./auth";
 import { reservedApplicationHandoff } from "./core-navigation";
 import MarketingHome from "./MarketingHome";
-import { I18nProvider } from "./i18n";
+import { detectLocale, I18nProvider } from "./i18n";
+import { workspaceStateCopies } from "./app/workspace-locales";
 import CookieConsentManager from "./CookieConsentManager";
 import { legalDocumentKind } from "./legal-routes";
 
@@ -16,7 +17,7 @@ function AccountRedirect({ destination }: { destination: "loginUrl" | "registerU
 }
 
 function Loading() {
-  return <main className="state"><div className="spinner" aria-label="A carregar" /></main>;
+  return <main className="state"><div className="spinner" aria-label={workspaceStateCopies[detectLocale()].loading} /></main>;
 }
 
 function PublicPage({ legalKind }: { legalKind: ReturnType<typeof legalDocumentKind> }) { return <I18nProvider><>{legalKind ? <Suspense fallback={<Loading/>}><LegalDocumentPage kind={legalKind}/></Suspense> : <MarketingHome/>}<CookieConsentManager/></></I18nProvider>; }
