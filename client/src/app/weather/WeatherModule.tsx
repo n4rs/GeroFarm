@@ -20,6 +20,7 @@ import { useAuth } from "../../auth";
 import { AccessibleDialog, DialogError } from "../../components/AccessibleDialog";
 import { useI18n } from "../../i18n";
 import { weatherCopies, type WeatherCopy } from "./weather-locales.generated";
+import WeatherStationMap from "./WeatherStationMap";
 import "./weather.css";
 
 type Lifecycle = { plantations: PlantationDto[]; periods: CropPeriodDto[] };
@@ -273,6 +274,7 @@ export default function WeatherModule() {
         <StationDialog
           kind={dialog}
           station={selected}
+          fields={fields}
           t={t}
           onClose={() => setDialog(null)}
           onSaved={async () => {
@@ -1194,12 +1196,14 @@ function PlantationWeather({
 function StationDialog({
   kind,
   station,
+  fields,
   t,
   onClose,
   onSaved,
 }: {
   kind: "create" | "rename";
   station: WeatherVirtualStation | null;
+  fields: FieldDto[];
   t: WeatherCopy;
   onClose: () => void;
   onSaved: () => Promise<void>;
@@ -1207,6 +1211,10 @@ function StationDialog({
   const titleId = useId();
   const [saving, setSaving] = useState(false),
     [error, setError] = useState(false);
+  const [latitude, setLatitude] = useState(""), [longitude, setLongitude] = useState("");
+  const latitudeNumber = Number(latitude), longitudeNumber = Number(longitude);
+  const coordinates = latitude !== "" && longitude !== "" && Number.isFinite(latitudeNumber) && latitudeNumber >= -90 && latitudeNumber <= 90 && Number.isFinite(longitudeNumber) && longitudeNumber >= -180 && longitudeNumber <= 180 ? { latitude: latitudeNumber, longitude: longitudeNumber } : null;
+  const setCoordinates = (next: { latitude: number; longitude: number }) => { setLatitude(next.latitude.toFixed(6)); setLongitude(next.longitude.toFixed(6)); };
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (saving) return;
@@ -1224,8 +1232,8 @@ function StationDialog({
           method: "POST",
           body: JSON.stringify({
             name: form.get("name"),
-            latitude: Number(form.get("latitude")),
-            longitude: Number(form.get("longitude")),
+            latitude: Number(latitude),
+            longitude: Number(longitude),
             elevationM: form.get("elevation")
               ? Number(form.get("elevation"))
               : null,
@@ -1239,7 +1247,7 @@ function StationDialog({
     }
   }
   return (
-    <AccessibleDialog labelledBy={titleId} onClose={onClose} busy={saving}>
+    <AccessibleDialog labelledBy={titleId} onClose={onClose} busy={saving} className="station-dialog">
         <header>
           <h2 id={titleId}>{kind === "create" ? t.addStation : t.rename}</h2>
           <button type="button" data-dialog-close onClick={onClose} disabled={saving} aria-label={t.cancel}>
@@ -1258,6 +1266,10 @@ function StationDialog({
           </label>
           {kind === "create" && (
             <>
+              <fieldset className="station-map-fieldset">
+                <legend>{t.stations} · {t.latitude} / {t.longitude}</legend>
+                <WeatherStationMap fields={fields} coordinates={coordinates} onChange={setCoordinates} label={`${t.addStation}: ${t.latitude} / ${t.longitude}`} />
+              </fieldset>
               <label>
                 <span>{t.latitude}</span>
                 <input
@@ -1267,6 +1279,8 @@ function StationDialog({
                   min="-90"
                   max="90"
                   step="0.000001"
+                  value={latitude}
+                  onChange={(event) => setLatitude(event.target.value)}
                 />
               </label>
               <label>
@@ -1278,6 +1292,8 @@ function StationDialog({
                   min="-180"
                   max="180"
                   step="0.000001"
+                  value={longitude}
+                  onChange={(event) => setLongitude(event.target.value)}
                 />
               </label>
               <label>
