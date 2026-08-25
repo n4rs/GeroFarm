@@ -55,7 +55,7 @@ function commonCopy() {
 }
 
 export default function AppWorkspace() {
-  const { session, config, loading, error, selectOrganization, updateLocale, logout } = useAuth();
+  const { session, config, loading, error, retryBootstrap, selectOrganization, updateLocale, logout } = useAuth();
   const { locale, copy, setLocale, options } = useI18n();
   const common = workspaceCopies[locale];
   const stateCopy = workspaceStateCopies[locale];
@@ -70,8 +70,8 @@ export default function AppWorkspace() {
     return () => window.removeEventListener("popstate", onPopState);
   }, []);
 
-  if (loading) return <main className="state"><div className="spinner" aria-label={stateCopy.loading} /></main>;
-  if (error || !session) return <main className="state"><div className="card"><h1>{stateCopy.unavailable}</h1><p>{stateCopy.retry}</p><a className="button" href="/">{common.homepage}</a></div></main>;
+  if (loading) return <main className="state" role="status" aria-live="polite"><div className="bootstrap-state"><div className="spinner" aria-hidden="true"/><p>{stateCopy.loading}</p></div></main>;
+  if (error || !session) return <main className="state"><div className="card" role="alert"><h1>{stateCopy.unavailable}</h1><button className="button" type="button" onClick={retryBootstrap}>{stateCopy.retry}</button></div></main>;
   if (!session.access.access.allowed) return <main className="state"><div className="card"><h1>GeroFarm</h1><p>{stateCopy.denied}</p><a className="button" href="/#plans">{copy.nav.plans}</a></div></main>;
 
   const active = navigation.find((item) => item.id === module) || navigation[0];

@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
 import { applicationReturnTo, centralDestination, organizationHandoff } from "./core-navigation";
 import type { SupportedLocale } from "@shared/locales";
+import { bootstrapFetch, BootstrapRequestError } from "./auth-bootstrap";
 
 type OrganizationMembership = {
   organization: { id: string; name: string; slug: string; status: string };
@@ -35,6 +36,7 @@ type AuthState = {
   config: CoreConfig | null;
   loading: boolean;
   error: string | null;
+  retryBootstrap: () => void;
   selectOrganization: (organizationId: string) => Promise<void>;
   updateLocale: (preferredLocale: SupportedLocale) => Promise<void>;
   logout: () => Promise<void>;
@@ -42,18 +44,19 @@ type AuthState = {
 
 const AuthContext = createContext<AuthState | null>(null);
 
-async function loadConfig() {
-  const response = await fetch("/api/auth/config", { credentials: "include" });
+async function loadConfig(signal?: AbortSignal) {
+  const response = await bootstrapFetch("/api/auth/config", { credentials: "include", signal });
   if (!response.ok) throw new Error("A configuração de acesso não está disponível");
   return response.json() as Promise<CoreConfig>;
 }
 
-async function selectOrganizationRequest(organizationId: string) {
-  return fetch("/api/auth/select-organization", {
+async function selectOrganizationRequest(organizationId: string, signal?: AbortSignal) {
+  return bootstrapFetch("/api/auth/select-organization", {
     method: "POST",
     credentials: "include",
     headers: { "content-type": "application/json" },
     body: JSON.stringify({ organizationId }),
+    signal,
   });
 }
 
@@ -62,6 +65,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [config, setConfig] = useState<CoreConfig | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [bootstrapAttempt, setBootstrapAttempt] = useState(0);
+
+  const retryBootstrap = useCallback(() => {
+    setError(null);
+    setLoading(true);
+    setBootstrapAttempt((attempt) => attempt + 1);
+  }, []);
 
   const refresh = useCallback(async () => {
     const response = await fetch("/api/auth/me", { credentials: "include" });
@@ -83,22 +93,28 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [config]);
 
   useEffect(() => {
+    const controller = new AbortController();
+    let active = true;
     void (async () => {
       let redirecting = false;
       try {
-        const nextConfig = await loadConfig();
+        const nextConfig = await loadConfig(controller.signal);
+        if (!active) return;
         setConfig(nextConfig);
         const handoff = organizationHandoff(window.location.href);
         if (handoff.requested) {
-          const response = handoff.organizationId ? await selectOrganizationRequest(handoff.organizationId) : null;
+          const response = handoff.organizationId ? await selectOrganizationRequest(handoff.organizationId, controller.signal) : null;
           if (!response?.ok) {
-            redirecting = true;
-            window.location.replace(centralDestination(nextConfig.applicationSelectorUrl, handoff.cleanUrl) || nextConfig.applicationSelectorUrl);
-            return;
+            if ([400, 401, 403, 404].includes(response?.status ?? 400)) {
+              redirecting = true;
+              window.location.replace(centralDestination(nextConfig.applicationSelectorUrl, handoff.cleanUrl) || nextConfig.applicationSelectorUrl);
+              return;
+            }
+            throw new Error("Não foi possível preparar a organização no GeroFarm");
           }
           window.history.replaceState(window.history.state, "", handoff.cleanUrl);
         }
-        const response = await fetch("/api/auth/me", { credentials: "include" });
+        const response = await bootstrapFetch("/api/auth/me", { credentials: "include", signal: controller.signal });
         if (response.status === 401) {
           redirecting = true;
           const returnTo = applicationReturnTo(window.location.href) || `${window.location.origin}/app`;
@@ -113,14 +129,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
         const body = await response.json().catch(() => null) as (AccountSession & { message?: string }) | null;
         if (!response.ok || !body) throw new Error(body?.message || "Não foi possível validar o acesso ao GeroFarm");
-        setSession(body);
+        if (active) setSession(body);
       } catch (caught) {
-        setError(caught instanceof Error ? caught.message : "Não foi possível iniciar o GeroFarm");
+        if (active && !(caught instanceof BootstrapRequestError && caught.kind === "cancelled")) {
+          setError(caught instanceof Error ? caught.message : "Não foi possível iniciar o GeroFarm");
+        }
       } finally {
-        if (!redirecting) setLoading(false);
+        if (active && !redirecting) setLoading(false);
       }
     })();
-  }, []);
+    return () => { active = false; controller.abort(); };
+  }, [bootstrapAttempt]);
 
   const selectOrganization = useCallback(async (organizationId: string) => {
     setLoading(true);
@@ -149,7 +168,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     window.location.assign("/");
   }, []);
 
-  return <AuthContext.Provider value={{ session, config, loading, error, selectOrganization, updateLocale, logout }}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{ session, config, loading, error, retryBootstrap, selectOrganization, updateLocale, logout }}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth() {
