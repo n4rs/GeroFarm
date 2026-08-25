@@ -43,6 +43,14 @@ const api = <T,>(path: string, init?: RequestInit) =>
       ...init?.headers,
     },
   }).then(json<T>);
+const weatherSeries = <T,>(
+  path: string,
+  input: { from: string; to: string; campaignId?: string },
+  writeAllowed: boolean,
+): Promise<T | null> =>
+  writeAllowed
+    ? api<T>(path, { method: "POST", body: JSON.stringify(input) })
+    : api<T | null>(`${path}?${new URLSearchParams(input).toString()}`);
 const dateTime = (date: string) =>
   new Date(`${date}T12:00:00.000Z`).toISOString();
 const format = (
@@ -137,17 +145,16 @@ export default function WeatherModule() {
       }
       setFailed(false);
       try {
-        setReport(
-          await api<WeatherReport>(
-            `subjects/plantation/${plantationId}/conditions`,
-            { method: "POST", body: JSON.stringify({ from: at, to: at }) },
-          ),
-        );
+        setReport(await weatherSeries<WeatherReport>(
+          `subjects/plantation/${plantationId}/conditions`,
+          { from: at, to: at },
+          writeAllowed,
+        ));
       } catch {
         setFailed(true);
       }
     },
-    [],
+    [writeAllowed],
   );
   useEffect(() => {
     if (selectedPlantation) void loadPlantationConditions(selectedPlantation);
@@ -847,12 +854,11 @@ function PlantationWeather({
       return;
     setAccumulationFailed(false);
     try {
-      setAccumulation(
-        await api<AgronomicWeatherAccumulation>(
-          `subjects/plantation/${subject.id}/agronomic-series`,
-          { method: "POST", body: JSON.stringify({ from: effectiveStart, to: today(), ...(campaign ? { campaignId: campaign.id } : {}) }) },
-        ),
-      );
+      setAccumulation(await weatherSeries<AgronomicWeatherAccumulation>(
+        `subjects/plantation/${subject.id}/agronomic-series`,
+        { from: effectiveStart, to: today(), ...(campaign ? { campaignId: campaign.id } : {}) },
+        writeAllowed,
+      ));
       if (start.basis === "missing_vegetative_start") setHideWarning(false);
     } catch {
       setAccumulationFailed(true);

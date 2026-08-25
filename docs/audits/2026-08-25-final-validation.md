@@ -8,7 +8,9 @@ Branch local: `codex/final-validation-2026-08-25`
 
 Base confirmada: `origin/main` = `3cf8ad8022f12f316e88e5207dc59c4fa4cb7988`
 
-Commit de correções: `fc66816` (`fix: close final validation gaps`)
+Commit inicial de correções: `fc66816` (`fix: close final validation gaps`)
+
+Correção arquitetural read-only: incluída no commit corretivo separado que contém esta atualização.
 
 ## Âmbito e método
 
@@ -20,7 +22,7 @@ Não foram consultados nem alterados o Gero Core ou o GeroCampo. Não se usaram 
 
 Foram confirmados e corrigidos três grupos de defeitos:
 
-1. **Alto — mutações meteorológicas expostas por GET.** Os endpoints de condições e série agronómica podiam sincronizar/persistir dados durante um `GET`, sem o gate de origem aplicável a mutações. Passaram para `POST`, com corpo estritamente validado, `assertSameOrigin`, cobertura da política de idempotência e testes que garantem `404` nas variantes `GET`.
+1. **Alto — separação incompleta entre leitura e escrita meteorológica.** Os endpoints originais podiam sincronizar/persistir durante um `GET`. A primeira correção moveu a sincronização para `POST`, mas manteve por engano `context(req)` (`farm.view`, `write=false`), permitindo persistência a utilizadores read-only. A correção final separa os contratos: `POST` usa `context(req, true)`, same-origin e idempotência; `GET` lê exclusivamente séries já persistidas, calcula a resposta apenas em memória e nunca chama Core, sincronização, `persistSeries` ou `saveResult`. Sem dados persistidos responde explicitamente `{ data: null, state: "not_persisted" }`.
 2. **Médio — formatação visível desligada da língua escolhida.** Havia datas ISO cruas, datas no locale implícito do browser e números/moeda sem o locale selecionado em ciclos, operações, rega, planos, recursos, inventário/custos, privacidade e meteorologia. Foi introduzida formatação explícita e segura para datas sem desvio de dia, propagado o locale e adicionada regressão contra chamadas implícitas.
 3. **Baixo — numeração repetida na navegação.** Rega, Planos e Meteorologia mostravam todos `06`, deslocando os módulos seguintes. A sequência é agora única de `01` a `15`, com teste e confirmação visual.
 
@@ -30,15 +32,15 @@ Depois das correções, não ficou qualquer defeito residual confirmado dentro d
 
 | Requisito | Evidência independente | Estado |
 |---|---|---|
-| Base e isolamento de âmbito | `HEAD^` e `origin/main` iguais ao SHA requerido antes das correções; diff limitado ao GeroFarm | Conforme |
+| Base e isolamento de âmbito | `HEAD` pré-alterações e `origin/main` iguais ao SHA requerido; commits posteriores descendem dessa base e o diff permanece limitado ao GeroFarm | Conforme |
 | Autenticação, autorização e entitlements | `server/core-client.test.ts`, `server/entitlement-gates.test.ts`, gates de permissões/write/export em `server/farm-routes.ts`; contratos Core validados em runtime | Conforme localmente |
 | Tenant isolation, RLS e grants | Testes das migrações, repositórios com contexto de organização, RLS e grants no conjunto `migrations/0000`–`0022` | Conforme estaticamente |
-| CSRF/origin, cookies, redirects e headers | `server/origin.test.ts`, `server/core-client.test.ts`, `server/index.test.ts`; mutações meteorológicas corrigidas para `POST` + same-origin; cookies encaminhados por allowlist e redirects Core fail-closed | Conforme |
+| CSRF/origin, cookies, redirects e headers | `server/origin.test.ts`, `server/core-client.test.ts`, `server/index.test.ts`; `POST` meteorológico usa same-origin e `context(req, true)`; cookies encaminhados por allowlist e redirects Core fail-closed | Conforme |
 | Input/output Core, erros e segredos | Zod/runtime validation nos consumidores Core, testes de respostas malformadas e estados 422/429; varreduras por casts/confianças, URLs credenciadas e padrões de segredo | Conforme; nenhum segredo encontrado |
 | Idempotência, concorrência e transações | `shared/idempotency.ts`, middleware/testes de replay/conflito/in-progress; advisory locks de quota; transações de operação/colheita/caderno | Conforme |
-| Ausência de mutações em GET | Revisão das rotas e regressão `weather synchronization is never exposed through GET`; endpoints problemáticos convertidos para `POST` | Corrigido e conforme |
+| Ausência de mutações em GET | Regressões executam condições e série agronómica por `GET` com e sem dados persistidos e provam zero chamadas Core/`persistSeries`/`saveResult`; cálculo agronómico GET é apenas em memória | Corrigido e conforme |
 | Cadeia PostgreSQL de 23 migrações | `npm.cmd run db:check`: 23 migrações; testes de constraints, FKs, RLS, grants, invariantes e migração destrutiva pinned | Validado estaticamente; execução real limitada pelo ambiente |
-| Frontend API/persistência e estados | Testes dos módulos e contratos de API; loading/empty/error/stale/read-only presentes; fixture usa apenas endpoints locais e dados sintéticos | Conforme localmente |
+| Frontend API/persistência e estados | O consumidor escolhe `POST` apenas com `writeAllowed`; em read-only usa `GET` puro e aceita `data: null`; teste de contrato cobre condições e série agronómica; fixture usa apenas endpoints locais e dados sintéticos | Conforme localmente |
 | `exportAllowed` e read-only | Testes de exportação de caderno e `Start trial`; downloads exigem export access, mutações agravam capacidade apenas com write access | Conforme |
 | Responsividade, RTL e acessibilidade | Smoke final 1280×800 e 390×844; árabe com `lang=ar`, `dir=rtl`, body RTL, sem overflow; diálogo 366 px dentro de viewport 390 px; foco inicial no diálogo e retorno ao botão com `aria-label`; testes do diálogo partilhado | Conforme no smoke e testes |
 | Uma operação física sem dupla contagem | Testes `shared/operations`, `operation-resources`, `cost-allocation`, migrações e projeções; recursos, nutrientes, água, custos e caderno referenciam a operação única | Conforme |
@@ -51,7 +53,7 @@ Depois das correções, não ficou qualquer defeito residual confirmado dentro d
 | Colheita e lotes | Alocação por área, segmentos de lote, totais e transação operação-registo testados | Conforme |
 | Recursos, inventário e custos | Recursos partilhados sem duplicação; projeções tenant-scoped, imutáveis e separadas; permissões e regularização testadas | Conforme |
 | Caderno PDF/XLSX | PDF estrutural, XLSX válido, timezone/DST, exclusão de dados económicos e snapshot repeatable-read testados | Conforme localmente |
-| Meteorologia | Apenas consumidor GeroFarm v2 autenticado; base persistida, proveniência, paginação, intervalo máximo, níveis comerciais e derivações locais testados; sync agora é POST idempotente | Corrigido e conforme |
+| Meteorologia | `POST` de sync/cálculo exige `farm.manage` e escrita; regressão prova `403 ACCESS_READ_ONLY` e zero writes/Core para `farm.view`; `GET` consulta séries completas ou parciais já persistidas e calcula sem guardar resultados | Corrigido e conforme |
 | Homepage, legal, cookies e SEO | Testes de 28 homepages indexáveis, metadata/hreflang/RTL, sitemap/robots, rotas legais e consentimento versionado | Conforme estruturalmente |
 | 28 línguas | Revisores automáticos de homepage, app, culturas, lifecycle, recursos, operações, planos, rega, weather e settings; paridade/placeholders/termos críticos; smoke árabe | Conforme estruturalmente; sem alegar revisão humana nativa |
 | Hardcodes, TODO/FIXME, casts e testes frágeis | `rg` direcionado em server/client/shared/script/migrations; revisão dos casts meteorológicos restantes (dados primeiro validados e sanitizados); testes novos validam comportamento, não só snapshots | Sem achado residual confirmado |
@@ -63,7 +65,7 @@ Depois das correções, não ficou qualquer defeito residual confirmado dentro d
 |---|---|
 | `npm.cmd ci` | 181 pacotes instalados a partir do lockfile |
 | `npm.cmd run check` | Passou (`tsc --noEmit`) |
-| `npm.cmd test` | Passou: **254/254**, 0 falhas, 0 skips |
+| `npm.cmd test` | Passou: **255/255**, 0 falhas, 0 skips |
 | `npm.cmd run build` | Passou; apenas aviso não bloqueante de chunks acima de 500 kB |
 | `npm.cmd run db:check` | Passou: **23** migrações PostgreSQL validadas |
 | `git diff --check` e `git diff --cached --check` | Passaram |

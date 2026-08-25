@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import { and, asc, eq, gte, lte, sql } from "drizzle-orm";
+import { and, asc, desc, eq, gte, inArray, lte, sql } from "drizzle-orm";
 import type { AgronomicWeatherAccumulation, WeatherAgronomicProfile, WeatherBaseSeries, WeatherSeriesDay, WeatherSeriesHour } from "@shared/weather";
 import { cropPeriods, plantations, weatherAgronomicProfiles, weatherAgronomicResults, weatherSamples, weatherSyncs } from "@shared/schema";
 import type { FarmDatabase } from "./database";
@@ -9,6 +9,7 @@ import { AGRONOMIC_ENGINE_VERSION } from "./agronomic-weather-engine";
 export interface WeatherStore {
   assertScope?(organizationId:string,plantationId:string,campaignId:string|null):Promise<void>;
   completeSeries(organizationId:string,plantationId:string,from:string,to:string):Promise<WeatherBaseSeries|null>;
+  persistedSeries?(organizationId:string,plantationId:string,from:string,to:string):Promise<WeatherBaseSeries|null>;
   persistSeries(organizationId:string,plantationId:string,campaignId:string|null,series:WeatherBaseSeries):Promise<void>;
   recordUnavailable?(organizationId:string,plantationId:string,campaignId:string|null,from:string,to:string):Promise<void>;
   profile(organizationId:string,plantationId:string,campaignId:string|null,from:string,to:string):Promise<WeatherAgronomicProfile[]|WeatherAgronomicProfile|null>;
@@ -22,6 +23,13 @@ export function createPostgresWeatherStore(db:FarmDatabase):WeatherStore{return{
   async assertScope(organizationId,plantationId,campaignId){await withOrganizationTransaction(db,organizationId,async tx=>{const [plantation]=await tx.select({id:plantations.id}).from(plantations).where(and(eq(plantations.organizationId,organizationId),eq(plantations.id,plantationId))).limit(1);if(!plantation)throw Object.assign(new Error("Plantation not found"),{status:404,code:"PLANTATION_NOT_FOUND"});if(campaignId){const [period]=await tx.select({id:cropPeriods.id}).from(cropPeriods).where(and(eq(cropPeriods.organizationId,organizationId),eq(cropPeriods.id,campaignId),eq(cropPeriods.plantationId,plantationId))).limit(1);if(!period)throw Object.assign(new Error("Cultural period not found for plantation"),{status:404,code:"CROP_PERIOD_NOT_FOUND"})}})},
   async completeSeries(organizationId,plantationId,from,to){return withOrganizationTransaction(db,organizationId,async tx=>{
     const [sync]=await tx.select().from(weatherSyncs).where(and(eq(weatherSyncs.organizationId,organizationId),eq(weatherSyncs.plantationId,plantationId),eq(weatherSyncs.status,"complete"),lte(weatherSyncs.fromDate,from),gte(weatherSyncs.toDate,to))).orderBy(asc(weatherSyncs.createdAt)).limit(1);
+    if(!sync)return null;
+    const samples=await tx.select().from(weatherSamples).where(and(eq(weatherSamples.organizationId,organizationId),eq(weatherSamples.plantationId,plantationId),gte(weatherSamples.localDate,from),lte(weatherSamples.localDate,to))).orderBy(asc(weatherSamples.sampleAt));
+    const hourly=samples.filter(row=>row.resolution==="hourly").map(row=>row.payload as WeatherSeriesHour),daily=samples.filter(row=>row.resolution==="daily").map(row=>row.payload as WeatherSeriesDay),timezone=samples[0]?.timezone||null,gaps=sync.coverage.gaps.filter(gap=>gap.to>=from&&gap.from<=to).map(gap=>({...gap,from:gap.from<from?from:gap.from,to:gap.to>to?to:gap.to})),requestedHours=expectedHours(from,to,timezone);
+    return{contractVersion:"2",subject:{subjectType:"plantation",subjectId:plantationId},interval:{from,to,maximumDays:366},page:{from,to,sizeDays:Math.min(31,days(from,to)),nextCursor:null},timezone,units:"metric",hourly,daily,stationPeriods:sync.stationPeriods.filter(period=>period.to>=from&&period.from<=to).map(period=>({...period,from:period.from<from?from:period.from,to:period.to>to?to:period.to})),coverage:{requestedDays:days(from,to),daysWithHourlyData:new Set(hourly.map(item=>localDate(item.at,timezone))).size,daysWithDailyData:new Set(daily.map(item=>item.date)).size,requestedHours,availableHours:new Set(hourly.map(item=>item.at)).size,complete:gaps.length===0,gaps},meta:{provider:"persisted-provider-independent",fetchedAt:instant(sync.fetchedAt),cached:sync.cached,stale:sync.stale,cache:{status:sync.cacheStatus as WeatherBaseSeries["meta"]["cache"]["status"],requests:0,hits:1,misses:0}}};
+  })},
+  async persistedSeries(organizationId,plantationId,from,to){return withOrganizationTransaction(db,organizationId,async tx=>{
+    const [sync]=await tx.select().from(weatherSyncs).where(and(eq(weatherSyncs.organizationId,organizationId),eq(weatherSyncs.plantationId,plantationId),inArray(weatherSyncs.status,["complete","partial"]),lte(weatherSyncs.fromDate,from),gte(weatherSyncs.toDate,to))).orderBy(desc(weatherSyncs.createdAt)).limit(1);
     if(!sync)return null;
     const samples=await tx.select().from(weatherSamples).where(and(eq(weatherSamples.organizationId,organizationId),eq(weatherSamples.plantationId,plantationId),gte(weatherSamples.localDate,from),lte(weatherSamples.localDate,to))).orderBy(asc(weatherSamples.sampleAt));
     const hourly=samples.filter(row=>row.resolution==="hourly").map(row=>row.payload as WeatherSeriesHour),daily=samples.filter(row=>row.resolution==="daily").map(row=>row.payload as WeatherSeriesDay),timezone=samples[0]?.timezone||null,gaps=sync.coverage.gaps.filter(gap=>gap.to>=from&&gap.from<=to).map(gap=>({...gap,from:gap.from<from?from:gap.from,to:gap.to>to?to:gap.to})),requestedHours=expectedHours(from,to,timezone);
