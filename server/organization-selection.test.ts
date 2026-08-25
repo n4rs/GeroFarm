@@ -19,3 +19,16 @@ test("rejects cross-origin mutations", () => {
   };
   assert.throws(() => assertSameOrigin(request as never), /Cross-origin/);
 });
+
+test("treats malformed organization cookies as unselected", () => {
+  assert.equal(selectedOrganizationId({ headers: { cookie: "gero_farm_organization=%E0%A4%A" } } as never), null);
+});
+
+test("production mutations fail closed when Origin is absent", () => {
+  const previous = process.env.NODE_ENV;
+  process.env.NODE_ENV = "production";
+  try {
+    const request = { get: () => undefined, protocol: "https" };
+    assert.throws(() => assertSameOrigin(request as never), /Cross-origin/);
+  } finally { if (previous === undefined) delete process.env.NODE_ENV; else process.env.NODE_ENV = previous; }
+});

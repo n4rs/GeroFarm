@@ -6,7 +6,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { createApp } from "./app";
 import { createDatabase } from "./database";
-import { pathnameFromOriginalUrl, renderSeoHtml, robotsTxt, sitemapXml } from "./seo";
+import { isKnownSpaPath, notFoundHtml, pathnameFromOriginalUrl, renderSeoHtml, robotsTxt, sitemapXml } from "./seo";
 import { localizedSeoPath, seoLocaleFromPath } from "@shared/seo";
 
 const persistence = process.env.DATABASE_URL ? createDatabase() : null;
@@ -32,6 +32,7 @@ if (process.env.NODE_ENV === "production") {
   app.get("*splat", (req, res) => {
     const pathname = pathnameFromOriginalUrl(req.originalUrl);
     if (redirectLocalizedPath(pathname, res)) return;
+    if (!isKnownSpaPath(pathname)) { res.status(404).set("cache-control", "no-cache").type("html").send(notFoundHtml()); return; }
     const queryLocale = typeof req.query.lang === "string" ? req.query.lang : null;
     res.set("cache-control", "no-cache").type("html").send(renderSeoHtml(indexTemplate, pathname, queryLocale));
   });
@@ -43,6 +44,7 @@ if (process.env.NODE_ENV === "production") {
     try {
       const pathname = pathnameFromOriginalUrl(req.originalUrl);
       if (redirectLocalizedPath(pathname, res)) return;
+      if (!isKnownSpaPath(pathname)) { res.status(404).set("cache-control", "no-cache").type("html").send(notFoundHtml()); return; }
       const clientTemplate = fileURLToPath(new URL("../client/index.html", import.meta.url));
       const template = await fs.promises.readFile(clientTemplate, "utf8");
       const transformed = await vite.transformIndexHtml(req.originalUrl, template);
@@ -50,7 +52,9 @@ if (process.env.NODE_ENV === "production") {
       res.status(200).type("html").send(renderSeoHtml(transformed, pathname, queryLocale));
     } catch (error) {
       vite.ssrFixStacktrace(error as Error);
-      next(error);
+      console.error("GeroFarm development SSR failed", error);
+      if (!res.headersSent) res.status(503).set("cache-control", "no-store").type("text/plain").send("GeroFarm is temporarily unavailable");
+      else next(error);
     }
   });
 }

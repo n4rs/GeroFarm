@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { supportedLocales } from "../client/src/home-copy";
 import { localizedSeoPath, seoLocales } from "@shared/seo";
-import { homepageSeo, pathnameFromOriginalUrl, renderSeoHtml, robotsTxt, sitemapXml } from "./seo";
+import { homepageSeo, isKnownSpaPath, notFoundHtml, pathnameFromOriginalUrl, renderSeoHtml, robotsTxt, sitemapXml } from "./seo";
 
 const template = `<!doctype html><html lang="pt-PT"><head><title>Fallback</title><meta name="description" content="Fallback" /></head><body><div id="root"></div></body></html>`;
 
@@ -60,4 +60,10 @@ test("the catch-all preserves localized paths and query locales canonicalize to 
   assert.equal(pathnameFromOriginalUrl("/fr/?utm_source=test"), "/fr/");
   assert.match(renderSeoHtml(template, "/fr/"), /rel="canonical" href="https:\/\/farm\.gero\.pt\/fr\/"/);
   assert.match(renderSeoHtml(template, "/", "pt-BR"), /rel="canonical" href="https:\/\/farm\.gero\.pt\/pt-br\/"/);
+});
+
+test("unknown SPA paths are real noindex 404 candidates", () => {
+  for (const path of ["/", "/pt-pt/", "/app/weather", "/privacy-policy", "/login"]) assert.equal(isKnownSpaPath(path), true);
+  for (const path of ["/anything", "/pt-pt/duplicate", "/api/not-spa"]) assert.equal(isKnownSpaPath(path), false);
+  assert.match(notFoundHtml(), /noindex, nofollow/u);
 });

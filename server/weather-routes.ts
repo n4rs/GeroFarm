@@ -12,11 +12,12 @@ import type {
 } from "@shared/weather";
 import { weatherCapabilities } from "@shared/weather";
 import { assertSameOrigin } from "./organization-selection";
-import { CoreApiError, geroCore } from "./gero-core-client";
+import { CoreApiError, geroCore, weatherAssignmentSchema, weatherProvenanceSchema, weatherStationSchema, weatherSuggestionSchema } from "./gero-core-client";
 import type { FarmContextResolver } from "./farm-context";
 import type { WeatherStore } from "./weather-store";
 import { synchronizeWeatherSeries } from "./weather-sync";
 import { calculateAgronomicAccumulation } from "./agronomic-weather-engine";
+import { assertAccess } from "./entitlements";
 
 const uuid = z.string().uuid();
 const subjectType = z.enum(["plantation", "campaign"]);
@@ -74,7 +75,11 @@ function requireWeatherDepth(
 
 export function createWeatherRouter(resolveContext: FarmContextResolver, store?: WeatherStore) {
   const router = express.Router();
-  const context = async (req: express.Request) => resolveContext(req);
+  const context = async (req: express.Request, write = false) => {
+    const selected = await resolveContext(req);
+    assertAccess(selected, { permission: write ? "farm.manage" : "farm.view", feature: "agronomicWeather", write });
+    return selected;
+  };
 
   router.get("/stations", async (req, res, next) => {
     try {
@@ -85,7 +90,7 @@ export function createWeatherRouter(resolveContext: FarmContextResolver, store?:
           data: await geroCore.weather.get<WeatherVirtualStation[]>(
             req,
             selected.organization.id,
-            "stations",
+            "stations", z.array(weatherStationSchema),
           ),
         });
     } catch (error) {
@@ -95,7 +100,7 @@ export function createWeatherRouter(resolveContext: FarmContextResolver, store?:
   router.post("/stations", async (req, res, next) => {
     try {
       assertSameOrigin(req);
-      const selected = await context(req),
+      const selected = await context(req, true),
         input = stationInput.parse(req.body) as WeatherStationInput;
       res
         .status(201)
@@ -104,8 +109,7 @@ export function createWeatherRouter(resolveContext: FarmContextResolver, store?:
           data: await geroCore.weather.post<WeatherVirtualStation>(
             req,
             selected.organization.id,
-            "stations",
-            input,
+            "stations", weatherStationSchema, input,
           ),
         });
     } catch (error) {
@@ -115,7 +119,7 @@ export function createWeatherRouter(resolveContext: FarmContextResolver, store?:
   router.patch("/stations/:stationId", async (req, res, next) => {
     try {
       assertSameOrigin(req);
-      const selected = await context(req),
+      const selected = await context(req, true),
         stationId = uuid.parse(req.params.stationId),
         input = z
           .object({ name: z.string().trim().min(1).max(150) })
@@ -126,8 +130,7 @@ export function createWeatherRouter(resolveContext: FarmContextResolver, store?:
           data: await geroCore.weather.patch<WeatherVirtualStation>(
             req,
             selected.organization.id,
-            `stations/${stationId}`,
-            input,
+            `stations/${stationId}`, weatherStationSchema, input,
           ),
         });
     } catch (error) {
@@ -137,7 +140,7 @@ export function createWeatherRouter(resolveContext: FarmContextResolver, store?:
   router.post("/stations/:stationId/archive", async (req, res, next) => {
     try {
       assertSameOrigin(req);
-      const selected = await context(req),
+      const selected = await context(req, true),
         stationId = uuid.parse(req.params.stationId);
       res
         .set("cache-control", "no-store")
@@ -145,7 +148,7 @@ export function createWeatherRouter(resolveContext: FarmContextResolver, store?:
           data: await geroCore.weather.post<WeatherVirtualStation>(
             req,
             selected.organization.id,
-            `stations/${stationId}/archive`,
+            `stations/${stationId}/archive`, weatherStationSchema,
           ),
         });
     } catch (error) {
@@ -162,7 +165,7 @@ export function createWeatherRouter(resolveContext: FarmContextResolver, store?:
           data: await geroCore.weather.get<WeatherStationSuggestion[]>(
             req,
             selected.organization.id,
-            `stations/suggestions?${queryString(input)}`,
+            `stations/suggestions?${queryString(input)}`, z.array(weatherSuggestionSchema),
           ),
         });
     } catch (error) {
@@ -184,7 +187,7 @@ export function createWeatherRouter(resolveContext: FarmContextResolver, store?:
             data: await geroCore.weather.get<WeatherStationProvenance>(
               req,
               selected.organization.id,
-              `subjects/${type}/${safeSegment(id)}/station${instant ? `?${queryString({ at: instant })}` : ""}`,
+              `subjects/${type}/${safeSegment(id)}/station${instant ? `?${queryString({ at: instant })}` : ""}`, weatherProvenanceSchema,
             ),
           });
       } catch (error) {
@@ -197,7 +200,7 @@ export function createWeatherRouter(resolveContext: FarmContextResolver, store?:
     async (req, res, next) => {
       try {
         assertSameOrigin(req);
-        const selected = await context(req),
+        const selected = await context(req, true),
           type = subjectType.parse(req.params.subjectType),
           id = subjectId.parse(req.params.subjectId),
           input = assignmentInput.parse(req.body);
@@ -208,8 +211,7 @@ export function createWeatherRouter(resolveContext: FarmContextResolver, store?:
             data: await geroCore.weather.post<WeatherStationAssignment>(
               req,
               selected.organization.id,
-              `subjects/${type}/${safeSegment(id)}/station`,
-              input,
+              `subjects/${type}/${safeSegment(id)}/station`, weatherAssignmentSchema, input,
             ),
           });
       } catch (error) {
@@ -225,12 +227,12 @@ export function createWeatherRouter(resolveContext: FarmContextResolver, store?:
         const selected = await context(req);
         requireWeatherDepth(selected, "campaignProfiles");
         const type = subjectType.parse(req.params.subjectType),
-          id = subjectId.parse(req.params.subjectId),
+          id = uuid.parse(req.params.subjectId),
           input = z
             .object({
               from: z.string().date(),
               to: z.string().date(),
-              campaignId: subjectId.optional(),
+              campaignId: uuid.optional(),
             })
             .refine((value) => value.to >= value.from, { path: ["to"] })
             .parse(req.query);
@@ -251,9 +253,9 @@ export function createWeatherRouter(resolveContext: FarmContextResolver, store?:
     async (req, res, next) => {
       try {
         assertSameOrigin(req);
-        const selected = await context(req);
+        const selected = await context(req, true);
         requireWeatherDepth(selected, "campaignProfiles");
-        const campaignId = subjectId.parse(req.params.campaignId),
+        const campaignId = uuid.parse(req.params.campaignId),
           input = profileInput.parse(req.body);
         if (!store) throw new CoreApiError(503, "GeroFarm weather persistence is unavailable", "WEATHER_STORE_UNAVAILABLE");
         await store.assertScope?.(selected.organization.id,input.plantationId,campaignId);

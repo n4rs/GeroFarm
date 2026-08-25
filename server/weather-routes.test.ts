@@ -70,9 +70,9 @@ const context: FarmRequestContext = {
   access: access("campaign"),
 };
 
-async function withServer(run: (base: string) => Promise<void>) {
+async function withServer(run: (base: string) => Promise<void>, selectedContext = context) {
   const server = createServer(
-    createApp({ farmContextResolver: async () => context }),
+    createApp({ farmContextResolver: async () => selectedContext }),
   );
   await new Promise<void>((resolve) => server.listen(0, "127.0.0.1", resolve));
   try {
@@ -208,4 +208,29 @@ test("essential weather level blocks history and agronomic accumulation", async 
       server.close((error) => (error ? reject(error) : resolve())),
     );
   }
+});
+
+test("weather mutations enforce permissions and read-only access locally", async () => {
+  const restrictedAccess = access("campaign");
+  restrictedAccess.access = { ...restrictedAccess.access, mode: "read_only", writeAllowed: false };
+  restrictedAccess.applicationMembership.permissions = ["farm.view"];
+  const restricted = { ...context, access: restrictedAccess };
+  await withServer(async (base) => {
+    const response = await fetch(`${base}/api/weather/stations`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ name: "Norte", latitude: 38.7, longitude: -9.1, elevationM: 80, timezone: "Europe/Lisbon" }) });
+    assert.equal(response.status, 403);
+    assert.equal(((await response.json()) as { code: string }).code, "ACCESS_READ_ONLY");
+  }, restricted);
+});
+
+test("agronomic profile identifiers are UUIDs before persistence", async () => {
+  let persisted = false;
+  const store = { saveProfile: async () => { persisted = true; return {} as never; } } as unknown as WeatherStore;
+  const server = createServer(createApp({ farmContextResolver: async () => context, weatherStore: store }));
+  await new Promise<void>((resolve) => server.listen(0, "127.0.0.1", resolve));
+  try {
+    const address = server.address(); assert(address && typeof address === "object");
+    const response = await fetch(`http://127.0.0.1:${address.port}/api/weather/campaigns/not-a-uuid/agronomic-profiles`, { method: "POST", headers: { "content-type": "application/json" }, body: "{}" });
+    assert.equal(response.status, 400);
+    assert.equal(persisted, false);
+  } finally { await new Promise<void>((resolve, reject) => server.close((error) => error ? reject(error) : resolve())); }
 });

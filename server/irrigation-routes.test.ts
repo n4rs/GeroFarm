@@ -24,3 +24,17 @@ async function withServer(run:(base:string)=>Promise<void>){const server=createS
 test("irrigation API creates whole-field sectors and a weekly schedule",async()=>withServer(async(base)=>{const sector=await fetch(`${base}/api/farm/irrigation/sectors`,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({holdingId,code:"norte-1",name:"Setor Norte",system:"drip",fieldIds:[fieldId]})});assert.equal(sector.status,201);const schedule=await fetch(`${base}/api/farm/irrigation/records`,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({kind:"weekly_schedule",scheduledWeekEnd:"2026-08-30",inputMode:"depth_mm",depthMm:10,applications:[{sectorId,fieldIds:[fieldId],plantationIds:[]}],meterAllocations:[]})});assert.equal(schedule.status,201);assert.equal((await schedule.json() as {data:{status:string;projectionKinds:string[]}}).data.status,"scheduled");const listed=await fetch(`${base}/api/farm/irrigation`);assert.equal(listed.headers.get("cache-control"),"no-store")}));
 
 test("irrigation API rejects incomplete hydraulic sources",async()=>withServer(async(base)=>{const response=await fetch(`${base}/api/farm/irrigation/records`,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({kind:"performed",performedAt:"2026-08-24T12:00:00Z",inputMode:"flow_duration",flowM3H:30,applications:[{sectorId,fieldIds:[fieldId],plantationIds:[]}]})});assert.equal(response.status,400);assert.equal((await response.json() as {code:string}).code,"VALIDATION_ERROR")}));
+
+test("irrigation overview is read-only and never finalizes schedules", async () => {
+  let finalized = 0;
+  const irrigation = { overview: async () => ({ sectors: [], meters: [], readings: [], analyses: [], irrigations: [], reconciliations: [], undistributedConsumptionM3: 0 }), finalizeDue: async () => { finalized += 1; return 1; } } as never;
+  const app = createApp({ farmHoldingRepository: holding, irrigationRepository: irrigation, farmContextResolver: async () => context });
+  const server = createServer(app);
+  await new Promise<void>((resolve) => server.listen(0, "127.0.0.1", resolve));
+  try {
+    const address = server.address(); assert(address && typeof address === "object");
+    const response = await fetch(`http://127.0.0.1:${address.port}/api/farm/irrigation`);
+    assert.equal(response.status, 200);
+    assert.equal(finalized, 0);
+  } finally { await new Promise<void>((resolve, reject) => server.close((error) => error ? reject(error) : resolve())); }
+});

@@ -106,6 +106,6 @@ export function requestAccessOptions(method: string, path: string, query: Record
   if (path === "/operations" && method === "POST") return { permission: ["operations.manage", "operations.create"], write: true };
   if (path.startsWith("/operations") || path.startsWith("/irrigation")) return { permission: write ? "operations.manage" : "operations.view", write };
   if (path.startsWith("/fertilization-plans")) return { permission: write ? "plans.manage" : "plans.view", write };
-  if (path.startsWith("/fields") || path.startsWith("/holdings") || path.startsWith("/plantations") || path.startsWith("/crop-") || path.startsWith("/fallows") || path.startsWith("/varieties") || path.startsWith("/resources") || path.startsWith("/workers") || path.startsWith("/equipment") || path.startsWith("/contractors")) return { permission: write ? "farm.manage" : "farm.view", write: write && !releasesCapacity };
+  if (path.startsWith("/fields") || path.startsWith("/holdings") || path.startsWith("/plantations") || path.startsWith("/crop-") || path.startsWith("/fallows") || path.startsWith("/varieties") || path.startsWith("/resources") || path.startsWith("/workers") || path.startsWith("/worker-certificates") || path.startsWith("/equipment") || path.startsWith("/contractors")) return { permission: write ? "farm.manage" : "farm.view", write: write && !releasesCapacity };
   return { write };
 }

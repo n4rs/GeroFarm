@@ -33,3 +33,19 @@ test("unknown API routes fail without falling through to the SPA", async () => {
     await new Promise<void>((resolve, reject) => server.close((error) => error ? reject(error) : resolve()));
   }
 });
+
+test("malformed and oversized JSON have stable client errors", async () => {
+  const server = createServer(createApp());
+  await new Promise<void>((resolve) => server.listen(0, "127.0.0.1", resolve));
+  try {
+    const address = server.address();
+    assert(address && typeof address === "object");
+    const base = `http://127.0.0.1:${address.port}`;
+    const malformed = await fetch(`${base}/api/auth/select-organization`, { method: "POST", headers: { "content-type": "application/json" }, body: "{" });
+    assert.equal(malformed.status, 400);
+    assert.equal(((await malformed.json()) as { code: string }).code, "MALFORMED_JSON");
+    const oversized = await fetch(`${base}/api/auth/select-organization`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ value: "x".repeat(300_000) }) });
+    assert.equal(oversized.status, 413);
+    assert.equal(((await oversized.json()) as { code: string }).code, "PAYLOAD_TOO_LARGE");
+  } finally { await new Promise<void>((resolve, reject) => server.close((error) => error ? reject(error) : resolve())); }
+});

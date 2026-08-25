@@ -28,12 +28,26 @@ const actualFiles = (await readdir(migrationsDirectory))
 if (JSON.stringify(actualFiles) !== JSON.stringify([...expectedFiles].sort())) {
   throw new Error("Migration SQL files and the Drizzle journal do not match.");
 }
+let combinedSql = "";
 for (const file of expectedFiles) {
   const sql = await readFile(resolve(migrationsDirectory, file), "utf8");
   if (!sql.trim()) throw new Error(`Migration ${file} is empty.`);
   if (!sql.includes("--> statement-breakpoint")) {
     throw new Error(`Migration ${file} has no statement breakpoints.`);
   }
+  combinedSql += `\n${sql}`;
+}
+
+const schemaSource = await readFile(resolve("shared/schema.ts"), "utf8");
+const declaredTables = [...schemaSource.matchAll(/farmSchema\.table\("([a-z0-9_]+)"/g)].map((match) => match[1]).sort();
+const migratedTables = [...combinedSql.matchAll(/CREATE TABLE "farm"\."([a-z0-9_]+)"/g)].map((match) => match[1]).sort();
+if (JSON.stringify([...new Set(declaredTables)]) !== JSON.stringify([...new Set(migratedTables)])) {
+  throw new Error("Drizzle farm tables and migration-created tables do not match.");
+}
+for (const table of migratedTables) {
+  const escaped = table.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  if (!new RegExp(`ALTER TABLE "farm"\\."${escaped}" ENABLE ROW LEVEL SECURITY`).test(combinedSql)) throw new Error(`Migration history does not enable RLS for farm.${table}.`);
+  if (!new RegExp(`ALTER TABLE "farm"\\."${escaped}" FORCE ROW LEVEL SECURITY`).test(combinedSql)) throw new Error(`Migration history does not force RLS for farm.${table}.`);
 }
 
 console.log(`Validated ${expectedFiles.length} PostgreSQL migration(s).`);

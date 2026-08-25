@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 import { and, asc, eq, inArray, sql } from "drizzle-orm";
 import {
   farmAuditEvents, farmFields, farmHoldings, farmOperations, operationContractors, operationDestinations, operationEquipment,
-  operationFertilizations, operationSequences, operationWorkers, plantations, irrigationRecords,
+  operationFertilizations, operationSequences, operationWorkers, plantations, irrigationRecords, farmWorkers, farmEquipment, farmContractors,
   irrigationSectorFields, irrigationSectors, irrigationWaterAnalyses, irrigationWaterAnalysisSectors,
   waterMeterReadings, waterMeters, waterMeterSectors,
 } from "@shared/schema";
@@ -89,6 +89,16 @@ export function createPostgresIrrigationRepository(db: FarmDatabase): Irrigation
     for (const application of input.applications) for (const fieldId of application.fieldIds) if (!allowed.get(application.sectorId)?.has(fieldId)) throw domainError("Irrigation fields must belong wholly to the selected sector", "IRRIGATION_SECTOR_FIELD_INVALID");
     const fields = await tx.select({ id: farmFields.id, area: farmFields.usableAreaHa }).from(farmFields).where(inArray(farmFields.id, selectedFieldIds));
     if (fields.length !== selectedFieldIds.length) throw domainError("Field not found", "FIELD_NOT_FOUND", 404);
+    for (const [ids, table, code] of [
+      [input.workerIds, farmWorkers, "IRRIGATION_WORKER_INVALID"],
+      [input.equipmentIds, farmEquipment, "IRRIGATION_EQUIPMENT_INVALID"],
+      [input.contractorIds, farmContractors, "IRRIGATION_CONTRACTOR_INVALID"],
+    ] as const) {
+      const uniqueIds = [...new Set(ids)];
+      if (!uniqueIds.length) continue;
+      const rows = await tx.select({ id: table.id }).from(table).where(inArray(table.id, uniqueIds));
+      if (rows.length !== uniqueIds.length) throw domainError("Irrigation resource is outside the selected organization", code);
+    }
     const selectedPlantationIds = [...new Set(input.applications.flatMap((row) => row.plantationIds))];
     const plantationRows = selectedPlantationIds.length ? await tx.select({ id: plantations.id, fieldId: plantations.fieldId, area: plantations.areaHa }).from(plantations).where(inArray(plantations.id, selectedPlantationIds)) : [];
     if (plantationRows.length !== selectedPlantationIds.length || plantationRows.some((row) => !selectedFieldIds.includes(row.fieldId))) throw domainError("Plantation is outside the irrigated fields", "IRRIGATION_PLANTATION_INVALID");
@@ -146,7 +156,7 @@ export function createPostgresIrrigationRepository(db: FarmDatabase): Irrigation
   }
 
   const repository: IrrigationRepository = {
-    async overview(context, now = new Date()) { await repository.finalizeDue(context, now); return buildOverview(context); },
+    async overview(context) { return buildOverview(context); },
     async createSector(context, raw) { const input = createIrrigationSectorSchema.parse(raw); const id = randomUUID(); await withOrganizationTransaction(db, context.organization.id, async (tx) => { const fields = await tx.select({ id: farmFields.id, holdingId: farmFields.holdingId }).from(farmFields).where(inArray(farmFields.id, input.fieldIds)); if (fields.length !== input.fieldIds.length || fields.some((field) => field.holdingId !== input.holdingId)) throw domainError("Every sector member must be a whole field in the selected holding", "IRRIGATION_SECTOR_FIELDS_INVALID"); const assigned = await tx.select().from(irrigationSectorFields).where(inArray(irrigationSectorFields.fieldId, input.fieldIds)); if (assigned.length) throw domainError("A field already belongs to another irrigation sector", "IRRIGATION_FIELD_ALREADY_ASSIGNED", 409); await tx.insert(irrigationSectors).values({ id, organizationId: context.organization.id, holdingId: input.holdingId, code: input.code, name: input.name, system: input.system, customSystem: input.customSystem, efficiencyPercent: input.efficiencyPercent?.toString() }); await tx.insert(irrigationSectorFields).values(input.fieldIds.map((fieldId) => ({ sectorId: id, fieldId, organizationId: context.organization.id }))); await audit(tx, context, "irrigation_sector.created", "irrigation_sector", id, { fieldCount: input.fieldIds.length }); }); return (await buildOverview(context)).sectors.find((row) => row.id === id)!; },
     async createMeter(context, raw) { const input = createWaterMeterSchema.parse(raw); const id = randomUUID(); await withOrganizationTransaction(db, context.organization.id, async (tx) => { const sectors = await tx.select({ id: irrigationSectors.id, holdingId: irrigationSectors.holdingId }).from(irrigationSectors).where(inArray(irrigationSectors.id, input.sectorIds)); if (sectors.length !== input.sectorIds.length || sectors.some((sector) => sector.holdingId !== input.holdingId)) throw domainError("Meter sectors are invalid", "METER_SECTORS_INVALID"); await tx.insert(waterMeters).values({ id, organizationId: context.organization.id, holdingId: input.holdingId, code: input.code, name: input.name, serialNumber: input.serialNumber, unit: "m3" }); await tx.insert(waterMeterSectors).values(input.sectorIds.map((sectorId) => ({ meterId: id, sectorId, organizationId: context.organization.id }))); await audit(tx, context, "water_meter.created", "water_meter", id, { sectorCount: input.sectorIds.length }); }); return (await buildOverview(context)).meters.find((row) => row.id === id)!; },
     async addReading(context, meterId, raw) { const input = createMeterReadingSchema.parse(raw); const id = randomUUID(); await withOrganizationTransaction(db, context.organization.id, async (tx) => { const [meter] = await tx.select().from(waterMeters).where(eq(waterMeters.id, meterId)); if (!meter) throw domainError("Meter not found", "METER_NOT_FOUND", 404); await tx.insert(waterMeterReadings).values({ id, organizationId: context.organization.id, meterId, readAt: new Date(input.readAt), valueM3: input.valueM3.toString(), origin: input.origin, event: input.event, photoUrl: input.photoUrl, notes: input.notes }); await audit(tx, context, `water_meter_reading.${input.event}`, "water_meter_reading", id, { meterId, valueM3: input.valueM3, origin: input.origin }); }); return (await buildOverview(context)).readings.find((row) => row.id === id)!; },

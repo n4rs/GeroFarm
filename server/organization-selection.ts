@@ -19,7 +19,9 @@ export function selectedOrganizationId(req: Request) {
   const raw = req.headers.cookie?.split(";").map((part) => part.trim())
     .find((part) => part.startsWith(`${COOKIE_NAME}=`))?.slice(COOKIE_NAME.length + 1);
   if (!raw) return null;
-  const [organizationId, suppliedSignature] = decodeURIComponent(raw).split(".");
+  let decoded: string;
+  try { decoded = decodeURIComponent(raw); } catch { return null; }
+  const [organizationId, suppliedSignature] = decoded.split(".");
   if (!organizationId || !suppliedSignature) return null;
   const expected = Buffer.from(signature(organizationId));
   const supplied = Buffer.from(suppliedSignature);
@@ -33,8 +35,28 @@ export function setSelectedOrganization(res: Response, organizationId: string) {
 
 export function assertSameOrigin(req: Request) {
   const origin = req.get("origin");
-  if (!origin) return;
-  const configured = process.env.FARM_PUBLIC_URL?.replace(/\/$/, "");
+  const fetchSite = req.get("sec-fetch-site");
+  if (fetchSite === "cross-site") throw new RequestOriginError();
+  if (!origin) {
+    if (process.env.NODE_ENV === "production") throw new RequestOriginError();
+    return;
+  }
+  const configured = process.env.FARM_PUBLIC_URL ? publicHttpOrigin(process.env.FARM_PUBLIC_URL, "FARM_PUBLIC_URL") : null;
+  const forwardedProto = req.get("x-forwarded-proto")?.split(",")[0] || req.protocol;
+  const requestOrigin = `${forwardedProto}://${req.get("host")}`;
+  if (origin !== configured && origin !== requestOrigin) throw new RequestOriginError();
+}
+
+export function publicHttpOrigin(value: string, label = "URL") {
+  let url: URL;
+  try { url = new URL(value); } catch { throw new Error(`${label} must be an absolute HTTP(S) URL`); }
+  if (!["http:", "https:"].includes(url.protocol) || url.username || url.password) throw new Error(`${label} must be a credential-free HTTP(S) URL`);
+  return url.origin;
+}
+
+export function assertSafeReturnUrl(req: Request, value: string) {
+  const origin = publicHttpOrigin(value, "Checkout return URL");
+  const configured = process.env.FARM_PUBLIC_URL ? publicHttpOrigin(process.env.FARM_PUBLIC_URL, "FARM_PUBLIC_URL") : null;
   const forwardedProto = req.get("x-forwarded-proto")?.split(",")[0] || req.protocol;
   const requestOrigin = `${forwardedProto}://${req.get("host")}`;
   if (origin !== configured && origin !== requestOrigin) throw new RequestOriginError();

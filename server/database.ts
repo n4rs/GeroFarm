@@ -45,10 +45,11 @@ export async function withOrganizationTransaction<T>(
   db: FarmDatabase,
   organizationId: string,
   operation: (transaction: FarmTransaction) => Promise<T>,
+  config?: Parameters<FarmDatabase["transaction"]>[1],
 ): Promise<T> {
   const validatedOrganizationId = organizationIdSchema.parse(organizationId);
   return db.transaction(async (transaction) => {
     await transaction.execute(sql`select set_config('app.organization_id', ${validatedOrganizationId}, true)`);
     return operation(transaction);
-  });
+  }, config);
 }

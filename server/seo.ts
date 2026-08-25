@@ -37,6 +37,15 @@ export function pathnameFromOriginalUrl(originalUrl: string): string {
   return new URL(originalUrl, publicOrigin).pathname;
 }
 
+export function isKnownSpaPath(pathname: string): boolean {
+  return isPublicSeoHomepage(pathname) || ["/login", "/register", "/privacy-policy", "/terms", "/cookie-policy"].includes(pathname)
+    || pathname === "/app" || pathname.startsWith("/app/") || pathname === "/mockup" || pathname.startsWith("/mockup/");
+}
+
+export function notFoundHtml(): string {
+  return '<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="robots" content="noindex, nofollow"><title>Not found | GeroFarm</title></head><body><main><h1>Not found</h1><p><a href="/">GeroFarm</a></p></main></body></html>';
+}
+
 export function homepageSeo(pathname: string, queryLocale?: string | null): HomepageSeo {
   const locale = resolveHomepageLocale(pathname, queryLocale);
   const copy = homepageCopies[locale];

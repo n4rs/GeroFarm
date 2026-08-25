@@ -4,6 +4,7 @@ import { product } from "@shared/product";
 import { accountPublicUrl, CoreApiError, corePublicUrl, geroCore } from "./gero-core-client";
 import {
   assertSameOrigin,
+  assertSafeReturnUrl,
   RequestOriginError,
   selectedOrganizationId,
   setSelectedOrganization,
@@ -29,6 +30,7 @@ import type { EntitlementSummary } from "@shared/entitlements";
 import { createWeatherRouter } from "./weather-routes";
 import { createPostgresWeatherStore, type WeatherStore } from "./weather-store";
 import { supportedLocales } from "@shared/locales";
+import { createPostgresIdempotencyStore, idempotencyMiddleware } from "./idempotency";
 
 export type AppOptions = { database?: FarmDatabase; weatherStore?: WeatherStore; farmHoldingRepository?: FarmHoldingRepository; fieldRepository?: FieldRepository; cropRepository?: CropRepository; cropLifecycleRepository?: CropLifecycleRepository; resourceRepository?:ResourceRepository; operationRepository?:OperationRepository; privacyRepository?:PrivacyRepository; fertilizationPlanRepository?:FertilizationPlanRepository; irrigationRepository?:IrrigationRepository; agronomyRepository?:AgronomyRepository; economicsRepository?:EconomicsRepository; farmContextResolver?: FarmContextResolver; entitlementResolver?: (context: Awaited<ReturnType<FarmContextResolver>>) => Promise<EntitlementSummary> };
 
@@ -43,6 +45,8 @@ export function createApp(options: AppOptions = {}) {
       "x-frame-options": "DENY",
       "referrer-policy": "strict-origin-when-cross-origin",
       "permissions-policy": "camera=(), microphone=(), geolocation=()",
+      "content-security-policy": "default-src 'self'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'; object-src 'none'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self'",
+      ...(process.env.NODE_ENV === "production" ? { "strict-transport-security": "max-age=31536000; includeSubDomains" } : {}),
     });
     next();
   });
@@ -68,7 +72,9 @@ export function createApp(options: AppOptions = {}) {
   app.post("/api/billing/checkout", async (req, res, next) => { try {
     assertSameOrigin(req);
     const context = await (options.farmContextResolver || resolveFarmContext)(req);
-    const input = z.object({ kind: z.enum(["plan", "addon"]), code: z.string().min(1).max(50), billingPeriod: z.enum(["monthly", "yearly"]), quantity: z.number().int().min(1).max(100), successUrl: z.string().url(), cancelUrl: z.string().url() }).parse(req.body);
+    const input = z.object({ kind: z.enum(["plan", "addon"]), code: z.string().min(1).max(50), billingPeriod: z.enum(["monthly", "yearly"]), quantity: z.number().int().min(1).max(100), successUrl: z.string().url(), cancelUrl: z.string().url() }).strict().parse(req.body);
+    assertSafeReturnUrl(req, input.successUrl);
+    assertSafeReturnUrl(req, input.cancelUrl);
     const result = await geroCore.checkout(req, context.organization.id, input);
     res.status(201).set("cache-control", "no-store").json({ data: result });
   } catch (error) { next(error); } });
@@ -153,6 +159,7 @@ export function createApp(options: AppOptions = {}) {
   const economicsRepository=options.economicsRepository||(options.database?createPostgresEconomicsRepository(options.database):undefined);
   const accessUsage = options.entitlementResolver || (options.database ? (context: Awaited<ReturnType<FarmContextResolver>>) => entitlementSummary(options.database!, context) : undefined);
   const weatherStore=options.weatherStore||(options.database?createPostgresWeatherStore(options.database):undefined);
+  if (options.database) app.use(["/api/farm", "/api/weather"], idempotencyMiddleware(createPostgresIdempotencyStore(options.database), options.farmContextResolver || resolveFarmContext));
   app.use("/api/weather", createWeatherRouter(options.farmContextResolver || resolveFarmContext,weatherStore));
   if (farmHoldingRepository) app.use("/api/farm", createFarmRouter(farmHoldingRepository, options.farmContextResolver || resolveFarmContext, fieldRepository, cropRepository, cropLifecycleRepository,resourceRepository,operationRepository,privacyRepository,fertilizationPlanRepository,irrigationRepository,agronomyRepository,economicsRepository,accessUsage,weatherStore));
 
@@ -166,8 +173,10 @@ export function createApp(options: AppOptions = {}) {
     if (error instanceof FieldDomainError) return res.status(error.status).json({ message: error.message, code: error.code, details: error.details });
     if (error instanceof OccupancyError) return res.status(error.status).json({ message: error.message, code: error.code, availableAreaHa: error.availableAreaHa });
     if (error instanceof EntitlementError) return res.status(error.status).json({ message: error.message, code: error.code, details: error.details });
+    if (typeof error === "object" && error && "type" in error && error.type === "entity.parse.failed") return res.status(400).json({ message: "Malformed JSON request", code: "MALFORMED_JSON" });
+    if (typeof error === "object" && error && "type" in error && error.type === "entity.too.large") return res.status(413).json({ message: "Request payload is too large", code: "PAYLOAD_TOO_LARGE" });
     if (typeof error === "object" && error && "status" in error && "code" in error && typeof error.status === "number" && typeof error.code === "string") return res.status(error.status).json({ message: error instanceof Error ? error.message : "Domain error", code: error.code });
-    if (typeof error === "object" && error && "code" in error && error.code === "23505") return res.status(409).json({ message: "A record with that code already exists", code: "CODE_CONFLICT" });
+    if (typeof error === "object" && error && "code" in error && error.code === "23505") return res.status(409).json({ message: "A conflicting record already exists", code: "CONFLICT" });
     console.error("Unhandled GeroFarm request error", error);
     return res.status(503).json({ message: "GeroFarm is temporarily unavailable", code: "SERVICE_UNAVAILABLE" });
   });
