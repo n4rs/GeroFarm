@@ -84,7 +84,7 @@ DECLARE parent "farm"."plantations"%ROWTYPE;
 BEGIN
   SELECT * INTO parent FROM "farm"."plantations" WHERE id=NEW.plantation_id FOR UPDATE;
   IF NOT FOUND OR parent.organization_id<>NEW.organization_id THEN RAISE EXCEPTION 'cultural period plantation is missing or belongs to another tenant' USING ERRCODE='23503'; END IF;
-  IF NEW.kind<>CASE WHEN parent.kind='permanent' THEN 'campaign' ELSE 'cycle' END THEN RAISE EXCEPTION 'cultural period kind does not match plantation kind' USING ERRCODE='23514'; END IF;
+  IF NEW.kind<>(CASE WHEN parent.kind='permanent' THEN 'campaign' ELSE 'cycle' END) THEN RAISE EXCEPTION 'cultural period kind does not match plantation kind' USING ERRCODE='23514'; END IF;
   IF NEW.started_on<parent.started_on OR (parent.ended_on IS NOT NULL AND coalesce(NEW.ended_on,NEW.started_on)>parent.ended_on) THEN RAISE EXCEPTION 'cultural period is outside plantation lifecycle' USING ERRCODE='23514'; END IF;
   IF EXISTS (SELECT 1 FROM "farm"."crop_periods" other WHERE other.plantation_id=NEW.plantation_id AND other.id<>NEW.id AND daterange(other.started_on,coalesce(other.ended_on,'infinity'::date),'[]') && daterange(NEW.started_on,coalesce(NEW.ended_on,'infinity'::date),'[]')) THEN RAISE EXCEPTION 'cultural periods cannot overlap or restart on the previous end date' USING ERRCODE='23P01'; END IF;
   RETURN NEW;

@@ -15,6 +15,7 @@ test("domain invariants make voiding, lifecycle dates and lot sequences durable"
   assert.match(migration, /farm_cost_active_operation_guard/);
   assert.match(migration, /plantation_kind_compatibility_guard/);
   assert.match(migration, /crop_period_lifecycle_guard/);
+  assert.match(migration, /NEW\.kind<>\(CASE WHEN parent\.kind='permanent' THEN 'campaign' ELSE 'cycle' END\) THEN/u);
   assert.match(migration, /daterange[\s\S]+cannot overlap or restart/u);
   assert.match(migration, /harvest_lot_sequences_org_prefix_unique/);
   assert.match(migration, /laboratory_result_dates_guard/);
