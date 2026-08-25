@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, type FormEvent } from "react";
+import { useCallback, useEffect, useId, useState, type FormEvent } from "react";
 import type { CropPeriodDto, PlantationDto } from "@shared/crop-lifecycle";
 import type { FieldDto } from "@shared/fields";
 import type { OperationDto } from "@shared/operations";
@@ -17,6 +17,7 @@ import {
   type WeatherVirtualStation,
 } from "@shared/weather";
 import { useAuth } from "../../auth";
+import { AccessibleDialog, DialogError } from "../../components/AccessibleDialog";
 import { useI18n } from "../../i18n";
 import { weatherCopies, type WeatherCopy } from "./weather-locales.generated";
 import "./weather.css";
@@ -1195,10 +1196,12 @@ function StationDialog({
   onClose: () => void;
   onSaved: () => Promise<void>;
 }) {
+  const titleId = useId();
   const [saving, setSaving] = useState(false),
     [error, setError] = useState(false);
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (saving) return;
     setSaving(true);
     setError(false);
     const form = new FormData(event.currentTarget);
@@ -1228,16 +1231,10 @@ function StationDialog({
     }
   }
   return (
-    <div
-      className="modal-backdrop"
-      onMouseDown={(event) => {
-        if (event.target === event.currentTarget) onClose();
-      }}
-    >
-      <section className="holding-dialog">
+    <AccessibleDialog labelledBy={titleId} onClose={onClose} busy={saving}>
         <header>
-          <h2>{kind === "create" ? t.addStation : t.rename}</h2>
-          <button onClick={onClose} aria-label={t.cancel}>
+          <h2 id={titleId}>{kind === "create" ? t.addStation : t.rename}</h2>
+          <button type="button" data-dialog-close onClick={onClose} disabled={saving} aria-label={t.cancel}>
             ×
           </button>
         </header>
@@ -1298,9 +1295,9 @@ function StationDialog({
               </label>
             </>
           )}
-          {error && <p className="form-error">{t.loadError}</p>}
+          {error && <DialogError>{t.loadError}</DialogError>}
           <footer>
-            <button type="button" className="subtle-button" onClick={onClose}>
+            <button type="button" className="subtle-button" onClick={onClose} disabled={saving}>
               {t.cancel}
             </button>
             <button className="primary-action" disabled={saving}>
@@ -1308,7 +1305,6 @@ function StationDialog({
             </button>
           </footer>
         </form>
-      </section>
-    </div>
+    </AccessibleDialog>
   );
 }

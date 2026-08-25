@@ -8,6 +8,7 @@ import { culturalWorkActionIds, soilPreparationActionIds, type OperationDto } fr
 import type { CultureCatalogEntry, VarietyDto } from "@shared/crops";
 import { useI18n } from "../../i18n";
 import { useAuth } from "../../auth";
+import { AccessibleDialog, DialogError } from "../../components/AccessibleDialog";
 import { operationCopies, type OperationCopy } from "./operation-locales.generated";
 import "./operations.css";
 import "./cultural-work.css";
@@ -144,6 +145,7 @@ export default function OperationsModule() {
     const canWrite = Boolean(session?.access.access.writeAllowed && (permissions.includes("*") || permissions.includes("operations.manage") || permissions.includes("operations.create")));
     const [data, setData] = useState(empty);
     const launch = useMemo(() => { const query = new URLSearchParams(window.location.search); return { open: query.get("action") === "register-operation", fieldId: query.get("fieldId") || "", plantationId: query.get("plantationId") || "", type: query.get("operationType") || "" }; }, []);
+    const [initialContext, setInitialContext] = useState(launch);
     const [adding, setAdding] = useState(launch.open);
     const [loading, setLoading] = useState(true);
     const [failed, setFailed] = useState(false);
@@ -172,6 +174,21 @@ export default function OperationsModule() {
         }
     }, []);
     useEffect(() => { void load(); return () => { loadSequence.current += 1; }; }, [load]);
+    useEffect(() => {
+        function openFromWorkspace() {
+            const query = new URLSearchParams(window.location.search);
+            setInitialContext({ open: true, fieldId: query.get("fieldId") || "", plantationId: query.get("plantationId") || "", type: query.get("operationType") || "" });
+            setAdding(true);
+        }
+        window.addEventListener("gerofarm:register-operation", openFromWorkspace);
+        return () => window.removeEventListener("gerofarm:register-operation", openFromWorkspace);
+    }, []);
+    function closeOperationDialog() {
+        setAdding(false);
+        const query = new URLSearchParams(window.location.search);
+        for (const key of ["action", "fieldId", "plantationId", "operationType"]) query.delete(key);
+        window.history.replaceState(window.history.state, "", `${window.location.pathname}${query.size ? `?${query}` : ""}`);
+    }
     const fields = useMemo(() => new Map(data.fields.map(item => [item.id, item.name])), [data.fields]);
     const plantations = useMemo(() => new Map(data.plantations.map(item => [item.id, item.name])), [data.plantations]);
     return <>
@@ -215,7 +232,7 @@ export default function OperationsModule() {
           </div>}
       </section>
       {adding && !loading && !failed && (
-        <OperationDialog data={data} t={t} initialContext={launch} onClose={() => setAdding(false)} onSaved={async () => { setAdding(false); await load(); }}/>
+        <OperationDialog data={data} t={t} initialContext={initialContext} onClose={closeOperationDialog} onSaved={async () => { closeOperationDialog(); await load(); }}/>
       )}
       {catalogOpen && (
         <OperationCatalogDialog items={data.catalog} canWrite={canWrite} onClose={() => setCatalogOpen(false)} onChanged={load}/>
@@ -261,6 +278,7 @@ function OperationDialog({ data, t, initialContext, onClose, onSaved }: {
     const toggleSoilAction = (id: string) => set("soilActions", values.soilActions.includes(id) ? values.soilActions.filter(item => item !== id) : [...values.soilActions, id]);
     async function submit(event: FormEvent) {
         event.preventDefault();
+        if (saving) return;
         setSaving(true);
         setFailed(false);
         const { soilActions, customSoilAction, depthCm, passes, soilCondition, residueDestination, installation, cultural, fertilizationForm, includeFertilization, ...common } = values;
@@ -287,15 +305,12 @@ function OperationDialog({ data, t, initialContext, onClose, onSaved }: {
     const invalidResourceTotals = allAssignments.some(row => !Number(row.totalHoursText) || row.override && Math.abs(Object.values(row.destinationHours).reduce((sum, value) => sum + Number(value || 0), 0) - Number(row.totalHoursText)) > .0001);
     const needsApplicator = ["spraying", "product_application"].includes(values.type) && values.sprayingForm.products.some(product => product.category === "phytopharmaceutical");
     const validApplicatorIds = new Set(data.workers.filter(worker => isValidApplicator(worker.id, values.performedAt.slice(0, 10), data.workers, data.certificates)).map(worker => worker.id));
-    const dialogRef = useRef<HTMLElement>(null);
-    useEffect(() => { dialogRef.current?.focus(); const close = (event: KeyboardEvent) => { if (event.key === "Escape") onClose(); }; document.addEventListener("keydown", close); return () => document.removeEventListener("keydown", close); }, [onClose]);
     if (!values.type)
-        return <div className="modal-backdrop" onMouseDown={event => { if (event.target === event.currentTarget) onClose(); }}><section ref={dialogRef} tabIndex={-1} role="dialog" aria-modal="true" aria-labelledby="specialist-title" className="holding-dialog specialist-picker"><header><h2 id="specialist-title">{t.add}</h2><button onClick={onClose} aria-label={t.cancel}>×</button></header><div className="specialist-grid">{specialistTypes.map(type => <button key={type} onClick={() => set("type", type)}>{typeLabel(t, type, st.productApplication)}</button>)}</div></section></div>;
-    return <div className="modal-backdrop" onMouseDown={event => { if (event.target === event.currentTarget) onClose(); }}>
-      <section ref={dialogRef} tabIndex={-1} role="dialog" aria-modal="true" aria-labelledby="operation-dialog-title" className="holding-dialog field-dialog">
+        return <AccessibleDialog key="specialist-picker" labelledBy="specialist-title" onClose={onClose} className="holding-dialog specialist-picker"><header><h2 id="specialist-title">{t.add}</h2><button type="button" data-dialog-close onClick={onClose} aria-label={t.cancel}>×</button></header><div className="specialist-grid">{specialistTypes.map(type => <button type="button" key={type} onClick={() => set("type", type)}>{typeLabel(t, type, st.productApplication)}</button>)}</div></AccessibleDialog>;
+    return <AccessibleDialog key="operation-form" labelledBy="operation-dialog-title" onClose={onClose} busy={saving} className="holding-dialog field-dialog">
         <header>
           <h2 id="operation-dialog-title">{values.type === "crop_installation" ? t.installCrop : typeLabel(t, values.type as OperationDto["type"], st.productApplication)}</h2>
-          <button onClick={onClose} aria-label={t.cancel}>
+          <button type="button" data-dialog-close onClick={onClose} disabled={saving} aria-label={t.cancel}>
             ×
           </button>
         </header>
@@ -394,9 +409,9 @@ function OperationDialog({ data, t, initialContext, onClose, onSaved }: {
             <span>{t.notes}</span>
             <textarea value={values.notes} onChange={event => set("notes", event.target.value)} maxLength={2000}/>
           </label>
-          {failed && <p className="form-error">{t.saveError}</p>}
+          {failed && <DialogError>{t.saveError}</DialogError>}
           <footer>
-            <button type="button" className="subtle-button" onClick={onClose}>
+              <button type="button" className="subtle-button" onClick={onClose} disabled={saving}>
               {t.cancel}
             </button>
             <button className="primary-action" disabled={saving || invalidResourceTotals || needsApplicator && !validApplicatorIds.has(values.sprayingForm.legalApplicatorWorkerId) || values.type === "soil_preparation" && !values.soilActions.length && !values.customSoilAction.trim() || values.type === "crop_installation" && (!values.installation.plantationName.trim() || !values.installation.cultureId || !values.installation.densityPlantsHa) || values.type === "cultural_work" && !values.cultural.actions.length && !values.cultural.customAction.trim() || (values.type === "fertilization" || values.type === "soil_preparation" && values.includeFertilization) && values.fertilizationForm.products.some(product => !product.name.trim() || !product.dosePerHa || !product.totalQuantity)}>
@@ -404,8 +419,7 @@ function OperationDialog({ data, t, initialContext, onClose, onSaved }: {
             </button>
           </footer>
         </form>
-      </section>
-    </div>;
+    </AccessibleDialog>;
 }
 function FertilizationFields({ data, t, value, set, destinations, totalArea }: {
     data: Data;
@@ -737,15 +751,13 @@ function ResourceAudit({ operation, data, locale }: { operation: OperationDto; d
 }
 function OperationCatalogDialog({ items, canWrite, onClose, onChanged }: { items: OperationCatalogItemDto[]; canWrite: boolean; onClose: () => void; onChanged: () => Promise<void> }) {
     const [kind, setKind] = useState<OperationCatalogItemDto["kind"]>("soil_action"), [label, setLabel] = useState(""), [saving, setSaving] = useState(false), [error, setError] = useState("");
-    useEffect(() => { document.querySelector<HTMLElement>(".catalog-dialog select")?.focus(); const close = (event: KeyboardEvent) => { if (event.key === "Escape") onClose(); }; document.addEventListener("keydown", close); return () => document.removeEventListener("keydown", close); }, [onClose]);
-    async function mutate(url: string, method: "POST" | "PATCH", body: unknown) { setSaving(true); setError(""); try { const response = await fetch(url, { method, credentials: "include", headers: { "content-type": "application/json" }, body: JSON.stringify(body) }); if (!response.ok) throw new Error((await response.json().catch(() => null))?.code || "REQUEST_FAILED"); await onChanged(); setLabel(""); } catch (caught) { setError(caught instanceof Error ? caught.message : "REQUEST_FAILED"); } finally { setSaving(false); } }
-    return <div className="modal-backdrop" onMouseDown={event => { if (event.target === event.currentTarget) onClose(); }}><section role="dialog" aria-modal="true" aria-labelledby="catalog-title" className="holding-dialog catalog-dialog"><header><h2 id="catalog-title">Catálogo de operações</h2><button onClick={onClose} aria-label="Fechar">×</button></header>{canWrite && <form onSubmit={event => { event.preventDefault(); void mutate("/api/farm/operation-catalog", "POST", { kind, label }); }}><label><span>Tipo</span><select value={kind} onChange={event => setKind(event.target.value as OperationCatalogItemDto["kind"])}><option value="soil_action">Preparação do solo</option><option value="crop_installation_method">Instalação de cultura</option><option value="cultural_work_action">Trabalho cultural</option><option value="cultural_work_method">Método cultural</option></select></label><label><span>Designação</span><input required minLength={2} maxLength={120} value={label} onChange={event => setLabel(event.target.value)}/></label><button className="primary-action" disabled={saving}>Criar opção</button></form>}<div className="catalog-list">{items.map(item => <article key={item.id}><div><b>{item.label}</b><small>{item.kind}</small></div><em className={item.status}>{item.status}</em><button disabled={!canWrite || saving} onClick={() => void mutate(`/api/farm/operation-catalog/${item.id}`, "PATCH", { active: item.status !== "active" })}>{item.status === "active" ? "Desativar" : "Reativar"}</button></article>)}</div>{!items.length && <p>Nenhuma opção personalizada.</p>}{error && <p className="form-error" role="alert">{error}</p>}</section></div>;
+    async function mutate(url: string, method: "POST" | "PATCH", body: unknown) { if (saving) return; setSaving(true); setError(""); try { const response = await fetch(url, { method, credentials: "include", headers: { "content-type": "application/json" }, body: JSON.stringify(body) }); if (!response.ok) throw new Error((await response.json().catch(() => null))?.code || "REQUEST_FAILED"); await onChanged(); setLabel(""); } catch (caught) { setError(caught instanceof Error ? caught.message : "REQUEST_FAILED"); } finally { setSaving(false); } }
+    return <AccessibleDialog labelledBy="catalog-title" onClose={onClose} busy={saving} className="holding-dialog catalog-dialog"><header><h2 id="catalog-title">Catálogo de operações</h2><button type="button" data-dialog-close onClick={onClose} disabled={saving} aria-label="Fechar">×</button></header>{canWrite && <form onSubmit={event => { event.preventDefault(); void mutate("/api/farm/operation-catalog", "POST", { kind, label }); }}><label><span>Tipo</span><select value={kind} onChange={event => setKind(event.target.value as OperationCatalogItemDto["kind"])}><option value="soil_action">Preparação do solo</option><option value="crop_installation_method">Instalação de cultura</option><option value="cultural_work_action">Trabalho cultural</option><option value="cultural_work_method">Método cultural</option></select></label><label><span>Designação</span><input required minLength={2} maxLength={120} value={label} onChange={event => setLabel(event.target.value)}/></label><button className="primary-action" disabled={saving}>Criar opção</button></form>}<div className="catalog-list">{items.map(item => <article key={item.id}><div><b>{item.label}</b><small>{item.kind}</small></div><em className={item.status}>{item.status}</em><button type="button" disabled={!canWrite || saving} onClick={() => void mutate(`/api/farm/operation-catalog/${item.id}`, "PATCH", { active: item.status !== "active" })}>{item.status === "active" ? "Desativar" : "Reativar"}</button></article>)}</div>{!items.length && <p>Nenhuma opção personalizada.</p>}{error && <DialogError>{error}</DialogError>}</AccessibleDialog>;
 }
 function VoidOperationDialog({ operation, onClose, onSaved }: { operation: OperationDto; onClose: () => void; onSaved: () => Promise<void> }) {
     const [reason, setReason] = useState(""), [saving, setSaving] = useState(false), [error, setError] = useState("");
-    useEffect(() => { const close = (event: KeyboardEvent) => { if (event.key === "Escape") onClose(); }; document.addEventListener("keydown", close); return () => document.removeEventListener("keydown", close); }, [onClose]);
-    async function submit(event: FormEvent) { event.preventDefault(); setSaving(true); setError(""); try { const response = await fetch(`/api/farm/operations/${operation.id}/void`, { method: "POST", credentials: "include", headers: { "content-type": "application/json" }, body: JSON.stringify({ reason }) }); if (!response.ok) throw new Error((await response.json().catch(() => null))?.code || "REQUEST_FAILED"); await onSaved(); } catch (caught) { setError(caught instanceof Error ? caught.message : "REQUEST_FAILED"); setSaving(false); } }
-    return <div className="modal-backdrop" onMouseDown={event => { if (event.target === event.currentTarget) onClose(); }}><section role="alertdialog" aria-modal="true" aria-labelledby="void-title" className="holding-dialog"><header><h2 id="void-title">Anular {operation.code}</h2><button onClick={onClose} aria-label="Fechar">×</button></header><form className="holding-form" onSubmit={submit}><p>Esta ação preserva a operação no histórico e reverte as projeções associadas.</p><label><span>Motivo</span><textarea autoFocus required minLength={2} maxLength={500} value={reason} onChange={event => setReason(event.target.value)}/></label>{error && <p className="form-error" role="alert">{error}</p>}<footer><button type="button" onClick={onClose}>Cancelar</button><button className="primary-action" disabled={saving || reason.trim().length < 2}>Confirmar anulação</button></footer></form></section></div>;
+    async function submit(event: FormEvent) { event.preventDefault(); if (saving) return; setSaving(true); setError(""); try { const response = await fetch(`/api/farm/operations/${operation.id}/void`, { method: "POST", credentials: "include", headers: { "content-type": "application/json" }, body: JSON.stringify({ reason }) }); if (!response.ok) throw new Error((await response.json().catch(() => null))?.code || "REQUEST_FAILED"); await onSaved(); } catch (caught) { setError(caught instanceof Error ? caught.message : "REQUEST_FAILED"); setSaving(false); } }
+    return <AccessibleDialog labelledBy="void-title" onClose={onClose} busy={saving} role="alertdialog"><header><h2 id="void-title">Anular {operation.code}</h2><button type="button" data-dialog-close onClick={onClose} disabled={saving} aria-label="Fechar">×</button></header><form className="holding-form" onSubmit={submit}><p>Esta ação preserva a operação no histórico e reverte as projeções associadas.</p><label><span>Motivo</span><textarea data-dialog-initial-focus required minLength={2} maxLength={500} value={reason} onChange={event => setReason(event.target.value)}/></label>{error && <DialogError>{error}</DialogError>}<footer><button type="button" onClick={onClose} disabled={saving}>Cancelar</button><button className="primary-action" disabled={saving || reason.trim().length < 2}>Confirmar anulação</button></footer></form></AccessibleDialog>;
 }
 function Input({ label, value, onChange, type = "text", required = true }: {
     label: string;

@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useMemo, useState, type FormEvent, type ReactNode } from "react";
+import { useCallback, useEffect, useId, useMemo, useState, type FormEvent, type ReactNode } from "react";
 import type { FieldDto } from "@shared/fields";
 import type { CultureCatalogEntry, VarietyDto } from "@shared/crops";
 import type { CropPeriodDto, FallowDto, PlantationDto, RotationEntry } from "@shared/crop-lifecycle";
 import { useI18n } from "../../i18n";
+import { AccessibleDialog, DialogError } from "../../components/AccessibleDialog";
 import { lifecycleCopies, type LifecycleCopy } from "./lifecycle-locales.generated";
 type Data = {
     plantations: PlantationDto[];
@@ -115,7 +116,7 @@ function LifecycleDialog({ dialog, fields, cultures, varieties, t, onClose, onSa
         endpoint = `/api/farm/fallows/${dialog.item.id}/close`;
         payload = { endedOn: values.endedOn };
     }
-    async function submit(event: FormEvent) { event.preventDefault(); setSaving(true); setError(""); try {
+    async function submit(event: FormEvent) { event.preventDefault(); if (saving) return; setSaving(true); setError(""); try {
         const response = await fetch(endpoint, { method: "POST", credentials: "include", headers: { "content-type": "application/json" }, body: JSON.stringify(payload) });
         if (!response.ok) {
             const body = await response.json().catch(() => null) as {
@@ -131,15 +132,15 @@ function LifecycleDialog({ dialog, fields, cultures, varieties, t, onClose, onSa
         setError("save");
         setSaving(false);
     } }
-    return <Dialog title={title} cancel={t.cancel} onClose={onClose}><form className="holding-form" onSubmit={(event) => void submit(event)}>{dialog.kind === "plantation" && <><Select label={t.field} value={values.fieldId} onChange={(value) => set("fieldId", value)} options={fields.map((item) => [item.id, item.name])}/><Select label={t.culture} value={values.cultureId} onChange={(value) => { set("cultureId", value); set("varietyId", ""); }} options={cultures.map((item) => [item.id, item.sourceName])}/><Select label={t.variety} value={values.varietyId} onChange={(value) => set("varietyId", value)} options={[["", t.noVariety], ...varieties.filter((item) => item.cultureId === values.cultureId).map((item) => [item.id, item.name])]}/><Input label={t.name} value={values.name} onChange={(value) => set("name", value)}/><Select label={t.kind} value={values.kind} onChange={(value) => set("kind", value)} options={[["permanent", t.permanent], ["temporary", t.temporary]]}/><Input label={`${t.area} (ha)`} type="number" step="0.0001" value={values.areaHa} onChange={(value) => set("areaHa", value)}/><Input label={t.startDate} type="date" value={values.startedOn} onChange={(value) => set("startedOn", value)}/></>}{dialog.kind === "period" && <><Input label={t.name} value={values.name} onChange={(value) => set("name", value)}/><Input label={t.startDate} type="date" value={values.startedOn} onChange={(value) => set("startedOn", value)}/></>}{dialog.kind === "fallow" && <><Select label={t.field} value={values.fieldId} onChange={(value) => set("fieldId", value)} options={fields.map((item) => [item.id, item.name])}/><Input label={t.name} value={values.name} onChange={(value) => set("name", value)}/><Input label={`${t.area} (ha)`} type="number" step="0.0001" value={values.areaHa} onChange={(value) => set("areaHa", value)}/><Input label={t.startDate} type="date" value={values.startedOn} onChange={(value) => set("startedOn", value)}/></>}{dialog.kind === "uproot" && <><p className="dialog-warning">{t.uprootWarning}</p><Input label={t.endDate} type="date" value={values.endedOn} onChange={(value) => set("endedOn", value)}/><Input label={t.uprootReason} value={values.reason} onChange={(value) => set("reason", value)}/></>}{(dialog.kind === "closePeriod" || dialog.kind === "closeFallow") && <Input label={t.endDate} type="date" value={values.endedOn} onChange={(value) => set("endedOn", value)}/>} {error && <p className="form-error">{error === "capacity" ? t.capacityError : t.saveError}</p>}<footer><button type="button" className="subtle-button" onClick={onClose}>{t.cancel}</button><button className="primary-action" disabled={saving}>{t.save}</button></footer></form></Dialog>;
+    return <Dialog title={title} cancel={t.cancel} onClose={onClose} busy={saving}><form className="holding-form" onSubmit={(event) => void submit(event)}>{dialog.kind === "plantation" && <><Select label={t.field} value={values.fieldId} onChange={(value) => set("fieldId", value)} options={fields.map((item) => [item.id, item.name])}/><Select label={t.culture} value={values.cultureId} onChange={(value) => { set("cultureId", value); set("varietyId", ""); }} options={cultures.map((item) => [item.id, item.sourceName])}/><Select label={t.variety} value={values.varietyId} onChange={(value) => set("varietyId", value)} options={[["", t.noVariety], ...varieties.filter((item) => item.cultureId === values.cultureId).map((item) => [item.id, item.name])]}/><Input label={t.name} value={values.name} onChange={(value) => set("name", value)}/><Select label={t.kind} value={values.kind} onChange={(value) => set("kind", value)} options={[["permanent", t.permanent], ["temporary", t.temporary]]}/><Input label={`${t.area} (ha)`} type="number" step="0.0001" value={values.areaHa} onChange={(value) => set("areaHa", value)}/><Input label={t.startDate} type="date" value={values.startedOn} onChange={(value) => set("startedOn", value)}/></>}{dialog.kind === "period" && <><Input label={t.name} value={values.name} onChange={(value) => set("name", value)}/><Input label={t.startDate} type="date" value={values.startedOn} onChange={(value) => set("startedOn", value)}/></>}{dialog.kind === "fallow" && <><Select label={t.field} value={values.fieldId} onChange={(value) => set("fieldId", value)} options={fields.map((item) => [item.id, item.name])}/><Input label={t.name} value={values.name} onChange={(value) => set("name", value)}/><Input label={`${t.area} (ha)`} type="number" step="0.0001" value={values.areaHa} onChange={(value) => set("areaHa", value)}/><Input label={t.startDate} type="date" value={values.startedOn} onChange={(value) => set("startedOn", value)}/></>}{dialog.kind === "uproot" && <><p className="dialog-warning">{t.uprootWarning}</p><Input label={t.endDate} type="date" value={values.endedOn} onChange={(value) => set("endedOn", value)}/><Input label={t.uprootReason} value={values.reason} onChange={(value) => set("reason", value)}/></>}{(dialog.kind === "closePeriod" || dialog.kind === "closeFallow") && <Input label={t.endDate} type="date" value={values.endedOn} onChange={(value) => set("endedOn", value)}/>} {error && <DialogError>{error === "capacity" ? t.capacityError : t.saveError}</DialogError>}<footer><button type="button" className="subtle-button" onClick={onClose} disabled={saving}>{t.cancel}</button><button className="primary-action" disabled={saving}>{t.save}</button></footer></form></Dialog>;
 }
-function Dialog({ title, cancel, onClose, children }: {
+function Dialog({ title, cancel, onClose, busy, children }: {
     title: string;
     cancel: string;
     onClose: () => void;
+    busy: boolean;
     children: ReactNode;
-}) { return <div className="modal-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget)
-    onClose(); }}><section className="holding-dialog"><header><h2>{title}</h2><button onClick={onClose} aria-label={cancel}>×</button></header>{children}</section></div>; }
+}) { const titleId = useId(); return <AccessibleDialog labelledBy={titleId} onClose={onClose} busy={busy}><header><h2 id={titleId}>{title}</h2><button type="button" data-dialog-close onClick={onClose} disabled={busy} aria-label={cancel}>×</button></header>{children}</AccessibleDialog>; }
 function Input({ label, value, onChange, type = "text", step }: {
     label: string;
     value: string;

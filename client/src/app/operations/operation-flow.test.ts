@@ -11,6 +11,9 @@ test("global operation action offers specialist forms only and preserves context
   assert.match(moduleSource, /query\.get\("fieldId"\)/);
   assert.match(moduleSource, /query\.get\("plantationId"\)/);
   assert.match(workspaceSource, /mobile-register-operation/);
+  assert.match(workspaceSource, /dispatchEvent\(new CustomEvent\("gerofarm:register-operation"\)\)/);
+  assert.match(moduleSource, /addEventListener\("gerofarm:register-operation",\s*openFromWorkspace\)/);
+  assert.match(moduleSource, /setInitialContext\(\{ open: true, fieldId:/);
 });
 
 test("operation UI integrates catalogue, soil analysis, allocation and audited void contracts", () => {

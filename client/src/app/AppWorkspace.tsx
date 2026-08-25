@@ -97,6 +97,7 @@ export default function AppWorkspace() {
   function registerOperation(){
     const search=new URLSearchParams(window.location.search);search.set("action","register-operation");
     window.history.pushState(window.history.state,"",`/app/operations?${search}`);setModule("operations");setSidebarOpen(false);window.scrollTo({top:0,behavior:"smooth"});
+    window.setTimeout(() => window.dispatchEvent(new CustomEvent("gerofarm:register-operation")), 0);
   }
 
   async function changeCentralLocale(next: SupportedLocale) {
