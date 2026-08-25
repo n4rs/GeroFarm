@@ -35,7 +35,7 @@ export const fertilizationSchema = z.object({ mode: z.enum(fertilizationModes), 
     context.addIssue({ code: "custom", path: ["customMode"], message: "A custom fertilization mode is required" }); if (value.mode !== "other" && value.customMode)
     context.addIssue({ code: "custom", path: ["customMode"], message: "A custom mode requires Other" }); });
 export const createOperationSchema = z.object({ destinations: z.array(operationDestinationSchema).min(1).max(100).superRefine((rows, context) => { const total = rows.reduce((sum, row) => sum + row.percentage, 0); if (Math.abs(total - 100) > 0.01)
-        context.addIssue({ code: "custom", message: "Destination percentages must total 100" }); }), type: z.enum(operationTypes), performedAt: z.string().datetime({ offset: true }), durationMinutes: z.number().int().positive().max(10080).optional(), notes: z.string().trim().max(2000).optional(), workerIds: z.array(z.string().uuid()).max(50).default([]), equipmentIds: z.array(z.string().uuid()).max(50).default([]), contractorIds: z.array(z.string().uuid()).max(20).default([]), soilPreparation: soilPreparationSchema.optional(), cropInstallation: cropInstallationSchema.optional(), culturalWork: culturalWorkSchema.optional(), fertilization: fertilizationSchema.optional(), spraying: sprayingSchema.optional() }).superRefine((value, context) => {
+        context.addIssue({ code: "custom", message: "Destination percentages must total 100" }); const keys=rows.map(row=>`${row.fieldId}:${row.plantationId||"field"}`); if(new Set(keys).size!==keys.length) context.addIssue({code:"custom",message:"A physical destination can only occur once per operation"}); }), type: z.enum(operationTypes), performedAt: z.string().datetime({ offset: true }), durationMinutes: z.number().int().positive().max(10080).optional(), notes: z.string().trim().max(2000).optional(), workerIds: z.array(z.string().uuid()).max(50).default([]), equipmentIds: z.array(z.string().uuid()).max(50).default([]), contractorIds: z.array(z.string().uuid()).max(20).default([]), soilPreparation: soilPreparationSchema.optional(), cropInstallation: cropInstallationSchema.optional(), culturalWork: culturalWorkSchema.optional(), fertilization: fertilizationSchema.optional(), spraying: sprayingSchema.optional() }).superRefine((value, context) => {
     if (["irrigation", "fertigation"].includes(value.type))
         context.addIssue({ code: "custom", path: ["type"], message: "Irrigation and fertigation require the dedicated irrigation endpoint" });
     if (value.type === "soil_preparation" && !value.soilPreparation)
@@ -58,11 +58,15 @@ export const createOperationSchema = z.object({ destinations: z.array(operationD
     if (value.cropInstallation && (value.destinations.length !== 1 || value.destinations[0].plantationId))
     context.addIssue({ code: "custom", path: ["destinations"], message: "Crop installation creates exactly one new plantation" }); if (value.cropInstallation?.endedOn && value.cropInstallation.endedOn < value.performedAt.slice(0, 10))
     context.addIssue({ code: "custom", path: ["cropInstallation", "endedOn"], message: "Installation end date precedes its start" }); });
+export const voidOperationSchema = z.object({ reason: z.string().trim().min(2).max(500) });
 export type CreateOperationInput = z.infer<typeof createOperationSchema>;
 export type OperationDto = Omit<CreateOperationInput, "workerIds" | "equipmentIds" | "contractorIds"> & {
     id: string;
     code: string;
     status: "performed" | "voided";
+    voidReason?: string;
+    voidedAt?: string;
+    voidedBy?: string;
     workerIds: string[];
     equipmentIds: string[];
     contractorIds: string[];

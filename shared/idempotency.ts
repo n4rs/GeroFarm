@@ -1,5 +1,6 @@
 export const idempotentMutationPolicies = [
   { method: "POST", pattern: /^\/api\/farm\/operations$/, name: "create-operation" },
+  { method: "POST", pattern: /^\/api\/farm\/operations\/[0-9a-f-]+\/void$/i, name: "void-operation" },
   { method: "POST", pattern: /^\/api\/farm\/irrigation\/records$/, name: "create-irrigation-record" },
   { method: "POST", pattern: /^\/api\/farm\/irrigation\/records\/[0-9a-f-]+\/reverse$/i, name: "reverse-irrigation-record" },
   { method: "POST", pattern: /^\/api\/farm\/harvests$/, name: "create-harvest" },

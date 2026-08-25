@@ -38,8 +38,8 @@ async function audit(tx: Tx, context: FarmRequestContext, action: string, entity
   await tx.insert(farmAuditEvents).values({ id: randomUUID(), organizationId: context.organization.id, actorUserId: context.user.id, action, entityType, entityId, metadata });
 }
 
-async function nextOperation(tx: Tx, organizationId: string, performedAt: Date) {
-  const year = performedAt.getUTCFullYear();
+async function nextOperation(tx: Tx, organizationId: string, performedAt: Date, timezone: string) {
+  const year = Number(dateInTimeZone(performedAt,timezone).year);
   const result = await tx.execute(sql`insert into ${operationSequences} (organization_id,year,next_value) values (${organizationId},${year},2) on conflict (organization_id,year) do update set next_value=${operationSequences.nextValue}+1 returning next_value-1 as value`);
   return `OP-${year}-${String(Number((result.rows[0] as { value: string }).value)).padStart(6, "0")}`;
 }
@@ -139,7 +139,7 @@ export function createPostgresIrrigationRepository(db: FarmDatabase): Irrigation
   }
 
   async function materialize(tx: Tx, context: FarmRequestContext, irrigationId: string, input: CreateIrrigationInput, prepared: Awaited<ReturnType<typeof prepare>>, performedAt: Date, scheduled: boolean) {
-    const operationId = randomUUID(); const code = await nextOperation(tx, context.organization.id, performedAt);
+    const operationId = randomUUID(); const code = await nextOperation(tx, context.organization.id, performedAt, prepared.timezone);
     await tx.insert(farmOperations).values({ id: operationId, organizationId: context.organization.id, code, type: input.fertigation ? "fertigation" : "irrigation", performedAt, durationMinutes: prepared.hydraulic.durationMinutes?.toString(), notes: input.notes, status: "performed" });
     const destinations = prepared.destinationAreas.map((destination) => ({ id: randomUUID(), operationId, organizationId: context.organization.id, fieldId: destination.fieldId, plantationId: destination.plantationId, areaHa: destination.areaHa.toString(), percentage: (destination.areaHa / prepared.hydraulic.areaHa * 100).toString() }));
     await tx.insert(operationDestinations).values(destinations);
@@ -178,7 +178,7 @@ export function createPostgresIrrigationRepository(db: FarmDatabase): Irrigation
         return due.length;
       });
     },
-    async reverse(context, id) { const changed = await withOrganizationTransaction(db, context.organization.id, async (tx) => { const [row] = await tx.select().from(irrigationRecords).where(eq(irrigationRecords.id, id)).for("update"); if (!row) return false; if (!row.operationId || !["performed", "performed_by_schedule"].includes(row.status)) throw domainError("Only a performed irrigation can be reversed", "IRRIGATION_NOT_REVERSIBLE", 409); await tx.update(farmOperations).set({ status: "voided" }).where(eq(farmOperations.id, row.operationId)); await tx.update(irrigationRecords).set({ status: "reversed", reversedAt: new Date() }).where(eq(irrigationRecords.id, id)); await audit(tx, context, "irrigation.reversed", "irrigation", id, { operationId: row.operationId, derivedFertigationReversed: Boolean(row.fertigationSnapshot) }); return true; }); return changed ? (await buildOverview(context)).irrigations.find((row) => row.id === id) || null : null; },
+    async reverse(context, id) { const changed = await withOrganizationTransaction(db, context.organization.id, async (tx) => { const [row] = await tx.select().from(irrigationRecords).where(eq(irrigationRecords.id, id)).for("update"); if (!row) return false; if (!row.operationId || !["performed", "performed_by_schedule"].includes(row.status)) throw domainError("Only a performed irrigation can be reversed", "IRRIGATION_NOT_REVERSIBLE", 409); const reversedAt=new Date(); await tx.update(farmOperations).set({ status: "voided", voidReason: "Irrigation record reversed", voidedAt: reversedAt, voidedBy: context.user.id }).where(eq(farmOperations.id, row.operationId)); await tx.update(irrigationRecords).set({ status: "reversed", reversedAt }).where(eq(irrigationRecords.id, id)); await audit(tx, context, "irrigation.reversed", "irrigation", id, { operationId: row.operationId, derivedFertigationReversed: Boolean(row.fertigationSnapshot) }); return true; }); return changed ? (await buildOverview(context)).irrigations.find((row) => row.id === id) || null : null; },
   };
   return repository;
 }

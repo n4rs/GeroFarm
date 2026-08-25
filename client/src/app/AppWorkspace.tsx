@@ -86,10 +86,16 @@ export default function AppWorkspace() {
 
   function navigate(next: ModuleId) {
     const path = next === "overview" ? "/app" : `/app/${next}`;
-    window.history.pushState(window.history.state, "", `${path}${window.location.search}`);
+    const search=new URLSearchParams(window.location.search);for(const key of ["action","fieldId","plantationId","operationType"])search.delete(key);
+    window.history.pushState(window.history.state, "", `${path}${search.size?`?${search}`:""}`);
     setModule(next);
     setSidebarOpen(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function registerOperation(){
+    const search=new URLSearchParams(window.location.search);search.set("action","register-operation");
+    window.history.pushState(window.history.state,"",`/app/operations?${search}`);setModule("operations");setSidebarOpen(false);window.scrollTo({top:0,behavior:"smooth"});
   }
 
   async function changeCentralLocale(next: SupportedLocale) {
@@ -113,7 +119,7 @@ export default function AppWorkspace() {
       <header className="farm-topbar">
         <button className="mobile-menu" onClick={() => setSidebarOpen(true)} aria-label={common.openNavigation}>☰</button>
         <div className="crumb"><span>GeroFarm</span><b>/</b><strong>{active.label}</strong></div>
-        <div className="top-actions workspace-actions"><label><span>{common.language}</span><select aria-label={common.language} value={locale} disabled={localeUpdate === "saving"} onChange={(event) => void changeCentralLocale(event.target.value as SupportedLocale)}>{options.map((option) => <option key={option.code} value={option.code}>{option.label}</option>)}</select></label><button className="primary-action" disabled={!session.access.access.writeAllowed||(!permitted("operations.manage")&&!permitted("operations.create"))} onClick={() => navigate("operations")}><span>＋</span> {common.registerOperation}</button></div>
+        <div className="top-actions workspace-actions"><label><span>{common.language}</span><select aria-label={common.language} value={locale} disabled={localeUpdate === "saving"} onChange={(event) => void changeCentralLocale(event.target.value as SupportedLocale)}>{options.map((option) => <option key={option.code} value={option.code}>{option.label}</option>)}</select></label><button className="primary-action" disabled={!session.access.access.writeAllowed||(!permitted("operations.manage")&&!permitted("operations.create"))} onClick={registerOperation}><span>＋</span> {common.registerOperation}</button></div>
       </header>
 
       <main className="farm-content">

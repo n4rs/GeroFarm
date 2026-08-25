@@ -94,7 +94,7 @@ export async function assertPlantationCapacity(tx: FarmTransaction, context: Far
 
 export function requestAccessOptions(method: string, path: string, query: Record<string, unknown> = {}, body: Record<string, unknown> = {}) {
   const write = !["GET", "HEAD", "OPTIONS"].includes(method);
-  const releasesCapacity = (method === "PATCH" && path.startsWith("/fields/") && body.status === "inactive") || path.endsWith("/close") || path.endsWith("/uproot") || (method === "DELETE" && path.startsWith("/field-notebooks/"));
+  const releasesCapacity = (method === "PATCH" && path.startsWith("/fields/") && body.status === "inactive") || path.endsWith("/close") || path.endsWith("/uproot") || path.endsWith("/void") || (method === "DELETE" && path.startsWith("/field-notebooks/"));
   if (path.startsWith("/privacy")) return { permission: write ? "farm.manage" : "farm.view", feature: "privacyByDesign" as const, write };
   if (path === "/economics") return { permission: query.view === "costs" ? "finance.view" : "farm.view", feature: query.view === "costs" ? "costs" as const : "inventory" as const };
   if (path.startsWith("/inventory")) return { permission: "inventory.manage", feature: "inventory" as const, write };
@@ -104,7 +104,7 @@ export function requestAccessOptions(method: string, path: string, query: Record
   if (path.startsWith("/harvests")) return { permission: write ? "harvests.manage" : "harvests.view", write };
   if (path.startsWith("/monitorings") || path.startsWith("/laboratory") || path === "/agronomy") return { permission: write ? "agronomy.manage" : "farm.view", write };
   if (path === "/operations" && method === "POST") return { permission: ["operations.manage", "operations.create"], write: true };
-  if (path.startsWith("/operations") || path.startsWith("/irrigation")) return { permission: write ? "operations.manage" : "operations.view", write };
+  if (path.startsWith("/operations") || path.startsWith("/irrigation")) return { permission: write ? "operations.manage" : "operations.view", write: write && !releasesCapacity };
   if (path.startsWith("/fertilization-plans")) return { permission: write ? "plans.manage" : "plans.view", write };
   if (path.startsWith("/fields") || path.startsWith("/holdings") || path.startsWith("/plantations") || path.startsWith("/crop-") || path.startsWith("/fallows") || path.startsWith("/varieties") || path.startsWith("/resources") || path.startsWith("/workers") || path.startsWith("/worker-certificates") || path.startsWith("/equipment") || path.startsWith("/contractors")) return { permission: write ? "farm.manage" : "farm.view", write: write && !releasesCapacity };
   return { write };

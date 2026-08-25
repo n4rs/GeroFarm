@@ -148,6 +148,13 @@
       "when": 1787709600000,
       "tag": "0020_foundation_integrity",
       "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "7",
+      "when": 1787713200000,
+      "tag": "0021_domain_invariants",
+      "breakpoints": true
     }
   ]
 }

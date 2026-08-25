@@ -11,7 +11,7 @@ export const createFarmCostSchema=z.object({operationId:z.string().uuid().option
 export type CreateInventoryProductInput=z.infer<typeof createInventoryProductSchema>;export type ReceiveInventoryInput=z.infer<typeof receiveInventorySchema>;export type ConsumeInventoryInput=z.infer<typeof consumeInventorySchema>;export type RegularizeConsumptionInput=z.infer<typeof regularizeConsumptionSchema>;export type CreateFarmCostInput=z.infer<typeof createFarmCostSchema>;
 export type InventoryProductDto=CreateInventoryProductInput&{id:string;status:"active"|"inactive"};
 export type InventoryLotDto={id:string;productId:string;lotNumber:string;supplier?:string;originDocument?:string;receivedOn:string;receivedQuantity:number;availableQuantity:number;unitCost?:number};
-export type ConsumptionDto={id:string;operationId:string;productId:string;requestedQuantity:number;allocatedQuantity:number;unit:string;status:"pending"|"allocated";createdAt:string};
+export type ConsumptionDto={id:string;operationId:string;productId:string;requestedQuantity:number;allocatedQuantity:number;unit:string;status:"pending"|"allocated"|"reversed";createdAt:string};
 export type CostDto={id:string;operationId?:string;category:CreateFarmCostInput["category"];description:string;netAmount:number;taxAmount:number;currency:string;occurredOn:string;allocations:Array<{destinationId:string;percentage:number;amount:number}>;status:"active"|"reversed"};
 export type EconomicOperationDto={id:string;code:string;type:string;performedAt:string;destinations:Array<{id:string;fieldId:string;areaHa:number}>};
 export type EconomicsOverview={products:InventoryProductDto[];lots:InventoryLotDto[];consumptions:ConsumptionDto[];costs:CostDto[];operations:EconomicOperationDto[]};

@@ -66,6 +66,8 @@ export const applicationProductSchema = z.object({
   if (value.category === "phytopharmaceutical" && !value.registrationNumber) context.addIssue({ code: "custom", path: ["registrationNumber"], message: "Registration snapshot is required" });
   if (value.category !== "phytopharmaceutical" && value.fracGroup) context.addIssue({ code: "custom", path: ["fracGroup"], message: "FRAC applies only to phytopharmaceutical products" });
   if (!["foliar_fertilizer", "corrective"].includes(value.category) && value.nutrientSnapshot) context.addIssue({ code: "custom", path: ["nutrientSnapshot"], message: "Nutrient composition applies only to nutrient products" });
+  const authorizationKeys=value.authorizations.map(item=>`${item.fieldId}:${item.plantationId||"field"}`);
+  if(new Set(authorizationKeys).size!==authorizationKeys.length) context.addIssue({code:"custom",path:["authorizations"],message:"Authorization snapshots must be unique per destination"});
 });
 
 export const applicationWeatherSchema = z.object({
@@ -97,7 +99,9 @@ export const sprayingSchema = z.object({
   if (value.method === "other" && !value.customMethod) context.addIssue({ code: "custom", path: ["customMethod"], message: "A custom method is required" });
   if (value.method !== "other" && value.customMethod) context.addIssue({ code: "custom", path: ["customMethod"], message: "A custom method requires Other" });
   const requiresLegalApplicator = value.products.some((product) => product.category === "phytopharmaceutical");
+  if (requiresLegalApplicator && !value.legalApplicatorWorkerId) context.addIssue({ code: "custom", path: ["legalApplicatorWorkerId"], message: "A valid legal applicator is required for phytopharmaceutical products" });
   if (!requiresLegalApplicator && value.legalApplicatorWorkerId) context.addIssue({ code: "custom", path: ["legalApplicatorWorkerId"], message: "A legal applicator applies only to phytopharmaceutical products" });
+  if (value.legalApplicatorWorkerId && value.auxiliaryWorkerIds.includes(value.legalApplicatorWorkerId)) context.addIssue({ code: "custom", path: ["auxiliaryWorkerIds"], message: "The legal applicator cannot also be recorded as auxiliary labour" });
 });
 
 export type SprayingInput = z.infer<typeof sprayingSchema>;

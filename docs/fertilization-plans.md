@@ -12,7 +12,7 @@
 ## Non-blocking dependencies reserved for final phases
 
 - Gero Core remains the authority for identity, organization and access only. This phase requires no Core change.
-- Irrigation-sector and nitrate-analysis source modules do not yet exist in GeroFarm. Plans therefore accept optional frozen snapshots and issue non-blocking warnings when they are absent or older than one year. A later source-module integration must attach the latest applicable record without rewriting an activated plan.
-- Nutrients delivered by irrigation water remain a separate indicator. They are not included in the actual nutrient total until the irrigation/fertigation phase defines and audits the calculation from real water volumes.
+- Irrigation sectors and nitrate analyses exist in GeroFarm. Plans preserve the selected sector/analysis snapshots and issue non-blocking warnings when they are absent or older than one year; activated plans are never rewritten by later source changes.
+- Nutrients delivered by irrigation products use the single fertigation operation projection. Nitrates delivered by water are calculated once from performed irrigation volume and its frozen analysis, and remain a separate indicator in the balance.
 - The oxide/elemental choice is currently a per-view presentation toggle. Persisting an organization preference belongs to the later settings phase.
 - The crop selector deliberately preserves the stable imported source designations used by the existing crop catalogue. Translating the 106 concrete catalogue records is a shared catalogue phase, separate from the fully translated plan interface.

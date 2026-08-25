@@ -6,7 +6,7 @@
 
 Uma pulverização exige volume de calda em L/ha. Cada produto conserva a origem quantitativa (dose/ha, dose/hL ou total), lote, substâncias ativas, registo, grupo FRAC quando aplicável e snapshots de autorização, uso, intervalo de segurança e reentrada por cultura e destino. Os valores calculados são fechados pelo servidor na operação concluída.
 
-Os produtos fitofarmacêuticos exigem a avaliação do aplicador legal na data. Produtos não fitofarmacêuticos não exigem essa habilitação. Ausência ou invalidade da habilitação, autorização, limites, antirresistência, inspeção ou calibração geram avisos históricos não bloqueantes; a decisão do utilizador e a contagem dos avisos ficam na auditoria.
+Os produtos fitofarmacêuticos exigem um aplicador legal ativo e com certificado válido na data; a ausência ou invalidade bloqueia a submissão. Produtos não fitofarmacêuticos não exigem essa habilitação. Autorizações, limites, antirresistência, inspeção e calibração geram avisos históricos não bloqueantes; a decisão do utilizador e a contagem dos avisos ficam na auditoria.
 
 Adubos foliares e corretivos podem guardar a composição histórica. O balanço dos planos de fertilização lê uma projeção calculada diretamente dos produtos da pulverização e nunca persiste uma segunda operação de fertilização.
 

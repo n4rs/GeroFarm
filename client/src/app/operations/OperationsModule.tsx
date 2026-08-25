@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState, type FormEvent } from "react
 import type { FieldDto } from "@shared/fields";
 import type { PlantationDto } from "@shared/crop-lifecycle";
 import type { ContractorDto, EquipmentDto, WorkerDto } from "@shared/resources";
-import { culturalWorkActionIds, soilPreparationActionIds, type OperationDto } from "@shared/operations";
+import { culturalWorkActionIds, operationTypes, soilPreparationActionIds, type OperationDto } from "@shared/operations";
 import type { CultureCatalogEntry, VarietyDto } from "@shared/crops";
 import { useI18n } from "../../i18n";
 import { operationCopies, type OperationCopy } from "./operation-locales.generated";
@@ -109,7 +109,8 @@ export default function OperationsModule() {
     const { locale } = useI18n();
     const t = operationCopies[locale];
     const [data, setData] = useState(empty);
-    const [adding, setAdding] = useState(false);
+    const launch=useMemo(()=>{const query=new URLSearchParams(window.location.search);return{open:query.get("action")==="register-operation",fieldId:query.get("fieldId")||"",plantationId:query.get("plantationId")||"",type:query.get("operationType")||""}},[]);
+    const [adding, setAdding] = useState(launch.open);
     const [loading, setLoading] = useState(true);
     const [failed, setFailed] = useState(false);
     const load = useCallback(async () => { setLoading(true); setFailed(false); try {
@@ -168,25 +169,29 @@ export default function OperationsModule() {
             <p>{t.empty}</p>
           </div>}
       </section>
-      {adding && <OperationDialog data={data} t={t} onClose={() => setAdding(false)} onSaved={async () => { setAdding(false); await load(); }}/>}
+      {adding && <OperationDialog data={data} t={t} initialContext={launch} onClose={() => setAdding(false)} onSaved={async () => { setAdding(false); await load(); }}/>}
     </>;
 }
 const typeLabel = (t: OperationCopy, type: OperationDto["type"], productApplication = "Product application") => ({ soil_preparation: t.soilPreparation, crop_installation: t.cropInstallation, cultural_work: t.culturalWork, fertilization: t.fertilization, spraying: t.spraying, product_application: productApplication, irrigation: t.irrigation, fertigation: t.fertigation, monitoring: t.monitoring, harvest: t.harvest, other: t.other })[type];
 function serializeSpraying(form:SprayingForm,destinations:DestinationForm[],data:Data){const optionalNumber=(value:string)=>value?Number(value):undefined;return{method:form.method,...(form.customMethod?{customMethod:form.customMethod}:{}),...(form.method==="spray"?{sprayVolumeLHa:Number(form.sprayVolumeLHa)}:{}),...(form.legalApplicatorWorkerId?{legalApplicatorWorkerId:form.legalApplicatorWorkerId}:{}),auxiliaryWorkerIds:[],products:form.products.map(product=>({name:product.name,category:product.category,unit:product.unit,quantitySource:product.quantitySource,...(product.dosePerHa?{dosePerHa:Number(product.dosePerHa)}:{}),...(product.dosePerHl?{dosePerHl:Number(product.dosePerHl)}:{}),...(product.totalQuantity?{totalQuantity:Number(product.totalQuantity)}:{}),...(product.lotNumber?{lotNumber:product.lotNumber}:{}),activeSubstances:product.activeSubstances.split(/[;,]/).map(value=>value.trim()).filter(Boolean),...(product.registrationNumber?{registrationNumber:product.registrationNumber}:{}),...(product.fracGroup?{fracGroup:product.fracGroup}:{}),targets:product.targets.split(/[;,]/).map(value=>value.trim()).filter(Boolean),authorizations:destinations.map(destination=>{const key=`${destination.fieldId}:${destination.plantationId}`,plantation=data.plantations.find(item=>item.id===destination.plantationId),field=data.fields.find(item=>item.id===destination.fieldId);return{fieldId:destination.fieldId,...(destination.plantationId?{plantationId:destination.plantationId}:{}),...(plantation?{cultureId:plantation.cultureId}:{}),destinationLabel:plantation?.name||field?.name||destination.fieldId,authorized:product.authorized[key]??false,...(product.authorizationReference[key]?{authorizationReference:product.authorizationReference[key]}:{}),...(product.authorizedUse[key]?{authorizedUse:product.authorizedUse[key]}:{}),...(product.validFrom[key]?{validFrom:product.validFrom[key]}:{}),...(product.validUntil[key]?{validUntil:product.validUntil[key]}:{}),...(product.safetyIntervalDays[key]?{safetyIntervalDays:Number(product.safetyIntervalDays[key])}:{}),...(product.reentryHours[key]?{reentryHours:Number(product.reentryHours[key])}:{})};}),legalLimitExceeded:product.legalLimitExceeded,applicationLimitExceeded:product.applicationLimitExceeded,antiResistanceWarning:product.antiResistanceWarning,...(product.compositionKnown?{nutrientSnapshot:{compositionKnown:true,...(product.densityKgL?{densityKgL:Number(product.densityKgL)}:{}),composition:Object.fromEntries(product.composition.split(/[;,]/).map(item=>item.split("=").map(part=>part.trim())).filter(parts=>parts.length===2&&parts[0]&&Number(parts[1])>=0).map(([key,value])=>[key,Number(value)]))}}:{})})),weather:{source:form.weatherSource,...(optionalNumber(form.temperatureC)!==undefined?{temperatureC:optionalNumber(form.temperatureC)}:{}),...(optionalNumber(form.relativeHumidityPercent)!==undefined?{relativeHumidityPercent:optionalNumber(form.relativeHumidityPercent)}:{}),...(optionalNumber(form.windSpeedKmh)!==undefined?{windSpeedKmh:optionalNumber(form.windSpeedKmh)}:{}),...(optionalNumber(form.windDirectionDegrees)!==undefined?{windDirectionDegrees:optionalNumber(form.windDirectionDegrees)}:{}),...(optionalNumber(form.precipitationMm)!==undefined?{precipitationMm:optionalNumber(form.precipitationMm)}:{}),...(form.condition?{condition:form.condition}:{}),manuallyOverridden:form.manuallyOverridden},equipmentInspectionValid:form.equipmentInspectionValid,equipmentCalibrationValid:form.equipmentCalibrationValid,warningsAccepted:form.warningsAccepted};}
-function OperationDialog({ data, t, onClose, onSaved }: {
+function OperationDialog({ data, t, initialContext, onClose, onSaved }: {
     data: Data;
     t: OperationCopy;
+    initialContext:{fieldId:string;plantationId:string;type:string};
     onClose: () => void;
     onSaved: () => Promise<void>;
 }) {
     const { locale } = useI18n();
     const st = sprayingCopies[locale];
-    const blank = (): DestinationForm => ({ fieldId: data.fields[0]?.id || "", plantationId: "", areaHa: "", percentage: "100" });
+    const contextualField=data.fields.some(item=>item.id===initialContext.fieldId)?initialContext.fieldId:data.fields[0]?.id||"";
+    const contextualPlantation=data.plantations.some(item=>item.id===initialContext.plantationId&&item.fieldId===contextualField)?initialContext.plantationId:"";
+    const blank = (): DestinationForm => ({ fieldId: contextualField, plantationId: contextualPlantation, areaHa: "", percentage: "100" });
     const blankInstallation = (): InstallationForm => ({ plantationName: "", cultureId: data.cultures[0]?.id || "", varietyIds: [], varietyDensities: {}, kind: "temporary", endedOn: "", method: "sowing", customMethod: "", densityPlantsHa: "", rowSpacingCm: "", plantSpacingCm: "", materialLots: [], predecessor: "", preparatoryOperationIds: [] });
     const blankCultural = (): CulturalForm => ({ actions: [], customAction: "", method: "manual", customMethod: "", intensity: "", intensityPercentage: "", biomassDestination: "", plantPercentage: "", plantCount: "", materials: [], originalDensityPlantsHa: "", plantsReplaced: "", plantsPlaced: "", estimatedCurrentDensityPlantsHa: "" });
     const blankFertilizer = (): FertilizerProductForm => ({ name: "", category: "fertilizer", quantitySource: "dose_per_ha", dosePerHa: "", totalQuantity: "", unit: "kg", densityKgL: "", lotNumber: "", compositionKnown: true, dryMatterPercent: "", nTotal: "", nNitrate: "", nAmmonium: "", nUreic: "", nOrganic: "", p2o5: "", k2o: "", cao: "", mgo: "", so3: "", organicMatter: "", carbon: "", micronutrients: "", destinationDoses: {} });
     const blankFertilization = (): FertilizationForm => ({ mode: "base", customMode: "", products: [blankFertilizer()] });
-    const [values, setValues] = useState({ destinations: [blank()], type: "cultural_work", performedAt: new Date().toISOString().slice(0, 16), durationMinutes: "", notes: "", workerIds: [] as string[], equipmentIds: [] as string[], contractorIds: [] as string[], soilActions: [] as string[], customSoilAction: "", depthCm: "", passes: "", soilCondition: "", residueDestination: "", installation: blankInstallation(), cultural: blankCultural(), fertilizationForm: blankFertilization(), includeFertilization: false, sprayingForm: blankSpraying() });
+    const initialType=operationTypes.includes(initialContext.type as (typeof operationTypes)[number])?initialContext.type:"cultural_work";
+    const [values, setValues] = useState({ destinations: [blank()], type: initialType, performedAt: new Date().toISOString().slice(0, 16), durationMinutes: "", notes: "", workerIds: [] as string[], equipmentIds: [] as string[], contractorIds: [] as string[], soilActions: [] as string[], customSoilAction: "", depthCm: "", passes: "", soilCondition: "", residueDestination: "", installation: blankInstallation(), cultural: blankCultural(), fertilizationForm: blankFertilization(), includeFertilization: false, sprayingForm: blankSpraying() });
     const [saving, setSaving] = useState(false);
     const [failed, setFailed] = useState(false);
     const customSoilActions = [...new Set(data.operations.flatMap(operation => operation.soilPreparation?.actions || []).filter(action => !soilPreparationActionIds.includes(action as (typeof soilPreparationActionIds)[number])))].sort((a, b) => a.localeCompare(b));

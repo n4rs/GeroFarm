@@ -12,6 +12,12 @@ export const createVarietySchema = z.object({
 export type CreateVarietyInput = z.infer<typeof createVarietySchema>;
 export type VarietyDto = CreateVarietyInput & { id: string; createdAt: string };
 
+export function cultureLotCode(cultureId: string) {
+  const index = cultureCatalog.findIndex((culture) => culture.id === cultureId);
+  if (index < 0) throw new Error("Unknown culture");
+  return (index + 1).toString(36).toUpperCase().padStart(2, "0");
+}
+
 export function formatCount(template: string, count: number, locale: string) {
   return template.replace("{count}", count.toLocaleString(locale));
 }
